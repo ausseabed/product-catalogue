@@ -1,0 +1,7 @@
+*.pyc
+.terraform
+.vscode
+node_modules/
+*.log
+dist/
+*.auto.tfvars
