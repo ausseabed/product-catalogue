@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       leftDrawerOpen: false,
-      userName: (this.$store.state.userName ? this.$store.state.userName : '')
+      userName: (this.$store.state !== undefined && this.$store.state.userName !== undefined ? this.$store.state.userName : '')
     }
   }
 }

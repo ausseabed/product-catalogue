@@ -12,7 +12,7 @@ const msalInstance = new msal.PublicClientApplication(msalConfig)
 
 export async function login () {
   var account = msalInstance.getAccount()
-  if (account !== null) {
+  if (account !== null && account !== undefined) {
     return account
   } else {
     await msalInstance.loginPopup({})
@@ -34,7 +34,7 @@ export default ({ app, router, store, Vue }) => {
       next()
     } else { // try to get login information
       login().then(account => {
-        if (account !== null) {
+        if (account !== null && account !== undefined) {
           console.log(account)
           store.state.userName = account.userName
           next()
