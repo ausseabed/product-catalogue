@@ -2,7 +2,7 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 const DotEnv = require('dotenv')
 // const webpack = require('webpack')
-const envparser = require('./envparser')
+const envparser = require('./src/util/envparser')
 
 module.exports = function (ctx) {
   return {

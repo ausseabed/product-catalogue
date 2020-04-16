@@ -11,25 +11,20 @@ const msalConfig = {
 const msalInstance = new msal.PublicClientApplication(msalConfig)
 
 export async function login () {
-  console.log(process.env)
-  console.log(msalConfig)
-  var result
-  if (msalInstance.getAccount()) {
-    result = true
+  var account = msalInstance.getAccount()
+  if (account !== null) {
+    return account
+  } else {
+    await msalInstance.loginPopup({})
+      .then(_ => {
+        var account = msalInstance.getAccount()
+        return account
+      })
+      .catch(err => { // e.g. popup blocked, user declined to consent to access the app
+        console.error('error: ' + err)
+        return null
+      })
   }
-
-  const loginResponse = await msalInstance.loginPopup({})
-    .then(_ => {
-      console.log(loginResponse)
-      result = true
-    })
-    .catch(err => { // e.g. popup blocked, user declined to consent to access the app
-      console.error('error: ' + err)
-      result = false
-    })
-
-  console.log('result was ' + result)
-  return result
 }
 
 // "async" is optional
@@ -38,9 +33,10 @@ export default ({ app, router, store, Vue }) => {
     if (to.path === '/404') { // allow not-found page to be shown
       next()
     } else { // try to get login information
-      login().then(response => {
-        console.log('response' + response)
-        if (response) {
+      login().then(account => {
+        if (account !== null) {
+          console.log(account)
+          store.state.userName = account.userName
           next()
         } else { // couldn't login - redirect to 404
           next('/404')

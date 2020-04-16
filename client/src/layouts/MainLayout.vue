@@ -5,13 +5,16 @@
 
         <q-toolbar-title>Ausseabed Product Catalogue</q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>{{userName}}</div>
       </q-toolbar>
     </q-header>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+    <q-footer>
+      <div class="q-pa-sm text-right">Quasar v{{ $q.version }}</div>
+    </q-footer>
   </q-layout>
 </template>
 
@@ -22,7 +25,8 @@ export default {
 
   data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      userName: (this.$store.state.userName ? this.$store.state.userName : "")
     }
   }
 }
