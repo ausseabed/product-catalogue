@@ -8,18 +8,8 @@ var indexRouter = require('./routes/index');
 var productsRouter = require('./routes/products');
 var productRouter = require('./routes/product');
 
-// import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-// import { getConnectionManager, ConnectionManager, Connection } from "typeorm";
+require('dotenv').config()
 
-// async function createConnectionAsync () {
-//   const connectionManager = new ConnectionManager();
-//   const connection = connectionManager.create();
-//   let connOpts = connection.options as PostgresConnectionOptions;
-//   console.log(`Connected to database ${connOpts.host}:${connOpts.port} ` +
-//     `(${connOpts.type})`);
-//   await connection.connect();
-// }
-// createConnectionAsync();
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { createConnection } from "typeorm"
 async function createDefaultConnection () {
@@ -45,7 +35,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const restrictMiddleware = require('./lib/restrictMiddleware')
+
 app.use('/', indexRouter);
+app.use(restrictMiddleware)
 app.use('/products', productsRouter);
 app.use('/product', productRouter);
 
