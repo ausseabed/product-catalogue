@@ -12,7 +12,7 @@ jobs:
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
           create-repo: false
-          dockerfile: Dockerfile
+          dockerfile: ./server/Dockerfile
           path: ./server
           checkout: false
           region: AWS_REGION_ENV_VAR_NAME
@@ -27,7 +27,7 @@ jobs:
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
           create-repo: false
-          dockerfile: Dockerfile
+          dockerfile: ./client/Dockerfile
           path: ./client
           checkout: false
           region: AWS_REGION_ENV_VAR_NAME
