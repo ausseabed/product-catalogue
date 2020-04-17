@@ -1,0 +1,84 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.5.0
+
+jobs:
+  build_product_catalogue_server:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          create-repo: false
+          dockerfile: Dockerfile
+          path: ./server
+          checkout: false
+          region: AWS_REGION_ENV_VAR_NAME
+          repo: ausseabed-product-catalogue-server
+          # extra-build-args: '--build-arg COMMUNITY_EXTENSIONS=gwc-s3-plugin --build-arg GS_VERSION=2.16.2'
+          # tag: 'ausseabed-geoserver-2.16.2'
+  build_product_catalogue_client:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          create-repo: false
+          dockerfile: Dockerfile
+          path: ./client
+          checkout: false
+          region: AWS_REGION_ENV_VAR_NAME
+          repo: ausseabed-product-catalogue-client
+          # extra-build-args: '--build-arg COMMUNITY_EXTENSIONS=gwc-s3-plugin --build-arg GS_VERSION=2.16.2'
+          # tag: 'ausseabed-geoserver-2.16.2'
+  deploy_product_catalogue:
+    docker:
+      - image: circleci/python:3.7-stretch
+    steps:
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+      - run:
+          name: check s3
+          command: aws sts get-caller-identity
+      - checkout
+      - run:
+          name: Install terraform
+          command: wget https://releases.hashicorp.com/terraform/0.12.23/terraform_0.12.23_linux_amd64.zip && unzip terraform_0.12.23_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
+      - run:
+          name: terraform init
+          working_directory: ./infra
+          command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terraform init
+      - run:
+          name: terraform plan
+          working_directory: ./infra
+          command: terraform plan
+      - run:
+          name: terraform apply
+          working_directory: ./infra
+          command: terraform apply --auto-approve
+
+workflows:
+  update_infra_and_application:
+    jobs:
+      - build_product_catalogue_server:
+          filters:
+            branches:
+              only:
+                - master
+      - build_and_push_geoserver_client:
+          filters:
+            branches:
+              only:
+                - master
+      # - deploy_product_catalogue:
+      #     filters:
+      #       branches:
+      #         only:
+      #          - master
+      #     requires:
+      #        - build_product_catalogue_server
+      #        - build_and_push_geoserver_client
