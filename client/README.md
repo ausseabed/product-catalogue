@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/ausseabed/product-catalogue.svg?style=svg&circle-token=9fb3c78b6bc5f310b4b684bafe74f92b4138b2ea)](https://circleci.com/gh/ausseabed/product-catalogue)
+
 # Product Catalogue (client)
 
 A simple application for specifying properties of products
