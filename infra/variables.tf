@@ -17,3 +17,4 @@ variable "product_catalogue_environment_vars" {
     postgres_hostname = string
   })
 }
+variable "ga_sb_domain" {}

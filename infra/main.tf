@@ -12,7 +12,8 @@ terraform {
 }
 
 module "networking" {
-  source = "./networking"
+  ga_sb_domain = var.ga_sb_domain
+  source       = "./networking"
 }
 
 module "ancillary" {
