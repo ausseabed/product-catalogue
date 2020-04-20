@@ -34,3 +34,7 @@ data "aws_subnet_ids" "db_tier_subnets" {
     ]
   }
 }
+
+data "aws_security_group" "ga_sb_vpc_sg_ssm_endpoint" {
+  name = "ga_sb_vpc_sg_ssm_endpoint"
+}

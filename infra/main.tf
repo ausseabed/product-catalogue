@@ -20,14 +20,13 @@ module "ancillary" {
 }
 
 module "service" {
-  source                          = "./service"
-  server_cpu                      = var.server_cpu
-  server_memory                   = var.server_memory
-  ecs_task_execution_role_svc_arn = module.ancillary.pc_ecs_task_execution_role_svc_arn
-  public_subnets                  = module.networking.app_tier_subnets
-  client_image                    = var.client_image
-  server_image                    = var.server_image
-  # aws_ecs_lb_target_group_geoserver_arn = module.networking.aws_ecs_lb_target_group_geoserver_arn
-  networking = module.networking
+  source                             = "./service"
+  server_cpu                         = var.server_cpu
+  server_memory                      = var.server_memory
+  ecs_task_execution_role_svc_arn    = module.ancillary.pc_ecs_task_execution_role_svc_arn
+  client_image                       = var.client_image
+  server_image                       = var.server_image
+  networking                         = module.networking
+  product_catalogue_environment_vars = var.product_catalogue_environment_vars
 }
 

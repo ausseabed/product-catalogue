@@ -56,10 +56,10 @@ jobs:
           name: terraform plan
           working_directory: ./infra
           command: terraform plan
-      - run:
-          name: terraform apply
-          working_directory: ./infra
-          command: terraform apply --auto-approve
+      # - run:
+      #     name: terraform apply
+      #     working_directory: ./infra
+      #     command: terraform apply --auto-approve
 
 workflows:
   update_infra_and_application:
@@ -74,11 +74,11 @@ workflows:
             branches:
               only:
                 - master
-      # - deploy_product_catalogue:
-      #     filters:
-      #       branches:
-      #         only:
-      #          - master
-      #     requires:
-      #        - build_product_catalogue_server
-      #        - build_and_push_geoserver_client
+      - deploy_product_catalogue:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - build_product_catalogue_server
+            - build_product_catalogue_client
