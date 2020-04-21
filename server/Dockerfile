@@ -18,4 +18,5 @@ ADD src $APPDIR/src
 
 RUN yarn install 
 EXPOSE 3000
-CMD bash -c "typeorm migration:run && yarn run start"
+# Or yarn migration:run
+CMD ["yarn","run","start"] 
