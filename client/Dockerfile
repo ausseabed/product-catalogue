@@ -14,8 +14,8 @@ FROM develop-stage as build-stage
 RUN yarn install 
 RUN quasar build
 
-EXPOSE 443
-CMD ["yarn run dev"]
+EXPOSE 80
+CMD ["yarn","run","dev"]
 # TODO: [NGA-286] the following is to move from dev to nginx hosted
 #FROM nginx:1.13.9 as production-stage
 #COPY --from=build-stage /code/dist/spa /usr/share/nginx/html

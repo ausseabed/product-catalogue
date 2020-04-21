@@ -17,5 +17,5 @@ output "vpc_arn" {
 }
 
 output "public_sg" {
-  value = data.aws_security_group.ga_sb_vpc_sg_ssm_endpoint.id
+  value = data.aws_security_group.ga_sb_default_wh_public_sg.id
 }

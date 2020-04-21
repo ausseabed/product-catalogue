@@ -35,18 +35,27 @@ data "aws_subnet_ids" "db_tier_subnets" {
   }
 }
 
-data "aws_security_group" "ga_sb_vpc_sg_ssm_endpoint" {
-  name = "ga_sb_vpc_sg_ssm_endpoint"
+data "aws_security_group" "ga_sb_default_wh_public_sg" {
+  name = "ga_sb_default_wh_public_sg"
 }
 
 #TODO
+
+#resource "aws_eip" "ga_sb_pc_eip" {
+#  count = 1
+#  vpc   = true
+#}
 
 resource "aws_lb" "ga_sb_pc_load_balancer" {
   name     = "ga-sb-pc-load-balancer"
   internal = false
   #load_balancer_type = "application"
   load_balancer_type = "network"
-  subnets            = [data.aws_subnet_ids.app_tier_subnets.id]
+  #  subnet_mapping {
+  #    subnet_id     = data.aws_subnet_ids.app_tier_subnets.id
+  #    allocation_id = aws_eip.ga_sb_pc_eip[0].id
+  #  }
+  subnets = data.aws_subnet_ids.app_tier_subnets.ids
   tags = {
     Environment = "nonproduction"
   }
