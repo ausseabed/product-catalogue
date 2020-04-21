@@ -56,10 +56,10 @@ jobs:
           name: terraform plan
           working_directory: ./infra
           command: terraform plan
-      # - run:
-      #     name: terraform apply
-      #     working_directory: ./infra
-      #     command: terraform apply --auto-approve
+      - run:
+          name: terraform apply
+          working_directory: ./infra
+          command: terraform apply --auto-approve
 
 workflows:
   update_infra_and_application:
