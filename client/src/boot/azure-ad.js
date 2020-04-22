@@ -41,7 +41,8 @@ export async function login () {
 // "async" is optional
 export default ({ app, router, store, Vue }) => {
   router.beforeEach((to, from, next) => {
-    if (to.path === '/404') { // allow not-found page to be shown
+    var skipAuth = true
+    if (to.path === '/404' || skipAuth === true) { // allow not-found page to be shown
       next()
     } else { // try to get login information
       login().then(account => {
