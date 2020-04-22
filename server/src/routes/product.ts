@@ -14,7 +14,7 @@ router.get('/:productId',
 
 import { plainToClass } from "class-transformer";
 
-router.post('/:productId',
+router.put('/:productId',
   async function (req, res, next) {
     let productEntry = plainToClass(ProductEntry, req.body);
     await getRepository(ProductEntry).save(productEntry);

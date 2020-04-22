@@ -14,7 +14,7 @@ FROM develop-stage as build-stage
 RUN yarn install 
 RUN quasar build
 
-EXPOSE 80
+EXPOSE 3001
 CMD ["yarn","run","dev"]
 # TODO: [NGA-286] the following is to move from dev to nginx hosted
 #FROM nginx:1.13.9 as production-stage

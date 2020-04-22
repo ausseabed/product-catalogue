@@ -26,7 +26,7 @@ export async function fetchData ({ commit }, recordId) {
 
 export async function saveData ({ commit, dispatch }, newProduct) {
   try {
-    const response = await axios.post('/api/product/' + newProduct.id, newProduct)
+    const response = await axios.put('/api/product/' + newProduct.id, newProduct)
     console.debug(response)
   } catch (error) {
     if (error.response) {

@@ -10,9 +10,13 @@ var productRouter = require('./routes/product');
 
 require('dotenv').config()
 
+
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import { createConnection } from "typeorm"
+import { createConnection, getConnectionOptions } from "typeorm"
 async function createDefaultConnection () {
+  // uncomment to print connection options (including credentials etc.)
+  // const config = await getConnectionOptions();
+  // console.log(config)
   createConnection().then(async connection => {
     let connOpts = connection.options as PostgresConnectionOptions;
     console.log(`Connected to database ${connOpts.host}:${connOpts.port} ` +

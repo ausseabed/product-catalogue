@@ -92,12 +92,12 @@ module.exports = function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       // https: true,
-      port: 80,
+      port: 3001,
       open: false, // opens browser window automatically
       proxy: {
         // proxy all requests starting with /api to nodejs server
         '/api': {
-          target: 'http://ec2-52-62-76-203.ap-southeast-2.compute.amazonaws.com:3000',
+          target: 'http://localhost:3000',
           pathRewrite: {
             '^/api': ''
           }

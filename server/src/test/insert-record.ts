@@ -33,7 +33,7 @@ describe('TypeORM', function () {
   }
   );
 
-  describe('CreateObjects()', function () {
+  describe('CreateObject1()', function () {
     it('Should run without an error', function (done) {
       createConnection().then(async connection => {
         let connOpts = connection.options as PostgresConnectionOptions;
@@ -43,7 +43,22 @@ describe('TypeORM', function () {
         var productEntry = addExampleObject();
 
         await connection.manager.save(productEntry);
-        productEntry = addExampleObject2();
+        await connection.close();
+        done();
+
+      }).catch(error => { console.log(error); done(); });
+    }
+    );
+  }
+  );
+  describe('CreateObject2()', function () {
+    it('Should run without an error', function (done) {
+      createConnection().then(async connection => {
+        let connOpts = connection.options as PostgresConnectionOptions;
+        console.log(`Connected to database ${connOpts.host}:${connOpts.port} ` +
+          `(${connOpts.type})`);
+
+        var productEntry = addExampleObject2();
 
         await connection.manager.save(productEntry);
         await connection.close();
