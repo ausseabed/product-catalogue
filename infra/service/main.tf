@@ -90,8 +90,7 @@ resource "aws_ecs_task_definition" "ga_sb_pc_serverclient" {
     ],
     "portMappings": [
       {
-        "containerPort": 3001,
-        "hostPort":80
+        "containerPort": 80
       }
     ]
   }
