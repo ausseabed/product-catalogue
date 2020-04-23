@@ -11,7 +11,8 @@
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0",
     "build": "quasar build",
-    "dev": "quasar dev"
+    "dev": "quasar dev",
+    "dev_env": "for file in `cat .env`; do export $file; done; quasar dev"
   },
   "dependencies": {
     "@azure/msal-browser": "^2.0.0-beta.0",

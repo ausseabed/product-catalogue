@@ -1,8 +1,6 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
-const DotEnv = require('dotenv')
-// const webpack = require('webpack')
-const envparser = require('./src/util/envparser')
+const webpack = require('webpack')
 
 module.exports = function (ctx) {
   return {
@@ -72,8 +70,11 @@ module.exports = function (ctx) {
       // Options below are automatically set depending on the env, set them if you want to override
       // preloadChunks: false,
       // extractCSS: false,
-      env: envparser(),
-
+      env:
+      {
+        AUTH_HOST: JSON.stringify(process.env.AUTH_HOST),
+        AUTH_CLIENT_ID: JSON.stringify(process.env.AUTH_CLIENT_ID)
+      },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
         cfg.module.rules.push({
@@ -92,7 +93,7 @@ module.exports = function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       // https: true,
-      port: 80,
+      port: 3001,
       open: false, // opens browser window automatically
       proxy: {
         // proxy all requests starting with /api to nodejs server

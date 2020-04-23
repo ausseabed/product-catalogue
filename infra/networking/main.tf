@@ -82,8 +82,8 @@ resource "aws_security_group" "ga_sb_env_pc_public_sg" {
 
   #HTTP
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = 3001
+    to_port     = 3001
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -135,7 +135,7 @@ resource "aws_lb" "ga_sb_pc_load_balancer" {
 }
 resource "aws_lb_target_group" "ga_sb_pc_load_balancer_outside" {
   name        = "ga-sb-pc-load-balancer-outside"
-  port        = 80
+  port        = 3001
   protocol    = "HTTP"
   vpc_id      = data.aws_vpc.ga_sb_vpc.id
   target_type = "ip"
