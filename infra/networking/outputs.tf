@@ -16,6 +16,10 @@ output "vpc_arn" {
   value = data.aws_vpc.ga_sb_vpc.arn
 }
 
-output "public_sg" {
-  value = data.aws_security_group.ga_sb_default_wh_public_sg.id
+output "aws_ecs_lb_target_group_product_catalogue_arn" {
+  value = aws_lb_target_group.ga_sb_pc_load_balancer_outside.arn
+}
+
+output "ecs_pc_security_group_id" {
+  value = aws_security_group.ga_sb_env_pc_public_sg.id
 }

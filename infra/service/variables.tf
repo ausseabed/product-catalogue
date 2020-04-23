@@ -9,9 +9,10 @@ variable "server_image" {}
 
 variable "networking" {
   type = object({
-    vpc_id           = string,
-    app_tier_subnets = list(string),
-    public_sg        = string
+    vpc_id                                        = string,
+    app_tier_subnets                              = list(string),
+    aws_ecs_lb_target_group_product_catalogue_arn = string,
+    ecs_pc_security_group_id                      = string
   })
 }
 

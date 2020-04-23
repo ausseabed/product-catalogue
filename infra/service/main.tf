@@ -106,15 +106,15 @@ resource "aws_ecs_service" "ga_sb_pc_service" {
   desired_count   = 1
   launch_type     = "FARGATE"
 
-  #load_balancer {
-  #  target_group_arn = var.aws_ecs_lb_target_group_product_catalogue_arn # THIS NEEDS TO BE DEFINED
-  #  container_name   = "product_catalogue_task"
-  #  container_port   = 80
-  #}
+  load_balancer {
+    target_group_arn = var.networking.aws_ecs_lb_target_group_product_catalogue_arn
+    container_name   = "product_catalogue_client_task"
+    container_port   = 80
+  }
 
   network_configuration {
     subnets          = [var.networking.app_tier_subnets[0]]
-    security_groups  = [var.networking.public_sg]
+    security_groups  = [var.networking.ecs_pc_security_group_id]
     assign_public_ip = true
   }
 
