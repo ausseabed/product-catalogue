@@ -135,7 +135,7 @@ resource "aws_lb" "ga_sb_pc_load_balancer" {
 }
 resource "aws_lb_target_group" "ga_sb_pc_load_balancer_outside" {
   name        = "ga-sb-pc-load-balancer-outside"
-  port        = 3001
+  port        = 80
   protocol    = "HTTP"
   vpc_id      = data.aws_vpc.ga_sb_vpc.id
   target_type = "ip"

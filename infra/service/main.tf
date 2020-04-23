@@ -109,7 +109,7 @@ resource "aws_ecs_service" "ga_sb_pc_service" {
   load_balancer {
     target_group_arn = var.networking.aws_ecs_lb_target_group_product_catalogue_arn
     container_name   = "product_catalogue_client_task"
-    container_port   = 80
+    container_port   = 3001
   }
 
   network_configuration {
