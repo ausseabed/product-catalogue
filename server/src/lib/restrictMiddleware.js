@@ -8,10 +8,8 @@ module.exports = async function (req, res, next) {
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
 
   if (token === undefined) {
-    next();
-    return;
-    // console.error("no header");
-    // return res.sendStatus(401); 
+    console.error("no header");
+    return res.sendStatus(401);
   }
   if (token.startsWith('Bearer ')) {
     // Remove Bearer from string
