@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var healthRouter = require('./routes/health');
 var productsRouter = require('./routes/products');
 var productRouter = require('./routes/product');
 
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const restrictMiddleware = require('./lib/restrictMiddleware')
 
 app.use('/', indexRouter);
+app.use('/health', healthRouter);
 app.use(restrictMiddleware)
 app.use('/products', productsRouter);
 app.use('/product', productRouter);

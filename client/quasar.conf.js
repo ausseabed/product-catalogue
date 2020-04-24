@@ -102,6 +102,9 @@ module.exports = function (ctx) {
           pathRewrite: {
             '^/api': ''
           }
+        },
+        '/health': {
+          target: 'http://localhost:3000',
         }
       }
     },

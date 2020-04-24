@@ -21,4 +21,12 @@ router.put('/:productId',
     res.send('OK');
   }
 );
+
+router.post('/',
+  async function (req, res, next) {
+    let productEntry = plainToClass(ProductEntry, req.body);
+    await getRepository(ProductEntry).save(productEntry);
+    res.send('OK');
+  }
+);
 module.exports = router;

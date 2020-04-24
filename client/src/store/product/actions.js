@@ -3,6 +3,7 @@ const axios = require('axios').default
 export async function fetchData ({ commit }, recordId) {
   try {
     const response = await axios.get('/api/product/' + recordId)
+    response.unsaved_row = false
     commit('updateSavedData', response.data)
   } catch (error) {
     if (error.response) {
@@ -26,7 +27,14 @@ export async function fetchData ({ commit }, recordId) {
 
 export async function saveData ({ commit, dispatch }, newProduct) {
   try {
-    const response = await axios.put('/api/product/' + newProduct.id, newProduct)
+    var response
+    if (newProduct.unsaved_row) {
+      await axios.post('/api/product/', newProduct)
+    } else {
+      await axios.put('/api/product/' + newProduct.id, newProduct)
+    }
+
+    newProduct.unsaved_row = false
     console.debug(response)
   } catch (error) {
     if (error.response) {
@@ -47,4 +55,8 @@ export async function saveData ({ commit, dispatch }, newProduct) {
     console.log(error.config)
   }
   dispatch('products/fetchData', { commit }, { root: true })
+}
+
+export async function addEmptyRowAction ({ commit }) {
+  commit('addEmptyRow')
 }

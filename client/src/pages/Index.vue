@@ -16,24 +16,57 @@
         v-if="data.length>0"
       >
         <q-table
+          style="height: 400px"
           title="Datasets"
           :data="data"
           :columns="columns"
           row-key="id"
           selection="single"
+          :rows-per-page-options="[0]"
+          virtual-scroll
+          :pagination.sync="pagination"
           :selected.sync="selected"
           @selection="filterBySelection"
-        />
+        >
+          <template v-slot:top>
+            <div class="col">
+              <div class="q-table__title">Datasets</div>
+            </div>
+            <q-btn
+              color="primary"
+              :disable="loading"
+              label="Add dataset"
+              @click="addRow"
+              :selected="[]"
+            />
+            <!--
+        <q-btn class="q-ml-sm" color="primary" :disable="loading" label="Remove row" @click="removeRow" />
+        -->
+            <q-space />
+            <q-input
+              borderless
+              dense
+              debounce="300"
+              color="primary"
+              v-model="filter"
+            >
+              <template v-slot:append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </template>
+        </q-table>
       </div>
+
       <div
         class="q-mt-sm"
-        v-if="selected.length==0"
+        v-if="selected.length==0 && !selectedProduct.unsaved_row"
       >
         <div class="text-h6 q-ml-md text-center">Select an item for specifics</div>
       </div>
       <div
         class="q-pa-md"
-        v-if="selected.length>0"
+        v-if="selected.length>0 || selectedProduct.unsaved_row"
       >
         <!--<q-markup-table class="q-gutter-y-md column">-->
         <q-form ref="myForm">
@@ -134,19 +167,29 @@ export default {
   methods: {
     ...mapActions('products', [
       'fetchData'
-    ], 'product', ['fetchData', 'updateProduct']),
+    ], 'product', ['fetchData', 'updateProduct', 'addEmptyRow']),
     filterBySelection: function (details) {
       if (details === undefined || details.rows.length == 0) {
+        // state.product.selectedProduct = undefined
         return
       }
       var recordId = details.rows[0].id
       this.$store.dispatch('product/fetchData', recordId)
     },
+    addRow () {
+      console.log(this)
+      this.selected = []
+      this.$store.dispatch('product/addEmptyRowAction')
+    },
     updateProduct (element, value) {
       this.$store.commit('product/updateProduct', { 'element': element, 'value': value })
     },
     resetProduct (id) {
-      this.$store.dispatch('product/fetchData', id)
+      if (this.selectedProduct.unsaved_row) {
+        this.addRow()
+      } else {
+        this.$store.dispatch('product/fetchData', id)
+      }
     },
     submitProduct (id) {
       this.$store.dispatch('product/saveData', this.selectedProduct)
@@ -160,7 +203,12 @@ export default {
     }),
   data () {
     return {
+      loading: false,
       selected: [],
+      filter: '',
+      pagination: {
+        rowsPerPage: 100
+      },
       columns: [
         {
           name: 'UUID',
