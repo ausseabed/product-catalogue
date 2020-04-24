@@ -100,11 +100,12 @@ DEFINITION
 
 
 resource "aws_ecs_service" "ga_sb_pc_service" {
-  name            = "ga_sb_pc_service"
-  cluster         = data.aws_ecs_cluster.ga_sb_default_geoserver_cluster.id
-  task_definition = aws_ecs_task_definition.ga_sb_pc_serverclient.arn
-  desired_count   = 1
-  launch_type     = "FARGATE"
+  name                              = "ga_sb_pc_service"
+  cluster                           = data.aws_ecs_cluster.ga_sb_default_geoserver_cluster.id
+  task_definition                   = aws_ecs_task_definition.ga_sb_pc_serverclient.arn
+  desired_count                     = 1
+  launch_type                       = "FARGATE"
+  health_check_grace_period_seconds = 300
 
   load_balancer {
     target_group_arn = var.networking.aws_ecs_lb_target_group_product_catalogue_arn
@@ -115,7 +116,7 @@ resource "aws_ecs_service" "ga_sb_pc_service" {
   network_configuration {
     subnets          = [var.networking.app_tier_subnets[0]]
     security_groups  = [var.networking.ecs_pc_security_group_id]
-    assign_public_ip = true
+    assign_public_ip = false
   }
 
 }
