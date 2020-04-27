@@ -139,6 +139,9 @@ resource "aws_lb_target_group" "ga_sb_pc_load_balancer_outside" {
   protocol    = "HTTP"
   vpc_id      = data.aws_vpc.ga_sb_vpc.id
   target_type = "ip"
+  health_check {
+    path = "/health"
+  }
   stickiness {
     enabled = false
     type    = "lb_cookie"
