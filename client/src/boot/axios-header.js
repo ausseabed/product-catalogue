@@ -7,7 +7,7 @@ export default ({ app, router, Vue, store }) => {
       if (store.state.account !== undefined) {
         config.headers.authorization = 'Bearer ' + store.state.account.idToken
       }
-      console.log(config)
+      // console.debug(config)
       return config
     },
     error => Promise.reject(error)

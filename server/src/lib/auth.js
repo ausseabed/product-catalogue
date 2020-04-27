@@ -4,7 +4,7 @@ var aad = require('azure-ad-jwt'); // See https://github.com/MatthewTrout/node-a
 
 // Following the pattern of https://developers.google.com/identity/sign-in/web/backend-auth
 
-module.exports = async function (req, res, next) {
+module.exports.isAuthorised = async function (req, res, next) {
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
 
   if (token === undefined) {

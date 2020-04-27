@@ -35,13 +35,17 @@
             <q-btn
               color="primary"
               :disable="loading"
-              label="Add dataset"
+              label="Add Dataset"
               @click="addRow"
               :selected="[]"
             />
-            <!--
-        <q-btn class="q-ml-sm" color="primary" :disable="loading" label="Remove row" @click="removeRow" />
-        -->
+            <q-btn
+              class="q-ml-sm"
+              color="primary"
+              :disable="loading"
+              label="Remove Dataset"
+              @click="removeRow"
+            />
             <q-space />
             <q-input
               borderless
@@ -170,16 +174,26 @@ export default {
     ], 'product', ['fetchData', 'updateProduct', 'addEmptyRow']),
     filterBySelection: function (details) {
       if (details === undefined || details.rows.length == 0) {
-        // state.product.selectedProduct = undefined
         return
       }
       var recordId = details.rows[0].id
       this.$store.dispatch('product/fetchData', recordId)
     },
     addRow () {
-      console.log(this)
       this.selected = []
       this.$store.dispatch('product/addEmptyRowAction')
+    },
+    removeRow () {
+      if (this.selected === undefined || this.selected.length == 0) {
+        return
+      }
+      if (this.selected[0].id === undefined) {
+        console.error('Expecting row to have id')
+        console.log(this.selected[0])
+        return
+      }
+      this.$store.dispatch('product/removeProduct', this.selected[0].id)
+      this.selected = []
     },
     updateProduct (element, value) {
       this.$store.commit('product/updateProduct', { 'element': element, 'value': value })
