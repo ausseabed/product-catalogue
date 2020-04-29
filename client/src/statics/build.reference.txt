@@ -1,0 +1,1 @@
+curl -X GET --header 'Accept: application/json' 'https://beta-api.epsg.org/api/v1/CoordRefSystem/?includeDeprecated=true&includeWorld=true&pageSize=1000000' | python -m json.tool > reference-system.json

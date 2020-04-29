@@ -80,7 +80,16 @@
             :value="selectedProduct.UUID"
             @input="value=>updateProduct('UUID',value)"
             label="UUID"
-          />
+          >
+            <template v-slot:append>
+              <q-btn
+                color="primary"
+                label="New GUID"
+                @click="createGUID"
+              />
+              <!--<q-icon name="fingerprint" />-->
+            </template>
+          </q-input>
           <q-input
             class="q-ml-md"
             :value="selectedProduct.gazeteerName"
@@ -104,7 +113,56 @@
             :value="selectedProduct.srs"
             @input="value=>updateProduct('srs',value)"
             label="SRS"
-          />
+          >
+            <q-popup-edit
+              buttons
+              :value="selectedProduct.srs"
+              @input="value=>updateProduct('srs',value)"
+              @before-show="srsMakeSelection"
+              @cancel="srsCancel"
+            >
+              <q-table
+                style="height: 30rem"
+                :data="srsOptions"
+                :columns="srsColumns"
+                row-key="Code"
+                selection="single"
+                :rows-per-page-options="[0]"
+                @selection="filterBySelectionSrs"
+                :selected.sync="selectedSrs"
+                virtual-scroll
+                :pagination.sync="pagination"
+              >
+                <template v-slot:top>
+                  <div class="col">
+                    <div class="q-table__title">Select SRS</div>
+                  </div>
+                  <div class="q-pa-lg">
+                    <q-option-group
+                      v-model="srsSearchOption"
+                      :options="srsSearchOptions"
+                      @input="_ => filterFn(filterSRS)"
+                      color="primary"
+                      inline
+                    />
+                  </div>
+                  <q-space />
+                  <q-input
+                    borderless
+                    dense
+                    debounce="300"
+                    color="primary"
+                    v-model="filterSRS"
+                    @input="filterFn"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="search" />
+                    </template>
+                  </q-input>
+                </template>
+              </q-table>
+            </q-popup-edit>
+          </q-input>
           <q-input
             class="q-ml-md"
             :value="selectedProduct.metadataPersistentId"
@@ -167,17 +225,49 @@ export default {
 import '../store/products'
 import { mapActions, mapState } from 'vuex'
 
+var rs = require('../statics/reference-system.json')
+
+const srsSearchFilters = {
+  geographic: (srsOptionList) => { return srsOptionList.filter(v => v.Type === "geographic 2D") },
+  projected: (srsOptionList) => { return srsOptionList.filter(v => v.Type === "projected") },
+  gda: (srsOptionList) => { return srsOptionList.filter(v => (v.Type === "geographic 2D") && v.Area === "Australia - GDA") },
+  wgsutm: (srsOptionList) => { return srsOptionList.filter(v => v.Name.includes("WGS 84 / UTM")) },
+  all: (srsOptionList) => { return srsOptionList }
+}
+const srsOptionsBasis = rs.Results
+
 export default {
   methods: {
     ...mapActions('products', [
       'fetchData'
     ], 'product', ['fetchData', 'updateProduct', 'addEmptyRow']),
+    filterBySelectionSrs: function (details) {
+      if (details === undefined || details.rows.length == 0) {
+        return
+      }
+      var code = 'EPSG:' + details.rows[0].Code
+      this.updateProduct("srs", code)
+    },
     filterBySelection: function (details) {
       if (details === undefined || details.rows.length == 0) {
         return
       }
       var recordId = details.rows[0].id
       this.$store.dispatch('product/fetchData', recordId)
+    },
+    srsMakeSelection () {
+      this.filterSRS = ''
+      this.filterFn(this.filterSRS)
+      if (this.selectedProduct !== undefined) {
+        if (this.selectedProduct.srs !== undefined || this.selectedProduct.srs !== '') {
+          var matches = srsOptionsBasis.filter(v => 'EPSG:' + v.Code === this.selectedProduct.srs)
+          if (matches.length > 0) {
+            this.selectedSrs = [matches[0]]
+            return
+          }
+        }
+      }
+      this.selectedSrs = []
     },
     addRow () {
       this.selected = []
@@ -188,8 +278,6 @@ export default {
         return
       }
       if (this.selected[0].id === undefined) {
-        console.error('Expecting row to have id')
-        console.log(this.selected[0])
         return
       }
       this.$store.dispatch('product/removeProduct', this.selected[0].id)
@@ -207,6 +295,22 @@ export default {
     },
     submitProduct (id) {
       this.$store.dispatch('product/saveData', this.selectedProduct)
+    },
+    filterFn (val) {
+      const needle = val.toLowerCase()
+      this.srsOptions = srsSearchFilters[this.srsSearchOption](srsOptionsBasis).filter(
+        v => v.Name.toLowerCase().indexOf(needle) > -1 ||
+          v.Code.toString().indexOf(needle) > -1
+      )
+    },
+    srsCancel (value, initialValue) {
+      console.log('cancel')
+      this.srsMakeSelection()
+      this.filterSRS = ''
+    },
+    createGUID () {
+      const { v4: uuidv4 } = require('uuid')
+      this.selectedProduct.UUID = uuidv4()
     }
   },
   computed:
@@ -217,12 +321,42 @@ export default {
     }),
   data () {
     return {
+      srsOptions: srsOptionsBasis,
+      srsSearchOption: 'all',
       loading: false,
       selected: [],
+      selectedSrs: [],
       filter: '',
+      filterSRS: '',
       pagination: {
         rowsPerPage: 100
       },
+      srsColumns: [
+        { name: 'Code', label: row => { return 'EPSG:' + row.Code }, field: row => { return 'EPSG:' + row.Code }, align: 'left', sortable: true },
+        { name: 'Name', label: 'Name', field: 'Name', align: 'left', sortable: true }
+      ],
+      srsSearchOptions: [
+        {
+          label: 'Geographic',
+          value: 'geographic'
+        },
+        {
+          label: 'Projected',
+          value: 'projected'
+        },
+        {
+          label: 'Australia - GDA',
+          value: 'gda'
+        },
+        {
+          label: 'WGS 84 / UTM',
+          value: 'wgsutm'
+        },
+        {
+          label: 'All',
+          value: 'all'
+        }
+      ],
       columns: [
         {
           name: 'UUID',
@@ -235,8 +369,8 @@ export default {
         },
         { name: 'gazeteerName', label: 'Gazeteer', field: 'gazeteerName', align: 'left', sortable: true },
         { name: 'year', label: 'Year', field: 'year', align: 'left', sortable: true },
-        { name: 'resolution', label: 'Resolution', align: 'left', field: 'resolution' },
-        { name: 'srs', label: 'SRS', align: 'left', field: 'srs' }
+        { name: 'resolution', label: 'Resolution', align: 'left', field: 'resolution', sortable: true },
+        { name: 'srs', label: 'SRS', align: 'left', field: 'srs', sortable: true }
       ]
     }
   },

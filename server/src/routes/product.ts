@@ -42,6 +42,10 @@ router.delete('/:productId', auth.isAuthorised,
 router.post('/', auth.isAuthorised,
   async function (req, res, next) {
     let productEntry = plainToClass(ProductEntry, req.body);
+    console.log(productEntry);
+    if (productEntry.id !== undefined) {
+      delete productEntry.id;
+    }
     await getRepository(ProductEntry).save(productEntry);
     res.send('OK');
   }
