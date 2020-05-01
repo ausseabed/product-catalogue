@@ -11,7 +11,7 @@ const msalConfig = {
 const msalInstance = new msal.PublicClientApplication(msalConfig)
 
 var request = {
-  scopes: ['user.read']
+  // scopes: ['user.read']
 }
 
 export async function login () {
@@ -28,13 +28,13 @@ export async function login () {
 
     return account
   }
-  const tokenResponse = await msalInstance.acquireTokenSilent(request).catch(async (_) => {
-    // fallback to interaction when silent call fails
-    return await msalInstance.acquireTokenPopup(request).catch(error => {
-      console.log(error)
-    })
-  })
-  console.log(tokenResponse)
+  // const tokenResponse = await msalInstance.acquireTokenSilent(request).catch(async (_) => {
+  //   // fallback to interaction when silent call fails
+  //   return await msalInstance.acquireTokenPopup(request).catch(error => {
+  //     console.log(error)
+  //   })
+  // })
+  // console.log(tokenResponse)
   return account
 }
 
