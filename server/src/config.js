@@ -5,4 +5,4 @@ const config = {
   loggingLevel: 'info',
   passReqToCallback: true
 };
-export config;
+module.exports = config;

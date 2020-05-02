@@ -13,7 +13,7 @@ const passport = require("passport");
 
 require('dotenv').config()
 
-require('config')
+const config = require('./config')
 const BearerStrategy = require('passport-azure-ad').BearerStrategy;
 
 const bearerStrategy = new BearerStrategy(config, (req, token, done) => {
