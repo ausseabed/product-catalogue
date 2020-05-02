@@ -11,7 +11,7 @@ const msalConfig = {
 const msalInstance = new msal.PublicClientApplication(msalConfig)
 
 var request = {
-  // scopes: ['user.read']
+  // scopes: ['api://' + process.env.AUTH_CLIENT_ID + '/Records.Remove']
 }
 
 export async function login () {

@@ -9,8 +9,18 @@ var healthRouter = require('./routes/health');
 var productsRouter = require('./routes/products');
 var productRouter = require('./routes/product');
 
+const passport = require("passport");
+
 require('dotenv').config()
 
+require('config')
+const BearerStrategy = require('passport-azure-ad').BearerStrategy;
+
+const bearerStrategy = new BearerStrategy(config, (req, token, done) => {
+  // Send user info using the second argument
+  done(null, {}, token);
+}
+);
 
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { createConnection, getConnectionOptions } from "typeorm"
@@ -29,6 +39,9 @@ async function createDefaultConnection () {
 createDefaultConnection()
 
 var app = express();
+app.use(passport.initialize());
+
+passport.use(bearerStrategy);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
