@@ -3,9 +3,9 @@ import * as msal from '@azure/msal-browser'
 const msalConfig = {
   auth: {
     clientId: process.env.AUTH_CLIENT_ID,
-    authority: process.env.AUTH_HOST,
+    authority: process.env.AUTH_HOST
     // redirectUri: window.location.origin
-    navigateToLoginRequestUrl: false
+    // navigateToLoginRequestUrl: false
   },
   cache: {
     storeAuthStateInCookie: true // For IE
@@ -32,8 +32,10 @@ console.log('MSAL constructor1')
 const msalInstance = new msal.PublicClientApplication(msalConfig)
 msalInstance.handleRedirectCallback(authRedirectCallBack)
 
+var redirectError = false
 function authRedirectCallBack (error, response) {
   if (error) {
+    redirectError = true
     console.error('error')
     console.error(response)
     console.error(error)
@@ -59,9 +61,11 @@ function login () {
     return account
   } else {
     try {
-      msalInstance.loginRedirect(request)
-      const account = msalInstance.getAccount()
-      console.log(account)
+      if (!redirectError) {
+        msalInstance.loginRedirect(request)
+        const account = msalInstance.getAccount()
+        console.log(account)
+      }
     } catch (err) {
       // handle error
       console.error(err)
