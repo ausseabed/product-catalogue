@@ -9,14 +9,6 @@ const msalConfig = {
   },
   cache: {
     storeAuthStateInCookie: true // For IE
-  },
-  system: {
-    loggerOptions: {
-      loggerCallback: (level, message, containsPii) => {
-        console.log(message)
-      },
-      piiLoggingEnabled: true
-    }
   }
 }
 
