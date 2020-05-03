@@ -5,6 +5,10 @@ const msalConfig = {
     clientId: process.env.AUTH_CLIENT_ID,
     authority: process.env.AUTH_HOST,
     redirectUri: window.location.origin
+  },
+  cache: {
+    // cacheLocation: "sessionStorage",
+    storeAuthStateInCookie: true
   }
 }
 
