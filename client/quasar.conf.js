@@ -8,12 +8,8 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
-      { path: 'axios-header' },
-      {
-        server: false,
-        client: true,
-        path: 'azure-ad'
-      }
+      'axios-header',
+      'azure-ad'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -91,7 +87,7 @@ module.exports = function (ctx) {
           }
         })
       },
-      devtool: 'eval-source-map'
+      devtool: 'source-map'
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
