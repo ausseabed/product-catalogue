@@ -3,13 +3,13 @@ import * as msal from '@azure/msal-browser'
 const msalConfig = {
   auth: {
     clientId: process.env.AUTH_CLIENT_ID,
-    authority: process.env.AUTH_HOST
+    authority: process.env.AUTH_HOST,
     // redirectUri: window.location.origin
-    // navigateToLoginRequestUrl: false
+    navigateToLoginRequestUrl: false
   },
-  // cache: {
-  //   storeAuthStateInCookie: true // For IE
-  // },
+  cache: {
+    storeAuthStateInCookie: true // For IE
+  },
   system: {
     loggerOptions: {
       loggerCallback: (level, message, containsPii) => {
