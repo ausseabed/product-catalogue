@@ -12,7 +12,7 @@ const msalConfig = {
   }
 }
 
-const msalInstance = new msal.PublicClientApplication(msalConfig)
+export const msalInstance = new msal.PublicClientApplication(msalConfig)
 
 var request = {
   // scopes: ['api://' + process.env.AUTH_CLIENT_ID + '/Records.Remove']
