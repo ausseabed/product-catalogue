@@ -8,7 +8,7 @@ const msalConfig = {
   },
   cache: {
     // cacheLocation: "sessionStorage",
-    storeAuthStateInCookie: true
+    // storeAuthStateInCookie: true
   }
 }
 
