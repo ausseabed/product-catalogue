@@ -5,6 +5,9 @@
 
 A simple application for specifying properties of bathymetry products
 
+## EPSG Data
+Ownership of the EPSG Dataset by IOGP must be acknowledged in any publication or transmission (by whatever means) thereof (including permitted modifications). See http://www.epsg.org/Termsofuse.aspx. A snapshopt of data from EPSG is in client/src/statics/reference-system.json
+
 ## Install the dependencies
 ```bash
 cd client
