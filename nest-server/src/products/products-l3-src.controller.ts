@@ -1,5 +1,5 @@
 import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiBadRequestResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ProductsController } from './products.controller';
 import { ProductL3Src } from './product-l3-src.entity';
 import { ProductL3SrcDto } from './dto/product-l3-src.dto';
@@ -9,6 +9,7 @@ import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 
 @ApiTags('products/l3-src')
 @Controller('products/l3-src')
+@ApiBearerAuth('access-token')
 export class ProductsL3SrcController extends ProductsController<ProductL3Src, ProductL3SrcDto>{
   constructor(
     productsService: ProductsService,

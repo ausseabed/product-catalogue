@@ -11,13 +11,15 @@ export class CompositeL3Relation {
 
   @ManyToOne(type => Composite, {
     nullable: false,
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    eager: true
   })
   composite: Composite;
 
   @ManyToOne(type => ProductL3Src, {
     nullable: false,
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    eager: true
   })
   productL3Src: ProductL3Src;
 }

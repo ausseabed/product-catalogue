@@ -11,13 +11,15 @@ export class SurveyL3Relation {
 
   @ManyToOne(type => Survey, {
     nullable: false,
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    eager: true
   })
   survey: Survey;
 
   @ManyToOne(type => ProductL3Src, {
     nullable: false,
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    eager: true
   })
   productL3Src: ProductL3Src;
 }

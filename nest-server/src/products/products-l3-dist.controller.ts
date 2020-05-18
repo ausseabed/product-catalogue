@@ -1,5 +1,5 @@
 import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiBadRequestResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ProductsController } from './products.controller';
 import { ProductL3Dist } from './product-l3-dist.entity';
 import { ProductL3DistDto } from './dto/product-l3-dist.dto';
@@ -9,6 +9,7 @@ import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 
 @ApiTags('products/l3-dist')
 @Controller('products/l3-dist')
+@ApiBearerAuth('access-token')
 export class ProductsL3DistController extends ProductsController<ProductL3Dist, ProductL3DistDto>{
   constructor(
     productsService: ProductsService,

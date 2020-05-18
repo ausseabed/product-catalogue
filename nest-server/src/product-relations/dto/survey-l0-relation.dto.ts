@@ -12,5 +12,5 @@ export class SurveyL0RelationDto {
     description: 'Identifier of the product produced as part of the survey'
   })
   @IsInt()
-  productL3Src: number;
+  productL0Src: number;
 }

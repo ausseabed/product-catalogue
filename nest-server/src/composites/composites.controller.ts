@@ -1,5 +1,5 @@
 import { Controller, Get, Req, Param, ParseIntPipe, Body, Post, Put, Delete } from '@nestjs/common';
-import { ApiTags, ApiBadRequestResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { CompositesService } from './composites.service';
 import { Composite } from './composite.entity';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
@@ -7,6 +7,7 @@ import { CompositeDto } from './dto/composite.dto';
 import { Request } from 'express';
 @ApiTags('composites')
 @Controller('composites')
+@ApiBearerAuth('access-token')
 export class CompositesController {
   constructor(private compositesService: CompositesService) { }
 

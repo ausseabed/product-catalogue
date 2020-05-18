@@ -2,9 +2,24 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 declare const module: any;
+import { AuthGuard, PassportStrategy } from '@nestjs/passport';
+
+const config = require('./config');
+// const BearerStrategy = require('passport-azure-ad').BearerStrategy;
+import { BearerStrategy } from 'passport-azure-ad';
+
+const ps = PassportStrategy(BearerStrategy, 'oauth-bearer')
+
+const bearerStrategy = new BearerStrategy(config, (req, token, done) => {
+  // Send user info using the second argument
+  done(null, {}, token);
+}
+);
 
 async function bootstrap () {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalGuards(new (AuthGuard(bearerStrategy)));
 
   const options = new DocumentBuilder()
     .setTitle('AusSeabed product catalogue')
@@ -12,6 +27,9 @@ async function bootstrap () {
     .setContact("AusSeabed", "ausseabed.gov.au", "AusSeabed@ga.gov.au")
     .setVersion('1.0')
     .addTag('surveys')
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      'access-token')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);

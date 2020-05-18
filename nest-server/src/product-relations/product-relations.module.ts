@@ -4,9 +4,10 @@ import { ProductRelationsController } from './product-relations.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CompositeL3Relation } from './composite-l3-relation.entity';
 import { SurveyL3Relation } from './survey-l3-relation.entity';
+import { SurveyL0Relation } from './survey-l0-relation.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CompositeL3Relation, SurveyL3Relation])],
+  imports: [TypeOrmModule.forFeature([CompositeL3Relation, SurveyL3Relation, SurveyL0Relation])],
   providers: [ProductRelationsService],
   controllers: [ProductRelationsController]
 })
