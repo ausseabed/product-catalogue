@@ -16,7 +16,7 @@ export class ProductRelationsService {
       productType,
       { where: conditions })
       .catch(() => {
-        throw new BadRequestException(`Could not find survey for conditions ${conditions}.`)
+        throw new BadRequestException(`Could not find survey for conditions ${JSON.stringify(conditions)}.`)
       });;
   }
 
