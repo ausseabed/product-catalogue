@@ -1,20 +1,20 @@
 import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { ProductL3Src } from "src/products/product-l3-src.entity";
-import { Composite } from "src/composites/composite.entity";
+import { Compilation } from "src/compilations/compilation.entity";
 
 @Entity()
-export class CompositeL3Relation {
+export class CompilationL3Relation {
 
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(type => Composite, {
+  @ManyToOne(type => Compilation, {
     nullable: false,
     onDelete: 'CASCADE',
     eager: true
   })
-  composite: Composite;
+  compilation: Compilation;
 
   @ManyToOne(type => ProductL3Src, {
     nullable: false,

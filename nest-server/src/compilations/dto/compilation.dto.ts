@@ -1,7 +1,7 @@
 import { IsString, IsInt } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CompositeDto {
+export class CompilationDto {
   @ApiProperty({
     description: 'Name of product for display purposes - from gazeteer'
   })

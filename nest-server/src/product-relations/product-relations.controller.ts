@@ -2,9 +2,9 @@ import { Controller, Param, Req, Get, ParseIntPipe, Post, Body, Put, Delete } fr
 import { ProductRelationsService } from './product-relations.service';
 import { ApiTags, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
-import { CompositeL3Relation } from './composite-l3-relation.entity';
+import { CompilationL3Relation } from './compilation-l3-relation.entity';
 import { SurveyL3Relation } from './survey-l3-relation.entity';
-import { CompositeL3RelationDto } from './dto/composite-l3-relation.dto';
+import { CompilationL3RelationDto } from './dto/compilation-l3-relation.dto';
 import { SurveyL3RelationDto } from './dto/survey-l3-relation.dto';
 import { Request } from 'express';
 import { SurveyL0Relation } from './survey-l0-relation.entity';
@@ -15,34 +15,34 @@ import { SurveyL0RelationDto } from './dto/survey-l0-relation.dto';
 export class ProductRelationsController {
   constructor(private productRelationsService: ProductRelationsService) { }
 
-  @ApiBadRequestResponse({ description: 'Could not find the composite' })
-  @Get('composite-to-l3')
-  async findConditionalComposite (@Req() request: Request, @Param('compositeId', new ParseIntPipe()) compositeId: number): Promise<CompositeL3Relation> {
+  @ApiBadRequestResponse({ description: 'Could not find the compilation' })
+  @Get('compilation-to-l3')
+  async findConditionalCompilation (@Req() request: Request, @Param('compilationId', new ParseIntPipe()) compilationId: number): Promise<CompilationL3Relation> {
 
-    return this.productRelationsService.findConditional<CompositeL3Relation>(CompositeL3Relation, { composite: { id: compositeId } });
+    return this.productRelationsService.findConditional<CompilationL3Relation>(CompilationL3Relation, { compilation: { id: compilationId } });
   }
 
-  @ApiBadRequestResponse({ description: 'Could not find the composite' })
-  @Get('composite-to-l3/:relationId')
-  async findOneComposite (@Req() request: Request, @Param('relationId', new ParseIntPipe()) relationId: number): Promise<CompositeL3Relation> {
-    return this.productRelationsService.findOne<CompositeL3Relation>(CompositeL3Relation, relationId);
+  @ApiBadRequestResponse({ description: 'Could not find the compilation' })
+  @Get('compilation-to-l3/:relationId')
+  async findOneCompilation (@Req() request: Request, @Param('relationId', new ParseIntPipe()) relationId: number): Promise<CompilationL3Relation> {
+    return this.productRelationsService.findOne<CompilationL3Relation>(CompilationL3Relation, relationId);
   }
 
-  @Post('composite-to-l3')
-  createComposite (@Body(new ClassValidationPipe()) composite: CompositeL3RelationDto) {
-    return this.productRelationsService.create<CompositeL3Relation, CompositeL3RelationDto>(CompositeL3Relation, composite);
+  @Post('compilation-to-l3')
+  createCompilation (@Body(new ClassValidationPipe()) compilation: CompilationL3RelationDto) {
+    return this.productRelationsService.create<CompilationL3Relation, CompilationL3RelationDto>(CompilationL3Relation, compilation);
   }
 
-  @Put('composite-to-l3/:relationId')
-  @ApiBadRequestResponse({ description: 'Could not find the composite' })
-  updateComposite (@Param('relationId', new ParseIntPipe()) relationId: number, @Body(new ClassValidationPipe()) updateCompositeDto: CompositeL3RelationDto) {
-    return this.productRelationsService.update<CompositeL3Relation, CompositeL3RelationDto>(CompositeL3Relation, relationId, updateCompositeDto);
+  @Put('compilation-to-l3/:relationId')
+  @ApiBadRequestResponse({ description: 'Could not find the compilation' })
+  updateCompilation (@Param('relationId', new ParseIntPipe()) relationId: number, @Body(new ClassValidationPipe()) updateCompilationDto: CompilationL3RelationDto) {
+    return this.productRelationsService.update<CompilationL3Relation, CompilationL3RelationDto>(CompilationL3Relation, relationId, updateCompilationDto);
   }
 
-  @Delete('composite-to-l3/:relationId')
-  @ApiBadRequestResponse({ description: 'Could not find the composite' })
-  deleteComposite (@Param('relationId', new ParseIntPipe()) relationId: number): Promise<void> {
-    return this.productRelationsService.delete<CompositeL3Relation>(CompositeL3Relation, relationId);
+  @Delete('compilation-to-l3/:relationId')
+  @ApiBadRequestResponse({ description: 'Could not find the compilation' })
+  deleteCompilation (@Param('relationId', new ParseIntPipe()) relationId: number): Promise<void> {
+    return this.productRelationsService.delete<CompilationL3Relation>(CompilationL3Relation, relationId);
   }
 
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
@@ -65,12 +65,12 @@ export class ProductRelationsController {
 
   @Put('surveys-to-l3/:relationId')
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
-  updateL3Survey (@Param('relationId', new ParseIntPipe()) relationId: number, @Body(new ClassValidationPipe()) updateCompositeDto: SurveyL3RelationDto) {
-    return this.productRelationsService.update<SurveyL3Relation, SurveyL3RelationDto>(SurveyL3Relation, relationId, updateCompositeDto);
+  updateL3Survey (@Param('relationId', new ParseIntPipe()) relationId: number, @Body(new ClassValidationPipe()) updateCompilationDto: SurveyL3RelationDto) {
+    return this.productRelationsService.update<SurveyL3Relation, SurveyL3RelationDto>(SurveyL3Relation, relationId, updateCompilationDto);
   }
 
   @Delete('surveys-to-l3/:relationId')
-  @ApiBadRequestResponse({ description: 'Could not find the composite' })
+  @ApiBadRequestResponse({ description: 'Could not find the compilation' })
   deleteL3Survey (@Param('relationId', new ParseIntPipe()) relationId: number): Promise<void> {
     return this.productRelationsService.delete<SurveyL3Relation>(SurveyL3Relation, relationId);
   }
@@ -82,7 +82,7 @@ export class ProductRelationsController {
 
     return this.productRelationsService.findConditional<SurveyL0Relation>(SurveyL0Relation, { survey: { id: surveyId } });
   }
-  @ApiBadRequestResponse({ description: 'Could not find the composite' })
+  @ApiBadRequestResponse({ description: 'Could not find the compilation' })
   @Get('surveys-to-l0/:relationId')
   async findOneL0Survey (@Req() request: Request, @Param('relationId', new ParseIntPipe()) relationId: number): Promise<SurveyL0Relation> {
     return this.productRelationsService.findOne<SurveyL0Relation>(SurveyL0Relation, relationId);
@@ -95,12 +95,12 @@ export class ProductRelationsController {
 
   @Put('surveys-to-l0/:relationId')
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
-  updateL0Survey (@Param('relationId', new ParseIntPipe()) relationId: number, @Body(new ClassValidationPipe()) updateCompositeDto: SurveyL0RelationDto) {
-    return this.productRelationsService.update<SurveyL0Relation, SurveyL0RelationDto>(SurveyL0Relation, relationId, updateCompositeDto);
+  updateL0Survey (@Param('relationId', new ParseIntPipe()) relationId: number, @Body(new ClassValidationPipe()) updateCompilationDto: SurveyL0RelationDto) {
+    return this.productRelationsService.update<SurveyL0Relation, SurveyL0RelationDto>(SurveyL0Relation, relationId, updateCompilationDto);
   }
 
   @Delete('surveys-to-l0/:relationId')
-  @ApiBadRequestResponse({ description: 'Could not find the composite' })
+  @ApiBadRequestResponse({ description: 'Could not find the compilation' })
   deleteL0Survey (@Param('relationId', new ParseIntPipe()) relationId: number): Promise<void> {
     return this.productRelationsService.delete<SurveyL0Relation>(SurveyL0Relation, relationId);
   }

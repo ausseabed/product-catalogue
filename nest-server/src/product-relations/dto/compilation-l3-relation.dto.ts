@@ -1,12 +1,12 @@
 import { IsString, IsInt } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CompositeL3RelationDto {
+export class CompilationL3RelationDto {
   @ApiProperty({
-    description: 'Identifier of the composite that contains the products'
+    description: 'Identifier of the compilation that contains the products'
   })
   @IsInt()
-  composite: number;
+  compilation: number;
 
   @ApiProperty({
     description: 'Identifier of the product'

@@ -2,13 +2,13 @@ import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class Composite {
+export class Compilation {
 
   /**
    * Numerical identifier for keeping track of records
    *
    * @type {number}
-   * @memberof Composite
+   * @memberof Compilation
    */
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,7 +17,7 @@ export class Composite {
    * Unique identifier for reference purposes
    *
    * @type {string}
-   * @memberof Composite
+   * @memberof Compilation
    */
   @Column()
   uuid: string;
@@ -26,7 +26,7 @@ export class Composite {
    * Name of product for display purposes - from gazeteer
    * 
    * @type {string}
-   * @memberof Composite
+   * @memberof Compilation
    */
   @Column()
   name: string;
@@ -35,7 +35,7 @@ export class Composite {
    * Year of product for display purposes
    *
    * @type {string}
-   * @memberof Composite
+   * @memberof Compilation
    */
   @Column()
   year: string;
