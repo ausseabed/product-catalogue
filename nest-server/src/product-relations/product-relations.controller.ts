@@ -16,72 +16,92 @@ export class ProductRelationsController {
   constructor(private productRelationsService: ProductRelationsService) { }
 
   @ApiBadRequestResponse({ description: 'Could not find the composite' })
-  @Get('composites/:compositeId/l3')
-  async findOneComposite (@Req() request: Request, @Param('compositeId', new ParseIntPipe()) compositeId: number): Promise<CompositeL3Relation> {
-    return this.productRelationsService.findOne<CompositeL3Relation>(CompositeL3Relation, compositeId);
+  @Get('composite-to-l3')
+  async findConditionalComposite (@Req() request: Request, @Param('compositeId', new ParseIntPipe()) compositeId: number): Promise<CompositeL3Relation> {
+
+    return this.productRelationsService.findConditional<CompositeL3Relation>(CompositeL3Relation, { composite: { id: compositeId } });
   }
 
-  @Post('composites/:compositeId/l3')
+  @ApiBadRequestResponse({ description: 'Could not find the composite' })
+  @Get('composite-to-l3/:relationId')
+  async findOneComposite (@Req() request: Request, @Param('relationId', new ParseIntPipe()) relationId: number): Promise<CompositeL3Relation> {
+    return this.productRelationsService.findOne<CompositeL3Relation>(CompositeL3Relation, relationId);
+  }
+
+  @Post('composite-to-l3')
   createComposite (@Body(new ClassValidationPipe()) composite: CompositeL3RelationDto) {
     return this.productRelationsService.create<CompositeL3Relation, CompositeL3RelationDto>(CompositeL3Relation, composite);
   }
 
-  @Put('composites/:compositeId/l3')
+  @Put('composite-to-l3/:relationId')
   @ApiBadRequestResponse({ description: 'Could not find the composite' })
-  updateComposite (@Param('compositeId', new ParseIntPipe()) compositeId: number, @Body(new ClassValidationPipe()) updateCompositeDto: CompositeL3RelationDto) {
-    return this.productRelationsService.update<CompositeL3Relation, CompositeL3RelationDto>(CompositeL3Relation, compositeId, updateCompositeDto);
+  updateComposite (@Param('relationId', new ParseIntPipe()) relationId: number, @Body(new ClassValidationPipe()) updateCompositeDto: CompositeL3RelationDto) {
+    return this.productRelationsService.update<CompositeL3Relation, CompositeL3RelationDto>(CompositeL3Relation, relationId, updateCompositeDto);
   }
 
-  @Delete('composites/:compositeId/l3')
+  @Delete('composite-to-l3/:relationId')
   @ApiBadRequestResponse({ description: 'Could not find the composite' })
-  deleteComposite (@Param('compositeId', new ParseIntPipe()) compositeId: number): Promise<void> {
-    return this.productRelationsService.delete<CompositeL3Relation>(CompositeL3Relation, compositeId);
+  deleteComposite (@Param('relationId', new ParseIntPipe()) relationId: number): Promise<void> {
+    return this.productRelationsService.delete<CompositeL3Relation>(CompositeL3Relation, relationId);
   }
 
-  @ApiBadRequestResponse({ description: 'Could not find the composite' })
-  @Get('surveys/:surveyId/l3')
-  async findOneL3Survey (@Req() request: Request, @Param('surveyId', new ParseIntPipe()) surveyId: number): Promise<SurveyL3Relation> {
-    return this.productRelationsService.findOne<SurveyL3Relation>(SurveyL3Relation, surveyId);
+  @ApiBadRequestResponse({ description: 'Could not find the survey' })
+  @Get('surveys-to-l3')
+  async findConditionalL3Survey (@Req() request: Request, @Param('surveyId', new ParseIntPipe()) surveyId: number): Promise<SurveyL3Relation> {
+
+    return this.productRelationsService.findConditional<SurveyL3Relation>(SurveyL3Relation, { survey: { id: surveyId } });
   }
 
-  @Post('surveys/:surveyId/l3')
+  @ApiBadRequestResponse({ description: 'Could not find the survey' })
+  @Get('surveys-to-l3/:relationId')
+  async findOneL3Survey (@Req() request: Request, @Param('relationId', new ParseIntPipe()) relationId: number): Promise<SurveyL3Relation> {
+    return this.productRelationsService.findOne<SurveyL3Relation>(SurveyL3Relation, relationId);
+  }
+
+  @Post('surveys-to-l3')
   createL3Survey (@Body(new ClassValidationPipe()) survey: SurveyL3RelationDto) {
     return this.productRelationsService.create<SurveyL3Relation, SurveyL3RelationDto>(SurveyL3Relation, survey);
   }
 
-  @Put('surveys/:surveyId/l3')
+  @Put('surveys-to-l3/:relationId')
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
-  updateL3Survey (@Param('surveyId', new ParseIntPipe()) surveyId: number, @Body(new ClassValidationPipe()) updateCompositeDto: SurveyL3RelationDto) {
-    return this.productRelationsService.update<SurveyL3Relation, SurveyL3RelationDto>(SurveyL3Relation, surveyId, updateCompositeDto);
+  updateL3Survey (@Param('relationId', new ParseIntPipe()) relationId: number, @Body(new ClassValidationPipe()) updateCompositeDto: SurveyL3RelationDto) {
+    return this.productRelationsService.update<SurveyL3Relation, SurveyL3RelationDto>(SurveyL3Relation, relationId, updateCompositeDto);
   }
 
-  @Delete('surveys/:surveyId/l3')
+  @Delete('surveys-to-l3/:relationId')
   @ApiBadRequestResponse({ description: 'Could not find the composite' })
-  deleteL3Survey (@Param('surveyId', new ParseIntPipe()) compositeId: number): Promise<void> {
-    return this.productRelationsService.delete<SurveyL3Relation>(SurveyL3Relation, compositeId);
+  deleteL3Survey (@Param('relationId', new ParseIntPipe()) relationId: number): Promise<void> {
+    return this.productRelationsService.delete<SurveyL3Relation>(SurveyL3Relation, relationId);
   }
+
 
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
-  @Get('surveys/:surveyId/l0')
-  async findOneL0Survey (@Req() request: Request, @Param('surveyId', new ParseIntPipe()) surveyId: number): Promise<SurveyL0Relation> {
-    return this.productRelationsService.findOne<SurveyL0Relation>(SurveyL0Relation, surveyId);
+  @Get('surveys-to-l0')
+  async findConditionalL0Survey (@Req() request: Request, @Param('surveyId', new ParseIntPipe()) surveyId: number): Promise<SurveyL0Relation> {
+
+    return this.productRelationsService.findConditional<SurveyL0Relation>(SurveyL0Relation, { survey: { id: surveyId } });
+  }
+  @ApiBadRequestResponse({ description: 'Could not find the composite' })
+  @Get('surveys-to-l0/:relationId')
+  async findOneL0Survey (@Req() request: Request, @Param('relationId', new ParseIntPipe()) relationId: number): Promise<SurveyL0Relation> {
+    return this.productRelationsService.findOne<SurveyL0Relation>(SurveyL0Relation, relationId);
   }
 
-  @Post('surveys/:surveyId/l0')
+  @Post('surveys-to-l0')
   createL0Survey (@Body(new ClassValidationPipe()) survey: SurveyL0RelationDto) {
     return this.productRelationsService.create<SurveyL0Relation, SurveyL0RelationDto>(SurveyL0Relation, survey);
   }
 
-  @Put('surveys/:surveyId/l0')
+  @Put('surveys-to-l0/:relationId')
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
-  updateL0Survey (@Param('surveyId', new ParseIntPipe()) surveyId: number, @Body(new ClassValidationPipe()) updateCompositeDto: SurveyL0RelationDto) {
-    return this.productRelationsService.update<SurveyL0Relation, SurveyL0RelationDto>(SurveyL0Relation, surveyId, updateCompositeDto);
+  updateL0Survey (@Param('relationId', new ParseIntPipe()) relationId: number, @Body(new ClassValidationPipe()) updateCompositeDto: SurveyL0RelationDto) {
+    return this.productRelationsService.update<SurveyL0Relation, SurveyL0RelationDto>(SurveyL0Relation, relationId, updateCompositeDto);
   }
 
-  @Delete('surveys/:surveyId/l0')
+  @Delete('surveys-to-l0/:relationId')
   @ApiBadRequestResponse({ description: 'Could not find the composite' })
-  deleteL0Survey (@Param('surveyId', new ParseIntPipe()) compositeId: number): Promise<void> {
-    return this.productRelationsService.delete<SurveyL0Relation>(SurveyL0Relation, compositeId);
+  deleteL0Survey (@Param('relationId', new ParseIntPipe()) relationId: number): Promise<void> {
+    return this.productRelationsService.delete<SurveyL0Relation>(SurveyL0Relation, relationId);
   }
-
 }

@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
+import { EntityManager, FindConditions } from 'typeorm';
 import { plainToClass, plainToClassFromExist } from 'class-transformer';
 
 @Injectable()
@@ -9,6 +9,15 @@ export class ProductRelationsService {
   private productsEntityManager: EntityManager
   ) {
 
+  }
+
+  async findConditional<T> (productType: new () => T, conditions: FindConditions<T>): Promise<T> {
+    return this.productsEntityManager.findOneOrFail<T>(
+      productType,
+      { where: conditions })
+      .catch(() => {
+        throw new BadRequestException(`Could not find survey for conditions ${conditions}.`)
+      });;
   }
 
   async findOne<T> (productType: new () => T, id: number): Promise<T> {

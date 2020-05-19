@@ -24,7 +24,7 @@ async function bootstrap () {
   const options = new DocumentBuilder()
     .setTitle('AusSeabed product catalogue')
     .setDescription('The API description for the Ausseabed product catalogue inventory')
-    .setContact("AusSeabed", "ausseabed.gov.au", "AusSeabed@ga.gov.au")
+    .setContact("AusSeabed", "http://ausseabed.gov.au/", "AusSeabed@ga.gov.au")
     .setVersion('1.0')
     .addTag('surveys')
     .addBearerAuth(

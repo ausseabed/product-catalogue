@@ -61,18 +61,22 @@ export class ProductsL0DistController extends ProductsController<ProductL0Dist, 
 
   @Post(':productId/instrument-files')
   @ApiBody({ type: ProductL0InstrumentFileDto })
-  createInstrument (@Body(new ClassValidationPipe()) instrument: ProductL0InstrumentFileDto) {
+  createInstrument (@Param('productId', new ParseIntPipe()) productId: number, @Body(new ClassValidationPipe()) instrument: ProductL0InstrumentFileDto) {
     return this.productsService.create<ProductL0InstrumentFile, ProductL0InstrumentFileDto>(ProductL0InstrumentFile, instrument);
   }
   @Put(':productId/instrument-files/:instrumentId')
   @ApiBadRequestResponse({ description: 'Could not find the instrument' })
-  updateInstrument (@Param('instrumentId', new ParseIntPipe()) instrumentId: number, @Body(new ClassValidationPipe()) updateProductDto: ProductL0InstrumentFileDto) {
+  updateInstrument (@Param('productId', new ParseIntPipe()) productId: number,
+    @Param('instrumentId', new ParseIntPipe()) instrumentId: number,
+    @Body(new ClassValidationPipe()) updateProductDto: ProductL0InstrumentFileDto) {
     return this.productsService.update<ProductL0InstrumentFile, ProductL0InstrumentFileDto>(ProductL0InstrumentFile, instrumentId, updateProductDto);
   }
 
   @Delete(':productId/instrument-files/:instrumentId')
   @ApiBadRequestResponse({ description: 'Could not find the instrument' })
-  deleteInstrument (@Param('productId', new ParseIntPipe()) instrumentId: number): Promise<void> {
+  deleteInstrument (
+    @Param('productId', new ParseIntPipe()) productId: number,
+    @Param('instrumentId', new ParseIntPipe()) instrumentId: number): Promise<void> {
     return this.productsService.delete<ProductL0InstrumentFile>(ProductL0InstrumentFile, instrumentId);
   }
 }
