@@ -26,7 +26,8 @@ async function bootstrap () {
     .setTitle('AusSeabed product catalogue')
     .setDescription('The API description for the Ausseabed product catalogue inventory')
     .setContact("AusSeabed", "http://ausseabed.gov.au/", "AusSeabed@ga.gov.au")
-    .setVersion('1.0')
+    .setLicense("Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0.html")
+    .setVersion('0.1.0')
     .addTag('surveys')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
