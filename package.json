@@ -1,7 +1,7 @@
 {
-  "name": "@ausseabed/pc-api-fetch",
+  "name": "@ausseabed/product-catalogue-rest-client",
   "version": "0.1.0",
-  "description": "OpenAPI client for @ausseabed/pc-api-fetch",
+  "description": "OpenAPI client for @ausseabed/product-catalogue-rest-client",
   "author": "OpenAPI-Generator Contributors",
   "keywords": [
     "fetch",
@@ -9,7 +9,7 @@
     "openapi-client",
     "openapi-generator"
   ],
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
@@ -32,6 +32,6 @@
     "directory": "asb-pc-api-fetch"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/ausseabed"
+    "registry": "https://npm.pkg.github.com/ausseabed/product-catalogue/"
   }
 }
