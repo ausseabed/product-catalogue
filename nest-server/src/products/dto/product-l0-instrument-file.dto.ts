@@ -4,7 +4,13 @@ import { ApiProperty } from "@nestjs/swagger";
 export class ProductL0InstrumentFileDto {
   @IsString()
   @ApiProperty({
-    description: 'Location of instrument files'
+    description: 'Location of instrument file'
   })
-  l0InstrumentFile: string;
+  instrumentFile: string;
+
+  @IsString()
+  @ApiProperty({
+    description: 'Location of shapefile describing instrument file extent'
+  })
+  coverageFile: string;
 }
