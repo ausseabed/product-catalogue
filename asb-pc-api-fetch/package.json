@@ -1,0 +1,37 @@
+{
+  "name": "@ausseabed/pc-api-fetch",
+  "version": "0.1.0",
+  "description": "OpenAPI client for @ausseabed/pc-api-fetch",
+  "author": "OpenAPI-Generator Contributors",
+  "keywords": [
+    "fetch",
+    "typescript",
+    "openapi-client",
+    "openapi-generator"
+  ],
+  "license": "Apache 2.0",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "@types/isomorphic-fetch": "0.0.34",
+    "btoa": "^1.2.1",
+    "es6-promise": "^4.2.4",
+    "url-parse": "^1.4.3"
+  },
+  "devDependencies": {
+    "typescript": "^2.9.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://github.com/ausseabed/product-catalogue.git",
+    "directory": "asb-pc-api-fetch"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/ausseabed"
+  }
+}

@@ -1,0 +1,2330 @@
+{
+    "components": {
+        "schemas": {
+            "Compilation": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "year"
+                ],
+                "type": "object"
+            },
+            "CompilationDto": {
+                "properties": {
+                    "name": {
+                        "description": "Name of product for display purposes - from gazeteer",
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "description": "Unique identifier for reference purposes",
+                        "type": "string"
+                    },
+                    "year": {
+                        "description": "Year of product for display purposes",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "uuid",
+                    "year"
+                ],
+                "type": "object"
+            },
+            "CompilationL3Relation": {
+                "properties": {
+                    "compilation": {
+                        "$ref": "#/components/schemas/Compilation"
+                    },
+                    "id": {
+                        "type": "number"
+                    },
+                    "productL3Src": {
+                        "$ref": "#/components/schemas/ProductL3Src"
+                    }
+                },
+                "required": [
+                    "id",
+                    "compilation",
+                    "productL3Src"
+                ],
+                "type": "object"
+            },
+            "CompilationL3RelationDto": {
+                "properties": {
+                    "compilation": {
+                        "description": "Identifier of the compilation that contains the products",
+                        "type": "number"
+                    },
+                    "productL3Src": {
+                        "description": "Identifier of the product",
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "compilation",
+                    "productL3Src"
+                ],
+                "type": "object"
+            },
+            "ProductL0Dist": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "l0CoverageLocation": {
+                        "type": "string"
+                    },
+                    "l0InstrumentFiles": {
+                        "items": {
+                            "$ref": "#/components/schemas/ProductL0InstrumentFile"
+                        },
+                        "type": "array"
+                    },
+                    "metadataPersistentId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "sourceProduct": {
+                        "$ref": "#/components/schemas/ProductL0Src"
+                    },
+                    "srs": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "sourceProduct",
+                    "l0InstrumentFiles",
+                    "l0CoverageLocation"
+                ],
+                "type": "object"
+            },
+            "ProductL0DistDto": {
+                "properties": {
+                    "l0CoverageLocation": {
+                        "description": "Location of coverage file for extent",
+                        "type": "string"
+                    },
+                    "metadataPersistentId": {
+                        "description": "Persistent Id of final product ",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name of product for display purposes - from gazeteer",
+                        "type": "string"
+                    },
+                    "srs": {
+                        "description": "Spatial Reference of product",
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "description": "Unique identifier for reference purposes",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "l0CoverageLocation"
+                ],
+                "type": "object"
+            },
+            "ProductL0InstrumentFile": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "l0InstrumentFile": {
+                        "type": "string"
+                    },
+                    "productL0Dist": {
+                        "$ref": "#/components/schemas/ProductL0Dist"
+                    }
+                },
+                "required": [
+                    "id",
+                    "l0InstrumentFile",
+                    "productL0Dist"
+                ],
+                "type": "object"
+            },
+            "ProductL0InstrumentFileDto": {
+                "properties": {
+                    "coverageFile": {
+                        "description": "Location of shapefile describing instrument file extent",
+                        "type": "string"
+                    },
+                    "instrumentFile": {
+                        "description": "Location of instrument file",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "instrumentFile",
+                    "coverageFile"
+                ],
+                "type": "object"
+            },
+            "ProductL0Src": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "l0InstrumentLocation": {
+                        "type": "string"
+                    },
+                    "metadataPersistentId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "srs": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "l0InstrumentLocation"
+                ],
+                "type": "object"
+            },
+            "ProductL0SrcDto": {
+                "properties": {
+                    "l0InstrumentLocation": {
+                        "description": "Location of instrument files",
+                        "type": "string"
+                    },
+                    "metadataPersistentId": {
+                        "description": "Persistent Id of final product ",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name of product for display purposes - from gazeteer",
+                        "type": "string"
+                    },
+                    "srs": {
+                        "description": "Spatial Reference of product",
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "description": "Unique identifier for reference purposes",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "l0InstrumentLocation"
+                ],
+                "type": "object"
+            },
+            "ProductL3Dist": {
+                "properties": {
+                    "bathymetryLocation": {
+                        "type": "string"
+                    },
+                    "hillshadeLocation": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "number"
+                    },
+                    "l3CoverageLocation": {
+                        "type": "string"
+                    },
+                    "metadataPersistentId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "sourceProduct": {
+                        "$ref": "#/components/schemas/ProductL3Src"
+                    },
+                    "srs": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "l3CoverageLocation",
+                    "bathymetryLocation",
+                    "hillshadeLocation",
+                    "sourceProduct"
+                ],
+                "type": "object"
+            },
+            "ProductL3DistDto": {
+                "properties": {
+                    "bathymetryLocation": {
+                        "description": "Location of the raster bathymetry",
+                        "type": "string"
+                    },
+                    "hillshadeLocation": {
+                        "description": "S3 location of hillshade",
+                        "type": "string"
+                    },
+                    "l3CoverageLocation": {
+                        "description": "Location of coverage extent of L3 product",
+                        "type": "string"
+                    },
+                    "metadataPersistentId": {
+                        "description": "Persistent Id of final product ",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name of product for display purposes - from gazeteer",
+                        "type": "string"
+                    },
+                    "srs": {
+                        "description": "Spatial Reference of product",
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "description": "Unique identifier for reference purposes",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "l3CoverageLocation",
+                    "hillshadeLocation",
+                    "bathymetryLocation"
+                ],
+                "type": "object"
+            },
+            "ProductL3Src": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "metadataPersistentId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "productTifLocation": {
+                        "type": "string"
+                    },
+                    "resolution": {
+                        "type": "string"
+                    },
+                    "srs": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "resolution",
+                    "productTifLocation"
+                ],
+                "type": "object"
+            },
+            "ProductL3SrcDto": {
+                "properties": {
+                    "metadataPersistentId": {
+                        "description": "Persistent Id of final product ",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name of product for display purposes - from gazeteer",
+                        "type": "string"
+                    },
+                    "productTifLocation": {
+                        "description": "Location of final product ",
+                        "type": "string"
+                    },
+                    "resolution": {
+                        "description": "Resolution of product for display purposes ",
+                        "type": "string"
+                    },
+                    "srs": {
+                        "description": "Spatial Reference of product",
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "description": "Unique identifier for reference purposes",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "resolution",
+                    "productTifLocation"
+                ],
+                "type": "object"
+            },
+            "Survey": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "year"
+                ],
+                "type": "object"
+            },
+            "SurveyDto": {
+                "properties": {
+                    "name": {
+                        "description": "Name of product for display purposes - from gazeteer",
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "description": "Unique identifier for reference purposes",
+                        "type": "string"
+                    },
+                    "year": {
+                        "description": "Year of product for display purposes",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "uuid",
+                    "year"
+                ],
+                "type": "object"
+            },
+            "SurveyL0Relation": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "productL0Src": {
+                        "$ref": "#/components/schemas/ProductL0Src"
+                    },
+                    "survey": {
+                        "$ref": "#/components/schemas/Survey"
+                    }
+                },
+                "required": [
+                    "id",
+                    "survey",
+                    "productL0Src"
+                ],
+                "type": "object"
+            },
+            "SurveyL0RelationDto": {
+                "properties": {
+                    "productL0Src": {
+                        "description": "Identifier of the product produced as part of the survey",
+                        "type": "number"
+                    },
+                    "survey": {
+                        "description": "Identifier of the survey that produced the products",
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "survey",
+                    "productL0Src"
+                ],
+                "type": "object"
+            },
+            "SurveyL3Relation": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "productL3Src": {
+                        "$ref": "#/components/schemas/ProductL3Src"
+                    },
+                    "survey": {
+                        "$ref": "#/components/schemas/Survey"
+                    }
+                },
+                "required": [
+                    "id",
+                    "survey",
+                    "productL3Src"
+                ],
+                "type": "object"
+            },
+            "SurveyL3RelationDto": {
+                "properties": {
+                    "productL3Src": {
+                        "description": "Identifier of the product produced as part of the survey",
+                        "type": "number"
+                    },
+                    "survey": {
+                        "description": "Identifier of the survey that produced the products",
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "survey",
+                    "productL3Src"
+                ],
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "access-token": {
+                "bearerFormat": "JWT",
+                "scheme": "bearer",
+                "type": "http"
+            }
+        }
+    },
+    "info": {
+        "contact": {
+            "email": "AusSeabed@ga.gov.au",
+            "name": "AusSeabed",
+            "url": "http://ausseabed.gov.au/"
+        },
+        "description": "The API description for the Ausseabed product catalogue inventory",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "title": "AusSeabed product catalogue",
+        "version": "0.1.0"
+    },
+    "openapi": "3.0.0",
+    "paths": {
+        "/compilations": {
+            "get": {
+                "operationId": "CompilationsController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Compilation"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "compilations"
+                ]
+            },
+            "post": {
+                "operationId": "CompilationsController_create",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CompilationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Compilation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "compilations"
+                ]
+            }
+        },
+        "/compilations/{compilationId}": {
+            "delete": {
+                "operationId": "CompilationsController_remove",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "compilationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "compilations"
+                ]
+            },
+            "get": {
+                "operationId": "CompilationsController_findOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "compilationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Compilation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "compilations"
+                ]
+            },
+            "put": {
+                "operationId": "CompilationsController_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "compilationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CompilationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "compilations"
+                ]
+            }
+        },
+        "/product-relations/compilation-to-l3": {
+            "post": {
+                "operationId": "ProductRelationsController_createCompilation",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CompilationL3RelationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompilationL3Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/compilation-to-l3/{compilationId}": {
+            "get": {
+                "operationId": "ProductRelationsController_findConditionalCompilation",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "compilationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompilationL3Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/compilation-to-l3/{relationId}": {
+            "delete": {
+                "operationId": "ProductRelationsController_deleteCompilation",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
+            "get": {
+                "operationId": "ProductRelationsController_findOneCompilation",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompilationL3Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
+            "put": {
+                "operationId": "ProductRelationsController_updateCompilation",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CompilationL3RelationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/surveys-to-l0": {
+            "post": {
+                "operationId": "ProductRelationsController_createL0Survey",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SurveyL0RelationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL0Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/surveys-to-l0/{relationId}": {
+            "delete": {
+                "operationId": "ProductRelationsController_deleteL0Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
+            "get": {
+                "operationId": "ProductRelationsController_findOneL0Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL0Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
+            "put": {
+                "operationId": "ProductRelationsController_updateL0Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SurveyL0RelationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/surveys-to-l0/{surveyId}": {
+            "get": {
+                "operationId": "ProductRelationsController_findConditionalL0Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "surveyId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL0Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/surveys-to-l3": {
+            "post": {
+                "operationId": "ProductRelationsController_createL3Survey",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SurveyL3RelationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL3Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/surveys-to-l3/{relationId}": {
+            "delete": {
+                "operationId": "ProductRelationsController_deleteL3Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
+            "get": {
+                "operationId": "ProductRelationsController_findOneL3Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL3Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
+            "put": {
+                "operationId": "ProductRelationsController_updateL3Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SurveyL3RelationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/surveys-to-l3/{surveyId}": {
+            "get": {
+                "operationId": "ProductRelationsController_findConditionalL3Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "surveyId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL3Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/products/l0-dist": {
+            "get": {
+                "operationId": "ProductsL0DistController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL0Dist"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-dist"
+                ]
+            },
+            "post": {
+                "operationId": "ProductsL0DistController_create",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL0DistDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL0Dist"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-dist"
+                ]
+            }
+        },
+        "/products/l0-dist/{productId}": {
+            "delete": {
+                "operationId": "ProductsL0DistController_delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-dist"
+                ]
+            },
+            "get": {
+                "operationId": "ProductsL0DistController_findOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL0Dist"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-dist"
+                ]
+            },
+            "put": {
+                "operationId": "ProductsL0DistController_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL0DistDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-dist"
+                ]
+            }
+        },
+        "/products/l0-dist/{productId}/instrument-files": {
+            "get": {
+                "operationId": "ProductsL0DistController_findInstruments",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL0InstrumentFile"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-dist"
+                ]
+            },
+            "post": {
+                "operationId": "ProductsL0DistController_createInstrument",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL0InstrumentFileDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL0InstrumentFile"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-dist"
+                ]
+            }
+        },
+        "/products/l0-dist/{productId}/instrument-files/{instrumentId}": {
+            "delete": {
+                "operationId": "ProductsL0DistController_deleteInstrument",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "instrumentId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the instrument"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-dist"
+                ]
+            },
+            "get": {
+                "operationId": "ProductsL0DistController_findOneInstrument",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "instrumentId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL0InstrumentFile"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-dist"
+                ]
+            },
+            "put": {
+                "operationId": "ProductsL0DistController_updateInstrument",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "instrumentId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL0InstrumentFileDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the instrument"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-dist"
+                ]
+            }
+        },
+        "/products/l0-src": {
+            "get": {
+                "operationId": "ProductsL0SrcController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL0Src"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-src"
+                ]
+            },
+            "post": {
+                "operationId": "ProductsL0SrcController_create",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL0SrcDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL0Src"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-src"
+                ]
+            }
+        },
+        "/products/l0-src/{productId}": {
+            "delete": {
+                "operationId": "ProductsL0SrcController_delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-src"
+                ]
+            },
+            "get": {
+                "operationId": "ProductsL0SrcController_findOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL0Src"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-src"
+                ]
+            },
+            "put": {
+                "operationId": "ProductsL0SrcController_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL0SrcDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l0-src"
+                ]
+            }
+        },
+        "/products/l3-dist": {
+            "get": {
+                "operationId": "ProductsL3DistController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL3Dist"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l3-dist"
+                ]
+            },
+            "post": {
+                "operationId": "ProductsL3DistController_create",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL3DistDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL3Dist"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l3-dist"
+                ]
+            }
+        },
+        "/products/l3-dist/{productId}": {
+            "delete": {
+                "operationId": "ProductsL3DistController_delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l3-dist"
+                ]
+            },
+            "get": {
+                "operationId": "ProductsL3DistController_findOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL3Dist"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l3-dist"
+                ]
+            },
+            "put": {
+                "operationId": "ProductsL3DistController_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL3DistDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l3-dist"
+                ]
+            }
+        },
+        "/products/l3-src": {
+            "get": {
+                "operationId": "ProductsL3SrcController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL3Src"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l3-src"
+                ]
+            },
+            "post": {
+                "operationId": "ProductsL3SrcController_create",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL3SrcDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL3Src"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l3-src"
+                ]
+            }
+        },
+        "/products/l3-src/{productId}": {
+            "delete": {
+                "operationId": "ProductsL3SrcController_delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l3-src"
+                ]
+            },
+            "get": {
+                "operationId": "ProductsL3SrcController_findOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL3Src"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l3-src"
+                ]
+            },
+            "put": {
+                "operationId": "ProductsL3SrcController_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL3SrcDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l3-src"
+                ]
+            }
+        },
+        "/surveys": {
+            "get": {
+                "operationId": "SurveysController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Survey"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "surveys"
+                ]
+            },
+            "post": {
+                "operationId": "SurveysController_create",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SurveyDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Survey"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "surveys"
+                ]
+            }
+        },
+        "/surveys/{surveyId}": {
+            "delete": {
+                "operationId": "SurveysController_remove",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "surveyId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "surveys"
+                ]
+            },
+            "get": {
+                "operationId": "SurveysController_findOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "surveyId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Survey"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "surveys"
+                ]
+            },
+            "put": {
+                "operationId": "SurveysController_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "surveyId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SurveyDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "surveys"
+                ]
+            }
+        }
+    },
+    "servers": [],
+    "tags": [
+        {
+            "description": "",
+            "name": "surveys"
+        }
+    ]
+}
