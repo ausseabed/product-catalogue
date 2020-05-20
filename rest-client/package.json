@@ -29,9 +29,9 @@
   "repository": {
     "type": "git",
     "url": "ssh://github.com/ausseabed/product-catalogue.git",
-    "directory": "asb-pc-api-fetch"
+    "directory": "rest-client"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/ausseabed/product-catalogue/"
+    "registry": "https://npm.pkg.github.com/"
   }
 }
