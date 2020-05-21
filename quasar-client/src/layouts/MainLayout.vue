@@ -1,18 +1,18 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr lff">
     <q-header elevated>
       <q-toolbar>
         <q-btn
           flat
           dense
           round
-          icon="menu"
+          :icon="matMenu"
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
         <q-toolbar-title>
-          Quasar App
+          Ausseabed Product Catalogue
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
@@ -22,21 +22,38 @@
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
+      :width="300"
+      :breakpoint="700"
+      overlay
       bordered
-      content-class="bg-grey-1"
+      content-class="bg-grey-3"
     >
       <q-list>
         <q-item-label
           header
           class="text-grey-8"
         >
-          Essential Links
+          {{userName}}
         </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
         />
+        <q-item
+          clickable
+          exact
+          @click="logoutfn"
+        >
+          <q-item-section avatar>
+            <q-icon :name="matSchool" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Logout</q-item-label>
+            <q-item-label caption> Logout of the system </q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -48,59 +65,45 @@
 
 <script>
 import EssentialLink from 'components/EssentialLink'
+import { matMenu, matSchool } from '@quasar/extras/material-icons'
+const msalInstance = require('../boot/auth').msalInstance
 
 export default {
   name: 'MainLayout',
-
+  methods: {
+    logoutfn: function () {
+      msalInstance.logout()
+    }
+  },
   components: {
     EssentialLink
   },
-
+  created () {
+    this.matMenu = matMenu
+    this.matSchool = matSchool
+  },
   data () {
     return {
+      userName: (this.$store.state !== undefined && this.$store.state.account !== undefined ? this.$store.state.account.userName : ''),
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: 'Docs',
-          caption: 'quasar.dev',
-          icon: 'school',
-          link: 'https://quasar.dev'
+          title: 'Home',
+          caption: 'Welcome page',
+          icon: matSchool,
+          link: '/'
         },
         {
-          title: 'Github',
-          caption: 'github.com/quasarframework',
-          icon: 'code',
-          link: 'https://github.com/quasarframework'
+          title: 'Survey Datasets',
+          caption: 'Add or remove information about bathymetry products',
+          icon: matSchool,
+          link: 'surveys'
         },
         {
-          title: 'Discord Chat Channel',
-          caption: 'chat.quasar.dev',
-          icon: 'chat',
-          link: 'https://chat.quasar.dev'
-        },
-        {
-          title: 'Forum',
-          caption: 'forum.quasar.dev',
-          icon: 'record_voice_over',
-          link: 'https://forum.quasar.dev'
-        },
-        {
-          title: 'Twitter',
-          caption: '@quasarframework',
-          icon: 'rss_feed',
-          link: 'https://twitter.quasar.dev'
-        },
-        {
-          title: 'Facebook',
-          caption: '@QuasarFramework',
-          icon: 'public',
-          link: 'https://facebook.quasar.dev'
-        },
-        {
-          title: 'Quasar Awesome',
-          caption: 'Community Quasar projects',
-          icon: 'favorite',
-          link: 'https://awesome.quasar.dev'
+          title: 'Export Datasets',
+          caption: 'Export dataset information for use in the Marine Portal',
+          icon: matSchool,
+          link: 'exports'
         }
       ]
     }

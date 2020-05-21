@@ -3,6 +3,8 @@
  * the ES6 features that are supported by your Node version. https://node.green/
  */
 
+require('dotenv').config()
+
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
@@ -16,6 +18,7 @@ module.exports = configure(function (ctx) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
+      'auth',
       'composition-api',
       'axios'
     ],
@@ -34,14 +37,13 @@ module.exports = configure(function (ctx) {
       // 'themify',
       // 'line-awesome',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
-      'roboto-font', // optional, you are not bound to it
-      'material-icons' // optional, you are not bound to it
+      'roboto-font' // optional, you are not bound to it
+      // 'material-icons' // optional, you are not bound to it
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
-      iconSet: 'material-icons', // Quasar icon set
+      iconSet: 'svg-material-icons', // Quasar icon set
       lang: 'en-us', // Quasar language pack
 
       // Possible values for "all":
@@ -66,7 +68,10 @@ module.exports = configure(function (ctx) {
         'QList',
         'QItem',
         'QItemSection',
-        'QItemLabel'
+        'QItemLabel', 'QTable',
+        'QTh', 'QInput', 'QForm', 'QSpinner',
+        'QTr', 'QBtn',
+        'QTd', 'QMarkupTable'
       ],
 
       directives: [
@@ -97,7 +102,11 @@ module.exports = configure(function (ctx) {
       // showProgress: false,
       // gzip: true,
       // analyze: true,
-
+      env:
+      {
+        AUTH_HOST: JSON.stringify(process.env.AUTH_HOST),
+        AUTH_CLIENT_ID: JSON.stringify(process.env.AUTH_CLIENT_ID)
+      },
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
 
@@ -115,14 +124,24 @@ module.exports = configure(function (ctx) {
             }
           })
         }
-      }
+      },
+      devtool: 'source-map'
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: false,
       port: 3001,
-      open: false // opens browser window automatically
+      open: false, // opens browser window automatically
+      proxy: {
+        // proxy all requests starting with /api to nodejs server
+        '/api': {
+          target: 'http://localhost:3000',
+          pathRewrite: {
+            '^/api': ''
+          }
+        }
+      }
     },
 
     // animations: 'all', // --- includes all animations
