@@ -3,7 +3,13 @@ export interface SurveyStateInterface {
   surveys: Survey[];
 }
 
-let surveyList: Survey[] = []
+const testSurvey = new Survey()
+testSurvey.id = 1
+testSurvey.name = 'fred'
+testSurvey.uuid = '1'
+testSurvey.year = '1991'
+
+const surveyList: Survey[] = [testSurvey]
 const state: SurveyStateInterface = {
   surveys: surveyList
 }

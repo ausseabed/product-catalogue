@@ -1,8 +1,8 @@
 import { store } from 'quasar/wrappers'
 import Vuex from 'vuex'
 
-import surveys from './surveys';
-import { SurveyStateInterface } from './surveys/state';
+import surveys from './surveys'
+import { SurveyStateInterface } from './surveys/state'
 
 /*
  * If not building with SSR mode, you can

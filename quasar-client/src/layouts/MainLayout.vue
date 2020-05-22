@@ -24,7 +24,6 @@
       show-if-above
       :width="300"
       :breakpoint="700"
-      overlay
       bordered
       content-class="bg-grey-3"
     >
