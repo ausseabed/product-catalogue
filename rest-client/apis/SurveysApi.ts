@@ -31,7 +31,7 @@ export class SurveysApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -41,10 +41,14 @@ export class SurveysApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-        requestContext.setHeaderParam("Content-Type", "application/json");
-		// TODO: Should this be handled by ObjectSerializer? imo yes => confidential information included in local object should not be sent
-        const needsSerialization = (<any>"SurveyDto" !== "string") || requestContext.getHeaders()['Content-Type'] === 'application/json';
-        const serializedBody = needsSerialization ? JSON.stringify(surveyDto || {}) : (surveyDto.toString() || ""); // TODO: `toString` call is unnecessary
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(surveyDto, "SurveyDto", ""),
+            contentType
+        );
         requestContext.setBody(serializedBody);
 		
 		let authMethod = null;
@@ -67,7 +71,7 @@ export class SurveysApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -106,7 +110,7 @@ export class SurveysApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -145,7 +149,7 @@ export class SurveysApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -191,7 +195,7 @@ export class SurveysApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -201,10 +205,14 @@ export class SurveysApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-        requestContext.setHeaderParam("Content-Type", "application/json");
-		// TODO: Should this be handled by ObjectSerializer? imo yes => confidential information included in local object should not be sent
-        const needsSerialization = (<any>"SurveyDto" !== "string") || requestContext.getHeaders()['Content-Type'] === 'application/json';
-        const serializedBody = needsSerialization ? JSON.stringify(surveyDto || {}) : (surveyDto.toString() || ""); // TODO: `toString` call is unnecessary
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(surveyDto, "SurveyDto", ""),
+            contentType
+        );
         requestContext.setBody(serializedBody);
 		
 		let authMethod = null;
@@ -222,124 +230,146 @@ export class SurveysApiRequestFactory extends BaseAPIRequestFactory {
 
 
 export class SurveysApiResponseProcessor {
-	
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public surveysControllerCreate(response: ResponseContext):  Survey  {      
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to surveysControllerCreate
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async surveysControllerCreate(response: ResponseContext): Promise<Survey > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Survey = ObjectSerializer.deserialize(jsonBody, "Survey", "") as Survey;            
+            const body: Survey = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Survey", ""
+            ) as Survey;
             return body;
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Survey = ObjectSerializer.deserialize(jsonBody, "Survey", "") as Survey;            
-			return body;        		
+            const body: Survey = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Survey", ""
+            ) as Survey;
+            return body;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public surveysControllerFindAll(response: ResponseContext):  Array<Survey>  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to surveysControllerFindAll
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async surveysControllerFindAll(response: ResponseContext): Promise<Array<Survey> > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Array<Survey> = ObjectSerializer.deserialize(jsonBody, "Array<Survey>", "") as Array<Survey>;            
+            const body: Array<Survey> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<Survey>", ""
+            ) as Array<Survey>;
             return body;
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Array<Survey> = ObjectSerializer.deserialize(jsonBody, "Array<Survey>", "") as Array<Survey>;            
-			return body;        		
+            const body: Array<Survey> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<Survey>", ""
+            ) as Array<Survey>;
+            return body;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public surveysControllerFindOne(response: ResponseContext):  Survey  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to surveysControllerFindOne
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async surveysControllerFindOne(response: ResponseContext): Promise<Survey > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Survey = ObjectSerializer.deserialize(jsonBody, "Survey", "") as Survey;            
+            const body: Survey = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Survey", ""
+            ) as Survey;
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Survey = ObjectSerializer.deserialize(jsonBody, "Survey", "") as Survey;            
-			return body;        		
+            const body: Survey = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Survey", ""
+            ) as Survey;
+            return body;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public surveysControllerRemove(response: ResponseContext):   void  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to surveysControllerRemove
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async surveysControllerRemove(response: ResponseContext): Promise< void> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-        	return;
+            return;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public surveysControllerUpdate(response: ResponseContext):   void  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to surveysControllerUpdate
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async surveysControllerUpdate(response: ResponseContext): Promise< void> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-        	return;
+            return;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }

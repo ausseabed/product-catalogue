@@ -33,7 +33,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -43,10 +43,14 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-        requestContext.setHeaderParam("Content-Type", "application/json");
-		// TODO: Should this be handled by ObjectSerializer? imo yes => confidential information included in local object should not be sent
-        const needsSerialization = (<any>"ProductL0DistDto" !== "string") || requestContext.getHeaders()['Content-Type'] === 'application/json';
-        const serializedBody = needsSerialization ? JSON.stringify(productL0DistDto || {}) : (productL0DistDto.toString() || ""); // TODO: `toString` call is unnecessary
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(productL0DistDto, "ProductL0DistDto", ""),
+            contentType
+        );
         requestContext.setBody(serializedBody);
 		
 		let authMethod = null;
@@ -84,7 +88,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -94,10 +98,14 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-        requestContext.setHeaderParam("Content-Type", "application/json");
-		// TODO: Should this be handled by ObjectSerializer? imo yes => confidential information included in local object should not be sent
-        const needsSerialization = (<any>"ProductL0InstrumentFileDto" !== "string") || requestContext.getHeaders()['Content-Type'] === 'application/json';
-        const serializedBody = needsSerialization ? JSON.stringify(productL0InstrumentFileDto || {}) : (productL0InstrumentFileDto.toString() || ""); // TODO: `toString` call is unnecessary
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(productL0InstrumentFileDto, "ProductL0InstrumentFileDto", ""),
+            contentType
+        );
         requestContext.setBody(serializedBody);
 		
 		let authMethod = null;
@@ -128,7 +136,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -175,7 +183,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -206,7 +214,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -245,7 +253,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -284,7 +292,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -331,7 +339,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -377,7 +385,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -387,10 +395,14 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-        requestContext.setHeaderParam("Content-Type", "application/json");
-		// TODO: Should this be handled by ObjectSerializer? imo yes => confidential information included in local object should not be sent
-        const needsSerialization = (<any>"ProductL0DistDto" !== "string") || requestContext.getHeaders()['Content-Type'] === 'application/json';
-        const serializedBody = needsSerialization ? JSON.stringify(productL0DistDto || {}) : (productL0DistDto.toString() || ""); // TODO: `toString` call is unnecessary
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(productL0DistDto, "ProductL0DistDto", ""),
+            contentType
+        );
         requestContext.setBody(serializedBody);
 		
 		let authMethod = null;
@@ -436,7 +448,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -446,10 +458,14 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-        requestContext.setHeaderParam("Content-Type", "application/json");
-		// TODO: Should this be handled by ObjectSerializer? imo yes => confidential information included in local object should not be sent
-        const needsSerialization = (<any>"ProductL0InstrumentFileDto" !== "string") || requestContext.getHeaders()['Content-Type'] === 'application/json';
-        const serializedBody = needsSerialization ? JSON.stringify(productL0InstrumentFileDto || {}) : (productL0InstrumentFileDto.toString() || ""); // TODO: `toString` call is unnecessary
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(productL0InstrumentFileDto, "ProductL0InstrumentFileDto", ""),
+            contentType
+        );
         requestContext.setBody(serializedBody);
 		
 		let authMethod = null;
@@ -467,242 +483,286 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 export class ProductsL0DistApiResponseProcessor {
-	
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL0DistControllerCreate(response: ResponseContext):  ProductL0Dist  {      
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL0DistControllerCreate
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL0DistControllerCreate(response: ResponseContext): Promise<ProductL0Dist > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: ProductL0Dist = ObjectSerializer.deserialize(jsonBody, "ProductL0Dist", "") as ProductL0Dist;            
+            const body: ProductL0Dist = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProductL0Dist", ""
+            ) as ProductL0Dist;
             return body;
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: ProductL0Dist = ObjectSerializer.deserialize(jsonBody, "ProductL0Dist", "") as ProductL0Dist;            
-			return body;        		
+            const body: ProductL0Dist = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProductL0Dist", ""
+            ) as ProductL0Dist;
+            return body;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL0DistControllerCreateInstrument(response: ResponseContext):  ProductL0InstrumentFile  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL0DistControllerCreateInstrument
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL0DistControllerCreateInstrument(response: ResponseContext): Promise<ProductL0InstrumentFile > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: ProductL0InstrumentFile = ObjectSerializer.deserialize(jsonBody, "ProductL0InstrumentFile", "") as ProductL0InstrumentFile;            
+            const body: ProductL0InstrumentFile = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProductL0InstrumentFile", ""
+            ) as ProductL0InstrumentFile;
             return body;
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: ProductL0InstrumentFile = ObjectSerializer.deserialize(jsonBody, "ProductL0InstrumentFile", "") as ProductL0InstrumentFile;            
-			return body;        		
+            const body: ProductL0InstrumentFile = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProductL0InstrumentFile", ""
+            ) as ProductL0InstrumentFile;
+            return body;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL0DistControllerDelete(response: ResponseContext):   void  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL0DistControllerDelete
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL0DistControllerDelete(response: ResponseContext): Promise< void> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-        	return;
+            return;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL0DistControllerDeleteInstrument(response: ResponseContext):   void  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL0DistControllerDeleteInstrument
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL0DistControllerDeleteInstrument(response: ResponseContext): Promise< void> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the instrument");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-        	return;
+            return;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL0DistControllerFindAll(response: ResponseContext):  Array<ProductL0Dist>  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL0DistControllerFindAll
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL0DistControllerFindAll(response: ResponseContext): Promise<Array<ProductL0Dist> > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Array<ProductL0Dist> = ObjectSerializer.deserialize(jsonBody, "Array<ProductL0Dist>", "") as Array<ProductL0Dist>;            
+            const body: Array<ProductL0Dist> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<ProductL0Dist>", ""
+            ) as Array<ProductL0Dist>;
             return body;
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Array<ProductL0Dist> = ObjectSerializer.deserialize(jsonBody, "Array<ProductL0Dist>", "") as Array<ProductL0Dist>;            
-			return body;        		
-        }
-        let body = response.body || "";
-    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
-    }
-			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL0DistControllerFindInstruments(response: ResponseContext):  Array<ProductL0InstrumentFile>  {      
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Array<ProductL0InstrumentFile> = ObjectSerializer.deserialize(jsonBody, "Array<ProductL0InstrumentFile>", "") as Array<ProductL0InstrumentFile>;            
+            const body: Array<ProductL0Dist> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<ProductL0Dist>", ""
+            ) as Array<ProductL0Dist>;
             return body;
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Array<ProductL0InstrumentFile> = ObjectSerializer.deserialize(jsonBody, "Array<ProductL0InstrumentFile>", "") as Array<ProductL0InstrumentFile>;            
-			return body;        		
-        }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL0DistControllerFindOne(response: ResponseContext):  ProductL0Dist  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL0DistControllerFindInstruments
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL0DistControllerFindInstruments(response: ResponseContext): Promise<Array<ProductL0InstrumentFile> > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: ProductL0Dist = ObjectSerializer.deserialize(jsonBody, "ProductL0Dist", "") as ProductL0Dist;            
+            const body: Array<ProductL0InstrumentFile> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<ProductL0InstrumentFile>", ""
+            ) as Array<ProductL0InstrumentFile>;
+            return body;
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Array<ProductL0InstrumentFile> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<ProductL0InstrumentFile>", ""
+            ) as Array<ProductL0InstrumentFile>;
+            return body;
+        }
+
+        let body = response.body || "";
+    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
+    }
+			
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL0DistControllerFindOne
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL0DistControllerFindOne(response: ResponseContext): Promise<ProductL0Dist > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: ProductL0Dist = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProductL0Dist", ""
+            ) as ProductL0Dist;
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: ProductL0Dist = ObjectSerializer.deserialize(jsonBody, "ProductL0Dist", "") as ProductL0Dist;            
-			return body;        		
-        }
-        let body = response.body || "";
-    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
-    }
-			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL0DistControllerFindOneInstrument(response: ResponseContext):  Array<ProductL0InstrumentFile>  {      
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Array<ProductL0InstrumentFile> = ObjectSerializer.deserialize(jsonBody, "Array<ProductL0InstrumentFile>", "") as Array<ProductL0InstrumentFile>;            
+            const body: ProductL0Dist = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProductL0Dist", ""
+            ) as ProductL0Dist;
             return body;
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Array<ProductL0InstrumentFile> = ObjectSerializer.deserialize(jsonBody, "Array<ProductL0InstrumentFile>", "") as Array<ProductL0InstrumentFile>;            
-			return body;        		
-        }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL0DistControllerUpdate(response: ResponseContext):   void  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL0DistControllerFindOneInstrument
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL0DistControllerFindOneInstrument(response: ResponseContext): Promise<Array<ProductL0InstrumentFile> > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Array<ProductL0InstrumentFile> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<ProductL0InstrumentFile>", ""
+            ) as Array<ProductL0InstrumentFile>;
+            return body;
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Array<ProductL0InstrumentFile> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<ProductL0InstrumentFile>", ""
+            ) as Array<ProductL0InstrumentFile>;
+            return body;
+        }
+
+        let body = response.body || "";
+    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
+    }
+			
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL0DistControllerUpdate
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL0DistControllerUpdate(response: ResponseContext): Promise< void> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-        	return;
+            return;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL0DistControllerUpdateInstrument(response: ResponseContext):   void  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL0DistControllerUpdateInstrument
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL0DistControllerUpdateInstrument(response: ResponseContext): Promise< void> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the instrument");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-        	return;
+            return;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }

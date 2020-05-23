@@ -31,7 +31,7 @@ export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -41,10 +41,14 @@ export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-        requestContext.setHeaderParam("Content-Type", "application/json");
-		// TODO: Should this be handled by ObjectSerializer? imo yes => confidential information included in local object should not be sent
-        const needsSerialization = (<any>"ProductL3DistDto" !== "string") || requestContext.getHeaders()['Content-Type'] === 'application/json';
-        const serializedBody = needsSerialization ? JSON.stringify(productL3DistDto || {}) : (productL3DistDto.toString() || ""); // TODO: `toString` call is unnecessary
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(productL3DistDto, "ProductL3DistDto", ""),
+            contentType
+        );
         requestContext.setBody(serializedBody);
 		
 		let authMethod = null;
@@ -75,7 +79,7 @@ export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -106,7 +110,7 @@ export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -145,7 +149,7 @@ export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -191,7 +195,7 @@ export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
-        requestContext.setHeaderParam("Accept", "application/json")
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
 	
@@ -201,10 +205,14 @@ export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-        requestContext.setHeaderParam("Content-Type", "application/json");
-		// TODO: Should this be handled by ObjectSerializer? imo yes => confidential information included in local object should not be sent
-        const needsSerialization = (<any>"ProductL3DistDto" !== "string") || requestContext.getHeaders()['Content-Type'] === 'application/json';
-        const serializedBody = needsSerialization ? JSON.stringify(productL3DistDto || {}) : (productL3DistDto.toString() || ""); // TODO: `toString` call is unnecessary
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(productL3DistDto, "ProductL3DistDto", ""),
+            contentType
+        );
         requestContext.setBody(serializedBody);
 		
 		let authMethod = null;
@@ -222,124 +230,146 @@ export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 export class ProductsL3DistApiResponseProcessor {
-	
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL3DistControllerCreate(response: ResponseContext):  ProductL3Dist  {      
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL3DistControllerCreate
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL3DistControllerCreate(response: ResponseContext): Promise<ProductL3Dist > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: ProductL3Dist = ObjectSerializer.deserialize(jsonBody, "ProductL3Dist", "") as ProductL3Dist;            
+            const body: ProductL3Dist = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProductL3Dist", ""
+            ) as ProductL3Dist;
             return body;
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: ProductL3Dist = ObjectSerializer.deserialize(jsonBody, "ProductL3Dist", "") as ProductL3Dist;            
-			return body;        		
+            const body: ProductL3Dist = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProductL3Dist", ""
+            ) as ProductL3Dist;
+            return body;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL3DistControllerDelete(response: ResponseContext):   void  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL3DistControllerDelete
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL3DistControllerDelete(response: ResponseContext): Promise< void> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-        	return;
+            return;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL3DistControllerFindAll(response: ResponseContext):  Array<ProductL3Dist>  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL3DistControllerFindAll
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL3DistControllerFindAll(response: ResponseContext): Promise<Array<ProductL3Dist> > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Array<ProductL3Dist> = ObjectSerializer.deserialize(jsonBody, "Array<ProductL3Dist>", "") as Array<ProductL3Dist>;            
+            const body: Array<ProductL3Dist> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<ProductL3Dist>", ""
+            ) as Array<ProductL3Dist>;
             return body;
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: Array<ProductL3Dist> = ObjectSerializer.deserialize(jsonBody, "Array<ProductL3Dist>", "") as Array<ProductL3Dist>;            
-			return body;        		
+            const body: Array<ProductL3Dist> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<ProductL3Dist>", ""
+            ) as Array<ProductL3Dist>;
+            return body;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL3DistControllerFindOne(response: ResponseContext):  ProductL3Dist  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL3DistControllerFindOne
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL3DistControllerFindOne(response: ResponseContext): Promise<ProductL3Dist > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const jsonBody = JSON.parse(response.body);
-            const body: ProductL3Dist = ObjectSerializer.deserialize(jsonBody, "ProductL3Dist", "") as ProductL3Dist;            
+            const body: ProductL3Dist = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProductL3Dist", ""
+            ) as ProductL3Dist;
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const jsonBody = JSON.parse(response.body);
-            const body: ProductL3Dist = ObjectSerializer.deserialize(jsonBody, "ProductL3Dist", "") as ProductL3Dist;            
-			return body;        		
+            const body: ProductL3Dist = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProductL3Dist", ""
+            ) as ProductL3Dist;
+            return body;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 			
-	/**
-	 * Unwraps the actual response sent by the server from the response context and deserializes the response content 
-	 * to the expected objects
-	 * 
-	 * @params response Response returned by the server for a request to  
-	 * @throws ApiException if the response code was not in [200, 299]
-	 */
-    public productsL3DistControllerUpdate(response: ResponseContext):   void  {      
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productsL3DistControllerUpdate
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productsL3DistControllerUpdate(response: ResponseContext): Promise< void> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
-        
-        // Work around for incorrect api specification in petstore.yaml
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-        	return;
+            return;
         }
+
         let body = response.body || "";
     	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }

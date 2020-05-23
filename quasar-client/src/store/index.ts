@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 import surveys from './surveys'
 import { SurveyStateInterface } from './surveys/state'
-
 /*
  * If not building with SSR mode, you can
  * directly export the Store instantiation
@@ -12,6 +11,7 @@ import { SurveyStateInterface } from './surveys/state'
 export interface StoreInterface {
   // Define your own store structure, using submodules if needed
   surveys: SurveyStateInterface;
+  bearerToken: string;
 }
 
 export default store(function ({ Vue }) {

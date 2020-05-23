@@ -18,7 +18,11 @@ const bearerStrategy = new BearerStrategy(config, (req, token, done) => {
 );
 
 async function bootstrap () {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule,
+    {
+      logger: ['error', 'warn', 'log', 'verbose'],
+    }
+  );
 
   app.useGlobalGuards(new (AuthGuard(bearerStrategy)));
 
@@ -27,7 +31,7 @@ async function bootstrap () {
     .setDescription('The API description for the Ausseabed product catalogue inventory')
     .setContact("AusSeabed", "http://ausseabed.gov.au/", "AusSeabed@ga.gov.au")
     .setLicense("Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0.html")
-    .setVersion('0.1.0')
+    .setVersion('0.1.4')
     .addTag('surveys')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },

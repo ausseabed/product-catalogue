@@ -114,6 +114,7 @@ export default boot(({ router, store }) => {
           next('/404')
         } else {
           store.state.account = account
+          store.state.bearerToken = account.idToken
           next()
         }
       })

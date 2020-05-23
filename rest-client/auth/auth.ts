@@ -117,8 +117,7 @@ export class BasicBearerAuthentication extends SecurityAuthentication {
 	}
 	
 	public applySecurityAuthentication(context: RequestContext) {
-		let comb = this.token;
-		context.setHeaderParam("Authentication", "Bearer " + btoa(comb));
+		context.setHeaderParam("authorization", "Bearer " + this.token);
 	}
 }
 
