@@ -11,12 +11,45 @@
       virtual-scroll
       :pagination.sync="pagination"
       :selected.sync="selected"
-    />
+    >
+      <template v-slot:top>
+        <div class="col">
+          <div class="q-table__title">Surveys and Compilations</div>
+        </div>
+        <q-btn
+          color="primary"
+          :disable="loading"
+          label="Add Dataset"
+          @click="addRow"
+          :selected="[]"
+        />
+        <q-btn
+          class="q-ml-sm"
+          color="primary"
+          :disable="loading"
+          label="Remove Dataset"
+          @click="removeRow"
+        />
+        <q-space />
+        <q-input
+          borderless
+          dense
+          debounce="300"
+          color="primary"
+          v-model="filter"
+        >
+          <template v-slot:append>
+            <q-icon :name="matSearch" />
+          </template>
+        </q-input>
+      </template>
+    </q-table>
   </div>
 
 </template>
 
 <script lang="ts">
+import { matSearch } from '@quasar/extras/material-icons'
 import { Survey } from '@ausseabed/product-catalogue-rest-client'
 // import { mapState } from 'vuex'
 // import { StoreInterface } from '../store'
@@ -31,7 +64,7 @@ const namespace = 'surveys'
 export default class SurveysEditor extends Vue {
   // @Getter('surveys') surveys: Survey[]
   @State('surveys') surveys!: SurveyStateInterface
-  @Action('fetchData', { namespace }) fetchData!: any;
+  @Action('fetchData', { namespace }) fetchData!: any
   // props: {
   //   surveys2: {
   //     type: Array,
@@ -47,8 +80,14 @@ export default class SurveysEditor extends Vue {
     this.fetchData()
   }
 
+  // created () {
+  //   this.matSearch = matSearch
+  // }
+
   data () {
     return {
+      matSearch: matSearch,
+      loading: false,
       pagination: {
         rowsPerPage: 100
       },

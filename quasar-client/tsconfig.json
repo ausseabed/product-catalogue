@@ -4,5 +4,6 @@
     "baseUrl": ".",
     "target": "es5",
     "experimentalDecorators": true
-  }
+  },
+  "exclude": [".quasar","node_modules", "dist"]
 }
