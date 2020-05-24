@@ -22,7 +22,7 @@
       </q-banner>
     </div>
     <q-table
-      style="height: 400px"
+      style="height: 400px border-collapse:collapse"
       title="Surveys"
       :data="surveys.surveys"
       :columns="columns"
@@ -37,9 +37,17 @@
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td>
-            <!-- add this line -->
-            <q-checkbox v-model="props.selected" /><!-- add this line -->
-          </q-td> <!-- add this line -->
+            <!-- <q-checkbox v-model="props.selected" /> -->
+            <q-btn
+              flat
+              @click="() => toggleEditMode(props.row, props.selected)"
+              round
+              color="white"
+              text-color="black"
+              :icon="props.selected? matDone: matEdit"
+            />
+
+          </q-td>
           <q-td
             :props="props"
             key="UUID"
@@ -94,6 +102,31 @@
               />
             </div>
           </q-td>
+          <q-td
+            :props="props"
+            key="products"
+          >
+            <router-link :to="{ name: 'survey-l3-relation', params: { surveyId: props.row.id} }">
+              <div v-if="!props.selected">
+                {{ props.row.products }}
+                <!-- to="/survey-l3-relation" -->
+                <q-btn
+                  label='Add L3'
+                  color="primary"
+                />
+              </div>
+            </router-link>
+          </q-td>
+          <q-td width='15px'>
+            <q-btn
+              flat
+              @click="() => removeRow(props.row)"
+              round
+              color="white"
+              text-color="black"
+              :icon="matDelete"
+            />
+          </q-td>
         </q-tr>
       </template>
 
@@ -104,16 +137,9 @@
         <q-btn
           color="primary"
           :disable="loading"
-          label="Add Dataset"
-          @click="addRow"
+          label="Add Survey"
+          @click="newSurvey"
           :selected="[]"
-        />
-        <q-btn
-          class="q-ml-sm"
-          color="primary"
-          :disable="loading"
-          label="Remove Dataset"
-          @click="removeRow"
         />
         <q-space />
         <q-input
@@ -137,7 +163,7 @@
 </template>
 
 <script lang="ts">
-import { matSearch } from '@quasar/extras/material-icons'
+import { matSearch, matEdit, matDone, matDelete } from '@quasar/extras/material-icons'
 import { Survey } from '@ausseabed/product-catalogue-rest-client'
 // import { mapState } from 'vuex'
 // import { StoreInterface } from '../store'
@@ -151,10 +177,17 @@ const namespace = 'surveys'
 
 @Component
 export default class SurveysEditor extends Vue {
-  // @Getter('surveys') surveys: Survey[]
   @State('surveys') surveys!: SurveyStateInterface
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Action('fetchData', { namespace }) fetchData!: any
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Action('newSurvey', { namespace }) newSurvey!: any
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Action('deleteSurvey', { namespace }) removeRow!: any
+
   // @Action('updateEntry', { namespace }) update!: any
 
   update (row: number, element: UpdateRowKnownTypes, value: string) {
@@ -166,37 +199,25 @@ export default class SurveysEditor extends Vue {
     this.$store.dispatch('surveys/updateEntry', dir)
   }
 
-  // props: {
-  //   surveys2: {
-  //     type: Array,
-  //     required: true
-  //   }
-  // }
-  // mapState({
-  //   surveys: (state: StoreInterface) => state.surveys.surveys
-  //   // selectedProduct: (state: StoreInterface) => state.surveys.selectedProduct,
-  //   // countAlias: ['data', 'selectedProduct']
-  // }),
+  toggleEditMode (selectedRow: Survey, selected: boolean) {
+    if (selected) {
+      this.$data.selected = []
+    } else {
+      this.$data.selected = [selectedRow]
+    }
+  }
+
   mounted () {
     this.fetchData()
   }
-
-  addRow () {
-    // this.selected = []
-    // this.$store.dispatch('product/addEmptyRowAction')
-  }
-
-  removeRow () {
-    // this.selected = []
-  }
-  // created () {
-  //   this.matSearch = matSearch
-  // }
 
   data () {
     return {
       filter: '',
       matSearch: matSearch,
+      matDone: matDone,
+      matEdit: matEdit,
+      matDelete: matDelete,
       loading: false,
       pagination: {
         rowsPerPage: 100
@@ -213,7 +234,9 @@ export default class SurveysEditor extends Vue {
           sortable: true
         },
         { name: 'surveyName', label: 'Survey Name', field: 'name', align: 'left', sortable: true },
-        { name: 'year', label: 'Year', field: 'year', align: 'left', sortable: true }
+        { name: 'year', label: 'Year', field: 'year', align: 'left', sortable: true },
+        { name: 'products', label: 'Products', field: 'products', align: 'left' },
+        { name: 'remove', label: '', field: 'remove', align: 'left' }
       ]
     }
   }

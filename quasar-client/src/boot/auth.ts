@@ -1,5 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import * as msal from '@azure/msal-browser'
+import { ServerConfiguration, Configuration } from '@ausseabed/product-catalogue-rest-client'
+import { StoreInterface } from 'src/store'
 // import { TokenRenewParameters } from '@azure/msal-common'
 
 let clientIdStr = ''
@@ -77,7 +79,23 @@ export const msalInstance = new msal.PublicClientApplication(msalConfig)
 //   }
 // }
 
-export async function login () {
+export function getRestConfiguration (rootState: StoreInterface) {
+  const serverConfig = new ServerConfiguration('http://localhost:3001/api', {})
+
+  const configuration = new Configuration(
+    {
+      baseServer: serverConfig,
+      authMethods: {
+        'access-token': {
+          token: rootState.bearerToken
+        }
+      }
+    }
+  )
+  return configuration
+}
+
+async function login () {
   let account = msalInstance.getAccount()
   if (account === null || account === undefined) {
     await msalInstance.loginPopup(requestScopes)

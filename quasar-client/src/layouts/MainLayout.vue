@@ -62,8 +62,8 @@
   </q-layout>
 </template>
 
-<script>
-import EssentialLink from 'components/EssentialLink'
+<script lang='ts'>
+import EssentialLink from 'components/EssentialLink.vue'
 import { matMenu, matSchool } from '@quasar/extras/material-icons'
 const msalInstance = require('../boot/auth').msalInstance
 
@@ -83,7 +83,11 @@ export default {
   },
   data () {
     return {
-      userName: (this.$store.state !== undefined && this.$store.state.account !== undefined ? this.$store.state.account.userName : ''),
+      userName:
+        this.$store.state !== undefined &&
+          this.$store.state.account !== undefined
+          ? this.$store.state.account.userName
+          : '',
       leftDrawerOpen: false,
       essentialLinks: [
         {
@@ -96,13 +100,13 @@ export default {
           title: 'Survey Datasets',
           caption: 'Add or remove information about bathymetry products',
           icon: matSchool,
-          link: 'surveys'
+          link: '/surveys'
         },
         {
           title: 'Export Datasets',
           caption: 'Export dataset information for use in the Marine Portal',
           icon: matSchool,
-          link: 'exports'
+          link: '/exports'
         }
       ]
     }

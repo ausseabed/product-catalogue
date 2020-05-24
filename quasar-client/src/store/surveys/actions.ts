@@ -1,10 +1,9 @@
 import { ActionTree } from 'vuex'
 import { StoreInterface } from '../index'
 import { SurveyStateInterface } from './state'
-import { Configuration, Survey, SurveyDto } from '@ausseabed/product-catalogue-rest-client'
-import { SurveysApiRequestFactory } from '@ausseabed/product-catalogue-rest-client/apis/SurveysApi'
-import { ServerConfiguration } from '@ausseabed/product-catalogue-rest-client/servers'
 import { ObservableSurveysApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
+import { getRestConfiguration } from 'src/boot/auth'
+import { SurveyDto, Survey } from '@ausseabed/product-catalogue-rest-client'
 
 export type UpdateRowKnownTypes = 'year' | 'uuid' | 'name'
 
@@ -16,23 +15,35 @@ export interface UpdateRowInterface {
 
 const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
   fetchData ({ commit, rootState }) {
-    const serverConfig = new ServerConfiguration('http://localhost:3001/api', {})
-
-    const configuration = new Configuration(
-      {
-        baseServer: serverConfig,
-        authMethods: {
-          'access-token': {
-            token: rootState.bearerToken
-          }
-        }
-      }
-    )
-
-    const surveysApiRequestFactory = new SurveysApiRequestFactory(configuration)
-    const surveyApi = new ObservableSurveysApi(configuration, surveysApiRequestFactory)
-    surveyApi.surveysControllerFindAll(configuration).toPromise().then((surveys) =>
+    const surveyApi = new ObservableSurveysApi(getRestConfiguration(rootState))
+    surveyApi.surveysControllerFindAll().toPromise().then((surveys) =>
       commit('dataLoaded', surveys))
+      .catch(reason => {
+        commit('errorMessage', reason)
+      })
+  },
+  newSurvey ({ commit, rootState }) {
+    const surveyDto: SurveyDto = {
+      name: '',
+      uuid: '',
+      year: ''
+    }
+    const surveyApi = new ObservableSurveysApi(getRestConfiguration(rootState))
+    surveyApi.surveysControllerCreate(surveyDto).toPromise().then((newSurvey) => {
+      commit('addNewSurvey', newSurvey)
+    }
+    ).catch(reason => {
+      commit('errorMessage', reason)
+    })
+  },
+  deleteSurvey ({ commit, rootState }, payload: Survey) {
+    const surveyApi = new ObservableSurveysApi(getRestConfiguration(rootState))
+    surveyApi.surveysControllerRemove(payload.id).toPromise().then(() => {
+      commit('removeSurvey', payload)
+    }
+    ).catch(reason => {
+      commit('errorMessage', reason)
+    })
   },
 
   updateEntry ({ commit, state, rootState }, payload: UpdateRowInterface) {
@@ -49,21 +60,9 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
     }
     surveyDto[payload.elementName] = payload.elementValue
     surveyClone[payload.elementName] = payload.elementValue
-    const serverConfig = new ServerConfiguration('http://localhost:3001/api', {})
-
-    const configuration = new Configuration(
-      {
-        baseServer: serverConfig,
-        authMethods: {
-          'access-token': {
-            token: rootState.bearerToken
-          }
-        }
-      }
-    )
-
-    const surveysApiRequestFactory = new SurveysApiRequestFactory(configuration)
-    const surveyApi = new ObservableSurveysApi(configuration, surveysApiRequestFactory)
+    const configuration = getRestConfiguration(rootState)
+    // const surveysApiRequestFactory = new SurveysApiRequestFactory(configuration)
+    const surveyApi = new ObservableSurveysApi(configuration)
     commit('updateSurveys', [surveyClone])
     surveyApi.surveysControllerUpdate(payload.rowId, surveyDto).toPromise()
       .then(() => { // do nothing

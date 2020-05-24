@@ -5,6 +5,12 @@ export interface SurveyStateInterface {
   errorMessages: string[];
 }
 
+// export interface SurveyRelationshipInterface {
+//   survey: Survey;
+//   l0relationships: [SurveyL0Relation];
+//   l3relationships: [SurveyL3Relation];
+// }
+
 const surveyList: Survey[] = []
 const state: SurveyStateInterface = {
   surveys: surveyList,

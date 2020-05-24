@@ -12,6 +12,11 @@ const routes: RouteConfig[] = [
     children: [{ path: '', component: () => import('pages/Surveys.vue') }]
   },
   {
+    path: '/survey-l3-relation',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ name: 'survey-l3-relation', path: '/survey-l3-relation/:surveyId', component: () => import('pages/Index.vue') }]
+  },
+  {
     path: '/exports',
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/Index.vue') }]
