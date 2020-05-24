@@ -1,5 +1,6 @@
 <template>
   <q-page class='flex'>
+
     <div class='col'>
       <surveys-editor
         title='Example component'

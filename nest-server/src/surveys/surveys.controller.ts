@@ -1,10 +1,11 @@
-import { Controller, Get, Put, Delete, Body, Req, Param, Post, Res, UsePipes, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Body, Req, Param, Post, Res, UsePipes, ParseIntPipe, BadRequestException } from '@nestjs/common';
 import { Request } from 'express';
 import { ApiTags, ApiResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { Survey } from './survey.entity'
 import { SurveysService } from './surveys.service'
 import { SurveyDto } from './dto/survey.dto';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
+import { throwError } from 'rxjs';
 
 @ApiTags('surveys')
 @Controller('surveys')

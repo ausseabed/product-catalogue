@@ -3,7 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "skipLibCheck": true
   },
-  "exclude": [".quasar","node_modules", "dist"]
+  "exclude": [
+    ".quasar",
+    "node_modules",
+    "dist"
+  ]
 }

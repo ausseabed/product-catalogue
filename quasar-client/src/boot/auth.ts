@@ -88,9 +88,9 @@ export async function login () {
         console.error('error: ' + err)
         return null
       })
-
-    return account
   }
+
+  msalInstance.acquireTokenSilent(requestScopes)
   // const tokenResponse = await msalInstance.acquireTokenSilent(request).catch(async (_) => {
   //   // fallback to interaction when silent call fails
   //   return await msalInstance.acquireTokenPopup(request).catch(error => {
