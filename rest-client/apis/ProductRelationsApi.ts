@@ -8,6 +8,7 @@ import {isCodeInRange} from '../util';
 
 import { CompilationL3Relation } from '../models/CompilationL3Relation';
 import { CompilationL3RelationDto } from '../models/CompilationL3RelationDto';
+import { RelationSummaryDto } from '../models/RelationSummaryDto';
 import { SurveyL0Relation } from '../models/SurveyL0Relation';
 import { SurveyL0RelationDto } from '../models/SurveyL0RelationDto';
 import { SurveyL3Relation } from '../models/SurveyL3Relation';
@@ -255,6 +256,99 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+	
+		// Header Params
+	
+		// Form Params
+
+
+		// Body Params
+		
+		let authMethod = null;
+    	// Apply auth methods
+    	authMethod = config.authMethods["access-token"]
+    	if (authMethod) {
+    		authMethod.applySecurityAuthentication(requestContext);
+    	}
+    	
+    	return requestContext;
+    }
+			
+    /**
+     */
+    public productRelationsControllerFindAllL0Survey(options?: Configuration): RequestContext {
+		let config = options || this.configuration;
+		
+		// Path Params
+    	const localVarPath = '/product-relations/surveys-to-l0';
+
+		// Make Request Context
+    	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+	
+		// Header Params
+	
+		// Form Params
+
+
+		// Body Params
+		
+		let authMethod = null;
+    	// Apply auth methods
+    	authMethod = config.authMethods["access-token"]
+    	if (authMethod) {
+    		authMethod.applySecurityAuthentication(requestContext);
+    	}
+    	
+    	return requestContext;
+    }
+			
+    /**
+     */
+    public productRelationsControllerFindAllL3Compilation(options?: Configuration): RequestContext {
+		let config = options || this.configuration;
+		
+		// Path Params
+    	const localVarPath = '/product-relations/compilation-to-l3';
+
+		// Make Request Context
+    	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+	
+		// Header Params
+	
+		// Form Params
+
+
+		// Body Params
+		
+		let authMethod = null;
+    	// Apply auth methods
+    	authMethod = config.authMethods["access-token"]
+    	if (authMethod) {
+    		authMethod.applySecurityAuthentication(requestContext);
+    	}
+    	
+    	return requestContext;
+    }
+			
+    /**
+     */
+    public productRelationsControllerFindAllL3Survey(options?: Configuration): RequestContext {
+		let config = options || this.configuration;
+		
+		// Path Params
+    	const localVarPath = '/product-relations/surveys-to-l3';
+
+		// Make Request Context
+    	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
@@ -840,6 +934,96 @@ export class ProductRelationsApiResponseProcessor {
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
             return;
+        }
+
+        let body = response.body || "";
+    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
+    }
+			
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productRelationsControllerFindAllL0Survey
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productRelationsControllerFindAllL0Survey(response: ResponseContext): Promise<Array<RelationSummaryDto> > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Array<RelationSummaryDto> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<RelationSummaryDto>", ""
+            ) as Array<RelationSummaryDto>;
+            return body;
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Array<RelationSummaryDto> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<RelationSummaryDto>", ""
+            ) as Array<RelationSummaryDto>;
+            return body;
+        }
+
+        let body = response.body || "";
+    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
+    }
+			
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productRelationsControllerFindAllL3Compilation
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productRelationsControllerFindAllL3Compilation(response: ResponseContext): Promise<Array<RelationSummaryDto> > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Array<RelationSummaryDto> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<RelationSummaryDto>", ""
+            ) as Array<RelationSummaryDto>;
+            return body;
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Array<RelationSummaryDto> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<RelationSummaryDto>", ""
+            ) as Array<RelationSummaryDto>;
+            return body;
+        }
+
+        let body = response.body || "";
+    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
+    }
+			
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to productRelationsControllerFindAllL3Survey
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async productRelationsControllerFindAllL3Survey(response: ResponseContext): Promise<Array<RelationSummaryDto> > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Array<RelationSummaryDto> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<RelationSummaryDto>", ""
+            ) as Array<RelationSummaryDto>;
+            return body;
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Array<RelationSummaryDto> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<RelationSummaryDto>", ""
+            ) as Array<RelationSummaryDto>;
+            return body;
         }
 
         let body = response.body || "";

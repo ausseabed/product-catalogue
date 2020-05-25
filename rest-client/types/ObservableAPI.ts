@@ -18,6 +18,7 @@ import { ProductL3Dist } from '../models/ProductL3Dist';
 import { ProductL3DistDto } from '../models/ProductL3DistDto';
 import { ProductL3Src } from '../models/ProductL3Src';
 import { ProductL3SrcDto } from '../models/ProductL3SrcDto';
+import { RelationSummaryDto } from '../models/RelationSummaryDto';
 import { Survey } from '../models/Survey';
 import { SurveyDto } from '../models/SurveyDto';
 import { SurveyL0Relation } from '../models/SurveyL0Relation';
@@ -294,6 +295,69 @@ export class ObservableProductRelationsApi {
 	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
 	    		}
 	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerDeleteL3Survey(rsp)));
+	    	}));
+    }
+	
+    /**
+     */
+    public productRelationsControllerFindAllL0Survey(options?: Configuration): Observable<Array<RelationSummaryDto>> {
+    	const requestContext = this.requestFactory.productRelationsControllerFindAllL0Survey(options);
+
+		// build promise chain
+    	let middlewarePreObservable = of(requestContext);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerFindAllL0Survey(rsp)));
+	    	}));
+    }
+	
+    /**
+     */
+    public productRelationsControllerFindAllL3Compilation(options?: Configuration): Observable<Array<RelationSummaryDto>> {
+    	const requestContext = this.requestFactory.productRelationsControllerFindAllL3Compilation(options);
+
+		// build promise chain
+    	let middlewarePreObservable = of(requestContext);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerFindAllL3Compilation(rsp)));
+	    	}));
+    }
+	
+    /**
+     */
+    public productRelationsControllerFindAllL3Survey(options?: Configuration): Observable<Array<RelationSummaryDto>> {
+    	const requestContext = this.requestFactory.productRelationsControllerFindAllL3Survey(options);
+
+		// build promise chain
+    	let middlewarePreObservable = of(requestContext);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerFindAllL3Survey(rsp)));
 	    	}));
     }
 	

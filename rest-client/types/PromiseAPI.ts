@@ -16,6 +16,7 @@ import { ProductL3Dist } from '../models/ProductL3Dist';
 import { ProductL3DistDto } from '../models/ProductL3DistDto';
 import { ProductL3Src } from '../models/ProductL3Src';
 import { ProductL3SrcDto } from '../models/ProductL3SrcDto';
+import { RelationSummaryDto } from '../models/RelationSummaryDto';
 import { Survey } from '../models/Survey';
 import { SurveyDto } from '../models/SurveyDto';
 import { SurveyL0Relation } from '../models/SurveyL0Relation';
@@ -134,6 +135,27 @@ export class PromiseProductRelationsApi {
      */
     public productRelationsControllerDeleteL3Survey(relationId: number, options?: Configuration): Promise<void> {
     	const result = this.api.productRelationsControllerDeleteL3Survey(relationId, options);
+        return result.toPromise();
+    }
+	
+    /**
+     */
+    public productRelationsControllerFindAllL0Survey(options?: Configuration): Promise<Array<RelationSummaryDto>> {
+    	const result = this.api.productRelationsControllerFindAllL0Survey(options);
+        return result.toPromise();
+    }
+	
+    /**
+     */
+    public productRelationsControllerFindAllL3Compilation(options?: Configuration): Promise<Array<RelationSummaryDto>> {
+    	const result = this.api.productRelationsControllerFindAllL3Compilation(options);
+        return result.toPromise();
+    }
+	
+    /**
+     */
+    public productRelationsControllerFindAllL3Survey(options?: Configuration): Promise<Array<RelationSummaryDto>> {
+    	const result = this.api.productRelationsControllerFindAllL3Survey(options);
         return result.toPromise();
     }
 	

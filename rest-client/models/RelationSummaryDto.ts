@@ -12,44 +12,54 @@
 
 import { HttpFile } from '../http/http';
 
-export class CompilationDto {
+export class RelationSummaryDto {
     /**
-    * Name of product for display purposes - from gazeteer
+    * Identifier of the products
     */
-    'name': string;
+    'productId': any;
     /**
-    * Unique identifier for reference purposes
+    * The name of the product
     */
-    'uuid': string;
+    'productName': any;
     /**
-    * Year of product for display purposes
+    * Identifier of the relation between the products
     */
-    'year': string;
+    'relationId': any;
+    /**
+    * Identifier of the survey/compilation that contains the products
+    */
+    'surveyId': any;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
+            "name": "productId",
+            "baseName": "product_id",
+            "type": "any",
             "format": ""
         },
         {
-            "name": "uuid",
-            "baseName": "uuid",
-            "type": "string",
+            "name": "productName",
+            "baseName": "product_name",
+            "type": "any",
             "format": ""
         },
         {
-            "name": "year",
-            "baseName": "year",
-            "type": "string",
+            "name": "relationId",
+            "baseName": "relation_id",
+            "type": "any",
+            "format": ""
+        },
+        {
+            "name": "surveyId",
+            "baseName": "survey_id",
+            "type": "any",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return CompilationDto.attributeTypeMap;
+        return RelationSummaryDto.attributeTypeMap;
     }
     
     public constructor() {

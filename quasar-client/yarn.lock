@@ -3,9 +3,9 @@
 
 
 "@ausseabed/product-catalogue-rest-client@^0.1.0":
-  version "0.1.4"
-  resolved "https://npm.pkg.github.com/download/@ausseabed/product-catalogue-rest-client/0.1.4/990f7f61c961bc414208e928f92d75c70a80c6e7b346bc5eee73110220692e02#707208ce0b2aa1a7da1bbb42b43f2d8b5fab0086"
-  integrity sha512-2xkaGUIYBicpt5HlcNPPvSrw/bV1oLUcxb8ZlaZ0+DnTVZUcZSUlzEIidAwvCcAQKq6IYzvw5F7Njqrc+49MDA==
+  version "0.1.5"
+  resolved "https://npm.pkg.github.com/download/@ausseabed/product-catalogue-rest-client/0.1.5/c73f6db7263f5e78e3df35d3000b6e16536ce88087fa8ae1d0b7a156df1ac742#081984d1baa9d74a97942af65d3ae4fddf53ace6"
+  integrity sha512-rxDUjeFRbtHHv7x66k3MkxXNadmEtItvzIe2SQB7e+l204Y1h2i2j1b3HW2I3ZRTVjogxdTyxrtjU7CXmEBh7Q==
   dependencies:
     btoa "^1.2.1"
     es6-promise "^4.2.4"
@@ -2457,9 +2457,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001043, caniuse-lite@^1.0.30001061:
-  version "1.0.30001062"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001062.tgz#d814b648338504b315222ace6f1a533d9a55e390"
-  integrity sha512-ei9ZqeOnN7edDrb24QfJ0OZicpEbsWxv7WusOiQGz/f2SfvBgHHbOEwBJ8HKGVSyx8Z6ndPjxzR6m0NQq+0bfw==
+  version "1.0.30001065"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001065.tgz#e8d7fef61cdfd8a7107493ad6bf551a4eb59c68f"
+  integrity sha512-DDxCLgJ266YnAHQv0jS1wdOaihRFF52Zgmlag39sQJVy2H46oROpJp4hITstqhdB8qnHSrKNoAEkQA9L/oYF9A==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -7810,9 +7810,9 @@ register-service-worker@1.7.1:
   integrity sha512-IdTfUZ4u8iJL8o1w8es8l6UMGPmkwHolUdT+UmM1UypC80IB4KbpuIlvwWVj8UDS7eJwkEYRcKRgfRX+oTmJsw==
 
 regjsgen@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/regjsgen/-/regjsgen-0.5.1.tgz#48f0bf1a5ea205196929c0d9798b42d1ed98443c"
-  integrity sha512-5qxzGZjDs9w4tzT3TPhCJqWdCc3RLYwy9J2NB0nm5Lz+S273lvWcpjaTGHsT1dc6Hhfq41uSEOw8wBmxrKOuyg==
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/regjsgen/-/regjsgen-0.5.2.tgz#92ff295fb1deecbf6ecdab2543d207e91aa33733"
+  integrity sha512-OFFT3MfrH90xIW8OOSyUrk6QHD5E9JOTeGodiJeBS3J6IwlgzJMNE/1bZklWz5oTg+9dCMyEetclvCVXOPoN3A==
 
 regjsparser@^0.6.4:
   version "0.6.4"

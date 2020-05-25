@@ -12,6 +12,7 @@ export * from './ProductL3Dist';
 export * from './ProductL3DistDto';
 export * from './ProductL3Src';
 export * from './ProductL3SrcDto';
+export * from './RelationSummaryDto';
 export * from './Survey';
 export * from './SurveyDto';
 export * from './SurveyL0Relation';
@@ -33,6 +34,7 @@ import { ProductL3Dist } from './ProductL3Dist';
 import { ProductL3DistDto } from './ProductL3DistDto';
 import { ProductL3Src } from './ProductL3Src';
 import { ProductL3SrcDto } from './ProductL3SrcDto';
+import { RelationSummaryDto } from './RelationSummaryDto';
 import { Survey } from './Survey';
 import { SurveyDto } from './SurveyDto';
 import { SurveyL0Relation } from './SurveyL0Relation';
@@ -76,6 +78,7 @@ let typeMap: {[index: string]: any} = {
     "ProductL3DistDto": ProductL3DistDto,
     "ProductL3Src": ProductL3Src,
     "ProductL3SrcDto": ProductL3SrcDto,
+    "RelationSummaryDto": RelationSummaryDto,
     "Survey": Survey,
     "SurveyDto": SurveyDto,
     "SurveyL0Relation": SurveyL0Relation,

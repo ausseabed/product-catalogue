@@ -412,6 +412,33 @@
                 ],
                 "type": "object"
             },
+            "RelationSummaryDto": {
+                "properties": {
+                    "product_id": {
+                        "description": "Identifier of the products",
+                        "type": "object"
+                    },
+                    "product_name": {
+                        "description": "The name of the product",
+                        "type": "object"
+                    },
+                    "relation_id": {
+                        "description": "Identifier of the relation between the products",
+                        "type": "object"
+                    },
+                    "survey_id": {
+                        "description": "Identifier of the survey/compilation that contains the products",
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "relation_id",
+                    "survey_id",
+                    "product_id",
+                    "product_name"
+                ],
+                "type": "object"
+            },
             "Survey": {
                 "properties": {
                     "id": {
@@ -550,7 +577,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.1.4"
+        "version": "0.1.5"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -724,6 +751,33 @@
             }
         },
         "/product-relations/compilation-to-l3": {
+            "get": {
+                "operationId": "ProductRelationsController_findAllL3Compilation",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/RelationSummaryDto"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
             "post": {
                 "operationId": "ProductRelationsController_createCompilation",
                 "parameters": [],
@@ -904,6 +958,33 @@
             }
         },
         "/product-relations/surveys-to-l0": {
+            "get": {
+                "operationId": "ProductRelationsController_findAllL0Survey",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/RelationSummaryDto"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
             "post": {
                 "operationId": "ProductRelationsController_createL0Survey",
                 "parameters": [],
@@ -1084,6 +1165,33 @@
             }
         },
         "/product-relations/surveys-to-l3": {
+            "get": {
+                "operationId": "ProductRelationsController_findAllL3Survey",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/RelationSummaryDto"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
             "post": {
                 "operationId": "ProductRelationsController_createL3Survey",
                 "parameters": [],
