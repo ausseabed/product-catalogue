@@ -82,12 +82,18 @@ export const msalInstance = new msal.PublicClientApplication(msalConfig)
 export function getRestConfiguration (rootState: StoreInterface) {
   const serverConfig = new ServerConfiguration('http://localhost:3001/api', {})
 
+  msalInstance.acquireTokenSilent(requestScopes)
+  const account = msalInstance.getAccount()
+  if (!account) {
+    throw Error('Could not authenticate')
+  }
+
   const configuration = new Configuration(
     {
       baseServer: serverConfig,
       authMethods: {
         'access-token': {
-          token: rootState.bearerToken
+          token: account.idToken
         }
       }
     }

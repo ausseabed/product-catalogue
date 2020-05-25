@@ -67,22 +67,23 @@ import EssentialLink from 'components/EssentialLink.vue'
 import { matMenu, matSchool } from '@quasar/extras/material-icons'
 const msalInstance = require('../boot/auth').msalInstance
 
-export default {
-  name: 'MainLayout',
-  methods: {
-    logoutfn: function () {
-      msalInstance.logout()
-    }
-  },
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component({
   components: {
     EssentialLink
-  },
-  created () {
-    this.matMenu = matMenu
-    this.matSchool = matSchool
-  },
+  }
+})
+export default class MainLayout extends Vue {
+  logoutfn () {
+    msalInstance.logout()
+  }
+
   data () {
     return {
+      matMenu: matMenu,
+      matSchool: matSchool,
       userName:
         this.$store.state !== undefined &&
           this.$store.state.account !== undefined

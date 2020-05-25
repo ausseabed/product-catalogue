@@ -1,6 +1,6 @@
 <template>
 
-  <div class="q-pa-md">
+  <div>
     <div
       class="q-md q-gutter-sm"
       v-if="surveys.errorMessages.length>0"
@@ -10,15 +10,7 @@
         class="text-white bg-red"
       >
         {{surveys.errorMessages.slice(-1)[0]}}
-        <!--
-        <template v-slot:action>
-          <q-btn
-            flat
-            color="white"
-            label="Turn ON Wifi"
-          />
-        </template>
-        -->
+
       </q-banner>
     </div>
     <q-table
@@ -106,7 +98,10 @@
             :props="props"
             key="products"
           >
-            <router-link :to="{ name: 'survey-l3-relation', params: { surveyId: props.row.id} }">
+            <router-link
+              :to="{ name: 'survey-l3-relation', params: { surveyId: props.row.id} }"
+              style="text-decoration: none; color: inherit;"
+            >
               <div v-if="!props.selected">
                 {{ props.row.products }}
                 <!-- to="/survey-l3-relation" -->

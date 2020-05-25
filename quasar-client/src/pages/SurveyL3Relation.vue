@@ -1,11 +1,11 @@
 <template>
   <q-page padding>
-
     <div class='col'>
-      <surveys-editor
-        title='Edit Surveys'
+      <product-editor
+        title='Describe Product'
+        :surveyId='parseInt($route.params.surveyId)'
         active
-      ></surveys-editor>
+      ></product-editor>
       <!--  :surveys='surveys' -->
     </div>
   </q-page>
@@ -14,9 +14,10 @@
 <script lang='ts'>
 import Vue from 'vue'
 
-import SurveysEditor from 'components/SurveysEditor.vue'
+import ProductEditor from 'components/ProductEditor.vue'
 export default Vue.extend({
   name: 'SurveyEditorPage',
-  components: { SurveysEditor }
+  components: { ProductEditor }
+
 })
 </script>
