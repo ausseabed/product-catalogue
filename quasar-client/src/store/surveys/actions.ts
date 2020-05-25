@@ -1,7 +1,7 @@
 import { ActionTree } from 'vuex'
 import { StoreInterface } from '../index'
 import { SurveyStateInterface } from './state'
-import { ObservableSurveysApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
+import { ObservableSurveysApi, ObservableProductRelationsApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
 import { getRestConfiguration } from 'src/boot/auth'
 import { SurveyDto, Survey } from '@ausseabed/product-catalogue-rest-client'
 
@@ -18,6 +18,14 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
     const surveyApi = new ObservableSurveysApi(getRestConfiguration(rootState))
     surveyApi.surveysControllerFindAll().toPromise().then((surveys) =>
       commit('dataLoaded', surveys))
+      .catch(reason => {
+        commit('errorMessage', reason)
+      })
+
+    const productRelationshipSrcApi = new ObservableProductRelationsApi(getRestConfiguration(rootState))
+
+    productRelationshipSrcApi.productRelationsControllerFindAllL3Survey().toPromise().then((relations) =>
+      commit('relationsLoaded', relations))
       .catch(reason => {
         commit('errorMessage', reason)
       })

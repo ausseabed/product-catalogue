@@ -59,6 +59,7 @@ module.exports = configure(function (ctx) {
         'QLayout',
         'QHeader',
         'QDrawer',
+        'QChip',
         'QPageContainer',
         'QPage',
         'QSpace',

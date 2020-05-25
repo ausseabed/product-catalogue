@@ -98,19 +98,35 @@
             :props="props"
             key="products"
           >
-            <router-link
-              :to="{ name: 'survey-l3-relation', params: { surveyId: props.row.id} }"
-              style="text-decoration: none; color: inherit;"
+            <div
+              class="q-gutter-xs row truncate-chip-labels"
+              style="max-width: 300px"
             >
-              <div v-if="!props.selected">
-                {{ props.row.products }}
-                <!-- to="/survey-l3-relation" -->
-                <q-btn
-                  label='Add L3'
-                  color="primary"
-                />
-              </div>
-            </router-link>
+              <q-chip
+                v-for="item in productsFor(props.row.id)"
+                class="glossy"
+                color="orange"
+                text-color="white"
+                removable
+                :label="item.productName"
+                :title="item.productName"
+                :key="item.productId"
+              />
+              <router-link
+                :to="{ name: 'survey-l3-relation', params: { surveyId: props.row.id} }"
+                style="text-decoration: none; color: inherit;"
+              >
+
+                <div v-if="!props.selected">
+                  {{ props.row.products }}
+                  <!-- to="/survey-l3-relation" -->
+                  <q-btn
+                    label='Add L3'
+                    color="primary"
+                  />
+                </div>
+              </router-link>
+            </div>
           </q-td>
           <q-td width='15px'>
             <q-btn
@@ -156,10 +172,13 @@
   </div>
 
 </template>
-
+<style lang="sass" scoped>
+.truncate-chip-labels > .q-chip
+  max-width: 140px
+</style>
 <script lang="ts">
 import { matSearch, matEdit, matDone, matDelete } from '@quasar/extras/material-icons'
-import { Survey } from '@ausseabed/product-catalogue-rest-client'
+import { Survey, RelationSummaryDto } from '@ausseabed/product-catalogue-rest-client'
 // import { mapState } from 'vuex'
 // import { StoreInterface } from '../store'
 
@@ -200,6 +219,11 @@ export default class SurveysEditor extends Vue {
     } else {
       this.$data.selected = [selectedRow]
     }
+  }
+
+  productsFor (surveyId: number): RelationSummaryDto[] {
+    const matches: RelationSummaryDto[] = this.surveys.productShortDescription.filter(haystack => haystack.surveyId === surveyId)
+    return matches
   }
 
   mounted () {
