@@ -85,6 +85,7 @@ export function getRestConfiguration (rootState: StoreInterface) {
   msalInstance.acquireTokenSilent(requestScopes)
   const account = msalInstance.getAccount()
   if (!account) {
+    rootState.surveyStore.errorMessages.push('Could not authenticate')
     throw Error('Could not authenticate')
   }
 

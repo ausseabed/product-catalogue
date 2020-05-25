@@ -30,6 +30,14 @@ const mutation: MutationTree<SurveyStateInterface> = {
     } else {
       state.errorMessages.push('Removed element was not found in list')
     }
+  },
+  removeProduct (state: SurveyStateInterface, productId: number) {
+    const index = state.productShortDescription.findIndex(haystack => haystack.productId === productId)
+    if (index > -1) {
+      state.productShortDescription.splice(index, 1)
+    } else {
+      state.errorMessages.push('Removed element was not found in list')
+    }
   }
 }
 

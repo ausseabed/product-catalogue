@@ -98,24 +98,27 @@
             :props="props"
             key="products"
           >
-            <div
-              class="q-gutter-xs row truncate-chip-labels"
-              style="max-width: 300px"
-            >
-              <q-chip
-                v-for="item in productsFor(props.row.id)"
-                class="glossy"
-                color="orange"
-                text-color="white"
-                removable
-                :label="item.productName"
-                :title="item.productName"
-                :key="item.productId"
-              />
-              <router-link
-                :to="{ name: 'survey-l3-relation', params: { surveyId: props.row.id} }"
-                style="text-decoration: none; color: inherit;"
+            <div class='row'>
+              <div
+                class="q-gutter-xs col-auto truncate-chip-labels"
+                style="max-width: 300px"
               >
+                <q-chip
+                  v-for="item in productsFor(props.row.id)"
+                  class="glossy"
+                  color="orange"
+                  text-color="white"
+                  clickable
+                  removable
+                  :label="item.productName"
+                  :title="item.productName"
+                  :key="item.productId"
+                  @click="() => editProduct(item.relationId)"
+                  @remove="() => deleteProduct(item.productId)"
+                />
+              </div>
+              <div class="col-grow" />
+              <div class="col-shrink">
 
                 <div v-if="!props.selected">
                   {{ props.row.products }}
@@ -123,9 +126,10 @@
                   <q-btn
                     label='Add L3'
                     color="primary"
+                    @click="() => createProductInternal(props.row.id)"
                   />
                 </div>
-              </router-link>
+              </div>
             </div>
           </q-td>
           <q-td width='15px'>
@@ -178,7 +182,8 @@
 </style>
 <script lang="ts">
 import { matSearch, matEdit, matDone, matDelete } from '@quasar/extras/material-icons'
-import { Survey, RelationSummaryDto } from '@ausseabed/product-catalogue-rest-client'
+import { Survey } from '@ausseabed/product-catalogue-rest-client'
+import { RelationSummaryDto } from '@ausseabed/product-catalogue-rest-client/models/RelationSummaryDto'
 // import { mapState } from 'vuex'
 // import { StoreInterface } from '../store'
 
@@ -202,6 +207,12 @@ export default class SurveysEditor extends Vue {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Action('deleteSurvey', { namespace }) removeRow!: any
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Action('createProduct', { namespace }) createProduct!: any
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Action('deleteProduct', { namespace }) deleteProduct!: any
+
   // @Action('updateEntry', { namespace }) update!: any
 
   update (row: number, element: UpdateRowKnownTypes, value: string) {
@@ -224,6 +235,30 @@ export default class SurveysEditor extends Vue {
   productsFor (surveyId: number): RelationSummaryDto[] {
     const matches: RelationSummaryDto[] = this.surveys.productShortDescription.filter(haystack => haystack.surveyId === surveyId)
     return matches
+  }
+
+  // <router-link :to="{ name: 'survey-l3-relation', params: { surveyId: props.row.id} }" style="text-decoration: none; color: inherit;" >
+  async createProductInternal (surveyId: number) {
+    const relationId = await this.createProduct(surveyId)
+    this.$router.push(
+      {
+        name: 'survey-l3-relation',
+        params: {
+          relationId: String(relationId)
+        }
+      }
+    )
+  }
+
+  editProduct (relationId: number) {
+    this.$router.push(
+      {
+        name: 'survey-l3-relation',
+        params: {
+          relationId: String(relationId)
+        }
+      }
+    )
   }
 
   mounted () {

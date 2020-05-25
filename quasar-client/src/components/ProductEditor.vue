@@ -2,13 +2,13 @@
   <div>
     <q-form
       ref="myForm"
-      v-if='surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid'
+      v-if='surveyL3Relation.surveyL3RelationSelected.productL3Src && surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid !== undefined'
     >
       <div class="text-h6 q-ml-md">Survey -> L3 Product</div>
       <q-input
         class="q-ml-md"
         :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid"
-        @input="value=>updateProduct('UUID',value)"
+        @input="value=>updateProduct( {element:'uuid',value: value})"
         label="UUID"
       >
         <template v-slot:append>
@@ -23,46 +23,46 @@
       <q-input
         class="q-ml-md"
         :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.name"
-        @input="value=>updateProduct('gazeteerName',value)"
+        @input="value=>updateProduct( {element:'name',value: value})"
         label="Gazeteer"
       />
       <q-input
         class="q-ml-md"
         :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.resolution"
-        @input="value=>updateProduct('resolution',value)"
+        @input="value=>updateProduct( {element:'resolution',value: value})"
         label="Resolution"
       />
       <q-input
         class="q-ml-md"
         :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.srs"
-        @input="value=>updateProduct('srs',value)"
+        @input="value=>updateProduct( {element:'srs',value: value})"
         label="SRS"
       />
       <q-input
         class="q-ml-md"
         :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.metadataPersistentId"
-        @input="value=>updateProduct('metadataPersistentId',value)"
+        @input="value=>updateProduct( {element:'metadataPersistentId',value: value})"
         label="Metadata Persistent Id"
       />
       <q-input
         class="q-ml-md"
         :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation"
-        @input="value=>updateProduct('l3ProductTifLocation',value)"
+        @input="value=>updateProduct( {element:'productTifLocation',value: value})"
         label="L3 Product Tif Location"
       />
       <q-btn
-        class="q-ml-md"
+        class="q-ma-md"
         label="Submit"
         type="submit"
         color="primary"
-        @click="_ => submitProduct(surveyL3Relation.id)"
+        @click="_ => saveData()"
       />
       <q-btn
-        class="q-ml-md"
+        class="q-ma-md"
         label="Reset"
         type="reset"
         color="primary"
-        @click="_ => resetProduct(surveyL3Relation.id)"
+        @click="_ => fetchData()"
         flat
       />
     </q-form>
@@ -81,7 +81,7 @@ const SurveyIdProps = Vue.extend({
       type: String,
       required: true
     },
-    surveyId: {
+    relationId: {
       type: Number,
       required: true
     }
@@ -94,20 +94,19 @@ export default class ProductEditor extends SurveyIdProps {
   @State('surveyl3relation') surveyL3Relation!: SurveyL3RelationStateInterface
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Action('saveData', { namespace }) saveData!: any
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Action('fetchData', { namespace }) fetchData!: any
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Mutation('createGuid', { namespace }) createGuidRef!: any
 
-  updateProduct (element: string, value: string) {
-    this.$store.commit('product/updateProduct', { element: element, value: value })
-  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Mutation('updateProduct', { namespace }) updateProduct!: any
 
   resetProduct (id: number) {
     this.$store.dispatch('product/fetchData', id)
-  }
-
-  submitProduct (id: number) {
-    this.$store.dispatch('product/saveData', id)
   }
 
   createGuid () {
@@ -115,7 +114,7 @@ export default class ProductEditor extends SurveyIdProps {
   }
 
   mounted () {
-    this.fetchData(this.surveyId)
+    this.fetchData(this.relationId)
   }
 }
 </script>

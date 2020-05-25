@@ -1,9 +1,9 @@
 import { ActionTree } from 'vuex'
 import { StoreInterface } from '../index'
 import { SurveyStateInterface } from './state'
-import { ObservableSurveysApi, ObservableProductRelationsApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
+import { ObservableSurveysApi, ObservableProductRelationsApi, ObservableProductsL3SrcApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
 import { getRestConfiguration } from 'src/boot/auth'
-import { SurveyDto, Survey } from '@ausseabed/product-catalogue-rest-client'
+import { SurveyDto, Survey, ProductL3SrcDto, SurveyL3RelationDto } from '@ausseabed/product-catalogue-rest-client'
 
 export type UpdateRowKnownTypes = 'year' | 'uuid' | 'name'
 
@@ -79,7 +79,40 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
       }).catch(reason => {
         commit('errorMessage', reason)
       })
+  },
+  async createProduct ({ commit, rootState }, surveyId: number): Promise<number> {
+    const dto: ProductL3SrcDto = {
+      metadataPersistentId: '',
+      name: '',
+      productTifLocation: '',
+      resolution: '',
+      srs: '',
+      uuid: ''
+    }
+    const productsL3SrcApi = new ObservableProductsL3SrcApi(getRestConfiguration(rootState))
+    const productRelationshipSrcApi = new ObservableProductRelationsApi(getRestConfiguration(rootState))
+
+    const l3Product = await productsL3SrcApi.productsL3SrcControllerCreate(dto).toPromise()
+
+    const relationDto: SurveyL3RelationDto = {
+      survey: surveyId,
+      productL3Src: l3Product.id
+    }
+    const surveyL3Relation = await productRelationshipSrcApi.productRelationsControllerCreateL3Survey(relationDto).toPromise()
+    console.log(surveyL3Relation)
+    return surveyL3Relation.id
+  },
+  deleteProduct ({ commit, rootState }, productId: number) {
+    const productsL3SrcApi = new ObservableProductsL3SrcApi(getRestConfiguration(rootState))
+    productsL3SrcApi.productsL3SrcControllerDelete(productId).toPromise().then(() => {
+      commit('removeProduct', productId)
+    }, reason => {
+      commit('errorMessage', reason)
+    }).catch(reason => {
+      commit('errorMessage', reason)
+    })
   }
+
 }
 
 export default actions

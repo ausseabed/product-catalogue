@@ -28,7 +28,7 @@ export class ProductRelationsController {
   }
 
   @ApiBadRequestResponse({ description: 'Could not find the compilation' })
-  @Get('compilation-to-l3/:compilationId')
+  @Get('compilation-to-l3/compilation/:compilationId')
   async findConditionalCompilation (@Req() request: Request, @Param('compilationId', new ParseIntPipe()) compilationId: number): Promise<CompilationL3Relation> {
 
     return this.productRelationsService.findConditional<CompilationL3Relation>(CompilationL3Relation, { compilation: { id: compilationId } });
@@ -65,7 +65,7 @@ export class ProductRelationsController {
   }
 
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
-  @Get('surveys-to-l3/:surveyId')
+  @Get('surveys-to-l3/survey/:surveyId')
   async findConditionalL3Survey (@Req() request: Request, @Param('surveyId', new ParseIntPipe()) surveyId: number): Promise<SurveyL3Relation> {
     return this.productRelationsService.findConditional<SurveyL3Relation>(SurveyL3Relation, { survey: { id: surveyId } });
   }
@@ -101,7 +101,7 @@ export class ProductRelationsController {
   }
 
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
-  @Get('surveys-to-l0/:surveyId')
+  @Get('surveys-to-l0/survey/:surveyId')
   async findConditionalL0Survey (@Req() request: Request, @Param('surveyId', new ParseIntPipe()) surveyId: number): Promise<SurveyL0Relation> {
 
     return this.productRelationsService.findConditional<SurveyL0Relation>(SurveyL0Relation, { survey: { id: surveyId } });

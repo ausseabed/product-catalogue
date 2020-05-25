@@ -3,7 +3,7 @@
     <div class='col'>
       <product-editor
         title='Describe Product'
-        :surveyId='parseInt($route.params.surveyId)'
+        :relationId='parseInt($route.params.relationId)'
         active
       ></product-editor>
       <!--  :surveys='surveys' -->
