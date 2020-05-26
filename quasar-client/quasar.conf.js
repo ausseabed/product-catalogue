@@ -56,26 +56,10 @@ module.exports = configure(function (ctx) {
       all: false,
 
       components: [
-        'QLayout',
-        'QHeader',
-        'QDrawer',
-        'QChip',
-        'QPageContainer',
-        'QPage',
-        'QSpace',
-        'QCheckbox',
-        'QPopupEdit',
-        'QBanner',
-        'QToolbar',
-        'QToolbarTitle',
-        'QBtn',
-        'QIcon',
-        'QList',
-        'QItem',
-        'QItemSection',
-        'QItemLabel', 'QTable',
-        'QTh', 'QInput', 'QForm', 'QSpinner',
-        'QTr', 'QBtn',
+        'QLayout', 'QHeader', 'QDrawer', 'QChip', 'QPageContainer', 'QPage',
+        'QSpace', 'QCheckbox', 'QPopupEdit', 'QBanner', 'QToolbar', 'QToolbarTitle',
+        'QBtn', 'QIcon', 'QList', 'QItem', 'QItemSection', 'QOptionGroup', 'QItemLabel',
+        'QTable', 'QTh', 'QInput', 'QForm', 'QSpinner', 'QTr', 'QBtn',
         'QTd', 'QMarkupTable'
       ],
 
@@ -139,10 +123,10 @@ module.exports = configure(function (ctx) {
       open: false, // opens browser window automatically
       proxy: {
         // proxy all requests starting with /api to nodejs server
-        '/api': {
+        '/rest': {
           target: 'http://localhost:3000',
           pathRewrite: {
-            '^/api': ''
+            '^/rest': ''
           }
         }
       }

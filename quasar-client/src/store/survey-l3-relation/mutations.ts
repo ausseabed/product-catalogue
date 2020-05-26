@@ -8,7 +8,6 @@ export type UpdateProductKnownTypes = 'metadataPersistentId' | 'name' | 'product
 const mutation: MutationTree<SurveyL3RelationStateInterface> = {
   assignSurveyL3Relation (state: SurveyL3RelationStateInterface, surveyRelation: SurveyL3Relation) {
     state.surveyL3RelationSelected = surveyRelation
-    console.log(state.surveyL3RelationSelected.productL3Src.uuid)
   },
   createGuid (state: SurveyL3RelationStateInterface) {
     state.surveyL3RelationSelected.productL3Src.uuid = uuidv4()

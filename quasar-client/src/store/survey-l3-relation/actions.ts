@@ -20,7 +20,7 @@ const actions: ActionTree<SurveyL3RelationStateInterface, StoreInterface> = {
     const productL3SrcDto = new ProductL3SrcDto()
 
     Object.assign(productL3SrcDto, state.surveyL3RelationSelected.productL3Src)
-    return productsL3SrcApi.productsL3SrcControllerUpdate(state.surveyL3RelationSelected.productL3Src.id, productL3SrcDto)
+    productsL3SrcApi.productsL3SrcControllerUpdate(state.surveyL3RelationSelected.productL3Src.id, productL3SrcDto)
   }
 }
 

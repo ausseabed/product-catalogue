@@ -80,7 +80,7 @@ export const msalInstance = new msal.PublicClientApplication(msalConfig)
 // }
 
 export function getRestConfiguration (rootState: StoreInterface) {
-  const serverConfig = new ServerConfiguration('http://localhost:3001/api', {})
+  const serverConfig = new ServerConfiguration('/rest', {})
 
   msalInstance.acquireTokenSilent(requestScopes)
   const account = msalInstance.getAccount()

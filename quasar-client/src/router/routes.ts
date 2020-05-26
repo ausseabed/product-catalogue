@@ -9,7 +9,7 @@ const routes: RouteConfig[] = [
   {
     path: '/surveys',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/Surveys.vue') }]
+    children: [{ name: 'surveys', path: '', component: () => import('pages/Surveys.vue') }]
   },
   {
     path: '/survey-l3-relation',

@@ -80,7 +80,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
         commit('errorMessage', reason)
       })
   },
-  async createProduct ({ commit, rootState }, surveyId: number): Promise<number> {
+  async createProduct ({ rootState }, surveyId: number): Promise<number> {
     const dto: ProductL3SrcDto = {
       metadataPersistentId: '',
       name: '',

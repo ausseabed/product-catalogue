@@ -4,7 +4,7 @@
       ref="myForm"
       v-if='surveyL3Relation.surveyL3RelationSelected.productL3Src && surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid !== undefined'
     >
-      <div class="text-h6 q-ml-md">Survey -> L3 Product</div>
+      <div class="text-h6 q-ml-md">Edit level 3 product associated with '{{surveyL3Relation.surveyL3RelationSelected.survey.name}}'</div>
       <q-input
         class="q-ml-md"
         :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid"
@@ -32,37 +32,44 @@
         @input="value=>updateProduct( {element:'resolution',value: value})"
         label="Resolution"
       />
+      <spatial-reference :srs='surveyL3Relation.surveyL3RelationSelected.productL3Src.srs' />
       <q-input
-        class="q-ml-md"
-        :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.srs"
-        @input="value=>updateProduct( {element:'srs',value: value})"
-        label="SRS"
-      />
-      <q-input
+        type="url"
+        hint="url"
         class="q-ml-md"
         :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.metadataPersistentId"
         @input="value=>updateProduct( {element:'metadataPersistentId',value: value})"
         label="Metadata Persistent Id"
+        :rules="[
+          val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.',
+        ]"
+        lazy-rules
       />
       <q-input
         class="q-ml-md"
+        type="url"
+        hint="url"
         :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation"
         @input="value=>updateProduct( {element:'productTifLocation',value: value})"
         label="L3 Product Tif Location"
+        :rules="[
+          val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.',
+        ]"
+        lazy-rules
       />
       <q-btn
         class="q-ma-md"
         label="Submit"
         type="submit"
         color="primary"
-        @click="_ => saveData()"
+        @click="_ => saveData().then(this.$router.push( { name: 'surveys' } ) )"
       />
       <q-btn
         class="q-ma-md"
         label="Reset"
         type="reset"
         color="primary"
-        @click="_ => fetchData()"
+        @click="_ => fetchData(relationId)"
         flat
       />
     </q-form>
@@ -74,6 +81,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Action, State, Mutation } from 'vuex-class'
 import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
+import SpatialReference from './SpatialReference.vue'
 
 const SurveyIdProps = Vue.extend({
   props: {
@@ -89,7 +97,7 @@ const SurveyIdProps = Vue.extend({
 })
 const namespace = 'surveyl3relation'
 
-@Component
+@Component({ components: { SpatialReference } })
 export default class ProductEditor extends SurveyIdProps {
   @State('surveyl3relation') surveyL3Relation!: SurveyL3RelationStateInterface
 
@@ -115,6 +123,17 @@ export default class ProductEditor extends SurveyIdProps {
 
   mounted () {
     this.fetchData(this.relationId)
+  }
+
+  isValidUrl (urlToTest: string) {
+    let throwaway: URL
+    try {
+      throwaway = new URL(urlToTest)
+    } catch (_) {
+      return false
+    }
+
+    return throwaway !== undefined
   }
 }
 </script>
