@@ -8,6 +8,7 @@ import { Request } from 'express';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { ProductL0InstrumentFile } from './product-l0-instrument-file.entity';
 import { ProductL0InstrumentFileDto } from './dto/product-l0-instrument-file.dto';
+import { ProductL0Src } from './product-l0-src.entity';
 
 @ApiTags('products/l0-dist')
 @Controller('products/l0-dist')
@@ -30,11 +31,11 @@ export class ProductsL0DistController extends ProductsController<ProductL0Dist, 
     return this.productsService.findOne<ProductL0Dist>(this.productType, productId)
   }
 
-
   @Post('')
   @ApiBody({ type: ProductL0DistDto })
-  create (@Body(new ClassValidationPipe()) product: ProductL0DistDto) {
-    return this.productsService.create<ProductL0Dist, ProductL0DistDto>(this.productType, product);
+  create (@Body(new ClassValidationPipe()) product: ProductL0DistDto, @Param('productL0SrcId', new ParseIntPipe()) productL0SrcId: number) {
+    const productLink = this.productsService.findOne<ProductL0Src>(ProductL0Src, productL0SrcId)
+    return this.productsService.create<ProductL0Dist, ProductL0DistDto>(this.productType, product, "sourceProduct", productLink);
   }
   @Put(':productId')
   @ApiBadRequestResponse({ description: 'Could not find the survey' })

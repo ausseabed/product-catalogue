@@ -101,21 +101,24 @@
             <div class='row'>
               <div
                 class="q-gutter-xs col-auto truncate-chip-labels"
-                style="max-width: 300px"
+                style="max-width: 200px"
               >
-                <q-chip
+                <div
                   v-for="item in productsFor(props.row.id)"
-                  class="glossy"
-                  color="orange"
-                  text-color="white"
-                  clickable
-                  removable
-                  :label="item.productName"
-                  :title="item.productName"
                   :key="item.productId"
-                  @click="() => editProduct(item.relationId)"
-                  @remove="() => deleteProduct(item.productId)"
-                />
+                >
+                  <q-chip
+                    class="glossy"
+                    color="orange"
+                    text-color="white"
+                    clickable
+                    removable
+                    :label="item.productName"
+                    :title="item.productName"
+                    @click="() => editProduct(item.relationId)"
+                    @remove="() => deleteProduct(item.productId)"
+                  />
+                </div>
               </div>
               <div class="col-grow" />
               <div class="col-shrink">

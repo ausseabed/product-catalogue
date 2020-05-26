@@ -3,7 +3,7 @@ import { IsString } from "class-validator";
 import { ProductL0InstrumentFile } from "../product-l0-instrument-file.entity";
 import { ApiProperty } from "@nestjs/swagger";
 
-export class ProductL0DistDto extends ProductDto {
+export class ProductL0DistDto {
   // l0InstrumentFiles: ProductL0InstrumentFile[];
 
   @IsString()

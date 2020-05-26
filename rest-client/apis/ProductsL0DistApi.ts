@@ -17,10 +17,17 @@ import { ProductL0InstrumentFileDto } from '../models/ProductL0InstrumentFileDto
 export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 	
     /**
+     * @param productL0SrcId 
      * @param productL0DistDto 
      */
-    public productsL0DistControllerCreate(productL0DistDto: ProductL0DistDto, options?: Configuration): RequestContext {
+    public productsL0DistControllerCreate(productL0SrcId: number, productL0DistDto: ProductL0DistDto, options?: Configuration): RequestContext {
 		let config = options || this.configuration;
+		
+        // verify required parameter 'productL0SrcId' is not null or undefined
+        if (productL0SrcId === null || productL0SrcId === undefined) {
+            throw new RequiredError('Required parameter productL0SrcId was null or undefined when calling productsL0DistControllerCreate.');
+        }
+
 		
         // verify required parameter 'productL0DistDto' is not null or undefined
         if (productL0DistDto === null || productL0DistDto === undefined) {
@@ -29,7 +36,8 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		
 		// Path Params
-    	const localVarPath = '/products/l0-dist';
+    	const localVarPath = '/products/l0-dist'
+            .replace('{' + 'productL0SrcId' + '}', encodeURIComponent(String(productL0SrcId)));
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);

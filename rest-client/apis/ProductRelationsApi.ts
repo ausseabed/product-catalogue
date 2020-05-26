@@ -383,7 +383,7 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 		
 		// Path Params
-    	const localVarPath = '/product-relations/compilation-to-l3/{compilationId}'
+    	const localVarPath = '/product-relations/compilation-to-l3/compilation/{compilationId}'
             .replace('{' + 'compilationId' + '}', encodeURIComponent(String(compilationId)));
 
 		// Make Request Context
@@ -422,7 +422,7 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 		
 		// Path Params
-    	const localVarPath = '/product-relations/surveys-to-l0/{surveyId}'
+    	const localVarPath = '/product-relations/surveys-to-l0/survey/{surveyId}'
             .replace('{' + 'surveyId' + '}', encodeURIComponent(String(surveyId)));
 
 		// Make Request Context
@@ -461,7 +461,7 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 		
 		// Path Params
-    	const localVarPath = '/product-relations/surveys-to-l3/{surveyId}'
+    	const localVarPath = '/product-relations/surveys-to-l3/survey/{surveyId}'
             .replace('{' + 'surveyId' + '}', encodeURIComponent(String(surveyId)));
 
 		// Make Request Context

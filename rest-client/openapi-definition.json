@@ -96,28 +96,12 @@
                         },
                         "type": "array"
                     },
-                    "metadataPersistentId": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
                     "sourceProduct": {
                         "$ref": "#/components/schemas/ProductL0Src"
-                    },
-                    "srs": {
-                        "type": "string"
-                    },
-                    "uuid": {
-                        "type": "string"
                     }
                 },
                 "required": [
                     "id",
-                    "uuid",
-                    "name",
-                    "srs",
-                    "metadataPersistentId",
                     "sourceProduct",
                     "l0InstrumentFiles",
                     "l0CoverageLocation"
@@ -129,29 +113,9 @@
                     "l0CoverageLocation": {
                         "description": "Location of coverage file for extent",
                         "type": "string"
-                    },
-                    "metadataPersistentId": {
-                        "description": "Persistent Id of final product ",
-                        "type": "string"
-                    },
-                    "name": {
-                        "description": "Name of product for display purposes - from gazeteer",
-                        "type": "string"
-                    },
-                    "srs": {
-                        "description": "Spatial Reference of product",
-                        "type": "string"
-                    },
-                    "uuid": {
-                        "description": "Unique identifier for reference purposes",
-                        "type": "string"
                     }
                 },
                 "required": [
-                    "uuid",
-                    "name",
-                    "srs",
-                    "metadataPersistentId",
                     "l0CoverageLocation"
                 ],
                 "type": "object"
@@ -269,32 +233,16 @@
                     "l3CoverageLocation": {
                         "type": "string"
                     },
-                    "metadataPersistentId": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
                     "sourceProduct": {
                         "$ref": "#/components/schemas/ProductL3Src"
-                    },
-                    "srs": {
-                        "type": "string"
-                    },
-                    "uuid": {
-                        "type": "string"
                     }
                 },
                 "required": [
                     "id",
-                    "uuid",
-                    "name",
-                    "srs",
-                    "metadataPersistentId",
+                    "sourceProduct",
                     "l3CoverageLocation",
                     "bathymetryLocation",
-                    "hillshadeLocation",
-                    "sourceProduct"
+                    "hillshadeLocation"
                 ],
                 "type": "object"
             },
@@ -311,29 +259,9 @@
                     "l3CoverageLocation": {
                         "description": "Location of coverage extent of L3 product",
                         "type": "string"
-                    },
-                    "metadataPersistentId": {
-                        "description": "Persistent Id of final product ",
-                        "type": "string"
-                    },
-                    "name": {
-                        "description": "Name of product for display purposes - from gazeteer",
-                        "type": "string"
-                    },
-                    "srs": {
-                        "description": "Spatial Reference of product",
-                        "type": "string"
-                    },
-                    "uuid": {
-                        "description": "Unique identifier for reference purposes",
-                        "type": "string"
                     }
                 },
                 "required": [
-                    "uuid",
-                    "name",
-                    "srs",
-                    "metadataPersistentId",
                     "l3CoverageLocation",
                     "hillshadeLocation",
                     "bathymetryLocation"
@@ -577,7 +505,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.1.5"
+        "version": "0.1.6"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -813,7 +741,7 @@
                 ]
             }
         },
-        "/product-relations/compilation-to-l3/{compilationId}": {
+        "/product-relations/compilation-to-l3/compilation/{compilationId}": {
             "get": {
                 "operationId": "ProductRelationsController_findConditionalCompilation",
                 "parameters": [
@@ -1020,6 +948,44 @@
                 ]
             }
         },
+        "/product-relations/surveys-to-l0/survey/{surveyId}": {
+            "get": {
+                "operationId": "ProductRelationsController_findConditionalL0Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "surveyId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL0Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
         "/product-relations/surveys-to-l0/{relationId}": {
             "delete": {
                 "operationId": "ProductRelationsController_deleteL0Survey",
@@ -1126,44 +1092,6 @@
                 ]
             }
         },
-        "/product-relations/surveys-to-l0/{surveyId}": {
-            "get": {
-                "operationId": "ProductRelationsController_findConditionalL0Survey",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "surveyId",
-                        "required": true,
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SurveyL0Relation"
-                                }
-                            }
-                        },
-                        "description": ""
-                    },
-                    "400": {
-                        "description": "Could not find the survey"
-                    }
-                },
-                "security": [
-                    {
-                        "access-token": []
-                    }
-                ],
-                "tags": [
-                    "product-relations"
-                ]
-            }
-        },
         "/product-relations/surveys-to-l3": {
             "get": {
                 "operationId": "ProductRelationsController_findAllL3Survey",
@@ -1215,6 +1143,44 @@
                             }
                         },
                         "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/surveys-to-l3/survey/{surveyId}": {
+            "get": {
+                "operationId": "ProductRelationsController_findConditionalL3Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "surveyId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL3Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
                     }
                 },
                 "security": [
@@ -1333,44 +1299,6 @@
                 ]
             }
         },
-        "/product-relations/surveys-to-l3/{surveyId}": {
-            "get": {
-                "operationId": "ProductRelationsController_findConditionalL3Survey",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "surveyId",
-                        "required": true,
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SurveyL3Relation"
-                                }
-                            }
-                        },
-                        "description": ""
-                    },
-                    "400": {
-                        "description": "Could not find the survey"
-                    }
-                },
-                "security": [
-                    {
-                        "access-token": []
-                    }
-                ],
-                "tags": [
-                    "product-relations"
-                ]
-            }
-        },
         "/products/l0-dist": {
             "get": {
                 "operationId": "ProductsL0DistController_findAll",
@@ -1401,7 +1329,16 @@
             },
             "post": {
                 "operationId": "ProductsL0DistController_create",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productL0SrcId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1950,7 +1887,16 @@
             },
             "post": {
                 "operationId": "ProductsL3DistController_create",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productL3SrcId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {

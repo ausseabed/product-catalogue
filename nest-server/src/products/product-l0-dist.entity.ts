@@ -20,42 +20,6 @@ export class ProductL0Dist implements Product {
   id: number;
 
   /**
-   * Unique identifier for reference purposes
-   *
-   * @type {string}
-   * @memberof Product
-   */
-  @Column()
-  uuid: string;
-
-  /**
-   * Name of product for display purposes - from gazeteer
-   *
-   * @type {string}
-   * @memberof Product
-   */
-  @Column()
-  name: string;
-
-  /**
-   * Spatial Reference of product
-   *
-   * @type {string}
-   * @memberof Product
-   */
-  @Column()
-  srs: string;
-
-  /**
-   * Persistent Id of the metadata product
-   *
-   * @type {string}
-   * @memberof Product
-   */
-  @Column()
-  metadataPersistentId: string;
-
-  /**
    * Reference to the source data for this distribution
    *
    * @type {Survey}
@@ -66,6 +30,46 @@ export class ProductL0Dist implements Product {
     onDelete: 'CASCADE'
   })
   sourceProduct: ProductL0Src;
+
+  /**
+   * Unique identifier for reference purposes
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  get uuid (): string {
+    return this.sourceProduct.uuid;
+  }
+
+  /**
+   * Name of product for display purposes - from gazeteer
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  get name (): string {
+    return this.sourceProduct.name;
+  }
+
+  /**
+   * Spatial Reference of product
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  get srs (): string {
+    return this.sourceProduct.srs;
+  }
+
+  /**
+   * Persistent Id of metadata product
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  get metadataPersistentId (): string {
+    return this.sourceProduct.metadataPersistentId;
+  }
 
   /**
    * The files that make up the source of the L0 product

@@ -16,21 +16,10 @@ import { ProductsModule } from './products/products.module';
 import { CompilationsModule } from './compilations/compilations.module';
 import { ProductRelationsModule } from './product-relations/product-relations.module';
 
+import * as ormconfig from './ormconfig';
+
 @Module({
-  imports: [TypeOrmModule.forRoot(
-    {
-      type: 'postgres',
-      host: process.env.POSTGRES_HOSTNAME,
-      port: parseInt(process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DATABASE,
-      entities: [],
-      autoLoadEntities: true,
-      "synchronize": true,
-      "keepConnectionAlive": true,
-      "logging": "all"
-    }), SurveysModule, ProductsModule, CompilationsModule, ProductRelationsModule],
+  imports: [TypeOrmModule.forRoot(ormconfig), SurveysModule, ProductsModule, CompilationsModule, ProductRelationsModule],
   controllers: [AppController],
   providers: [AppService],
 })

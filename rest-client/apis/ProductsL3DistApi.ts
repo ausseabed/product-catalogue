@@ -15,10 +15,17 @@ import { ProductL3DistDto } from '../models/ProductL3DistDto';
 export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 	
     /**
+     * @param productL3SrcId 
      * @param productL3DistDto 
      */
-    public productsL3DistControllerCreate(productL3DistDto: ProductL3DistDto, options?: Configuration): RequestContext {
+    public productsL3DistControllerCreate(productL3SrcId: number, productL3DistDto: ProductL3DistDto, options?: Configuration): RequestContext {
 		let config = options || this.configuration;
+		
+        // verify required parameter 'productL3SrcId' is not null or undefined
+        if (productL3SrcId === null || productL3SrcId === undefined) {
+            throw new RequiredError('Required parameter productL3SrcId was null or undefined when calling productsL3DistControllerCreate.');
+        }
+
 		
         // verify required parameter 'productL3DistDto' is not null or undefined
         if (productL3DistDto === null || productL3DistDto === undefined) {
@@ -27,7 +34,8 @@ export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		
 		// Path Params
-    	const localVarPath = '/products/l3-dist';
+    	const localVarPath = '/products/l3-dist'
+            .replace('{' + 'productL3SrcId' + '}', encodeURIComponent(String(productL3SrcId)));
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);

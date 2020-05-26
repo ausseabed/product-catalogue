@@ -48,9 +48,12 @@ export class ProductsService {
     });
   }
 
-  create<T, ProductDtoType> (productType: new () => T, createProductDto: ProductDtoType) {
+  create<T, ProductDtoType> (productType: new () => T, createProductDto: ProductDtoType, fieldName?: string, fieldValue?: any) {
     let product = productType;
     let productEntry = plainToClass(product, createProductDto);
+    if (fieldName && fieldValue) {
+      productEntry[fieldName] = fieldValue
+    }
     return this.productsEntityManager.save<T>(productEntry);
   }
 

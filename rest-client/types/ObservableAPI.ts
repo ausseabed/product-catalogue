@@ -581,10 +581,11 @@ export class ObservableProductsL0DistApi {
 	}
 
     /**
+     * @param productL0SrcId 
      * @param productL0DistDto 
      */
-    public productsL0DistControllerCreate(productL0DistDto: ProductL0DistDto, options?: Configuration): Observable<ProductL0Dist> {
-    	const requestContext = this.requestFactory.productsL0DistControllerCreate(productL0DistDto, options);
+    public productsL0DistControllerCreate(productL0SrcId: number, productL0DistDto: ProductL0DistDto, options?: Configuration): Observable<ProductL0Dist> {
+    	const requestContext = this.requestFactory.productsL0DistControllerCreate(productL0SrcId, productL0DistDto, options);
 
 		// build promise chain
     	let middlewarePreObservable = of(requestContext);
@@ -952,10 +953,11 @@ export class ObservableProductsL3DistApi {
 	}
 
     /**
+     * @param productL3SrcId 
      * @param productL3DistDto 
      */
-    public productsL3DistControllerCreate(productL3DistDto: ProductL3DistDto, options?: Configuration): Observable<ProductL3Dist> {
-    	const requestContext = this.requestFactory.productsL3DistControllerCreate(productL3DistDto, options);
+    public productsL3DistControllerCreate(productL3SrcId: number, productL3DistDto: ProductL3DistDto, options?: Configuration): Observable<ProductL3Dist> {
+    	const requestContext = this.requestFactory.productsL3DistControllerCreate(productL3SrcId, productL3DistDto, options);
 
 		// build promise chain
     	let middlewarePreObservable = of(requestContext);

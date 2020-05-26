@@ -17,13 +17,27 @@ export class ProductL3Dist implements Product {
   id: number;
 
   /**
+  * Reference to the source data for this distribution
+  *
+  * @type {Survey}
+  * @memberof Product
+  */
+  @ManyToOne(type => ProductL3Src, {
+    nullable: false,
+    onDelete: 'CASCADE',
+    eager: true
+  })
+  sourceProduct: ProductL3Src;
+
+  /**
    * Unique identifier for reference purposes
    *
    * @type {string}
    * @memberof Product
    */
-  @Column()
-  uuid: string;
+  get uuid (): string {
+    return this.sourceProduct.uuid;
+  }
 
   /**
    * Name of product for display purposes - from gazeteer
@@ -31,8 +45,9 @@ export class ProductL3Dist implements Product {
    * @type {string}
    * @memberof Product
    */
-  @Column()
-  name: string;
+  get name (): string {
+    return this.sourceProduct.name;
+  }
 
   /**
    * Spatial Reference of product
@@ -40,8 +55,9 @@ export class ProductL3Dist implements Product {
    * @type {string}
    * @memberof Product
    */
-  @Column()
-  srs: string;
+  get srs (): string {
+    return this.sourceProduct.srs;
+  }
 
   /**
    * Persistent Id of metadata product
@@ -49,8 +65,9 @@ export class ProductL3Dist implements Product {
    * @type {string}
    * @memberof Product
    */
-  @Column()
-  metadataPersistentId: string;
+  get metadataPersistentId (): string {
+    return this.sourceProduct.metadataPersistentId;
+  }
 
   /**
    * Location of the L3 polygon shapefile
@@ -78,14 +95,5 @@ export class ProductL3Dist implements Product {
    */
   @Column()
   hillshadeLocation: string; // S3 location
-
-  /**
-  * Reference to the source data for this distribution
-  *
-  * @type {Survey}
-  * @memberof Product
-  */
-  @ManyToOne(type => ProductL3Src)
-  sourceProduct: ProductL3Src;
 
 }

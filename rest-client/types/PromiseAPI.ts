@@ -251,10 +251,11 @@ export class PromiseProductsL0DistApi {
 	}
 
     /**
+     * @param productL0SrcId 
      * @param productL0DistDto 
      */
-    public productsL0DistControllerCreate(productL0DistDto: ProductL0DistDto, options?: Configuration): Promise<ProductL0Dist> {
-    	const result = this.api.productsL0DistControllerCreate(productL0DistDto, options);
+    public productsL0DistControllerCreate(productL0SrcId: number, productL0DistDto: ProductL0DistDto, options?: Configuration): Promise<ProductL0Dist> {
+    	const result = this.api.productsL0DistControllerCreate(productL0SrcId, productL0DistDto, options);
         return result.toPromise();
     }
 	
@@ -408,10 +409,11 @@ export class PromiseProductsL3DistApi {
 	}
 
     /**
+     * @param productL3SrcId 
      * @param productL3DistDto 
      */
-    public productsL3DistControllerCreate(productL3DistDto: ProductL3DistDto, options?: Configuration): Promise<ProductL3Dist> {
-    	const result = this.api.productsL3DistControllerCreate(productL3DistDto, options);
+    public productsL3DistControllerCreate(productL3SrcId: number, productL3DistDto: ProductL3DistDto, options?: Configuration): Promise<ProductL3Dist> {
+    	const result = this.api.productsL3DistControllerCreate(productL3SrcId, productL3DistDto, options);
         return result.toPromise();
     }
 	

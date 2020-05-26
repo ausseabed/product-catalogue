@@ -1,8 +1,7 @@
-import { ProductDto } from "./product.dto";
 import { IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
-export class ProductL3DistDto extends ProductDto {
+export class ProductL3DistDto {
   @IsString()
   @ApiProperty({
     description: 'Location of coverage extent of L3 product'
