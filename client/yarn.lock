@@ -2,10 +2,8 @@
 # yarn lockfile v1
 
 
-"@ausseabed/product-catalogue-rest-client@^0.1.0":
+"@ausseabed/product-catalogue-rest-client@file:../rest-client":
   version "0.1.7"
-  resolved "https://npm.pkg.github.com/download/@ausseabed/product-catalogue-rest-client/0.1.7/b4106f4d00d52b7666e568946c69b2165582f07ddacfd56bd2cb8d633756ae47#0913ff24e1c66f29406ed70ce6417ef97702c365"
-  integrity sha512-xkxbq+F1aBJEHQ/NHltDq05UOpPJX83a/5LHUO2wRDK/uBA2zVrgFWuA+89EMbjgoTE/Kku97aVA1Uwq/9x7Cg==
   dependencies:
     btoa "^1.2.1"
     es6-promise "^4.2.4"
