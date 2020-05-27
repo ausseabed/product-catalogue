@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -17,10 +17,12 @@ import { CompilationsModule } from './compilations/compilations.module';
 import { ProductRelationsModule } from './product-relations/product-relations.module';
 
 import * as ormconfig from './ormconfig';
+import { RequestLoggerMiddleware } from './request-logger.middleware';
 
 @Module({
   imports: [TypeOrmModule.forRoot(ormconfig), SurveysModule, ProductsModule, CompilationsModule, ProductRelationsModule],
   controllers: [AppController],
   providers: [AppService],
 })
+
 export class AppModule { }

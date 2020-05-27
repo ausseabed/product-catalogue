@@ -12,11 +12,11 @@ ARG POSTGRES_HOSTNAME
 
 ADD nest-cli.json package.json yarn.lock tsconfig.build.json tsconfig.json webpack-hmr.config.js $APPDIR/
 
-# RUN yarn global add mocha typeorm @babel/core reflect-metadata @babel/cli @babel/register pg
+RUN yarn global add @nestjs/cli
 
 ADD src $APPDIR/src
 
-RUN yarn install 
+RUN yarn install && yarn build
 EXPOSE 3000
 # Or yarn migration:run
-CMD ["yarn","run","start"] 
+CMD ["yarn","run","start:prod"] 

@@ -8,6 +8,7 @@ import { AuthGuard, PassportStrategy } from '@nestjs/passport';
 const config = require('./config');
 // const BearerStrategy = require('passport-azure-ad').BearerStrategy;
 import { BearerStrategy } from 'passport-azure-ad';
+import { requestLogger } from './request-logger.middleware';
 
 const ps = PassportStrategy(BearerStrategy, 'oauth-bearer')
 
@@ -20,12 +21,12 @@ const bearerStrategy = new BearerStrategy(config, (req, token, done) => {
 async function bootstrap () {
   const app = await NestFactory.create(AppModule,
     {
-      logger: ['error', 'warn', 'log', 'verbose'],
+      logger: ['error', 'warn', 'debug', 'log'],
     }
   );
 
   app.useGlobalGuards(new (AuthGuard(bearerStrategy)));
-
+  app.use(requestLogger)
   const options = new DocumentBuilder()
     .setTitle('AusSeabed product catalogue')
     .setDescription('The API description for the Ausseabed product catalogue inventory')
@@ -37,7 +38,10 @@ async function bootstrap () {
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
       'access-token')
     .build();
-  const document = SwaggerModule.createDocument(app, options);
+  const document = SwaggerModule.createDocument(app, options, {
+    ignoreGlobalPrefix: true,
+  });
+
   SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);
