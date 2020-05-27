@@ -1,0 +1,12 @@
+from __future__ import absolute_import
+
+# flake8: noqa
+
+# import apis into api package
+from product_catalogue_py_rest_client.api.compilations_api import CompilationsApi
+from product_catalogue_py_rest_client.api.product_relations_api import ProductRelationsApi
+from product_catalogue_py_rest_client.api.products_l0_dist_api import ProductsL0DistApi
+from product_catalogue_py_rest_client.api.products_l0_src_api import ProductsL0SrcApi
+from product_catalogue_py_rest_client.api.products_l3_dist_api import ProductsL3DistApi
+from product_catalogue_py_rest_client.api.products_l3_src_api import ProductsL3SrcApi
+from product_catalogue_py_rest_client.api.surveys_api import SurveysApi
