@@ -140,7 +140,7 @@ resource "aws_lb_target_group" "ga_sb_pc_load_balancer_outside" {
   vpc_id      = data.aws_vpc.ga_sb_vpc.id
   target_type = "ip"
   health_check {
-    path = "/health"
+    path = "/#/health"
   }
   stickiness {
     enabled = false
