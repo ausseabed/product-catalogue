@@ -36,7 +36,7 @@ jobs:
           checkout: false
           region: AWS_REGION_ENV_VAR_NAME
           repo: ausseabed-product-catalogue-client
-          # extra-build-args: '--build-arg AUTH_HOST=gwc-s3-plugin --build-arg AUTH_CLIENT_ID=2.16.2'
+          extra-build-args: '--build-arg AUTH_HOST="$AUTH_HOST" --build-arg AUTH_CLIENT_ID="$AUTH_CLIENT_ID"'
           # tag: 'ausseabed-geoserver-2.16.2'
   deploy_product_catalogue:
     docker:
