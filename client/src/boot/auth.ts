@@ -131,7 +131,7 @@ async function login () {
 export default boot(({ router, store }) => {
   router.beforeEach((to, from, next) => {
     // var noAuth = true
-    if (to.path === '/404' || to.path === '/') { // allow not-found page to be shown
+    if (to.path === '/404' || to.path === '/' || to.path === '/health') { // allow not-found page to be shown
       next()
     } else { // try to get login information
       login().then(account => {
