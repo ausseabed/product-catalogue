@@ -5,7 +5,7 @@ WORKDIR $APPDIR
 ARG AUTH_HOST
 ARG AUTH_CLIENT_ID
 
-ADD package.json yarn.lock jsconfig.json babel.config.js quasar.conf.js .postcssrc.js $APPDIR/
+ADD package.json yarn.lock babel.config.js quasar.conf.js .postcssrc.js tsconfig.json .npmrc $APPDIR/
 RUN yarn global add @quasar/cli
 ADD src $APPDIR/src
 
