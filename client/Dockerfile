@@ -1,4 +1,4 @@
-FROM node:12 as develop-stage
+FROM node:12 as build-stage
 ENV APPDIR=/code
 WORKDIR $APPDIR
 
@@ -9,10 +9,9 @@ ADD package.json yarn.lock babel.config.js quasar.conf.js .postcssrc.js tsconfig
 RUN yarn global add @quasar/cli
 ADD src $APPDIR/src
 
-# build stage
-FROM develop-stage as build-stage
 COPY product-catalogue-rest-client-0.1.7-npm.tgz $APPDIR/
-RUN ls
+RUN echo $AUTH_HOST
+RUN echo $AUTH_CLIENT_ID
 RUN yarn install && yarn run build
 
 FROM nginx:1.13.9 as production-stage

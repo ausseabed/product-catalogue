@@ -28,6 +28,11 @@ jobs:
           name: Build the rest-client
           working_directory: ./rest-client
           command: npm install && npm run build
+      - run:
+          name: Setup Environment Variables
+          command: |
+            echo "export AUTH_HOST=$AUTH_HOST" >> $BASH_ENV
+            echo "export AUTH_CLIENT_ID=$AUTH_CLIENT_ID" >> $BASH_ENV
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
           create-repo: false
@@ -36,7 +41,9 @@ jobs:
           checkout: false
           region: AWS_REGION_ENV_VAR_NAME
           repo: ausseabed-product-catalogue-client
-          extra-build-args: '--build-arg AUTH_HOST="$AUTH_HOST" --build-arg AUTH_CLIENT_ID="$AUTH_CLIENT_ID"'
+          environment:
+
+          extra-build-args: "--build-arg AUTH_HOST=$AUTH_HOST --build-arg AUTH_CLIENT_ID=$AUTH_CLIENT_ID"
           # tag: 'ausseabed-geoserver-2.16.2'
   deploy_product_catalogue:
     docker:
