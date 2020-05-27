@@ -11,7 +11,7 @@ ADD src $APPDIR/src
 
 # build stage
 FROM develop-stage as build-stage
-ADD product-catalogue-rest-client-0.1.7-npm.tgz $APPDIR/
+COPY product-catalogue-rest-client-0.1.7-npm.tgz $APPDIR/
 RUN ls
 RUN yarn install && yarn run build
 
