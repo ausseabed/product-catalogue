@@ -24,6 +24,10 @@ jobs:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
+      - run:
+          name: Build the rest-client
+          working_directory: ./rest-client
+          command: npm install && npm run build
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
           create-repo: false
