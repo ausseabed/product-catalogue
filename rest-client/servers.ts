@@ -34,7 +34,7 @@ export class ServerConfiguration<T> {
 		let replacedUrl = this.url;
 		for (const key in this.variableConfiguration) {
 			var re = new RegExp("{" + key + "}","g");
-			replacedUrl = replacedUrl.replace(re, this.variableConfiguration[key].toString());
+			replacedUrl = replacedUrl.replace(re, String(this.variableConfiguration[key]));
 		}
 		return replacedUrl
 	}
