@@ -2,8 +2,9 @@
 # yarn lockfile v1
 
 
-"@ausseabed/product-catalogue-rest-client@file:../rest-client":
+"@ausseabed/product-catalogue-rest-client@file:product-catalogue-rest-client-0.1.7-npm.tgz":
   version "0.1.7"
+  resolved "file:product-catalogue-rest-client-0.1.7-npm.tgz#0913ff24e1c66f29406ed70ce6417ef97702c365"
   dependencies:
     btoa "^1.2.1"
     es6-promise "^4.2.4"
