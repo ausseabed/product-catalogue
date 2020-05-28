@@ -33,8 +33,8 @@ export class ProductsL0DistController extends ProductsController<ProductL0Dist, 
 
   @Post()
   @ApiBody({ type: ProductL0DistDto })
-  create (@Body(new ClassValidationPipe()) product: ProductL0DistDto, @Query('productL0SrcId', new ParseIntPipe()) productL0SrcId: number) {
-    const productLink = this.productsService.findOne<ProductL0Src>(ProductL0Src, productL0SrcId)
+  async create (@Body(new ClassValidationPipe()) product: ProductL0DistDto, @Query('productL0SrcId', new ParseIntPipe()) productL0SrcId: number) {
+    const productLink = await this.productsService.findOne<ProductL0Src>(ProductL0Src, productL0SrcId)
     return this.productsService.create<ProductL0Dist, ProductL0DistDto>(this.productType, product, "sourceProduct", productLink);
   }
   @Put(':productId')

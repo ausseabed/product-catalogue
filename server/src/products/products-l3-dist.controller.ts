@@ -26,13 +26,14 @@ export class ProductsL3DistController extends ProductsController<ProductL3Dist, 
   @Get(':productId')
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
   async findOne (@Req() request: Request, @Param('productId', new ParseIntPipe()) productId: number): Promise<ProductL3Dist> {
-    return this.productsService.findOne<ProductL3Dist>(this.productType, productId)
+    return this.productsService.findOne<ProductL3Dist>(this.productType, productId);
   }
 
   @Post()
   @ApiBody({ type: ProductL3DistDto })
-  create (@Body(new ClassValidationPipe()) product: ProductL3DistDto, @Query('productL3SrcId', new ParseIntPipe()) productL3SrcId: number) {
-    const productLink = this.productsService.findOne<ProductL3Src>(ProductL3Src, productL3SrcId)
+  @ApiBadRequestResponse({ description: 'Could not find the survey' })
+  async create (@Body(new ClassValidationPipe()) product: ProductL3DistDto, @Query('productL3SrcId', new ParseIntPipe()) productL3SrcId: number) {
+    const productLink = await this.productsService.findOne<ProductL3Src>(ProductL3Src, productL3SrcId);
     return this.productsService.create<ProductL3Dist, ProductL3DistDto>(this.productType, product, "sourceProduct", productLink);
   }
 
