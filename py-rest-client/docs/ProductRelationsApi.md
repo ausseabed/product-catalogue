@@ -1,6 +1,6 @@
 # product_catalogue_py_rest_client.ProductRelationsApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost/rest*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -25,7 +25,7 @@ Method | HTTP request | Description
 
 
 # **product_relations_controller_create_compilation**
-> object product_relations_controller_create_compilation(compilation_l3_relation_dto)
+> CompilationL3Relation product_relations_controller_create_compilation(compilation_l3_relation_dto)
 
 
 
@@ -38,10 +38,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**CompilationL3Relation**](CompilationL3Relation.md)
 
 ### Authorization
 
@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_create_l0_survey**
-> object product_relations_controller_create_l0_survey(survey_l0_relation_dto)
+> SurveyL0Relation product_relations_controller_create_l0_survey(survey_l0_relation_dto)
 
 
 
@@ -107,10 +107,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**SurveyL0Relation**](SurveyL0Relation.md)
 
 ### Authorization
 
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_create_l3_survey**
-> object product_relations_controller_create_l3_survey(survey_l3_relation_dto)
+> SurveyL3Relation product_relations_controller_create_l3_survey(survey_l3_relation_dto)
 
 
 
@@ -176,10 +176,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**SurveyL3Relation**](SurveyL3Relation.md)
 
 ### Authorization
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_delete_compilation**
-> object product_relations_controller_delete_compilation(relation_id)
+> product_relations_controller_delete_compilation(relation_id)
 
 
 
@@ -245,10 +245,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -268,8 +268,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
     relation_id = 3.4 # float | 
 
     try:
-        api_response = api_instance.product_relations_controller_delete_compilation(relation_id)
-        pprint(api_response)
+        api_instance.product_relations_controller_delete_compilation(relation_id)
     except ApiException as e:
         print("Exception when calling ProductRelationsApi->product_relations_controller_delete_compilation: %s\n" % e)
 ```
@@ -282,7 +281,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Authorization
 
@@ -291,7 +290,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -302,7 +301,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_delete_l0_survey**
-> object product_relations_controller_delete_l0_survey(relation_id)
+> product_relations_controller_delete_l0_survey(relation_id)
 
 
 
@@ -315,10 +314,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -338,8 +337,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
     relation_id = 3.4 # float | 
 
     try:
-        api_response = api_instance.product_relations_controller_delete_l0_survey(relation_id)
-        pprint(api_response)
+        api_instance.product_relations_controller_delete_l0_survey(relation_id)
     except ApiException as e:
         print("Exception when calling ProductRelationsApi->product_relations_controller_delete_l0_survey: %s\n" % e)
 ```
@@ -352,7 +350,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Authorization
 
@@ -361,7 +359,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -372,7 +370,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_delete_l3_survey**
-> object product_relations_controller_delete_l3_survey(relation_id)
+> product_relations_controller_delete_l3_survey(relation_id)
 
 
 
@@ -385,10 +383,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -408,8 +406,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
     relation_id = 3.4 # float | 
 
     try:
-        api_response = api_instance.product_relations_controller_delete_l3_survey(relation_id)
-        pprint(api_response)
+        api_instance.product_relations_controller_delete_l3_survey(relation_id)
     except ApiException as e:
         print("Exception when calling ProductRelationsApi->product_relations_controller_delete_l3_survey: %s\n" % e)
 ```
@@ -422,7 +419,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Authorization
 
@@ -431,7 +428,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -455,10 +452,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -520,10 +517,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -585,10 +582,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -637,7 +634,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_find_conditional_compilation**
-> object product_relations_controller_find_conditional_compilation(compilation_id)
+> CompilationL3Relation product_relations_controller_find_conditional_compilation(compilation_id)
 
 
 
@@ -650,10 +647,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -687,7 +684,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**CompilationL3Relation**](CompilationL3Relation.md)
 
 ### Authorization
 
@@ -707,7 +704,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_find_conditional_l0_survey**
-> object product_relations_controller_find_conditional_l0_survey(survey_id)
+> SurveyL0Relation product_relations_controller_find_conditional_l0_survey(survey_id)
 
 
 
@@ -720,10 +717,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -757,7 +754,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**SurveyL0Relation**](SurveyL0Relation.md)
 
 ### Authorization
 
@@ -777,7 +774,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_find_conditional_l3_survey**
-> object product_relations_controller_find_conditional_l3_survey(survey_id)
+> SurveyL3Relation product_relations_controller_find_conditional_l3_survey(survey_id)
 
 
 
@@ -790,10 +787,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -827,7 +824,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**SurveyL3Relation**](SurveyL3Relation.md)
 
 ### Authorization
 
@@ -847,7 +844,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_find_one_compilation**
-> object product_relations_controller_find_one_compilation(relation_id)
+> CompilationL3Relation product_relations_controller_find_one_compilation(relation_id)
 
 
 
@@ -860,10 +857,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -897,7 +894,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**CompilationL3Relation**](CompilationL3Relation.md)
 
 ### Authorization
 
@@ -917,7 +914,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_find_one_l0_survey**
-> object product_relations_controller_find_one_l0_survey(relation_id)
+> SurveyL0Relation product_relations_controller_find_one_l0_survey(relation_id)
 
 
 
@@ -930,10 +927,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -967,7 +964,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**SurveyL0Relation**](SurveyL0Relation.md)
 
 ### Authorization
 
@@ -987,7 +984,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_find_one_l3_survey**
-> object product_relations_controller_find_one_l3_survey(relation_id)
+> SurveyL3Relation product_relations_controller_find_one_l3_survey(relation_id)
 
 
 
@@ -1000,10 +997,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1037,7 +1034,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**SurveyL3Relation**](SurveyL3Relation.md)
 
 ### Authorization
 
@@ -1057,7 +1054,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_update_compilation**
-> object product_relations_controller_update_compilation(relation_id, compilation_l3_relation_dto)
+> product_relations_controller_update_compilation(relation_id, compilation_l3_relation_dto)
 
 
 
@@ -1070,10 +1067,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1094,8 +1091,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
 compilation_l3_relation_dto = product_catalogue_py_rest_client.CompilationL3RelationDto() # CompilationL3RelationDto | 
 
     try:
-        api_response = api_instance.product_relations_controller_update_compilation(relation_id, compilation_l3_relation_dto)
-        pprint(api_response)
+        api_instance.product_relations_controller_update_compilation(relation_id, compilation_l3_relation_dto)
     except ApiException as e:
         print("Exception when calling ProductRelationsApi->product_relations_controller_update_compilation: %s\n" % e)
 ```
@@ -1109,7 +1105,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Authorization
 
@@ -1118,7 +1114,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1129,7 +1125,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_update_l0_survey**
-> object product_relations_controller_update_l0_survey(relation_id, survey_l0_relation_dto)
+> product_relations_controller_update_l0_survey(relation_id, survey_l0_relation_dto)
 
 
 
@@ -1142,10 +1138,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1166,8 +1162,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
 survey_l0_relation_dto = product_catalogue_py_rest_client.SurveyL0RelationDto() # SurveyL0RelationDto | 
 
     try:
-        api_response = api_instance.product_relations_controller_update_l0_survey(relation_id, survey_l0_relation_dto)
-        pprint(api_response)
+        api_instance.product_relations_controller_update_l0_survey(relation_id, survey_l0_relation_dto)
     except ApiException as e:
         print("Exception when calling ProductRelationsApi->product_relations_controller_update_l0_survey: %s\n" % e)
 ```
@@ -1181,7 +1176,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Authorization
 
@@ -1190,7 +1185,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1201,7 +1196,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **product_relations_controller_update_l3_survey**
-> object product_relations_controller_update_l3_survey(relation_id, survey_l3_relation_dto)
+> product_relations_controller_update_l3_survey(relation_id, survey_l3_relation_dto)
 
 
 
@@ -1214,10 +1209,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1238,8 +1233,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
 survey_l3_relation_dto = product_catalogue_py_rest_client.SurveyL3RelationDto() # SurveyL3RelationDto | 
 
     try:
-        api_response = api_instance.product_relations_controller_update_l3_survey(relation_id, survey_l3_relation_dto)
-        pprint(api_response)
+        api_instance.product_relations_controller_update_l3_survey(relation_id, survey_l3_relation_dto)
     except ApiException as e:
         print("Exception when calling ProductRelationsApi->product_relations_controller_update_l3_survey: %s\n" % e)
 ```
@@ -1253,7 +1247,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Authorization
 
@@ -1262,7 +1256,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |

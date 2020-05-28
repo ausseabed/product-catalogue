@@ -36,14 +36,16 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		
 		// Path Params
-    	const localVarPath = '/products/l0-dist'
-            .replace('{' + 'productL0SrcId' + '}', encodeURIComponent(String(productL0SrcId)));
+    	const localVarPath = '/products/l0-dist';
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (productL0SrcId !== undefined) {
+        	requestContext.setQueryParam("productL0SrcId", ObjectSerializer.serialize(productL0SrcId, "number", ""));
+        }
 	
 		// Header Params
 	

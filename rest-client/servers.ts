@@ -52,4 +52,4 @@ export class ServerConfiguration<T> {
 	}
 }
 
-export const server1 = new ServerConfiguration<{  }>("/", {  })
+export const server1 = new ServerConfiguration<{  }>("/rest", {  })

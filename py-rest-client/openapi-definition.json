@@ -1,6 +1,29 @@
 {
     "components": {
         "schemas": {
+            "Compilation": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "year"
+                ],
+                "type": "object"
+            },
             "CompilationDto": {
                 "properties": {
                     "name": {
@@ -23,6 +46,25 @@
                 ],
                 "type": "object"
             },
+            "CompilationL3Relation": {
+                "properties": {
+                    "compilation": {
+                        "$ref": "#/components/schemas/Compilation"
+                    },
+                    "id": {
+                        "type": "number"
+                    },
+                    "productL3Src": {
+                        "$ref": "#/components/schemas/ProductL3Src"
+                    }
+                },
+                "required": [
+                    "id",
+                    "compilation",
+                    "productL3Src"
+                ],
+                "type": "object"
+            },
             "CompilationL3RelationDto": {
                 "properties": {
                     "compilation": {
@@ -40,6 +82,32 @@
                 ],
                 "type": "object"
             },
+            "ProductL0Dist": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "l0CoverageLocation": {
+                        "type": "string"
+                    },
+                    "l0InstrumentFiles": {
+                        "items": {
+                            "$ref": "#/components/schemas/ProductL0InstrumentFile"
+                        },
+                        "type": "array"
+                    },
+                    "sourceProduct": {
+                        "$ref": "#/components/schemas/ProductL0Src"
+                    }
+                },
+                "required": [
+                    "id",
+                    "sourceProduct",
+                    "l0InstrumentFiles",
+                    "l0CoverageLocation"
+                ],
+                "type": "object"
+            },
             "ProductL0DistDto": {
                 "properties": {
                     "l0CoverageLocation": {
@@ -49,6 +117,21 @@
                 },
                 "required": [
                     "l0CoverageLocation"
+                ],
+                "type": "object"
+            },
+            "ProductL0InstrumentFile": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "l0InstrumentFile": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "l0InstrumentFile"
                 ],
                 "type": "object"
             },
@@ -66,6 +149,37 @@
                 "required": [
                     "instrumentFile",
                     "coverageFile"
+                ],
+                "type": "object"
+            },
+            "ProductL0Src": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "l0InstrumentLocation": {
+                        "type": "string"
+                    },
+                    "metadataPersistentId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "srs": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "l0InstrumentLocation"
                 ],
                 "type": "object"
             },
@@ -101,6 +215,33 @@
                 ],
                 "type": "object"
             },
+            "ProductL3Dist": {
+                "properties": {
+                    "bathymetryLocation": {
+                        "type": "string"
+                    },
+                    "hillshadeLocation": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "number"
+                    },
+                    "l3CoverageLocation": {
+                        "type": "string"
+                    },
+                    "sourceProduct": {
+                        "$ref": "#/components/schemas/ProductL3Src"
+                    }
+                },
+                "required": [
+                    "id",
+                    "sourceProduct",
+                    "l3CoverageLocation",
+                    "bathymetryLocation",
+                    "hillshadeLocation"
+                ],
+                "type": "object"
+            },
             "ProductL3DistDto": {
                 "properties": {
                     "bathymetryLocation": {
@@ -120,6 +261,41 @@
                     "l3CoverageLocation",
                     "hillshadeLocation",
                     "bathymetryLocation"
+                ],
+                "type": "object"
+            },
+            "ProductL3Src": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "metadataPersistentId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "productTifLocation": {
+                        "type": "string"
+                    },
+                    "resolution": {
+                        "type": "string"
+                    },
+                    "srs": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "resolution",
+                    "productTifLocation"
                 ],
                 "type": "object"
             },
@@ -187,6 +363,29 @@
                 ],
                 "type": "object"
             },
+            "Survey": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "year"
+                ],
+                "type": "object"
+            },
             "SurveyDto": {
                 "properties": {
                     "name": {
@@ -209,6 +408,25 @@
                 ],
                 "type": "object"
             },
+            "SurveyL0Relation": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "productL0Src": {
+                        "$ref": "#/components/schemas/ProductL0Src"
+                    },
+                    "survey": {
+                        "$ref": "#/components/schemas/Survey"
+                    }
+                },
+                "required": [
+                    "id",
+                    "survey",
+                    "productL0Src"
+                ],
+                "type": "object"
+            },
             "SurveyL0RelationDto": {
                 "properties": {
                     "productL0Src": {
@@ -223,6 +441,25 @@
                 "required": [
                     "survey",
                     "productL0Src"
+                ],
+                "type": "object"
+            },
+            "SurveyL3Relation": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "productL3Src": {
+                        "$ref": "#/components/schemas/ProductL3Src"
+                    },
+                    "survey": {
+                        "$ref": "#/components/schemas/Survey"
+                    }
+                },
+                "required": [
+                    "id",
+                    "survey",
+                    "productL3Src"
                 ],
                 "type": "object"
             },
@@ -264,7 +501,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.1.7"
+        "version": "0.1.9"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -277,7 +514,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "items": {
+                                        "$ref": "#/components/schemas/Compilation"
+                                    },
+                                    "type": "array"
                                 }
                             }
                         },
@@ -311,7 +551,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Compilation"
                                 }
                             }
                         },
@@ -343,13 +583,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -382,7 +615,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Compilation"
                                 }
                             }
                         },
@@ -425,13 +658,6 @@
                 },
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -494,7 +720,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/CompilationL3Relation"
                                 }
                             }
                         },
@@ -529,7 +755,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/CompilationL3Relation"
                                 }
                             }
                         },
@@ -564,13 +790,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -603,7 +822,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/CompilationL3Relation"
                                 }
                             }
                         },
@@ -646,13 +865,6 @@
                 },
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -715,7 +927,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/SurveyL0Relation"
                                 }
                             }
                         },
@@ -750,7 +962,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/SurveyL0Relation"
                                 }
                             }
                         },
@@ -785,13 +997,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -824,7 +1029,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/SurveyL0Relation"
                                 }
                             }
                         },
@@ -867,13 +1072,6 @@
                 },
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -936,7 +1134,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/SurveyL3Relation"
                                 }
                             }
                         },
@@ -971,7 +1169,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/SurveyL3Relation"
                                 }
                             }
                         },
@@ -1006,13 +1204,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -1045,7 +1236,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/SurveyL3Relation"
                                 }
                             }
                         },
@@ -1088,13 +1279,6 @@
                 },
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -1120,7 +1304,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL0Dist"
+                                    },
+                                    "type": "array"
                                 }
                             }
                         },
@@ -1140,7 +1327,7 @@
                 "operationId": "ProductsL0DistController_create",
                 "parameters": [
                     {
-                        "in": "path",
+                        "in": "query",
                         "name": "productL0SrcId",
                         "required": true,
                         "schema": {
@@ -1163,7 +1350,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/ProductL0Dist"
                                 }
                             }
                         },
@@ -1195,13 +1382,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -1234,7 +1414,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/ProductL0Dist"
                                 }
                             }
                         },
@@ -1277,13 +1457,6 @@
                 },
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -1318,7 +1491,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL0InstrumentFile"
+                                    },
+                                    "type": "array"
                                 }
                             }
                         },
@@ -1361,7 +1537,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/ProductL0InstrumentFile"
                                 }
                             }
                         },
@@ -1401,13 +1577,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -1448,7 +1617,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL0InstrumentFile"
+                                    },
+                                    "type": "array"
                                 }
                             }
                         },
@@ -1496,13 +1668,6 @@
                 },
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -1528,7 +1693,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL0Src"
+                                    },
+                                    "type": "array"
                                 }
                             }
                         },
@@ -1562,7 +1730,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/ProductL0Src"
                                 }
                             }
                         },
@@ -1594,13 +1762,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -1633,7 +1794,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/ProductL0Src"
                                 }
                             }
                         },
@@ -1676,13 +1837,6 @@
                 },
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -1708,7 +1862,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL3Dist"
+                                    },
+                                    "type": "array"
                                 }
                             }
                         },
@@ -1728,7 +1885,7 @@
                 "operationId": "ProductsL3DistController_create",
                 "parameters": [
                     {
-                        "in": "path",
+                        "in": "query",
                         "name": "productL3SrcId",
                         "required": true,
                         "schema": {
@@ -1751,7 +1908,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/ProductL3Dist"
                                 }
                             }
                         },
@@ -1783,13 +1940,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -1822,7 +1972,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/ProductL3Dist"
                                 }
                             }
                         },
@@ -1865,13 +2015,6 @@
                 },
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -1897,7 +2040,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL3Src"
+                                    },
+                                    "type": "array"
                                 }
                             }
                         },
@@ -1931,7 +2077,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/ProductL3Src"
                                 }
                             }
                         },
@@ -1963,13 +2109,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -2002,7 +2141,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/ProductL3Src"
                                 }
                             }
                         },
@@ -2045,13 +2184,6 @@
                 },
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -2077,7 +2209,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "items": {
+                                        "$ref": "#/components/schemas/Survey"
+                                    },
+                                    "type": "array"
                                 }
                             }
                         },
@@ -2111,7 +2246,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Survey"
                                 }
                             }
                         },
@@ -2143,13 +2278,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -2182,7 +2310,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Survey"
                                 }
                             }
                         },
@@ -2225,13 +2353,6 @@
                 },
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        },
                         "description": ""
                     },
                     "400": {
@@ -2249,7 +2370,11 @@
             }
         }
     },
-    "servers": [],
+    "servers": [
+        {
+            "url": "/rest"
+        }
+    ],
     "tags": [
         {
             "description": "",

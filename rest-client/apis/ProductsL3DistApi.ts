@@ -34,14 +34,16 @@ export class ProductsL3DistApiRequestFactory extends BaseAPIRequestFactory {
 
 		
 		// Path Params
-    	const localVarPath = '/products/l3-dist'
-            .replace('{' + 'productL3SrcId' + '}', encodeURIComponent(String(productL3SrcId)));
+    	const localVarPath = '/products/l3-dist';
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (productL3SrcId !== undefined) {
+        	requestContext.setQueryParam("productL3SrcId", ObjectSerializer.serialize(productL3SrcId, "number", ""));
+        }
 	
 		// Header Params
 	

@@ -1,6 +1,6 @@
 # product_catalogue_py_rest_client.ProductsL0SrcApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost/rest*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **products_l0_src_controller_create**
-> object products_l0_src_controller_create(product_l0_src_dto)
+> ProductL0Src products_l0_src_controller_create(product_l0_src_dto)
 
 
 
@@ -25,10 +25,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**ProductL0Src**](ProductL0Src.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **products_l0_src_controller_delete**
-> object products_l0_src_controller_delete(product_id)
+> products_l0_src_controller_delete(product_id)
 
 
 
@@ -94,10 +94,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -117,8 +117,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
     product_id = 3.4 # float | 
 
     try:
-        api_response = api_instance.products_l0_src_controller_delete(product_id)
-        pprint(api_response)
+        api_instance.products_l0_src_controller_delete(product_id)
     except ApiException as e:
         print("Exception when calling ProductsL0SrcApi->products_l0_src_controller_delete: %s\n" % e)
 ```
@@ -131,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Authorization
 
@@ -140,7 +139,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -151,7 +150,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **products_l0_src_controller_find_all**
-> object products_l0_src_controller_find_all()
+> list[ProductL0Src] products_l0_src_controller_find_all()
 
 
 
@@ -164,10 +163,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -197,7 +196,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**object**
+[**list[ProductL0Src]**](ProductL0Src.md)
 
 ### Authorization
 
@@ -216,7 +215,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **products_l0_src_controller_find_one**
-> object products_l0_src_controller_find_one(product_id)
+> ProductL0Src products_l0_src_controller_find_one(product_id)
 
 
 
@@ -229,10 +228,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -266,7 +265,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**ProductL0Src**](ProductL0Src.md)
 
 ### Authorization
 
@@ -286,7 +285,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **products_l0_src_controller_update**
-> object products_l0_src_controller_update(product_id, product_l0_src_dto)
+> products_l0_src_controller_update(product_id, product_l0_src_dto)
 
 
 
@@ -299,10 +298,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -323,8 +322,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
 product_l0_src_dto = product_catalogue_py_rest_client.ProductL0SrcDto() # ProductL0SrcDto | 
 
     try:
-        api_response = api_instance.products_l0_src_controller_update(product_id, product_l0_src_dto)
-        pprint(api_response)
+        api_instance.products_l0_src_controller_update(product_id, product_l0_src_dto)
     except ApiException as e:
         print("Exception when calling ProductsL0SrcApi->products_l0_src_controller_update: %s\n" % e)
 ```
@@ -338,7 +336,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Authorization
 
@@ -347,7 +345,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |

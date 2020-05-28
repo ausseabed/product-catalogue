@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { ProductL0Dist } from "./product-l0-dist.entity";
+import { ApiHideProperty } from '@nestjs/swagger';
 
 @Entity()
 export class ProductL0InstrumentFile {
@@ -10,6 +11,7 @@ export class ProductL0InstrumentFile {
   @Column()
   l0InstrumentFile: string; // Location of instrument files 
 
+  @ApiHideProperty()
   @ManyToOne(type => ProductL0Dist, productL0Dist => productL0Dist.l0InstrumentFiles, {
     nullable: false,
     onDelete: 'CASCADE'

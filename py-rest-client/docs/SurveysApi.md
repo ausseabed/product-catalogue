@@ -1,6 +1,6 @@
 # product_catalogue_py_rest_client.SurveysApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost/rest*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **surveys_controller_create**
-> object surveys_controller_create(survey_dto)
+> Survey surveys_controller_create(survey_dto)
 
 
 
@@ -25,10 +25,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**Survey**](Survey.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **surveys_controller_find_all**
-> object surveys_controller_find_all()
+> list[Survey] surveys_controller_find_all()
 
 
 
@@ -94,10 +94,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -127,7 +127,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**object**
+[**list[Survey]**](Survey.md)
 
 ### Authorization
 
@@ -146,7 +146,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **surveys_controller_find_one**
-> object surveys_controller_find_one(survey_id)
+> Survey surveys_controller_find_one(survey_id)
 
 
 
@@ -159,10 +159,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**Survey**](Survey.md)
 
 ### Authorization
 
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **surveys_controller_remove**
-> object surveys_controller_remove(survey_id)
+> surveys_controller_remove(survey_id)
 
 
 
@@ -229,10 +229,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -252,8 +252,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
     survey_id = 3.4 # float | 
 
     try:
-        api_response = api_instance.surveys_controller_remove(survey_id)
-        pprint(api_response)
+        api_instance.surveys_controller_remove(survey_id)
     except ApiException as e:
         print("Exception when calling SurveysApi->surveys_controller_remove: %s\n" % e)
 ```
@@ -266,7 +265,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Authorization
 
@@ -275,7 +274,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -286,7 +285,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **surveys_controller_update**
-> object surveys_controller_update(survey_id, survey_dto)
+> surveys_controller_update(survey_id, survey_dto)
 
 
 
@@ -299,10 +298,10 @@ import time
 import product_catalogue_py_rest_client
 from product_catalogue_py_rest_client.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to http://localhost/rest
 # See configuration.py for a list of all supported configuration parameters.
 configuration = product_catalogue_py_rest_client.Configuration(
-    host = "http://localhost"
+    host = "http://localhost/rest"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -323,8 +322,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
 survey_dto = product_catalogue_py_rest_client.SurveyDto() # SurveyDto | 
 
     try:
-        api_response = api_instance.surveys_controller_update(survey_id, survey_dto)
-        pprint(api_response)
+        api_instance.surveys_controller_update(survey_id, survey_dto)
     except ApiException as e:
         print("Exception when calling SurveysApi->surveys_controller_update: %s\n" % e)
 ```
@@ -338,7 +336,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+void (empty response body)
 
 ### Authorization
 
@@ -347,7 +345,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 | Status code | Description | Response headers |

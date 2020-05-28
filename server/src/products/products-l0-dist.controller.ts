@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ProductsController } from './products.controller';
 import { ProductL0Dist } from './product-l0-dist.entity';
@@ -31,9 +31,9 @@ export class ProductsL0DistController extends ProductsController<ProductL0Dist, 
     return this.productsService.findOne<ProductL0Dist>(this.productType, productId)
   }
 
-  @Post('')
+  @Post()
   @ApiBody({ type: ProductL0DistDto })
-  create (@Body(new ClassValidationPipe()) product: ProductL0DistDto, @Param('productL0SrcId', new ParseIntPipe()) productL0SrcId: number) {
+  create (@Body(new ClassValidationPipe()) product: ProductL0DistDto, @Query('productL0SrcId', new ParseIntPipe()) productL0SrcId: number) {
     const productLink = this.productsService.findOne<ProductL0Src>(ProductL0Src, productL0SrcId)
     return this.productsService.create<ProductL0Dist, ProductL0DistDto>(this.productType, product, "sourceProduct", productLink);
   }

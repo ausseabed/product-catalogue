@@ -127,15 +127,11 @@
                     },
                     "l0InstrumentFile": {
                         "type": "string"
-                    },
-                    "productL0Dist": {
-                        "$ref": "#/components/schemas/ProductL0Dist"
                     }
                 },
                 "required": [
                     "id",
-                    "l0InstrumentFile",
-                    "productL0Dist"
+                    "l0InstrumentFile"
                 ],
                 "type": "object"
             },
@@ -505,7 +501,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.1.7"
+        "version": "0.1.9"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -1331,7 +1327,7 @@
                 "operationId": "ProductsL0DistController_create",
                 "parameters": [
                     {
-                        "in": "path",
+                        "in": "query",
                         "name": "productL0SrcId",
                         "required": true,
                         "schema": {
@@ -1889,7 +1885,7 @@
                 "operationId": "ProductsL3DistController_create",
                 "parameters": [
                     {
-                        "in": "path",
+                        "in": "query",
                         "name": "productL3SrcId",
                         "required": true,
                         "schema": {
@@ -2374,7 +2370,11 @@
             }
         }
     },
-    "servers": [],
+    "servers": [
+        {
+            "url": "/rest"
+        }
+    ],
     "tags": [
         {
             "description": "",
