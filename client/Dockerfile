@@ -9,7 +9,7 @@ ADD package.json yarn.lock babel.config.js quasar.conf.js .postcssrc.js tsconfig
 RUN yarn global add @quasar/cli
 ADD src $APPDIR/src
 
-COPY product-catalogue-rest-client-0.1.7-npm.tgz $APPDIR/
+COPY product-catalogue-rest-client-0.1.11-npm.tgz $APPDIR/
 RUN echo $AUTH_HOST
 RUN echo $AUTH_CLIENT_ID
 RUN yarn install && yarn run build

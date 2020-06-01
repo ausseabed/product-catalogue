@@ -1,5 +1,5 @@
 import { IsString, IsInt } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class ErrorDto {
   @ApiProperty({
@@ -8,12 +8,14 @@ export class ErrorDto {
   @IsInt()
   statusCode: number;
 
+  @ApiPropertyOptional()
   @ApiProperty({
     description: 'Message'
   })
   @IsString()
   message: string;
 
+  @ApiPropertyOptional()
   @ApiProperty({
     description: 'Error string'
   })

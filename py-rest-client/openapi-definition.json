@@ -98,9 +98,7 @@
                     }
                 },
                 "required": [
-                    "statusCode",
-                    "message",
-                    "error"
+                    "statusCode"
                 ],
                 "type": "object"
             },
@@ -523,7 +521,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.1.10"
+        "version": "0.1.11"
     },
     "openapi": "3.0.0",
     "paths": {
