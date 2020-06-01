@@ -1,6 +1,6 @@
-import { Controller, Param, Req, Get, ParseIntPipe, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Param, Req, Get, ParseIntPipe, Post, Body, Put, Delete, Logger } from '@nestjs/common';
 import { ProductRelationsService } from './product-relations.service';
-import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiResponseProperty, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiResponseProperty, ApiResponse, ApiRequestTimeoutResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { CompilationL3Relation } from './compilation-l3-relation.entity';
 import { SurveyL3Relation } from './survey-l3-relation.entity';
@@ -14,9 +14,12 @@ import { Survey } from 'src/surveys/survey.entity';
 import { ProductL0Src } from 'src/products/product-l0-src.entity';
 import { Compilation } from 'src/compilations/compilation.entity';
 import { RelationSummaryDto } from './dto/relation-summary.dto';
+import { ErrorDto } from 'src/errors/errors.dto';
 @ApiTags('product-relations')
 @Controller('product-relations')
 @ApiBearerAuth('access-token')
+@ApiRequestTimeoutResponse({ description: 'Server took too long to respond.', type: ErrorDto })
+@ApiUnauthorizedResponse({ description: 'Unable to authenticate request.', type: ErrorDto })
 export class ProductRelationsController {
   constructor(private productRelationsService: ProductRelationsService) { }
 

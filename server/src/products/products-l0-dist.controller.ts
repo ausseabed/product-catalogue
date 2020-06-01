@@ -1,5 +1,6 @@
 import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe, Query } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { ErrorDto } from 'src/errors/errors.dto';
 import { ProductsController } from './products.controller';
 import { ProductL0Dist } from './product-l0-dist.entity';
 import { ProductL0DistDto } from './dto/product-l0-dist.dto';
@@ -13,6 +14,8 @@ import { ProductL0Src } from './product-l0-src.entity';
 @ApiTags('products/l0-dist')
 @Controller('products/l0-dist')
 @ApiBearerAuth('access-token')
+@ApiRequestTimeoutResponse({ description: 'Server took too long to respond.', type: ErrorDto })
+@ApiUnauthorizedResponse({ description: 'Unable to authenticate request.', type: ErrorDto })
 export class ProductsL0DistController extends ProductsController<ProductL0Dist, ProductL0DistDto>{
   constructor(
     productsService: ProductsService,

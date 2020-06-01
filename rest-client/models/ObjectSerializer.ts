@@ -2,6 +2,7 @@ export * from './Compilation';
 export * from './CompilationDto';
 export * from './CompilationL3Relation';
 export * from './CompilationL3RelationDto';
+export * from './ErrorDto';
 export * from './ProductL0Dist';
 export * from './ProductL0DistDto';
 export * from './ProductL0InstrumentFile';
@@ -24,6 +25,7 @@ import { Compilation } from './Compilation';
 import { CompilationDto } from './CompilationDto';
 import { CompilationL3Relation } from './CompilationL3Relation';
 import { CompilationL3RelationDto } from './CompilationL3RelationDto';
+import { ErrorDto } from './ErrorDto';
 import { ProductL0Dist } from './ProductL0Dist';
 import { ProductL0DistDto } from './ProductL0DistDto';
 import { ProductL0InstrumentFile } from './ProductL0InstrumentFile';
@@ -68,6 +70,7 @@ let typeMap: {[index: string]: any} = {
     "CompilationDto": CompilationDto,
     "CompilationL3Relation": CompilationL3Relation,
     "CompilationL3RelationDto": CompilationL3RelationDto,
+    "ErrorDto": ErrorDto,
     "ProductL0Dist": ProductL0Dist,
     "ProductL0DistDto": ProductL0DistDto,
     "ProductL0InstrumentFile": ProductL0InstrumentFile,

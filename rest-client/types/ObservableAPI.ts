@@ -8,6 +8,7 @@ import { Compilation } from '../models/Compilation';
 import { CompilationDto } from '../models/CompilationDto';
 import { CompilationL3Relation } from '../models/CompilationL3Relation';
 import { CompilationL3RelationDto } from '../models/CompilationL3RelationDto';
+import { ErrorDto } from '../models/ErrorDto';
 import { ProductL0Dist } from '../models/ProductL0Dist';
 import { ProductL0DistDto } from '../models/ProductL0DistDto';
 import { ProductL0InstrumentFile } from '../models/ProductL0InstrumentFile';

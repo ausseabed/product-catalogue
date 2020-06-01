@@ -3,36 +3,34 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 declare const module: any;
-import { AuthGuard, PassportStrategy } from '@nestjs/passport';
-
-const config = require('./config');
-// const BearerStrategy = require('passport-azure-ad').BearerStrategy;
-import { BearerStrategy } from 'passport-azure-ad';
-import { requestLogger } from './request-logger.middleware';
-
-const ps = PassportStrategy(BearerStrategy, 'oauth-bearer')
-
-const bearerStrategy = new BearerStrategy(config, (req, token, done) => {
-  // Send user info using the second argument
-  done(null, {}, token);
-}
-);
+import { requestLogger } from './errors/request-logger.middleware';
+import { TimeoutInterceptor } from './errors/timeout.interceptor';
+import { VerboseAuthGuard } from './auth/verbose-auth-guard';
+import { LoggingInterceptor } from './errors/logging.interceptor';
+import { AllExceptionsFilter } from './errors/all-exceptions.filter';
+import { PassportModule } from '@nestjs/passport';
 
 async function bootstrap () {
   const app = await NestFactory.create(AppModule,
     {
-      logger: ['error', 'warn', 'debug', 'log'],
+      logger: ['error', 'warn', 'debug', 'log', 'verbose'],
     }
   );
-
-  app.useGlobalGuards(new (AuthGuard(bearerStrategy)));
+  PassportModule.register({
+    defaultStrategy: 'AzureADStrategy',
+    session: false,
+  });
+  app.useGlobalGuards(new (VerboseAuthGuard));
   app.use(requestLogger)
+  app.useGlobalInterceptors(new TimeoutInterceptor());
+  app.useGlobalInterceptors(new LoggingInterceptor());
+  // app.useGlobalFilters(new AllExceptionsFilter()); // Uncomment to catch any exception
   const options = new DocumentBuilder()
     .setTitle('AusSeabed product catalogue')
     .setDescription('The API description for the Ausseabed product catalogue inventory')
     .setContact("AusSeabed", "http://ausseabed.gov.au/", "AusSeabed@ga.gov.au")
     .setLicense("Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0.html")
-    .setVersion('0.1.9')
+    .setVersion('0.1.10')
     .addTag('surveys')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },

@@ -1,13 +1,16 @@
 import { Controller, Get, Req, Param, ParseIntPipe, Body, Post, Put, Delete } from '@nestjs/common';
-import { ApiTags, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { CompilationsService } from './compilations.service';
 import { Compilation } from './compilation.entity';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { CompilationDto } from './dto/compilation.dto';
+import { ErrorDto } from 'src/errors/errors.dto';
 import { Request } from 'express';
 @ApiTags('compilations')
 @Controller('compilations')
 @ApiBearerAuth('access-token')
+@ApiRequestTimeoutResponse({ description: 'Server took too long to respond.', type: ErrorDto })
+@ApiUnauthorizedResponse({ description: 'Unable to authenticate request.', type: ErrorDto })
 export class CompilationsController {
   constructor(private compilationsService: CompilationsService) { }
 

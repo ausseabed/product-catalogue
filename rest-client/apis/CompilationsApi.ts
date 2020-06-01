@@ -8,6 +8,7 @@ import {isCodeInRange} from '../util';
 
 import { Compilation } from '../models/Compilation';
 import { CompilationDto } from '../models/CompilationDto';
+import { ErrorDto } from '../models/ErrorDto';
 
 /**
  * no description
@@ -247,6 +248,20 @@ export class CompilationsApiResponseProcessor {
             ) as Compilation;
             return body;
         }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(401, body);
+        }
+        if (isCodeInRange("408", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(408, body);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -276,6 +291,20 @@ export class CompilationsApiResponseProcessor {
                 "Array<Compilation>", ""
             ) as Array<Compilation>;
             return body;
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(401, body);
+        }
+        if (isCodeInRange("408", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(408, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -310,6 +339,20 @@ export class CompilationsApiResponseProcessor {
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the compilation");
         }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(401, body);
+        }
+        if (isCodeInRange("408", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(408, body);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -339,6 +382,20 @@ export class CompilationsApiResponseProcessor {
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the compilation");
         }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(401, body);
+        }
+        if (isCodeInRange("408", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(408, body);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -363,6 +420,20 @@ export class CompilationsApiResponseProcessor {
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the compilation");
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(401, body);
+        }
+        if (isCodeInRange("408", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(408, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml

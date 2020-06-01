@@ -6,6 +6,7 @@ import {ObjectSerializer} from '../models/ObjectSerializer';
 import {ApiException} from './exception';
 import {isCodeInRange} from '../util';
 
+import { ErrorDto } from '../models/ErrorDto';
 import { ProductL3Dist } from '../models/ProductL3Dist';
 import { ProductL3DistDto } from '../models/ProductL3DistDto';
 
@@ -257,6 +258,23 @@ export class ProductsL3DistApiResponseProcessor {
             ) as ProductL3Dist;
             return body;
         }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(401, body);
+        }
+        if (isCodeInRange("408", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(408, body);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -286,6 +304,20 @@ export class ProductsL3DistApiResponseProcessor {
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(401, body);
+        }
+        if (isCodeInRange("408", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(408, body);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -311,6 +343,20 @@ export class ProductsL3DistApiResponseProcessor {
                 "Array<ProductL3Dist>", ""
             ) as Array<ProductL3Dist>;
             return body;
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(401, body);
+        }
+        if (isCodeInRange("408", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(408, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -345,6 +391,20 @@ export class ProductsL3DistApiResponseProcessor {
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
         }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(401, body);
+        }
+        if (isCodeInRange("408", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(408, body);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -373,6 +433,20 @@ export class ProductsL3DistApiResponseProcessor {
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<string>(response.httpStatusCode, "Could not find the survey");
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(401, body);
+        }
+        if (isCodeInRange("408", response.httpStatusCode)) {
+            const body: ErrorDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ErrorDto", ""
+            ) as ErrorDto;
+            throw new ApiException<ErrorDto>(408, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml

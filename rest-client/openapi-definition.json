@@ -82,6 +82,28 @@
                 ],
                 "type": "object"
             },
+            "ErrorDto": {
+                "properties": {
+                    "error": {
+                        "description": "Error string",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "Message",
+                        "type": "string"
+                    },
+                    "statusCode": {
+                        "description": "HTTP status code",
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "statusCode",
+                    "message",
+                    "error"
+                ],
+                "type": "object"
+            },
             "ProductL0Dist": {
                 "properties": {
                     "id": {
@@ -501,7 +523,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.1.9"
+        "version": "0.1.10"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -522,6 +544,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -556,6 +598,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -587,6 +649,26 @@
                     },
                     "400": {
                         "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -623,6 +705,26 @@
                     },
                     "400": {
                         "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -662,6 +764,26 @@
                     },
                     "400": {
                         "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -691,6 +813,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -725,6 +867,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -763,6 +925,26 @@
                     },
                     "400": {
                         "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -794,6 +976,26 @@
                     },
                     "400": {
                         "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -830,6 +1032,26 @@
                     },
                     "400": {
                         "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -869,6 +1091,26 @@
                     },
                     "400": {
                         "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -898,6 +1140,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -932,6 +1194,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -970,6 +1252,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1001,6 +1303,26 @@
                     },
                     "400": {
                         "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1037,6 +1359,26 @@
                     },
                     "400": {
                         "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1076,6 +1418,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1105,6 +1467,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1139,6 +1521,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1177,6 +1579,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1208,6 +1630,26 @@
                     },
                     "400": {
                         "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1244,6 +1686,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1283,6 +1745,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1312,6 +1794,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1355,6 +1857,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1386,6 +1908,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1422,6 +1964,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1461,6 +2023,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1499,6 +2081,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1542,6 +2144,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1581,6 +2203,26 @@
                     },
                     "400": {
                         "description": "Could not find the instrument"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1625,6 +2267,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1672,6 +2334,26 @@
                     },
                     "400": {
                         "description": "Could not find the instrument"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1701,6 +2383,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1735,6 +2437,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1766,6 +2488,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1802,6 +2544,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1841,6 +2603,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1870,6 +2652,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1913,6 +2715,29 @@
                             }
                         },
                         "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1944,6 +2769,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -1980,6 +2825,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2019,6 +2884,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2048,6 +2933,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2082,6 +2987,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2113,6 +3038,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2149,6 +3094,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2188,6 +3153,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2217,6 +3202,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2251,6 +3256,26 @@
                             }
                         },
                         "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2282,6 +3307,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2318,6 +3363,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [
@@ -2357,6 +3422,26 @@
                     },
                     "400": {
                         "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
                     }
                 },
                 "security": [

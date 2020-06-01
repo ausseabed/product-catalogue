@@ -1,21 +1,23 @@
-import { Controller, Get, Put, Delete, Body, Req, Param, Post, Res, UsePipes, ParseIntPipe, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Body, Req, Param, Post, Res, UsePipes, ParseIntPipe, BadRequestException, Logger } from '@nestjs/common';
 import { Request } from 'express';
-import { ApiTags, ApiBadRequestResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { Survey } from './survey.entity'
 import { SurveysService } from './surveys.service'
 import { SurveyDto } from './dto/survey.dto';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { throwError } from 'rxjs';
+import { ErrorDto } from 'src/errors/errors.dto';
 
 @ApiTags('surveys')
 @Controller('surveys')
 @ApiBearerAuth('access-token')
+@ApiRequestTimeoutResponse({ description: 'Server took too long to respond.', type: ErrorDto })
+@ApiUnauthorizedResponse({ description: 'Unable to authenticate request.', type: ErrorDto })
 export class SurveysController {
   constructor(private surveysService: SurveysService) { }
 
   @Get()
   async findAll (): Promise<Survey[]> {
-
     return this.surveysService.findAll();
   }
 
