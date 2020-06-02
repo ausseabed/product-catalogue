@@ -11,7 +11,8 @@
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
     "test": "echo \"No test specified\" && exit 0",
     "build": "quasar build",
-    "dev": "quasar dev"
+    "dev": "quasar dev",
+    "deploy": "rm -rf /usr/share/nginx/html && mv dist/spa /usr/share/nginx/html"
   },
   "dependencies": {
     "@ausseabed/product-catalogue-rest-client": "file:product-catalogue-rest-client-0.1.11-npm.tgz",

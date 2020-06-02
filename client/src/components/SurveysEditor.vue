@@ -14,7 +14,7 @@
       </q-banner>
     </div>
     <q-table
-      style="height: 400px border-collapse:collapse"
+      style="height: 750px"
       title="Surveys"
       :data="surveys.surveys"
       :columns="columns"
@@ -123,15 +123,13 @@
               <div class="col-grow" />
               <div class="col-shrink">
 
-                <div v-if="!props.selected">
-                  {{ props.row.products }}
-                  <!-- to="/survey-l3-relation" -->
-                  <q-btn
-                    label='Add L3'
-                    color="primary"
-                    @click="() => createProductInternal(props.row.id)"
-                  />
-                </div>
+                {{ props.row.products }}
+                <!-- to="/survey-l3-relation" -->
+                <q-btn
+                  label='Add L3'
+                  color="primary"
+                  @click="() => createProductInternal(props.row.id)"
+                />
               </div>
             </div>
           </q-td>
