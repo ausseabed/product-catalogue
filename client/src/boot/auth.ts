@@ -79,13 +79,15 @@ export const msalInstance = new msal.PublicClientApplication(msalConfig)
 //   }
 // }
 
-export function getRestConfiguration (rootState: StoreInterface) {
+export function getRestConfiguration (rootState: StoreInterface | undefined) {
   const serverConfig = new ServerConfiguration('/rest', {})
 
   msalInstance.acquireTokenSilent(requestScopes)
   const account = msalInstance.getAccount()
   if (!account) {
-    rootState.surveyStore.errorMessages.push('Could not authenticate')
+    if (rootState) {
+      rootState.surveyStore.errorMessages.push('Could not authenticate')
+    }
     throw Error('Could not authenticate')
   }
 

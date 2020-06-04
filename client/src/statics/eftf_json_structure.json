@@ -1,0 +1,25 @@
+{
+  "primaryTheme": "",
+  "secondaryTheme": "",
+  "name": "",
+  "layers": "",
+  "layersWcs": "",
+  "type": "",
+  "description": "",
+  "personas": "",
+  "initialiseForPersonas": "",
+  "tilecacheUrl": null,
+  "singleTile": false,
+  "wmsUrl": "",
+  "wcsUrl": "",
+  "legendUrl": "",
+  "geometryType": "",
+  "productionUse": "",
+  "timeSeries": null,
+  "boundingBox": {
+    "eastBoundLongitude": null,
+    "westBoundLongitude": null,
+    "northBoundLatitude": null,
+    "southBoundLatitude": null
+  }
+}
