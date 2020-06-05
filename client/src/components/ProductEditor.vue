@@ -66,10 +66,10 @@
       />
       <q-btn
         class="q-ma-md"
-        label="Reset"
-        type="reset"
+        label="Cancel"
+        type="cancel"
         color="primary"
-        @click="_ => fetchData(relationId)"
+        @click="_ => fetchData(relationId).then(this.$router.push( { name: 'surveys' } ) )"
         flat
       />
     </q-form>

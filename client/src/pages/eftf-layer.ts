@@ -9,7 +9,7 @@ type BBoxFields = 'minx' | 'miny' | 'maxx' | 'maxy'
 type BBox = { 'minx': string; 'miny': string; 'maxx': string; 'maxy': string }
 
 export class EftfLayer {
-  constructor(private geoserver: string) {
+  constructor (private geoserver: string) {
     this.geoserver = geoserver
     this.geoserverCapabilities = geoserver + '/ows?service=wms&version=1.3.0&request=GetCapabilities'
     this.geoserverWCS = geoserver + '/wcs'
