@@ -6,6 +6,9 @@ const mutation: MutationTree<SurveyStateInterface> = {
   dataLoaded (state: SurveyStateInterface, payload: Survey[]) {
     state.surveys = payload
   },
+  clearErrorMessagesMutation (state: SurveyStateInterface) {
+    while (state.errorMessages.length) { state.errorMessages.pop() }
+  },
   relationsLoaded (state: SurveyStateInterface, payload: RelationSummaryDto[]) {
     state.productShortDescription = payload
   },

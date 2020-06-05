@@ -125,6 +125,7 @@ export class EftfLayer {
     defaultEftf['WMS URL'] = this.geoserverWMS
     defaultEftf['WCS URL'] = this.geoserverWCS
     const namespace = 'ausseabed:'
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const outputs: any[] = [] // array of json eftf structure
     nameLookup.forEach((record) => {
       const layer = nameToNode.get(namespace + record.name)

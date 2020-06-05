@@ -10,7 +10,13 @@
         class="text-white bg-red"
       >
         {{surveys.errorMessages.slice(-1)[0]}}
-
+        <template v-slot:action>
+          <q-btn
+            flat
+            label="Dismiss"
+            @click="clearErrorMessages"
+          />
+        </template>
       </q-banner>
     </div>
     <q-table
@@ -116,7 +122,7 @@
                     :label="item.productName"
                     :title="item.productName"
                     @click="() => editProduct(item.relationId)"
-                    @remove="() => deleteProduct(item.productId)"
+                    @remove="() => deleteProductDialogue(item.productName, item.productId)"
                   />
                 </div>
               </div>
@@ -136,7 +142,7 @@
           <q-td width='15px'>
             <q-btn
               flat
-              @click="() => removeRow(props.row)"
+              @click="() => removeRowDialogue(props.row.name, props.row)"
               round
               color="white"
               text-color="black"
@@ -187,9 +193,10 @@ import { Survey } from '@ausseabed/product-catalogue-rest-client'
 import { RelationSummaryDto } from '@ausseabed/product-catalogue-rest-client/models/RelationSummaryDto'
 // import { mapState } from 'vuex'
 // import { StoreInterface } from '../store'
+// import { Dialog } from 'quasar'
 
 import Vue from 'vue'
-import { State, Action } from 'vuex-class'
+import { State, Action, Mutation } from 'vuex-class'
 import Component from 'vue-class-component'
 import { SurveyStateInterface } from '../store/surveys/state'
 import { UpdateRowInterface, UpdateRowKnownTypes } from '../store/surveys/actions'
@@ -197,6 +204,8 @@ const namespace = 'surveys'
 
 @Component
 export default class SurveysEditor extends Vue {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [x: string]: any
   @State('surveys') surveys!: SurveyStateInterface
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -206,7 +215,22 @@ export default class SurveysEditor extends Vue {
   @Action('newSurvey', { namespace }) newSurvey!: any
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Mutation('clearErrorMessagesMutation', { namespace }) clearErrorMessages!: any
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Action('deleteSurvey', { namespace }) removeRow!: any
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  removeRowDialogue (deleteText: string, argList: any) {
+    this.$q.dialog({
+      title: 'Confirm',
+      message: `Are you sure you want to permanently delete '${deleteText}'?`,
+      cancel: true,
+      persistent: true
+    }).onOk(() => {
+      this.removeRow(argList)
+    })
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Action('createProduct', { namespace }) createProduct!: any
@@ -214,6 +238,17 @@ export default class SurveysEditor extends Vue {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Action('deleteProduct', { namespace }) deleteProduct!: any
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  deleteProductDialogue (deleteText: string, argList: any) {
+    this.$q.dialog({
+      title: 'Confirm',
+      message: `Are you sure you want to permanently delete '${deleteText}'?`,
+      cancel: true,
+      persistent: true
+    }).onOk(() => {
+      this.deleteProduct(argList)
+    })
+  }
   // @Action('updateEntry', { namespace }) update!: any
 
   update (row: number, element: UpdateRowKnownTypes, value: string) {
