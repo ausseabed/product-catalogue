@@ -30,15 +30,16 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
         commit('errorMessage', reason)
       })
   },
-  newSurvey ({ commit, rootState }) {
+  async newSurvey ({ commit, rootState }) {
     const surveyDto: SurveyDto = {
       name: '',
       uuid: '',
       year: ''
     }
     const surveyApi = new ObservableSurveysApi(getRestConfiguration(rootState))
-    surveyApi.surveysControllerCreate(surveyDto).toPromise().then((newSurvey) => {
+    return await surveyApi.surveysControllerCreate(surveyDto).toPromise().then((newSurvey) => {
       commit('addNewSurvey', newSurvey)
+      return newSurvey
     }
     ).catch(reason => {
       commit('errorMessage', reason)

@@ -31,6 +31,7 @@
       :pagination.sync="pagination"
       :selected.sync="selected"
       separator="cell"
+      ref="table"
     >
       <template v-slot:body="props">
         <q-tr :props="props">
@@ -160,7 +161,7 @@
           color="primary"
           :disable="loading"
           label="Add Survey"
-          @click="newSurvey"
+          @click="() => {newSurvey().then(row =>  scrollToRow(row))}"
           :selected="[]"
         />
         <q-space />
@@ -258,6 +259,13 @@ export default class SurveysEditor extends Vue {
       elementValue: value
     }
     this.$store.dispatch('surveys/updateEntry', dir)
+  }
+
+  scrollToRow (selectedRow: Survey) {
+    const table: any = (this.$refs.table as any)
+    const index = table.computedRows.map((e: Survey) => e.id).indexOf(selectedRow.id)
+    table.scrollTo(index)
+    this.toggleEditMode(selectedRow, false)
   }
 
   toggleEditMode (selectedRow: Survey, selected: boolean) {
