@@ -262,6 +262,7 @@ export default class SurveysEditor extends Vue {
   }
 
   scrollToRow (selectedRow: Survey) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const table: any = (this.$refs.table as any)
     const index = table.computedRows.map((e: Survey) => e.id).indexOf(selectedRow.id)
     table.scrollTo(index)
