@@ -4,5 +4,6 @@
 node_modules/
 *.log
 dist/
+*.auto.tfvars.json
 *.auto.tfvars
 .env

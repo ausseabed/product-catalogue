@@ -1,3 +1,7 @@
+locals {
+  env = terraform.workspace
+}
+
 provider "aws" {
   region  = var.aws_region
   version = "2.54"
@@ -14,10 +18,12 @@ terraform {
 module "networking" {
   ga_sb_domain = var.ga_sb_domain
   source       = "./networking"
+  env          = local.env
 }
 
 module "ancillary" {
   source = "./ancillary"
+  env    = local.env
 }
 
 module "service" {
@@ -29,5 +35,6 @@ module "service" {
   server_image                       = var.server_image
   networking                         = module.networking
   product_catalogue_environment_vars = var.product_catalogue_environment_vars
+  env                                = local.env
 }
 

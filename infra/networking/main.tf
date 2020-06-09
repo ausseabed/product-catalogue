@@ -2,7 +2,7 @@ data "aws_availability_zones" "available" {}
 
 data "aws_vpc" "ga_sb_vpc" {
   tags = {
-    Name = "ga_sb_vpc"
+    Name = "ga_sb_${var.env}_vpc"
   }
 }
 
@@ -10,7 +10,7 @@ data "aws_subnet" "web_tier_subnet" {
   filter {
     name = "tag:Name"
     values = [
-      "ga_sb_vpc_web_1"
+      "ga_sb_${var.env}_vpc_web_1"
     ]
   }
 }
@@ -20,7 +20,7 @@ data "aws_subnet_ids" "web_tier_subnets" {
   filter {
     name = "tag:Tier"
     values = [
-      "ga_sb_vpc_web"
+      "ga_sb_${var.env}_vpc_web"
     ]
   }
 }
@@ -30,7 +30,7 @@ data "aws_subnet_ids" "app_tier_subnets" {
   filter {
     name = "tag:Tier"
     values = [
-      "ga_sb_vpc_app"
+      "ga_sb_${var.env}_vpc_app"
     ]
   }
 }
@@ -40,19 +40,19 @@ data "aws_subnet_ids" "db_tier_subnets" {
   filter {
     name = "tag:Tier"
     values = [
-      "ga_sb_vpc_db"
+      "ga_sb_${var.env}_vpc_db"
     ]
   }
 }
 
 #TODO
 resource "aws_acm_certificate" "cert" {
-  domain_name       = "catalogue.dev.ausseabed.gov.au"
+  domain_name       = "catalogue.${var.env == "default" ? "dev" : var.env}.ausseabed.gov.au"
   validation_method = "DNS"
 }
 
 data "aws_route53_zone" "zone" {
-  name         = "dev.ausseabed.gov.au"
+  name         = "${var.env == "default" ? "dev" : var.env}.ausseabed.gov.au"
   private_zone = false
 }
 
@@ -65,7 +65,7 @@ resource "aws_route53_record" "cert_validation" {
 }
 
 resource "aws_route53_record" "ga_sb_pc_route53" {
-  name    = "catalogue.dev.ausseabed.gov.au"
+  name    = "catalogue.${var.env == "default" ? "dev" : var.env}.ausseabed.gov.au"
   zone_id = data.aws_route53_zone.zone.id
   type    = "A"
   alias {
@@ -76,7 +76,7 @@ resource "aws_route53_record" "ga_sb_pc_route53" {
 }
 
 resource "aws_security_group" "ga_sb_env_pc_public_sg" {
-  name        = "ga_sb_env_pc_public_sg"
+  name        = "ga_sb_${var.env}_pc_public_sg"
   description = "Used for access to the public instances"
   vpc_id      = data.aws_vpc.ga_sb_vpc.id
 
@@ -124,7 +124,7 @@ resource "aws_lb_listener" "ga_sb_pc_load_balancer_listener" {
 
 
 resource "aws_lb" "ga_sb_pc_load_balancer" {
-  name               = "ga-sb-pc-load-balancer"
+  name               = "ga-sb-${var.env}-pc-load-balancer"
   internal           = false
   load_balancer_type = "application"
   subnets            = data.aws_subnet_ids.web_tier_subnets.ids
@@ -134,7 +134,7 @@ resource "aws_lb" "ga_sb_pc_load_balancer" {
   }
 }
 resource "aws_lb_target_group" "ga_sb_pc_load_balancer_outside" {
-  name        = "ga-sb-pc-load-balancer-outside"
+  name        = "ga-sb-${var.env}-pc-lb-outside"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = data.aws_vpc.ga_sb_vpc.id

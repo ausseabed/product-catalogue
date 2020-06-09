@@ -1,5 +1,5 @@
 #------compute/variables.tf
-
+variable "env" {}
 variable "server_cpu" {}
 variable "server_memory" {}
 variable "ecs_task_execution_role_svc_arn" {}
