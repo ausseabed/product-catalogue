@@ -24,7 +24,7 @@
         class="q-ml-md"
         :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.name"
         @input="value=>updateProduct( {element:'name',value: value})"
-        label="Gazeteer"
+        label="Gazetteer"
       />
       <q-input
         class="q-ml-md"

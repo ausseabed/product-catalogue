@@ -319,6 +319,7 @@ export default class SurveysEditor extends Vue {
       matDelete: matDelete,
       loading: false,
       pagination: {
+        sortBy: 'surveyName',
         rowsPerPage: 100
       },
       selected: [],
