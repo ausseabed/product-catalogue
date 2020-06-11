@@ -1,12 +1,27 @@
 <template>
   <q-page class="row items-center justify-evenly">
     <div style="width: 95%">
+      <div class="q-pa-md flex flex-center">
+
+        <q-linear-progress
+          v-if="progress"
+          indeterminate
+          color="primary"
+          class="q-ma-md"
+        />
+      </div>
       <q-form ref="myForm">
         <q-input
           class="q-ml-md"
           style="width:100%"
           v-model="geoserverUrl"
           label="Geoserver Getcapabilities Url"
+        />
+        <q-input
+          class="q-ml-md"
+          style="width:100%"
+          v-model="geoserverProduction"
+          label="Display in production?"
         />
         <q-btn
           class="q-ma-md"
@@ -16,6 +31,7 @@
           @click="buildOutputs"
         />
       </q-form>
+
     </div>
   </q-page>
 </template>
@@ -30,17 +46,19 @@ export default Vue.extend({
   name: 'ExportsPage',
   methods: {
     buildOutputs: async function () {
-      console.log('starting')
-      const eftfLayer = new EftfLayer(this.geoserverUrl)
-      console.log('created')
+      this.progress = true
+      const eftfLayer = new EftfLayer(this.geoserverUrl, this.geoserverProduction)
       const blob = await eftfLayer.getLayerDefinitionsFile()
-      console.log('finished')
-      saveAs(blob, 'EFTF_Layer_Insert.csv')
+      const currentTime = new Date()
+      saveAs(blob, `EFTF_Layer_${currentTime.toISOString().replace(':', '.')}.csv`)
+      this.progress = false
     }
   },
   data () {
     return {
-      geoserverUrl: 'https://warehouse.dev.ausseabed.gov.au/geoserver'
+      progress: false,
+      geoserverUrl: 'https://warehouse.ausseabed.gov.au/geoserver',
+      geoserverProduction: 'NO'
     }
   }
 })

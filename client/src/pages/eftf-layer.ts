@@ -9,8 +9,9 @@ type BBoxFields = 'minx' | 'miny' | 'maxx' | 'maxy'
 type BBox = { 'minx': string; 'miny': string; 'maxx': string; 'maxy': string }
 
 export class EftfLayer {
-  constructor (private geoserver: string) {
+  constructor(private geoserver: string, private geoserverProduction: string) {
     this.geoserver = geoserver
+    this.geoserverProduction = geoserverProduction
     this.geoserverCapabilities = geoserver + '/ows?service=wms&version=1.3.0&request=GetCapabilities'
     this.geoserverWCS = geoserver + '/wcs'
     this.geoserverWMS = geoserver + '/wms'
@@ -109,7 +110,7 @@ export class EftfLayer {
       if (productSrcId) {
         const survey = surveyIdToSurvey.get(productSrcId)
         if (survey) {
-          const nameFormatted = `${product.sourceProduct.name} ${survey.year} ${product.sourceProduct.resolution}`
+          const nameFormatted = `${product.sourceProduct.name} ${survey.year} ${product.sourceProduct.resolution}`.replace(',', '_')
           nameLookup.push({
             name: nameFormatted,
             surveyId: survey.id,
@@ -132,13 +133,14 @@ export class EftfLayer {
       if (layer) {
         const eftfBase = Object.assign({}, defaultEftf)
         eftfBase.NAME = record.name
-        eftfBase['WMS LAYER NAMES'] = record.name
+        eftfBase['WMS LAYER NAMES'] = namespace + record.name
         eftfBase['WCS LAYER NAMES'] = namespace + record.name + ' OV'
         const bbox = this.getBoundingBox(layer)
         eftfBase.xmax = bbox.maxx
         eftfBase.xmin = bbox.minx
         eftfBase.ymax = bbox.maxy
         eftfBase.ymin = bbox.miny
+        eftfBase.PRODUCTION = this.geoserverProduction
         outputs.push(eftfBase)
       }
     })
