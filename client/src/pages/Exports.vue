@@ -15,13 +15,19 @@
           class="q-ml-md"
           style="width:100%"
           v-model="geoserverUrl"
-          label="Geoserver Getcapabilities Url"
+          label="Geoserver Root Url"
         />
-        <q-input
+        <q-checkbox
           class="q-ml-md"
           style="width:100%"
           v-model="geoserverProduction"
           label="Display in production?"
+        />
+        <q-checkbox
+          class="q-ml-md"
+          style="width:100%"
+          v-model="collapseGroups"
+          label="Collapse groups by survey?"
         />
         <q-btn
           class="q-ma-md"
@@ -47,10 +53,13 @@ export default Vue.extend({
   methods: {
     buildOutputs: async function () {
       this.progress = true
-      const eftfLayer = new EftfLayer(this.geoserverUrl, this.geoserverProduction)
+      const production = (this.geoserverProduction ? 'YES' : 'NO')
+      const eftfLayer = new EftfLayer(this.geoserverUrl, production, this.collapseGroups)
       const blob = await eftfLayer.getLayerDefinitionsFile()
       const currentTime = new Date()
-      saveAs(blob, `EFTF_Layer_${currentTime.toISOString().replace(':', '.')}.csv`)
+      const productionText = (this.geoserverProduction ? 'PROD' : 'NONPROD')
+      const groupedText = (this.collapseGroups ? 'GROUPED' : 'UNGROUPED')
+      saveAs(blob, `EFTF_Layer_${productionText}_${groupedText}_${currentTime.toISOString().replace(':', '.')}.csv`)
       this.progress = false
     }
   },
@@ -58,7 +67,8 @@ export default Vue.extend({
     return {
       progress: false,
       geoserverUrl: 'https://warehouse.ausseabed.gov.au/geoserver',
-      geoserverProduction: 'NO'
+      geoserverProduction: false,
+      collapseGroups: false
     }
   }
 })

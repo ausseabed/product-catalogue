@@ -12,7 +12,6 @@ export class AzureADStrategy extends PassportStrategy(BearerStrategy, 'AzureADSt
 
   async validate (response: any) {
     const { preferred_username }: { preferred_username: string } = response;
-    Logger.log(response)
     if (preferred_username) return preferred_username;
     else return "daemon";
   }
