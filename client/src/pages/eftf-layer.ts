@@ -6,7 +6,7 @@ import { useNamespaces } from 'xpath'
 import { DOMParser } from 'xmldom'
 
 type BBoxFields = 'minx' | 'miny' | 'maxx' | 'maxy'
-type BBox = { 'minx': string; 'miny': string; 'maxx': string; 'maxy': string }
+type BBox = { 'minx': number; 'miny': number; 'maxx': number; 'maxy': number }
 
 export class EftfLayer {
   constructor (private geoserver: string, private geoserverProduction: string, private collapseGroups: boolean) {
@@ -69,7 +69,7 @@ export class EftfLayer {
 
   getBoundingBox (layer: Node): BBox {
     const bbox: BBox = {
-      minx: '0', miny: '0', maxx: '0', maxy: '0'
+      minx: 0.0, miny: 0.0, maxx: 0.0, maxy: 0.0
     }
     const select = useNamespaces({ x: 'http://www.opengis.net/wms' })
 
@@ -78,7 +78,7 @@ export class EftfLayer {
       const query = './x:BoundingBox[@CRS="CRS:84"]/@' + key
       const result = select(query, layer, true) as Attr
 
-      bbox[key] = result.value
+      bbox[key] = parseFloat(result.value)
     }
     )
     return bbox
@@ -153,10 +153,39 @@ export class EftfLayer {
             const wcsLayerNames = productIds.map(prodId => {
               return namespace + this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year) + ' OV'
             })
+
+            const bboxes = productIds.map(prodId => {
+              const nameIndividualFormatted = namespace + this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year)
+              const layer = nameToNode.get(nameIndividualFormatted)
+              if (layer) {
+                return this.getBoundingBox(layer)
+              } else {
+                return null
+              }
+            })
+
+            const bboxesNotNull = bboxes.filter(x => { return x !== null })
+            if (bboxesNotNull.length < bboxes.length) {
+              console.log(`missing bbox for ${nameFormatted}`)
+              console.log(`${bboxesNotNull.length} vs ${bboxes.length}`)
+              return
+            }
+
             const eftfBase = Object.assign({}, defaultEftf)
             eftfBase.NAME = nameFormatted
             eftfBase['WMS LAYER NAMES'] = wmsLayerNames.join(',')
             eftfBase['WCS LAYER NAMES'] = wcsLayerNames.join(',')
+
+            // replace with bboxes extent
+            const maxx = bboxesNotNull.map(val => { return val!.maxx })
+            const minx = bboxesNotNull.map(val => { return val!.minx })
+            const maxy = bboxesNotNull.map(val => { return val!.maxy })
+            const miny = bboxesNotNull.map(val => { return val!.miny })
+
+            eftfBase.xmax = Math.max(...maxx)
+            eftfBase.xmin = Math.max(...minx)
+            eftfBase.ymax = Math.max(...maxy)
+            eftfBase.ymin = Math.max(...miny)
             eftfBase.PRODUCTION = this.geoserverProduction
             outputs.push(eftfBase)
           })
@@ -165,7 +194,6 @@ export class EftfLayer {
             const productL3Src = productIdToProductSrc.get(prodId)
             const productL3Dist = productIdToProductDist.get(prodId)
             if (productL3Src && productL3Dist) {
-              console.log(`${survey.name}  ${productL3Src.name}`)
               const nameFormatted = this.getNameIndividual(productL3Src, survey.year)
               const layer = nameToNode.get(namespace + nameFormatted)
               if (layer) {
