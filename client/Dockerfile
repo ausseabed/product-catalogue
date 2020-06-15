@@ -1,5 +1,5 @@
 FROM node:12 as build-stage
-ENV APPDIR=/code
+ENV APPDIR=/home/node
 WORKDIR $APPDIR
 
 ARG AUTH_HOST
@@ -18,6 +18,6 @@ FROM nginx:1.13.9 as production-stage
 ADD build/nginx-www.conf /etc/nginx/nginx.conf
 ADD build/nginx-www-default.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=build-stage /code/dist/spa /usr/share/nginx/html
+COPY --from=build-stage /home/node/dist/spa /usr/share/nginx/html
 EXPOSE 3001
 CMD ["nginx", "-g", "daemon off;"]
