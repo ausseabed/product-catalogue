@@ -1,4 +1,4 @@
-FROM node:12 as builder
+FROM node:12-alpine as builder
 USER node
 ENV APPDIR=/home/node
 WORKDIR $APPDIR
@@ -19,7 +19,7 @@ ADD src $APPDIR/src
 
 RUN yarn install && yarn build
 
-FROM node:12 as production
+FROM node:12-alpine as production
 USER node
 ENV APPDIR=/home/node
 WORKDIR $APPDIR
