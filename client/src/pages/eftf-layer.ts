@@ -97,9 +97,18 @@ export class EftfLayer {
     return nameToNode
   }
 
+  SLASH_I_LESS_COLON = 'A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD'
+  SLASH_C_LESS_COLON = '-.0-9A-Z_a-z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD'
+
+  getNcName (label: string) {
+    const reSlashI = new RegExp('^[^' + this.SLASH_I_LESS_COLON + ']')
+    const reSlashC = new RegExp('[^' + this.SLASH_C_LESS_COLON + ']', 'g')
+    return label.replace(reSlashC, '_').replace(reSlashI, '_')
+  }
+
   getNameIndividual (productL3Src: ProductL3Src | undefined, year: string): string {
     if (productL3Src) {
-      return `${productL3Src.name} ${year} ${productL3Src.resolution}`.replace(',', '_')
+      return `${productL3Src.name} ${year} ${productL3Src.resolution}`
     } else {
       throw Error('Could not find product')
     }
@@ -107,7 +116,7 @@ export class EftfLayer {
 
   getNameSurvey (survey: Survey | undefined, productL3Src: ProductL3Src | undefined, year: string): string {
     if (productL3Src && survey) {
-      return `${survey.name} ${year} ${productL3Src.resolution}`.replace(',', '_')
+      return `${survey.name} ${year} ${productL3Src.resolution}`
     } else {
       throw Error('Could not find product')
     }
@@ -148,14 +157,14 @@ export class EftfLayer {
           )
           surveyNameToProducts.forEach((productIds: number[], nameFormatted: string) => {
             const wmsLayerNames = productIds.map(prodId => {
-              return namespace + this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year)
+              return namespace + this.getNcName(this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year))
             })
             const wcsLayerNames = productIds.map(prodId => {
-              return namespace + this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year) + ' OV'
+              return namespace + this.getNcName(this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year) + '_OV')
             })
 
             const bboxes = productIds.map(prodId => {
-              const nameIndividualFormatted = namespace + this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year)
+              const nameIndividualFormatted = namespace + this.getNcName(this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year))
               const layer = nameToNode.get(nameIndividualFormatted)
               if (layer) {
                 return this.getBoundingBox(layer)
@@ -195,12 +204,12 @@ export class EftfLayer {
             const productL3Dist = productIdToProductDist.get(prodId)
             if (productL3Src && productL3Dist) {
               const nameFormatted = this.getNameIndividual(productL3Src, survey.year)
-              const layer = nameToNode.get(namespace + nameFormatted)
+              const layer = nameToNode.get(namespace + this.getNcName(nameFormatted))
               if (layer) {
                 const eftfBase = Object.assign({}, defaultEftf)
                 eftfBase.NAME = nameFormatted
-                eftfBase['WMS LAYER NAMES'] = namespace + nameFormatted
-                eftfBase['WCS LAYER NAMES'] = namespace + nameFormatted + ' OV'
+                eftfBase['WMS LAYER NAMES'] = namespace + this.getNcName(nameFormatted)
+                eftfBase['WCS LAYER NAMES'] = namespace + this.getNcName(nameFormatted) + '_OV'
                 const bbox = this.getBoundingBox(layer)
                 eftfBase.xmax = bbox.maxx
                 eftfBase.xmin = bbox.minx
