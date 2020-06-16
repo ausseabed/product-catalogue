@@ -2,6 +2,7 @@ FROM node:12-alpine as builder
 USER node
 ENV APPDIR=/home/node
 WORKDIR $APPDIR
+ENV NODE_ENV build
 
 ARG AUTH_HOST
 ARG AUTH_CLIENT_ID
@@ -21,6 +22,7 @@ RUN yarn install && yarn build
 
 FROM node:12-alpine as production
 USER node
+ENV NODE_ENV production
 ENV APPDIR=/home/node
 WORKDIR $APPDIR
 
