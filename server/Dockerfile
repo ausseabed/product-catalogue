@@ -26,6 +26,7 @@ WORKDIR $APPDIR
 
 COPY --from=builder /home/node/package*.json /home/node/
 COPY --from=builder /home/node/dist/ /home/node/dist/
+RUN yarn install 
 
 EXPOSE 3000
 # Or yarn migration:run
