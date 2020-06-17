@@ -1,24 +1,100 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@6.5.0
+  aws-ecr: circleci/aws-ecr@6.9.1
+  aws-cli: circleci/aws-cli@0.1.13
+
+commands:
+  ecr-tag-and-push:
+    description: "Tag and Push Docker Image because CircleCI is incapable of sanity"
+    parameters:
+      account-url:
+        default: AWS_ECR_ACCOUNT_URL
+        description: |
+          Env var storing Amazon ECR account URL that maps to an AWS account, e.g. {awsAccountNum}.dkr.ecr.us-west-2.amazonaws.com defaults to AWS_ECR_ACCOUNT_URL
+        type: env_var_name
+      repo:
+        description: Name of an Amazon ECR repository
+        type: string
+      docker_tag:
+        default: DOCKER_TAG
+        description: Env var storing docker image tag (default = DOCKER_TAG)
+        type: env_var_name
+    steps:
+      - attach_workspace:
+          at: /tmp/cci-extras/workspace
+      - run: cat /tmp/cci-extras/workspace/docker_tag_vars >> $BASH_ENV
+      - run:
+          name: "Show Docker tag"
+          command: |
+            echo "DOCKER TAG: $DOCKER_TAG"
+      - run:
+          name: "Docker Tag and Push"
+          command: |
+            docker tag $<<parameters.account-url>>/<<parameters.repo>>:circleci-build \
+              $<<parameters.account-url>>/<<parameters.repo>>:$<<parameters.docker_tag>>
+            docker push $<<parameters.account-url>>/<<parameters.repo>>:$<<parameters.docker_tag>>
+
 
 jobs:
+  prepare_docker_tag:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: mkdir -p workspace
+      - run:
+          name: "Verify Tagged Build"
+          command: |
+            set -x
+            echo $CIRCLE_TAG
+            git branch -r --contains $CIRCLE_SHA1 --format='%(refname:short)'
+            IS_ON_MASTER="$(git branch -r --contains $CIRCLE_SHA1 --format='%(refname:short)' |grep ^origin/feature)"
+            echo "IS_ON_MASTER: \"$IS_ON_MASTER\""
+            if [[ -n "$IS_ON_MASTER" ]]
+            then
+              echo "ON MASTER BRANCH: \"$IS_ON_MASTER\""
+            else
+              echo "NOT ON MASTER BRANCH, FAILING BUILD"
+              exit 100
+            fi
+            DOCKER_TAG=`echo $CIRCLE_TAG | awk -F'/' '{print $2}'`
+            if [[ ! $DOCKER_TAG =~ ^[0-9][0-9\.]*$ ]]
+            then
+              echo "Incorrect format for Docker Tag: \"$DOCKER_TAG\", are we on \"prod/X.Y.Z\" tag?"
+              exit 101
+            fi
+            echo "Extracted new Docker Tag: \"$DOCKER_TAG\""
+            echo "export DOCKER_TAG=$DOCKER_TAG" >> workspace/docker_tag_vars
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - docker_tag_vars
+
   build_product_catalogue_server:
     machine:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - aws-ecr/build-and-push-image:
+      - aws-cli/install
+      - aws-cli/configure:
+          aws-region: AWS_REGION_ENV_VAR_NAME
+      - aws-ecr/ecr-login:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
-          create-repo: false
-          dockerfile: ./server/Dockerfile
-          path: ./server
-          checkout: false
           region: AWS_REGION_ENV_VAR_NAME
+      - aws-ecr/build-image:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          dockerfile: ./Dockerfile
+          path: ./server
           repo: ausseabed-product-catalogue-server
-          # extra-build-args: '--build-arg COMMUNITY_EXTENSIONS=gwc-s3-plugin --build-arg GS_VERSION=2.16.2'
-          # tag: 'ausseabed-geoserver-2.16.2'
+          tag: circleci-build,latest
+      - ecr-tag-and-push:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          repo: ausseabed-product-catalogue-server
+          docker_tag: DOCKER_TAG
+
+
+
   build_product_catalogue_client:
     machine:
       image: ubuntu-1604:201903-01
@@ -33,16 +109,24 @@ jobs:
           command: |
             echo "export AUTH_HOST=$AUTH_HOST" >> $BASH_ENV
             echo "export AUTH_CLIENT_ID=$AUTH_CLIENT_ID" >> $BASH_ENV
-      - aws-ecr/build-and-push-image:
+      - aws-cli/install
+      - aws-cli/configure:
+          aws-region: AWS_REGION_ENV_VAR_NAME
+      - aws-ecr/ecr-login:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
-          create-repo: false
-          dockerfile: ./client/Dockerfile
-          path: ./client
-          checkout: false
           region: AWS_REGION_ENV_VAR_NAME
+      - aws-ecr/build-image:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          dockerfile: ./Dockerfile
+          path: ./client
           repo: ausseabed-product-catalogue-client
           extra-build-args: "--build-arg AUTH_HOST=$AUTH_HOST --build-arg AUTH_CLIENT_ID=$AUTH_CLIENT_ID"
-          # tag: 'ausseabed-geoserver-2.16.2'
+          tag: circleci-build,latest
+      - ecr-tag-and-push:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          repo: ausseabed-product-catalogue-client
+          docker_tag: DOCKER_TAG
+
   deploy_product_catalogue:
     docker:
       - image: circleci/python:3.7-stretch
@@ -91,3 +175,35 @@ workflows:
           requires:
             - build_product_catalogue_server
             - build_product_catalogue_client
+  publish_production_images:
+    jobs:
+      - prepare_docker_tag:
+          filters:
+            tags:
+              only: /^stage/\d[\d\.]*f?$/
+            branches:
+              ignore: /.*/
+      - build_product_catalogue_server:
+          filters:
+            tags:
+              only: /^stage/\d[\d\.]*f?$/
+            branches:
+              ignore: /.*/
+          requires:
+            - prepare_docker_tag
+      - build_product_catalogue_client:
+          filters:
+            tags:
+              only: /^stage/\d[\d\.]*f?$/
+            branches:
+              ignore: /.*/
+          requires:
+            - prepare_docker_tag
+#      - deploy_product_catalogue:
+#          filters:
+#            branches:
+#              only:
+#                - master
+#          requires:
+#            - build_product_catalogue_server
+#            - build_product_catalogue_client
