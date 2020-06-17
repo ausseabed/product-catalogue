@@ -1,24 +1,126 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@6.5.0
+  aws-ecr: circleci/aws-ecr@6.9.1
+  aws-cli: circleci/aws-cli@0.1.13
+
+commands:
+  ecr-tag-and-push:
+    description: "Tag and Push Docker Image because CircleCI is incapable of sanity"
+    parameters:
+      account-url:
+        default: AWS_ECR_ACCOUNT_URL
+        description: |
+          Env var storing Amazon ECR account URL that maps to an AWS account, e.g. {awsAccountNum}.dkr.ecr.us-west-2.amazonaws.com defaults to AWS_ECR_ACCOUNT_URL
+        type: env_var_name
+      repo:
+        description: Name of an Amazon ECR repository
+        type: string
+      docker_tag:
+        default: DOCKER_TAG
+        description: Env var storing docker image tag (default = DOCKER_TAG)
+        type: env_var_name
+    steps:
+      - attach_workspace:
+          at: /tmp/cci-extras/workspace
+      - run: cat /tmp/cci-extras/workspace/docker_tag_vars >> $BASH_ENV
+      - run:
+          name: "Show Docker tag"
+          command: |
+            echo "DOCKER TAG: $DOCKER_TAG"
+      - run:
+          name: "Docker Tag and Push"
+          command: |
+            docker tag $<<parameters.account-url>>/<<parameters.repo>>:circleci-build \
+              $<<parameters.account-url>>/<<parameters.repo>>:$<<parameters.docker_tag>>
+            docker push $<<parameters.account-url>>/<<parameters.repo>>:$<<parameters.docker_tag>>
+
+  prepare-terraform:
+    description: "Installs Terraform and dependencies"
+    steps:
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+      - run:
+          name: check s3
+          command: aws sts get-caller-identity
+      - run:
+          name: keep SSH happy
+          command: |
+            mkdir -m 0700 ~/.ssh
+            ssh-keyscan -p 22 github.com >> ~/.ssh/known_hosts
+            cat ~/.ssh/known_hosts
+      - run:
+          name: Install terraform
+          command: wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && unzip terraform_0.12.26_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
+      - run:
+          name: Install terragrunt
+          command: wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.23.27/terragrunt_linux_amd64 && chmod +x terragrunt_linux_amd64 && sudo mv terragrunt_linux_amd64 /usr/bin/terragrunt
+
+  validate_master_branch:
+    description: "Verifies that tag commit is present on master branch"
+    steps:
+      - run:
+          name: "Verify Master branch"
+          command: |
+            echo $CIRCLE_TAG
+            git branch -r --contains $CIRCLE_SHA1 --format='%(refname:short)'
+            IS_ON_MASTER="$(git branch -r --contains $CIRCLE_SHA1 --format='%(refname:short)' |grep ^origin/master$)"
+            echo "IS_ON_MASTER: \"$IS_ON_MASTER\""
+            if [[ -n "$IS_ON_MASTER" ]]
+            then
+              echo "ON MASTER BRANCH: \"$IS_ON_MASTER\""
+            else
+              echo "NOT ON MASTER BRANCH, FAILING BUILD"
+              exit 100
+            fi
 
 jobs:
+  prepare_docker_tag:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: mkdir -p workspace
+      - validate_master_branch
+      - run:
+          name: "Extract Docker tag from Git tag"
+          command: |
+            DOCKER_TAG=`echo $CIRCLE_TAG | awk -F'/' '{print $2}'`
+            if [[ ! $DOCKER_TAG =~ ^[0-9][0-9\.]*$ ]]
+            then
+              echo "Incorrect format for Docker Tag: \"$DOCKER_TAG\", are we on \"prod/X.Y.Z\" tag?"
+              exit 101
+            fi
+            echo "Extracted new Docker Tag: \"$DOCKER_TAG\""
+            echo "export DOCKER_TAG=$DOCKER_TAG" >> workspace/docker_tag_vars
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - docker_tag_vars
+
   build_product_catalogue_server:
     machine:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - aws-ecr/build-and-push-image:
+      - aws-cli/install
+      - aws-cli/configure:
+          aws-region: AWS_REGION_ENV_VAR_NAME
+      - aws-ecr/ecr-login:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
-          create-repo: false
-          dockerfile: ./server/Dockerfile
-          path: ./server
-          checkout: false
           region: AWS_REGION_ENV_VAR_NAME
+      - aws-ecr/build-image:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          dockerfile: ./Dockerfile
+          path: ./server
           repo: ausseabed-product-catalogue-server
-          # extra-build-args: '--build-arg COMMUNITY_EXTENSIONS=gwc-s3-plugin --build-arg GS_VERSION=2.16.2'
-          # tag: 'ausseabed-geoserver-2.16.2'
+          tag: circleci-build,latest
+      - ecr-tag-and-push:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          repo: ausseabed-product-catalogue-server
+          docker_tag: DOCKER_TAG
+
   build_product_catalogue_client:
     machine:
       image: ubuntu-1604:201903-01
@@ -33,45 +135,94 @@ jobs:
           command: |
             echo "export AUTH_HOST=$AUTH_HOST" >> $BASH_ENV
             echo "export AUTH_CLIENT_ID=$AUTH_CLIENT_ID" >> $BASH_ENV
-      - aws-ecr/build-and-push-image:
+      - aws-cli/install
+      - aws-cli/configure:
+          aws-region: AWS_REGION_ENV_VAR_NAME
+      - aws-ecr/ecr-login:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
-          create-repo: false
-          dockerfile: ./client/Dockerfile
-          path: ./client
-          checkout: false
           region: AWS_REGION_ENV_VAR_NAME
+      - aws-ecr/build-image:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          dockerfile: ./Dockerfile
+          path: ./client
           repo: ausseabed-product-catalogue-client
           extra-build-args: "--build-arg AUTH_HOST=$AUTH_HOST --build-arg AUTH_CLIENT_ID=$AUTH_CLIENT_ID"
-          # tag: 'ausseabed-geoserver-2.16.2'
-  deploy_product_catalogue:
+          tag: circleci-build,latest
+      - ecr-tag-and-push:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          repo: ausseabed-product-catalogue-client
+          docker_tag: DOCKER_TAG
+
+  validate_prod_deployment:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - validate_master_branch
+
+
+  prepare_deploy_product_catalogue:
     docker:
       - image: circleci/python:3.7-stretch
     steps:
+      - run: mkdir -p workspace
+      - prepare-terraform
       - run:
-          name: Install awscli
-          command: sudo pip install awscli
+          name: Checkout Foundation repository
+          command: git clone git@github.com:ausseabed/ausseabed-aws-foundation.git
       - run:
-          name: check s3
-          command: aws sts get-caller-identity
-      - checkout
-      - run:
-          name: Install terraform
-          command: wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip && unzip terraform_0.12.24_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
-      - run:
-          name: terraform init
-          working_directory: ./infra
-          command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terraform init
+          name: terragrunt init
+          working_directory: ./ausseabed-aws-foundation/pcat-app-deployment
+          command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terragrunt init -input=false
       - run:
           name: terraform plan
-          working_directory: ./infra
-          command: terraform plan
-      - run:
-          name: terraform apply
-          working_directory: ./infra
-          command: terraform apply --auto-approve
+          working_directory: ./ausseabed-aws-foundation/pcat-app-deployment
+          command: terragrunt plan -out=terraform.plan -input=false
+      - run: mv ./ausseabed-aws-foundation/pcat-app-deployment/terraform.plan workspace
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - terraform.plan
 
+  do_deploy_product_catalogue:
+    docker:
+      - image: circleci/python:3.7-stretch
+    steps:
+    - attach_workspace:
+        at: /tmp/cci-extras/workspace
+    - prepare-terraform
+    - run:
+        name: Checkout Foundation repository
+        command: git clone git@github.com:ausseabed/ausseabed-aws-foundation.git
+    - run:
+        name: terragrunt init
+        working_directory: ./ausseabed-aws-foundation/pcat-app-deployment
+        command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terragrunt init -input=false
+    - run:
+          name: terragrunt apply
+          working_directory: ./ausseabed-aws-foundation/pcat-app-deployment
+          command: |
+            terragrunt apply -input=false --auto-approve /tmp/cci-extras/workspace/terraform.plan
+
+### Pre-defined filters for workflows
+
+prod_publish_tag_only: &prod_publish_tag_only
+  filters:
+    tags:
+      only: /^prod/publish/\d[\d\.]*f?$/
+    branches:
+      ignore: /.*/
+
+prod_deploy_tag_only: &prod_deploy_tag_only
+  filters:
+    tags:
+      only: /^prod/deploy/\d[\d\.]*f?$/
+    branches:
+      ignore: /.*/
+
+### Workflows section
 workflows:
-  update_infra_and_application:
+  build_and_deploy_dev_images:
     jobs:
       - build_product_catalogue_server:
           filters:
@@ -83,7 +234,7 @@ workflows:
             branches:
               only:
                 - master
-      - deploy_product_catalogue:
+      - prepare_deploy_product_catalogue:
           filters:
             branches:
               only:
@@ -91,3 +242,45 @@ workflows:
           requires:
             - build_product_catalogue_server
             - build_product_catalogue_client
+      - do_deploy_product_catalogue:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - prepare_deploy_product_catalogue
+
+  publish_production_images:
+    jobs:
+      - prepare_docker_tag:
+          <<: *prod_publish_tag_only
+      - build_product_catalogue_server:
+          <<: *prod_publish_tag_only
+          context: ga_sb_docker_prod_publish
+          requires:
+            - prepare_docker_tag
+      - build_product_catalogue_client:
+          <<: *prod_publish_tag_only
+          context: ga_sb_docker_prod_publish
+          requires:
+            - prepare_docker_tag
+
+  deploy_to_production:
+    jobs:
+      - validate_prod_deployment:
+          <<: *prod_deploy_tag_only
+      - prepare_deploy_product_catalogue:
+          <<: *prod_deploy_tag_only
+          requires:
+            - validate_prod_deployment
+          context: ga_sb_ecs_prod_deployment
+      - approve_deploy_product_catalogue:
+          <<: *prod_deploy_tag_only
+          type: approval
+          requires:
+            - prepare_deploy_product_catalogue
+      - do_deploy_product_catalogue:
+          <<: *prod_deploy_tag_only
+          requires:
+            - approve_deploy_product_catalogue
+          context: ga_sb_ecs_prod_deployment
