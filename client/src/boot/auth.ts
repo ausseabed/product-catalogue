@@ -79,6 +79,14 @@ export const msalInstance = new msal.PublicClientApplication(msalConfig)
 //   }
 // }
 
+export function getAccessToken (): string {
+  const account = msalInstance.getAccount()
+  if (account) {
+    return account.idToken
+  }
+  return ''
+}
+
 export function getRestConfiguration (rootState: StoreInterface | undefined) {
   const serverConfig = new ServerConfiguration('/rest', {})
 

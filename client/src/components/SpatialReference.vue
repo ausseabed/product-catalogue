@@ -1,63 +1,79 @@
 <template>
   <div>
-    <q-input
-      class="q-ml-md"
-      :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.srs"
-      @input="valuedef=>updateProduct( {element:'srs',value: valuedef})"
-      label="Spatial Reference System"
-    >
-      <q-popup-edit
-        ref='qPopupEditDialog'
-        buttons
-        :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.srs"
-        @input="valuedef=>updateProduct( {element:'srs',value: valuedef})"
-        @before-show="srsMakeSelection"
-        @cancel="srsCancel"
-      >
-        <q-table
-          style="height: 30rem"
-          :data="srsOptions"
-          :columns="srsColumns"
-          row-key="Code"
-          selection="single"
-          auto-save="true"
-          :rows-per-page-options="[0]"
-          @selection="(details) => { filterBySelectionSrs(details); $refs.qPopupEditDialog.set()}"
-          :selected.sync="selectedSrs"
-          virtual-scroll
-          :pagination.sync="pagination"
-        >
-          <template v-slot:top>
-            <div class="col">
-              <div class="q-table__title">Select Spatial Reference System</div>
-            </div>
-            <div class="q-pa-lg">
-              <q-option-group
-                v-model="srsSearchOption"
-                :options="srsSearchOptions"
-                @input="_ => filterFn(filterSRS)"
-                color="primary"
-                inline
-              />
-            </div>
-            <q-space />
-            <q-input
-              border
-              outlined
-              dense
-              debounce="300"
-              color="primary"
-              v-model="filterSRS"
-              @input="filterFn"
+    <div class="q-ml-md">
+      <div class="row">
+        <div class="col col-md-auto cursor-pointer">
+          <div class="q-my-md">
+            <q-icon
+              :name="matSearch"
+              style="font-size: 2rem;"
+            />
+          </div>
+          <q-popup-edit
+            ref='qPopupEditDialog'
+            buttons
+            :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.srs"
+            @input="valuedef=>updateProduct( {element:'srs',value: valuedef})"
+            @before-show="srsMakeSelection"
+            @cancel="srsCancel"
+          >
+            <q-table
+              style="height: 30rem"
+              :data="srsOptions"
+              :columns="srsColumns"
+              row-key="Code"
+              selection="single"
+              auto-save="true"
+              :rows-per-page-options="[0]"
+              @selection="(details) => { filterBySelectionSrs(details); $refs.qPopupEditDialog.set()}"
+              :selected.sync="selectedSrs"
+              virtual-scroll
+              :pagination.sync="pagination"
             >
-              <template v-slot:append>
-                <q-icon :name="matSearch" />
+              <template v-slot:top>
+                <div class="col">
+                  <div class="q-table__title">Select Spatial Reference System</div>
+                </div>
+                <div class="q-pa-lg">
+                  <q-option-group
+                    v-model="srsSearchOption"
+                    :options="srsSearchOptions"
+                    @input="_ => filterFn(filterSRS)"
+                    color="primary"
+                    inline
+                  />
+                </div>
+                <q-space />
+                <q-input
+                  border
+                  outlined
+                  dense
+                  debounce="300"
+                  color="primary"
+                  v-model="filterSRS"
+                  @input="filterFn"
+                >
+                  <template v-slot:append>
+                    <q-icon :name="matSearch" />
+                  </template>
+                </q-input>
               </template>
-            </q-input>
-          </template>
-        </q-table>
-      </q-popup-edit>
-    </q-input>
+            </q-table>
+          </q-popup-edit>
+        </div>
+        <div class="col">
+          <q-input
+            class="q-ml-md"
+            :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.srs"
+            @input="valuedef=>updateProduct( {element:'srs',value: valuedef})"
+            label="Spatial Reference System"
+          />
+        </div>
+        <div class="col q-my-md col-md-auto">
+          {{srsName}}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -153,6 +169,16 @@ export default class SpatialReference extends SpatialReferenceProps {
   loading = false
   selectedSrs: SearchRecordInterface[] = []
   filterSRS = ''
+
+  get srsName (): string {
+    if (this.srs !== undefined || this.srs !== '') {
+      const matches = srsOptionsBasis.filter(v => 'EPSG:' + v.Code === this.srs)
+      if (matches.length > 0) {
+        return matches[0].Name + ' (' + matches[0].Type + ')'
+      }
+    }
+    return ''
+  }
 
   data () {
     return {
