@@ -249,4 +249,4 @@ workflows:
             branches:
               only: /^this-should-never-exist$/
           requires:
-            - aprrove_deploy_product_catalogue
+            - approve_deploy_product_catalogue
