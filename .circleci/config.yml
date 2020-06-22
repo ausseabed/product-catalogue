@@ -158,7 +158,7 @@ jobs:
           name: terraform plan
           working_directory: ./ausseabed-aws-foundation/pcat-infra
           command: terraform plan -out=terraform.plan -input=false
-      - run: mv ./terraform.plan workspace
+      - run: mv ./ausseabed-aws-foundation/pcat-infra/terraform.plan workspace
       - persist_to_workspace:
           root: workspace
           paths:
