@@ -1,12 +1,10 @@
 <template>
   <q-page padding>
-
     <div class='col'>
       <surveys-editor
         title='Edit Surveys'
         active
-      ></surveys-editor>
-      <!--  :surveys='surveys' -->
+      />
     </div>
   </q-page>
 </template>

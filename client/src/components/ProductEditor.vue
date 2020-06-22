@@ -62,14 +62,14 @@
         label="Submit"
         type="submit"
         color="primary"
-        @click="_ => saveData().then(this.$router.push( { name: 'surveys' } ) )"
+        @click="_ => saveDataLocal(surveyL3Relation.surveyL3RelationSelected.survey.id)"
       />
       <q-btn
         class="q-ma-md"
         label="Cancel"
         type="cancel"
         color="primary"
-        @click="_ => fetchData(relationId).then(this.$router.push( { name: 'surveys' } ) )"
+        @click="_ => cancel(surveyL3Relation.surveyL3RelationSelected.survey.id)"
         flat
       />
     </q-form>
@@ -112,6 +112,29 @@ export default class ProductEditor extends SurveyIdProps {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Mutation('updateProduct', { namespace }) updateProduct!: any
+
+  async saveDataLocal (surveyId: number) {
+    await this.saveData()
+    this.$router.push(
+      {
+        name: 'surveys',
+        query: {
+          surveyId: String(surveyId)
+        }
+      })
+  }
+
+  async cancel (surveyId: number) {
+    console.log(surveyId)
+    await this.fetchData(this.relationId)
+    this.$router.push(
+      {
+        name: 'surveys',
+        query: {
+          surveyId: String(surveyId)
+        }
+      })
+  }
 
   resetProduct (id: number) {
     this.$store.dispatch('product/fetchData', id)
