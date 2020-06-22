@@ -177,7 +177,7 @@ jobs:
           name: terraform apply
           working_directory: ./infra
           command: |
-            terraform -input=false --auto-approve /tmp/cci-extras/workspace/terraform.plan
+            terraform apply -input=false --auto-approve /tmp/cci-extras/workspace/terraform.plan
 
 workflows:
   update_infra_and_application:
@@ -233,7 +233,7 @@ workflows:
 #          requires:
 #            - build_product_catalogue_server
 #            - build_product_catalogue_client
-      - aprrove_deploy_product_catalogue: # <<< A job that will require manual approval in the CircleCI web application.
+      - approve_deploy_product_catalogue: # <<< A job that will require manual approval in the CircleCI web application.
           filters:
             tags:
               only: /^stage/\d[\d\.]*f?$/
