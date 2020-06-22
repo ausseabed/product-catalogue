@@ -35,6 +35,26 @@ commands:
               $<<parameters.account-url>>/<<parameters.repo>>:$<<parameters.docker_tag>>
             docker push $<<parameters.account-url>>/<<parameters.repo>>:$<<parameters.docker_tag>>
 
+  prepare-terraform:
+    description: "Installs Terraform and dependencies"
+    steps:
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+      - run:
+          name: check s3
+          command: aws sts get-caller-identity
+      - run:
+          name: keep SSH happy
+          command: |
+            mkdir -m 0700 ~/.ssh
+            ssh-keyscan -p 22 github.com >> ~/.ssh/known_hosts
+            cat ~/.ssh/known_hosts
+      - run:
+          name: Install terraform
+          command: wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && unzip terraform_0.12.26_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
+
+
 
 jobs:
   prepare_docker_tag:
@@ -132,28 +152,14 @@ jobs:
       - image: circleci/python:3.7-stretch
     steps:
       - run: mkdir -p workspace
-      - run:
-          name: Install awscli
-          command: sudo pip install awscli
-      - run:
-          name: check s3
-          command: aws sts get-caller-identity
-      - run:
-          name: keep SSH happy
-          command: |
-            mkdir -m 0700 ~/.ssh
-            ssh-keyscan -p 22 github.com >> ~/.ssh/known_hosts
-            cat ~/.ssh/known_hosts
+      - prepare-terraform
       - run:
           name: Checkout Foundation repository
           command: git clone -b feature/pcat-deployment git@github.com:ausseabed/ausseabed-aws-foundation.git
       - run:
-          name: Install terraform
-          command: wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && unzip terraform_0.12.26_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
-      - run:
-          name: terraform init -input=false
+          name: terraform init
           working_directory: ./ausseabed-aws-foundation/pcat-infra
-          command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terraform init
+          command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terraform init -input=false
       - run:
           name: terraform plan
           working_directory: ./ausseabed-aws-foundation/pcat-infra
@@ -170,9 +176,15 @@ jobs:
     steps:
     - attach_workspace:
         at: /tmp/cci-extras/workspace
+    - prepare-terraform
     - run:
-        name: Install terraform
-        command: wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && unzip terraform_0.12.26_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
+        name: Checkout Foundation repository
+        command: git clone -b feature/pcat-deployment git@github.com:ausseabed/ausseabed-aws-foundation.git
+    - run:
+        name: terraform init
+        working_directory: ./ausseabed-aws-foundation/pcat-infra
+        command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terraform init -input=false
+
     - run:
           name: terraform apply
           working_directory: ./infra
