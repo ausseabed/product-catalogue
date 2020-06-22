@@ -158,6 +158,7 @@ jobs:
           working_directory: ./ausseabed-aws-foundation/pcat-infra
           command: terraform plan
 #      - run:
+# deploy trigger
 #          name: terraform apply
 #          working_directory: ./infra
 #          command: terraform apply --auto-approve
