@@ -53,6 +53,9 @@ commands:
       - run:
           name: Install terraform
           command: wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && unzip terraform_0.12.26_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
+      - run:
+          name: Install terragrunt
+          command: wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.23.27/terragrunt_linux_amd64 && chmod +x terragrunt_linux_amd64 && sudo mv terragrunt_linux_amd64 /usr/bin/terragrunt
 
   validate_master_branch:
     description: "Verifies that tag commit is present on master branch"
@@ -168,13 +171,13 @@ jobs:
           name: Checkout Foundation repository
           command: git clone -b feature/pcat-deployment git@github.com:ausseabed/ausseabed-aws-foundation.git
       - run:
-          name: terraform init
+          name: terragrunt init
           working_directory: ./ausseabed-aws-foundation/pcat-infra
-          command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terraform init -input=false
+          command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terragrunt init -input=false
       - run:
           name: terraform plan
           working_directory: ./ausseabed-aws-foundation/pcat-infra
-          command: terraform plan -out=terraform.plan -input=false
+          command: terragrunt plan -out=terraform.plan -input=false
       - run: mv ./ausseabed-aws-foundation/pcat-infra/terraform.plan workspace
       - persist_to_workspace:
           root: workspace
@@ -192,15 +195,15 @@ jobs:
         name: Checkout Foundation repository
         command: git clone -b feature/pcat-deployment git@github.com:ausseabed/ausseabed-aws-foundation.git
     - run:
-        name: terraform init
+        name: terragrunt init
         working_directory: ./ausseabed-aws-foundation/pcat-infra
-        command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terraform init -input=false
+        command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terragrunt init -input=false
 
     - run:
-          name: terraform apply
+          name: terragrunt apply
           working_directory: ./ausseabed-aws-foundation/pcat-infra
           command: |
-            terraform apply -input=false --auto-approve /tmp/cci-extras/workspace/terraform.plan
+            terragrunt apply -input=false --auto-approve /tmp/cci-extras/workspace/terraform.plan
 
 ### Pre-defined filters for workflows
 
@@ -258,14 +261,15 @@ workflows:
     jobs:
       - validate_prod_deployment:
           <<: *prod_deploy_tag_only
-#      - prepare_deploy_product_catalogue:
-#          <<: *prod_deploy_tag_only
-#      - approve_deploy_product_catalogue:
-#          <<: *prod_deploy_tag_only
-#          type: approval
-#          requires:
-#            - prepare_deploy_product_catalogue
-#      - do_deploy_product_catalogue:
-#          <<: *prod_deploy_tag_only
-#          requires:
-#            - approve_deploy_product_catalogue
+      - prepare_deploy_product_catalogue:
+          <<: *prod_deploy_tag_only
+      - approve_deploy_product_catalogue:
+          <<: *prod_deploy_tag_only
+          type: approval
+          requires:
+            - prepare_deploy_product_catalogue
+      - do_deploy_product_catalogue:
+          <<: *prod_deploy_tag_only
+          requires:
+            - approve_deploy_product_catalogue
+          context: ga_sb_ecs_prod_deployment
