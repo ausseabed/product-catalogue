@@ -54,19 +54,12 @@ commands:
           name: Install terraform
           command: wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && unzip terraform_0.12.26_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
 
-
-
-jobs:
-  prepare_docker_tag:
-    machine:
-      image: ubuntu-1604:201903-01
+  validate_master_branch:
+    description: "Verifies that tag commit is present on master branch"
     steps:
-      - checkout
-      - run: mkdir -p workspace
       - run:
-          name: "Verify Tagged Build"
+          name: "Verify Master branch"
           command: |
-            set -x
             echo $CIRCLE_TAG
             git branch -r --contains $CIRCLE_SHA1 --format='%(refname:short)'
             IS_ON_MASTER="$(git branch -r --contains $CIRCLE_SHA1 --format='%(refname:short)' |grep ^origin/feature)"
@@ -78,6 +71,18 @@ jobs:
               echo "NOT ON MASTER BRANCH, FAILING BUILD"
               exit 100
             fi
+
+jobs:
+  prepare_docker_tag:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: mkdir -p workspace
+      - validate_master_branch
+      - run:
+          name: "Extract Docker tag from Git tag"
+          command: |
             DOCKER_TAG=`echo $CIRCLE_TAG | awk -F'/' '{print $2}'`
             if [[ ! $DOCKER_TAG =~ ^[0-9][0-9\.]*$ ]]
             then
@@ -145,6 +150,13 @@ jobs:
           repo: ausseabed-product-catalogue-client
           docker_tag: DOCKER_TAG
 
+  validate_prod_deployment:
+    docker:
+      - image: circleci/python:3.7-stretch
+    steps:
+      - validate_master_branch
+
+
   prepare_deploy_product_catalogue:
     docker:
       - image: circleci/python:3.7-stretch
@@ -189,6 +201,23 @@ jobs:
           command: |
             terraform apply -input=false --auto-approve /tmp/cci-extras/workspace/terraform.plan
 
+### Pre-defined filters for workflows
+
+prod_publish_tag_only: &prod_publish_tag_only
+  filters:
+    tags:
+      only: /^prod/publish/\d[\d\.]*f?$/
+    branches:
+      ignore: /.*/
+
+prod_deploy_tag_only: &prod_deploy_tag_only
+  filters:
+    tags:
+      only: /^prod/deploy/\d[\d\.]*f?$/
+    branches:
+      ignore: /.*/
+
+### Workflows section
 workflows:
   update_infra_and_application:
     jobs:
@@ -213,52 +242,29 @@ workflows:
   publish_production_images:
     jobs:
       - prepare_docker_tag:
-          filters:
-            tags:
-              only: /^stage/\d[\d\.]*f?$/
-            branches:
-              only: /^this-should-never-exist$/
+          <<: *prod_publish_tag_only
       - build_product_catalogue_server:
-          filters:
-            tags:
-              only: /^stage/\d[\d\.]*f?$/
-            branches:
-              only: /^this-should-never-exist$/
+          <<: *prod_publish_tag_only
           context: ga_sb_docker_prod_publish
           requires:
             - prepare_docker_tag
       - build_product_catalogue_client:
-          filters:
-            tags:
-              only: /^stage/\d[\d\.]*f?$/
-            branches:
-              only: /^this-should-never-exist$/
+          <<: *prod_publish_tag_only
           context: ga_sb_docker_prod_publish
           requires:
             - prepare_docker_tag
-      - prepare_deploy_product_catalogue:
-          filters:
-            tags:
-              only: /^stage/\d[\d\.]*f?$/
-            branches:
-              only: /^this-should-never-exist$/
+  deploy_to_production:
+    jobs:
+      - validate_prod_deployment:
+          <<: *prod_deploy_tag_only
+#      - prepare_deploy_product_catalogue:
+#          <<: *prod_deploy_tag_only
+#      - approve_deploy_product_catalogue:
+#          <<: *prod_deploy_tag_only
+#          type: approval
 #          requires:
-#            - build_product_catalogue_server
-#            - build_product_catalogue_client
-      - approve_deploy_product_catalogue: # <<< A job that will require manual approval in the CircleCI web application.
-          filters:
-            tags:
-              only: /^stage/\d[\d\.]*f?$/
-            branches:
-              only: /^this-should-never-exist$/
-          type: approval # <<< This key-value pair will set your workflow to a status of "On Hold"
-          requires: # We only run the "hold" job when test2 has succeeded
-            - prepare_deploy_product_catalogue
-      - do_deploy_product_catalogue:
-          filters:
-            tags:
-              only: /^stage/\d[\d\.]*f?$/
-            branches:
-              only: /^this-should-never-exist$/
-          requires:
-            - approve_deploy_product_catalogue
+#            - prepare_deploy_product_catalogue
+#      - do_deploy_product_catalogue:
+#          <<: *prod_deploy_tag_only
+#          requires:
+#            - approve_deploy_product_catalogue
