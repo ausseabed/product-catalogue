@@ -154,6 +154,7 @@ jobs:
     docker:
       - image: circleci/python:3.7-stretch
     steps:
+      - checkout
       - validate_master_branch
 
 
