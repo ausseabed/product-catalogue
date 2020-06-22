@@ -177,8 +177,7 @@ jobs:
           name: terraform apply
           working_directory: ./infra
           command: |
-            cat /tmp/cci-extras/workspace/terraform.plan
-            echo "terraform -input=false --auto-approve /tmp/cci-extras/workspace/terraform.plan"
+            terraform -input=false --auto-approve /tmp/cci-extras/workspace/terraform.plan
 
 workflows:
   update_infra_and_application:
