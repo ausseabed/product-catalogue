@@ -151,8 +151,8 @@ jobs:
           docker_tag: DOCKER_TAG
 
   validate_prod_deployment:
-    docker:
-      - image: circleci/python:3.7-stretch
+    machine:
+      image: ubuntu-1604:201903-01
     steps:
       - checkout
       - validate_master_branch
