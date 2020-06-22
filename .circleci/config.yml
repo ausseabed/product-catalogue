@@ -140,7 +140,7 @@ jobs:
       - run:
           name: keep SSH happy
           command: |
-            mkdir -m 0600 ~/.ssh
+            mkdir -m 0700 ~/.ssh
             ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts
       - run:
           name: Checkout Foundation repository
