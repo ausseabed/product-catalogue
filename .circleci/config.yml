@@ -148,7 +148,7 @@ jobs:
           command: git clone git@github.com:ausseabed/ausseabed-aws-foundation.git
       - run:
           name: Install terraform
-          command: wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip && unzip terraform_0.12.24_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
+          command: wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && unzip terraform_0.12.26_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
       - run:
           name: terraform init
           working_directory: ./ausseabed-aws-foundation/pcat-infra
