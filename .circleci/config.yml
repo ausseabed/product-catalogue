@@ -169,7 +169,7 @@ workflows:
             branches:
               only:
                 - master
-      - deploy_product_catalogue:
+      - prepare_deploy_product_catalogue:
           filters:
             branches:
               only:
