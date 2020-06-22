@@ -163,8 +163,14 @@ jobs:
             - terraform.plan
 
   do_deploy_product_catalogue:
+    docker:
+      - image: circleci/python:3.7-stretch
+    steps:
     - attach_workspace:
         at: /tmp/cci-extras/workspace
+    - run:
+        name: Install terraform
+        command: wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && unzip terraform_0.12.26_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
     - run:
           name: terraform apply
           working_directory: ./infra
