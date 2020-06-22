@@ -139,7 +139,9 @@ jobs:
           command: aws sts get-caller-identity
       - run:
           name: keep SSH happy
-          command: ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts
+          command: |
+            mkdir -m 0600 ~/.ssh
+            ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts
       - run:
           name: Checkout Foundation repository
           command: git clone git@github.com:ausseabed/ausseabed-aws-foundation.git
