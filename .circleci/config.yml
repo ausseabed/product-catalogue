@@ -142,6 +142,7 @@ jobs:
           command: |
             mkdir -m 0700 ~/.ssh
             ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts
+            cat ~/.ssh/known_hosts
       - run:
           name: Checkout Foundation repository
           command: git clone git@github.com:ausseabed/ausseabed-aws-foundation.git
@@ -184,28 +185,28 @@ workflows:
             - build_product_catalogue_client
   publish_production_images:
     jobs:
-      - prepare_docker_tag:
-          filters:
-            tags:
-              only: /^stage/\d[\d\.]*f?$/
-            branches:
-              only: /^this-should-never-exist$/
-      - build_product_catalogue_server:
-          filters:
-            tags:
-              only: /^stage/\d[\d\.]*f?$/
-            branches:
-              only: /^this-should-never-exist$/
-          requires:
-            - prepare_docker_tag
-      - build_product_catalogue_client:
-          filters:
-            tags:
-              only: /^stage/\d[\d\.]*f?$/
-            branches:
-              only: /^this-should-never-exist$/
-          requires:
-            - prepare_docker_tag
+#      - prepare_docker_tag:
+#          filters:
+#            tags:
+#              only: /^stage/\d[\d\.]*f?$/
+#            branches:
+#              only: /^this-should-never-exist$/
+#      - build_product_catalogue_server:
+#          filters:
+#            tags:
+#              only: /^stage/\d[\d\.]*f?$/
+#            branches:
+#              only: /^this-should-never-exist$/
+#          requires:
+#            - prepare_docker_tag
+#      - build_product_catalogue_client:
+#          filters:
+#            tags:
+#              only: /^stage/\d[\d\.]*f?$/
+#            branches:
+#              only: /^this-should-never-exist$/
+#          requires:
+#            - prepare_docker_tag
       - prepare_deploy_product_catalogue:
           filters:
             tags:
