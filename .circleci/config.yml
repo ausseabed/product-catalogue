@@ -187,7 +187,7 @@ jobs:
 
     - run:
           name: terraform apply
-          working_directory: ./infra
+          working_directory: ./ausseabed-aws-foundation/pcat-infra
           command: |
             terraform apply -input=false --auto-approve /tmp/cci-extras/workspace/terraform.plan
 
