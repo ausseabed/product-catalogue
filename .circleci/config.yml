@@ -131,6 +131,7 @@ jobs:
     docker:
       - image: circleci/python:3.7-stretch
     steps:
+      - run: mkdir -p workspace
       - run:
           name: Install awscli
           command: sudo pip install awscli
@@ -154,9 +155,9 @@ jobs:
           working_directory: ./ausseabed-aws-foundation/pcat-infra
           command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terraform init
       - run:
-          name: terraform plan -out=./terraform.plan -input=false
+          name: terraform plan
           working_directory: ./ausseabed-aws-foundation/pcat-infra
-          command: terraform plan
+          command: terraform plan -out=./workspace/terraform.plan -input=false
       - persist_to_workspace:
           root: workspace
           paths:
