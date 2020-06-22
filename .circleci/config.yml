@@ -145,7 +145,7 @@ jobs:
             cat ~/.ssh/known_hosts
       - run:
           name: Checkout Foundation repository
-          command: git clone git@github.com:ausseabed/ausseabed-aws-foundation.git
+          command: git clone -b feature/pcat-deployment git@github.com:ausseabed/ausseabed-aws-foundation.git
       - run:
           name: Install terraform
           command: wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && unzip terraform_0.12.26_linux_amd64.zip && chmod +x terraform && sudo mv terraform /usr/bin/
@@ -154,7 +154,7 @@ jobs:
           working_directory: ./ausseabed-aws-foundation/pcat-infra
           command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terraform init
       - run:
-          name: terraform plan
+          name: terraform plan -out ./terraform.plan
           working_directory: ./ausseabed-aws-foundation/pcat-infra
           command: terraform plan
 #      - run:
