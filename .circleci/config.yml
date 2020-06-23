@@ -198,7 +198,6 @@ jobs:
         name: terragrunt init
         working_directory: ./ausseabed-aws-foundation/pcat-infra
         command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terragrunt init -input=false
-
     - run:
           name: terragrunt apply
           working_directory: ./ausseabed-aws-foundation/pcat-infra
@@ -243,6 +242,7 @@ workflows:
           requires:
             - build_product_catalogue_server
             - build_product_catalogue_client
+
   publish_production_images:
     jobs:
       - prepare_docker_tag:
@@ -257,6 +257,7 @@ workflows:
           context: ga_sb_docker_prod_publish
           requires:
             - prepare_docker_tag
+
   deploy_to_production:
     jobs:
       - validate_prod_deployment:
