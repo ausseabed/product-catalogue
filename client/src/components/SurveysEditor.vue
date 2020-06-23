@@ -338,6 +338,7 @@ export default class SurveysEditor extends Vue {
 
   mounted () {
     this.fetchData()
+    // the virtual-scroll position of the table does not appear to be saved as part of keep-alive
     if (this.$route.query.surveyId) {
       const surveyId = parseInt(String(this.$route.query.surveyId))
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -67,14 +67,17 @@
 
           <q-item-section>
             <q-item-label>Logout</q-item-label>
-            <q-item-label caption> Logout of the system </q-item-label>
+            <q-item-label caption>Logout of the system</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
+      <!-- the virtual-scroll position of the table does not appear to be saved as part of keep-alive -->
+      <!--  <keep-alive include="SurveyEditorPage"> -->
       <router-view />
+      <!--  </keep-alive> -->
     </q-page-container>
   </q-layout>
 </template>

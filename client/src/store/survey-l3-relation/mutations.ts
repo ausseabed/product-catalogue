@@ -14,6 +14,13 @@ const mutation: MutationTree<SurveyL3RelationStateInterface> = {
   },
   updateProduct (state: SurveyL3RelationStateInterface, elementValuePair: { element: UpdateProductKnownTypes; value: string }) {
     state.surveyL3RelationSelected.productL3Src[elementValuePair.element] = elementValuePair.value
+  },
+  clearErrorMessagesMutation (state: SurveyL3RelationStateInterface) {
+    while (state.errorMessages.length) { state.errorMessages.pop() }
+  },
+  errorMessage (state: SurveyL3RelationStateInterface, payload) {
+    console.log(JSON.stringify(payload))
+    state.errorMessages.push(payload)
   }
 }
 

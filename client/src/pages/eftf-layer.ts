@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ObservableProductsL3DistApi, ObservableProductsL3SrcApi, ObservableProductRelationsApi, ObservableSurveysApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
 import { getRestConfiguration } from 'src/boot/auth'
 import { ProductL3Dist, ProductL3Src, RelationSummaryDto, Survey } from '@ausseabed/product-catalogue-rest-client'

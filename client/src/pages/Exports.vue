@@ -68,7 +68,7 @@ export default Vue.extend({
       progress: false,
       geoserverUrl: 'https://warehouse.ausseabed.gov.au/geoserver',
       geoserverProduction: false,
-      collapseGroups: false
+      collapseGroups: true
     }
   }
 })
