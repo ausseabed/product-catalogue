@@ -177,7 +177,7 @@ jobs:
       - run:
           name: terraform plan
           working_directory: ./ausseabed-aws-foundation/pcat-infra
-          command: TF_LOG="TRACE" terragrunt plan -out=terraform.plan -input=false
+          command: terragrunt plan -out=terraform.plan -input=false
       - run: mv ./ausseabed-aws-foundation/pcat-infra/terraform.plan workspace
       - persist_to_workspace:
           root: workspace
