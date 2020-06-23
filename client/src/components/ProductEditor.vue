@@ -1,78 +1,102 @@
 <template>
-  <div>
-    <q-form
-      ref="myForm"
-      v-if='surveyL3Relation.surveyL3RelationSelected.productL3Src && surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid !== undefined'
+  <div class="column justify-center">
+    <div
+      class="col-auto q-md q-gutter-sm"
+      v-if="surveyL3Relation.errorMessages.length>0"
     >
-      <div class="text-h6 q-ml-md">Edit level 3 product associated with '{{surveyL3Relation.surveyL3RelationSelected.survey.name}}'</div>
-      <q-input
-        class="q-ml-md"
-        :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid"
-        @input="value=>updateProduct( {element:'uuid',value: value})"
-        label="UUID"
+      <q-banner
+        inline-actions
+        class="text-white bg-red"
       >
-        <template v-slot:append>
+        {{surveyL3Relation.errorMessages.slice(-1)[0]}}
+        <template v-slot:action>
           <q-btn
-            color="primary"
-            label="New GUID"
-            @click="createGuid"
+            flat
+            label="Dismiss"
+            @click="clearErrorMessages"
           />
-          <!--<q-icon name="fingerprint" />-->
         </template>
-      </q-input>
-      <q-input
-        class="q-ml-md"
-        :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.name"
-        @input="value=>updateProduct( {element:'name',value: value})"
-        label="Gazetteer"
-      />
-      <q-input
-        class="q-ml-md"
-        :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.resolution"
-        @input="value=>updateProduct( {element:'resolution',value: value})"
-        label="Resolution"
-      />
-      <spatial-reference :srs='surveyL3Relation.surveyL3RelationSelected.productL3Src.srs' />
-      <q-input
-        type="url"
-        hint="url"
-        class="q-ml-md"
-        :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.metadataPersistentId"
-        @input="value=>updateProduct( {element:'metadataPersistentId',value: value})"
-        label="Metadata Persistent Id"
-        :rules="[
+      </q-banner>
+    </div>
+
+    <div
+      class="col"
+      v-if="surveyL3Relation.surveyL3RelationSelected"
+    >
+      <q-form
+        ref="myForm"
+        v-if='surveyL3Relation.surveyL3RelationSelected.productL3Src && surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid !== undefined'
+      >
+        <div class="text-h6 q-ml-md">Edit level 3 product associated with '{{surveyL3Relation.surveyL3RelationSelected.survey.name}}'</div>
+        <q-input
+          class="q-ml-md"
+          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid"
+          @input="value=>updateProduct( {element:'uuid',value: value})"
+          label="UUID"
+        >
+          <template v-slot:append>
+            <q-btn
+              color="primary"
+              label="New GUID"
+              @click="createGuid"
+            />
+            <!--<q-icon name="fingerprint" />-->
+          </template>
+        </q-input>
+        <q-input
+          class="q-ml-md"
+          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.name"
+          @input="value=>updateProduct( {element:'name',value: value})"
+          label="Gazetteer"
+        />
+        <q-input
+          class="q-ml-md"
+          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.resolution"
+          @input="value=>updateProduct( {element:'resolution',value: value})"
+          label="Resolution"
+        />
+        <spatial-reference :srs='surveyL3Relation.surveyL3RelationSelected.productL3Src.srs' />
+        <q-input
+          type="url"
+          hint="url"
+          class="q-ml-md"
+          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.metadataPersistentId"
+          @input="value=>updateProduct( {element:'metadataPersistentId',value: value})"
+          label="Metadata Persistent Id"
+          :rules="[
           val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.',
         ]"
-        lazy-rules
-      />
-      <q-input
-        class="q-ml-md"
-        type="url"
-        hint="url"
-        :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation"
-        @input="value=>updateProduct( {element:'productTifLocation',value: value})"
-        label="L3 Product Tif Location"
-        :rules="[
+          lazy-rules
+        />
+        <q-input
+          class="q-ml-md"
+          type="url"
+          hint="url"
+          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation"
+          @input="value=>updateProduct( {element:'productTifLocation',value: value})"
+          label="L3 Product Tif Location"
+          :rules="[
           val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.',
         ]"
-        lazy-rules
-      />
-      <q-btn
-        class="q-ma-md"
-        label="Submit"
-        type="submit"
-        color="primary"
-        @click="_ => saveData().then(this.$router.push( { name: 'surveys' } ) )"
-      />
-      <q-btn
-        class="q-ma-md"
-        label="Cancel"
-        type="cancel"
-        color="primary"
-        @click="_ => fetchData(relationId).then(this.$router.push( { name: 'surveys' } ) )"
-        flat
-      />
-    </q-form>
+          lazy-rules
+        />
+        <q-btn
+          class="q-ma-md"
+          label="Submit"
+          type="submit"
+          color="primary"
+          @click="_ => saveDataLocal(surveyL3Relation.surveyL3RelationSelected.survey.id)"
+        />
+        <q-btn
+          class="q-ma-md"
+          label="Cancel"
+          type="cancel"
+          color="primary"
+          @click="_ => cancel(surveyL3Relation.surveyL3RelationSelected.survey.id)"
+          flat
+        />
+      </q-form>
+    </div>
   </div>
 </template>
 
@@ -113,8 +137,31 @@ export default class ProductEditor extends SurveyIdProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Mutation('updateProduct', { namespace }) updateProduct!: any
 
-  resetProduct (id: number) {
-    this.$store.dispatch('product/fetchData', id)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Mutation('clearErrorMessagesMutation', { namespace }) clearErrorMessages!: any
+
+  async saveDataLocal (surveyId: number) {
+    await this.saveData()
+    this.$router.push(
+      {
+        name: 'surveys',
+        query: {
+          surveyId: String(surveyId)
+        }
+      })
+  }
+
+  async cancel (surveyId: number) {
+    if (surveyId) {
+      await this.fetchData(this.relationId)
+      this.$router.push(
+        {
+          name: 'surveys',
+          query: {
+            surveyId: String(surveyId)
+          }
+        })
+    }
   }
 
   createGuid () {

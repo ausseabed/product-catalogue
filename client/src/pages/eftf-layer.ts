@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ObservableProductsL3DistApi, ObservableProductsL3SrcApi, ObservableProductRelationsApi, ObservableSurveysApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
 import { getRestConfiguration } from 'src/boot/auth'
 import { ProductL3Dist, ProductL3Src, RelationSummaryDto, Survey } from '@ausseabed/product-catalogue-rest-client'
@@ -110,7 +111,8 @@ export class EftfLayer {
     if (productL3Src) {
       return `${productL3Src.name} ${year} ${productL3Src.resolution}`
     } else {
-      throw Error('Could not find product')
+      console.error('Could not find product')
+      return 'unknown'
     }
   }
 
@@ -118,7 +120,14 @@ export class EftfLayer {
     if (productL3Src && survey) {
       return `${survey.name} ${year} ${productL3Src.resolution}`
     } else {
-      throw Error('Could not find product')
+      if (survey) {
+        console.error('Could not find product for survey: ' + survey.name)
+        return 'unknown'
+      } else if (productL3Src) {
+        throw Error('Could not find survey for product: ' + productL3Src.name)
+      } else {
+        throw Error('Could not find product')
+      }
     }
   }
 
@@ -147,23 +156,28 @@ export class EftfLayer {
     surveysArray.forEach((survey: Survey) => {
       const productIds = surveyToProduct.get(survey.id)
       if (productIds) {
+        const productsWithOutDistributables = productIds.filter(id => !productIdToProductSrc.get(id))
+        if (productsWithOutDistributables.length > 0) {
+          console.warn('Products without distributables for ' + survey.name)
+        }
         if (this.collapseGroups) {
-          const surveyNameToProducts = productIds.reduce<Map<string, number[]>>(
+          const productsWithDistributables = productIds.filter(id => productIdToProductSrc.get(id))
+          const surveyNameToProducts = productsWithDistributables.reduce<Map<string, number[]>>(
             (previousMap, productId) => previousMap.set(
               this.getNameSurvey(survey, productIdToProductSrc.get(productId), survey.year), [...previousMap
                 .get(this.getNameSurvey(survey, productIdToProductSrc.get(productId), survey.year)) || [],
               productId]),
             new Map()
           )
-          surveyNameToProducts.forEach((productIds: number[], nameFormatted: string) => {
-            const wmsLayerNames = productIds.map(prodId => {
+          surveyNameToProducts.forEach((productsWithDistributables: number[], nameFormatted: string) => {
+            const wmsLayerNames = productsWithDistributables.map(prodId => {
               return namespace + this.getNcName(this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year))
             })
-            const wcsLayerNames = productIds.map(prodId => {
+            const wcsLayerNames = productsWithDistributables.map(prodId => {
               return namespace + this.getNcName(this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year) + '_OV')
             })
 
-            const bboxes = productIds.map(prodId => {
+            const bboxes = productsWithDistributables.map(prodId => {
               const nameIndividualFormatted = namespace + this.getNcName(this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year))
               const layer = nameToNode.get(nameIndividualFormatted)
               if (layer) {

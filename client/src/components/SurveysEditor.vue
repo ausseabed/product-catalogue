@@ -1,189 +1,214 @@
 <template>
-
-  <div>
-    <div
-      class="q-md q-gutter-sm"
-      v-if="surveys.errorMessages.length>0"
-    >
-      <q-banner
-        inline-actions
-        class="text-white bg-red"
+  <div class="column justify-center">
+    <div class="col-auto">
+      <div
+        class="q-md q-gutter-sm"
+        v-if="surveys.errorMessages.length>0"
       >
-        {{surveys.errorMessages.slice(-1)[0]}}
-        <template v-slot:action>
-          <q-btn
-            flat
-            label="Dismiss"
-            @click="clearErrorMessages"
-          />
-        </template>
-      </q-banner>
-    </div>
-    <q-table
-      style="height: 750px"
-      title="Surveys"
-      :data="surveys.surveys"
-      :columns="columns"
-      row-key="id"
-      selection="single"
-      :rows-per-page-options="[0]"
-      virtual-scroll
-      :pagination.sync="pagination"
-      :selected.sync="selected"
-      separator="cell"
-      ref="table"
-    >
-      <template v-slot:body="props">
-        <q-tr :props="props">
-          <q-td>
-            <!-- <q-checkbox v-model="props.selected" /> -->
+        <q-banner
+          inline-actions
+          class="text-white bg-red"
+        >
+          {{surveys.errorMessages.slice(-1)[0]}}
+          <template v-slot:action>
             <q-btn
               flat
-              @click="() => toggleEditMode(props.row, props.selected)"
-              round
-              color="white"
-              text-color="black"
-              :icon="props.selected? matDone: matEdit"
+              label="Dismiss"
+              @click="clearErrorMessages"
             />
+          </template>
+        </q-banner>
+      </div>
+    </div>
+    <div class="col">
+      <q-table
+        class="my-sticky-virtscroll-table"
+        style="height:85vh"
+        title="Surveys"
+        :data="surveys.surveys"
+        :columns="columns"
+        row-key="id"
+        selection="single"
+        :rows-per-page-options="[0]"
+        virtual-scroll
+        :virtual-scroll-sticky-size-start="48"
+        :pagination.sync="pagination"
+        :selected.sync="selected"
+        separator="cell"
+        @virtual-scroll="virtualScrollPosition"
+        ref="table"
+      >
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td>
+              <!-- <q-checkbox v-model="props.selected" /> -->
+              <q-btn
+                flat
+                @click="() => toggleEditMode(props.row, props.selected)"
+                round
+                color="white"
+                text-color="black"
+                :icon="props.selected? matDone: matEdit"
+              />
 
-          </q-td>
-          <q-td
-            :props="props"
-            key="UUID"
-          >
-            <div v-if="!props.selected">
-              {{ props.row.uuid}}
-            </div>
-            <div v-if="props.selected">
-              <q-input
-                :value="props.row.uuid"
-                @input="value => update(props.row.id, 'uuid', value)"
-                debounce="500"
-                dense
-                autofocus
-                counter
-              />
-            </div>
-          </q-td>
-          <q-td
-            :props="props"
-            key="surveyName"
-          >
-            <div v-if="!props.selected">
-              {{ props.row.name }}
-            </div>
-            <div v-if="props.selected">
-              <q-input
-                :value="props.row.name"
-                @input="value => update(props.row.id, 'name', value)"
-                debounce="500"
-                dense
-                autofocus
-                counter
-              />
-            </div>
-          </q-td>
-          <q-td
-            :props="props"
-            key="year"
-          >
-            <div v-if="!props.selected">
-              {{ props.row.year }}
-            </div>
-            <div v-if="props.selected">
-              <q-input
-                :value="props.row.year"
-                @input="value => update(props.row.id, 'year', value)"
-                debounce="500"
-                dense
-                autofocus
-                counter
-              />
-            </div>
-          </q-td>
-          <q-td
-            :props="props"
-            key="products"
-          >
-            <div class='row'>
-              <div
-                class="q-gutter-xs col-auto truncate-chip-labels"
-                style="max-width: 200px"
-              >
+            </q-td>
+            <q-td
+              :props="props"
+              key="UUID"
+            >
+              <div v-if="!props.selected">
+                {{ props.row.uuid}}
+              </div>
+              <div v-if="props.selected">
+                <q-input
+                  :value="props.row.uuid"
+                  @input="value => update(props.row.id, 'uuid', value)"
+                  debounce="500"
+                  dense
+                  autofocus
+                  counter
+                />
+              </div>
+            </q-td>
+            <q-td
+              :props="props"
+              key="surveyName"
+            >
+              <div v-if="!props.selected">
+                {{ props.row.name }}
+              </div>
+              <div v-if="props.selected">
+                <q-input
+                  :value="props.row.name"
+                  @input="value => update(props.row.id, 'name', value)"
+                  debounce="500"
+                  dense
+                  autofocus
+                  counter
+                />
+              </div>
+            </q-td>
+            <q-td
+              :props="props"
+              key="year"
+            >
+              <div v-if="!props.selected">
+                {{ props.row.year }}
+              </div>
+              <div v-if="props.selected">
+                <q-input
+                  :value="props.row.year"
+                  @input="value => update(props.row.id, 'year', value)"
+                  debounce="500"
+                  dense
+                  autofocus
+                  counter
+                />
+              </div>
+            </q-td>
+            <q-td
+              :props="props"
+              key="products"
+            >
+              <div class='row'>
                 <div
-                  v-for="item in productsFor(props.row.id)"
-                  :key="item.productId"
+                  class="q-gutter-xs col-auto truncate-chip-labels"
+                  style="max-width: 200px"
                 >
-                  <q-chip
-                    class="glossy"
-                    color="orange"
-                    text-color="white"
-                    clickable
-                    removable
-                    :label="item.productName"
-                    :title="item.productName"
-                    @click="() => editProduct(item.relationId)"
-                    @remove="() => deleteProductDialogue(item.productName, item.productId)"
+                  <div
+                    v-for="item in productsFor(props.row.id)"
+                    :key="item.productId"
+                  >
+                    <q-chip
+                      class="glossy"
+                      color="orange"
+                      text-color="white"
+                      clickable
+                      removable
+                      :label="item.productName"
+                      :title="item.productName"
+                      @click="() => editProduct(item.relationId)"
+                      @remove="() => deleteProductDialogue(item.productName, item.productId)"
+                    />
+                  </div>
+                </div>
+                <div class="col-grow" />
+                <div class="col-shrink">
+
+                  {{ props.row.products }}
+                  <!-- to="/survey-l3-relation" -->
+                  <q-btn
+                    label='Add L3'
+                    color="primary"
+                    @click="() => createProductInternal(props.row.id)"
                   />
                 </div>
               </div>
-              <div class="col-grow" />
-              <div class="col-shrink">
+            </q-td>
+            <q-td width='15px'>
+              <q-btn
+                flat
+                @click="() => removeRowDialogue(props.row.name, props.row)"
+                round
+                color="white"
+                text-color="black"
+                :icon="matDelete"
+              />
+            </q-td>
+          </q-tr>
+        </template>
 
-                {{ props.row.products }}
-                <!-- to="/survey-l3-relation" -->
-                <q-btn
-                  label='Add L3'
-                  color="primary"
-                  @click="() => createProductInternal(props.row.id)"
-                />
-              </div>
-            </div>
-          </q-td>
-          <q-td width='15px'>
-            <q-btn
-              flat
-              @click="() => removeRowDialogue(props.row.name, props.row)"
-              round
-              color="white"
-              text-color="black"
-              :icon="matDelete"
-            />
-          </q-td>
-        </q-tr>
-      </template>
-
-      <template v-slot:top>
-        <div class="col">
-          <div class="q-table__title">Surveys</div>
-        </div>
-        <q-btn
-          color="primary"
-          :disable="loading"
-          label="Add Survey"
-          @click="() => {newSurvey().then(row =>  scrollToRow(row))}"
-          :selected="[]"
-        />
-        <q-space />
-        <q-input
-          class="q-ml-sm"
-          border
-          dense
-          outlined
-          debounce="300"
-          color="primary"
-          label="placeholder"
-          v-model="filter"
-        >
-          <template v-slot:append>
-            <q-icon :name="matSearch" />
-          </template>
-        </q-input>
-      </template>
-    </q-table>
+        <template v-slot:top>
+          <div class="col">
+            <div class="q-table__title">Surveys</div>
+          </div>
+          <q-btn
+            color="primary"
+            :disable="loading"
+            label="Add Survey"
+            @click="() => {newSurvey().then(row =>  scrollToRow(row))}"
+            :selected="[]"
+          />
+          <q-space />
+          <q-input
+            class="q-ml-sm"
+            border
+            dense
+            outlined
+            debounce="300"
+            color="primary"
+            label="placeholder"
+            v-model="filter"
+          >
+            <template v-slot:append>
+              <q-icon :name="matSearch" />
+            </template>
+          </q-input>
+        </template>
+      </q-table>
+    </div>
   </div>
-
 </template>
+<style lang="sass">
+.my-sticky-virtscroll-table
+  /* height or max-height is important */
+  height: 410px
+
+  .q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th /* bg color is important for th; just specify one */
+    background-color: #fff
+
+  thead tr th
+    position: sticky
+    z-index: 1
+  /* this will be the loading indicator */
+  thead tr:last-child th
+    /* height of all previous header rows */
+    top: 48px
+  thead tr:first-child th
+    top: 0
+</style>
 <style lang="sass" scoped>
 .truncate-chip-labels > .q-chip
   max-width: 140px
@@ -205,6 +230,11 @@ const namespace = 'surveys'
 
 @Component
 export default class SurveysEditor extends Vue {
+  virtualScrollPosition (details: { index: number }) {
+    // console.log(details)
+    this.viewedSelection = details.index
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [x: string]: any
   @State('surveys') surveys!: SurveyStateInterface
@@ -308,6 +338,16 @@ export default class SurveysEditor extends Vue {
 
   mounted () {
     this.fetchData()
+    // the virtual-scroll position of the table does not appear to be saved as part of keep-alive
+    if (this.$route.query.surveyId) {
+      const surveyId = parseInt(String(this.$route.query.surveyId))
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const table: any = (this.$refs.table as any)
+      const index = table.computedRows.map((e: Survey) => e.id).indexOf(surveyId)
+      if (index) {
+        table.scrollTo(index)
+      }
+    }
   }
 
   data () {
@@ -323,6 +363,7 @@ export default class SurveysEditor extends Vue {
         rowsPerPage: 100
       },
       selected: [],
+      viewedSelection: 0,
       columns: [
         {
           name: 'UUID',
