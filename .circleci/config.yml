@@ -264,6 +264,9 @@ workflows:
           <<: *prod_deploy_tag_only
       - prepare_deploy_product_catalogue:
           <<: *prod_deploy_tag_only
+          requires:
+            - validate_prod_deployment
+          context: ga_sb_ecs_prod_deployment
       - approve_deploy_product_catalogue:
           <<: *prod_deploy_tag_only
           type: approval
