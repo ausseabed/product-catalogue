@@ -87,7 +87,6 @@ workflows:
             branches:
               only:
                 - master
-                - /.*NGA-372.*/
       - deploy_product_catalogue:
           filters:
             branches:
