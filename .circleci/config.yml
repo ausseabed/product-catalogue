@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Create the npmrc file
           working_directory: ./client
-          command: echo "//npm.pkg.github.com/:_authToken=$ReadOnlyPackageToken" > .npmrc && echo "@ausseabed:registry=https://npm.pkg.github.com" >> .npmrc
+          command: echo "//npm.pkg.github.com/:_authToken=$READONLY_PACKAGE_TOKEN" > .npmrc && echo "@ausseabed:registry=https://npm.pkg.github.com" >> .npmrc
       - run:
           name: Build the rest-client
           working_directory: ./rest-client
