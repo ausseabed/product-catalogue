@@ -2,9 +2,10 @@
 # yarn lockfile v1
 
 
-"@ausseabed/product-catalogue-rest-client@file:product-catalogue-rest-client-0.1.11-npm.tgz":
+"@ausseabed/product-catalogue-rest-client@^0.1.11":
   version "0.1.11"
-  resolved "file:product-catalogue-rest-client-0.1.11-npm.tgz#45b8d67b9aa589d3d0395064bc274165d4a318ca"
+  resolved "https://npm.pkg.github.com/download/@ausseabed/product-catalogue-rest-client/0.1.11/372f3892658ff6159f9299d646f5e37db685c71e2f9d39fb11b4d9977381f7f3#45b8d67b9aa589d3d0395064bc274165d4a318ca"
+  integrity sha512-SE0xnz/SXgrMsuJCuydfME0zSyluhC3o3HRk7YRFMGgvJieChyTNZbG2Ps4lrVLn3A57l9gvyujwz1Nyx5TIPw==
   dependencies:
     btoa "^1.2.1"
     es6-promise "^4.2.4"
@@ -9736,9 +9737,9 @@ websocket-extensions@>=0.1.1:
   integrity sha512-OqedPIGOfsDlo31UNwYbCFMSaO9m9G/0faIHj5/dZFDMFqPTcx6UwqyOy3COEaEOg/9VsGIpdqn62W5KhoKSpg==
 
 whatwg-fetch@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.0.0.tgz#fc804e458cc460009b1a2b966bc8817d2578aefb"
-  integrity sha512-9GSJUgz1D4MfyKU7KRqwOjXCXTqWdFNvEr7eUBYchQiVc744mqK/MzXPNR2WsPkmkOa4ywfg8C2n8h+13Bey1Q==
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.1.0.tgz#49d630cdfa308dba7f2819d49d09364f540dbcc6"
+  integrity sha512-pgmbsVWKpH9GxLXZmtdowDIqtb/rvPyjjQv3z9wLcmgWKFHilKnZD3ldgrOlwJoPGOUluQsRPWd52yVkPfmI1A==
 
 when@~3.6.x:
   version "3.6.4"
