@@ -10,6 +10,7 @@ RUN yarn global add @quasar/cli
 ADD src $APPDIR/src
 
 COPY .npmrc $APPDIR/
+RUN cat .npmrc
 RUN yarn install && yarn run build
 
 FROM nginx:1.13.9 as production-stage
