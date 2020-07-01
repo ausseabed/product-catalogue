@@ -76,6 +76,21 @@ commands:
             fi
 
 jobs:
+  dev_docker_tag:
+    docker:
+      - image: circleci/python:3.7-stretch
+    steps:
+      - run: mkdir -p workspace
+      - run:
+          name: "Prepare DEV docker tag"
+          command: |
+            echo "export DOCKER_TAG=latest" >> workspace/docker_tag_vars
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - docker_tag_vars
+
+
   prepare_docker_tag:
     machine:
       image: ubuntu-1604:201903-01
@@ -224,33 +239,33 @@ prod_deploy_tag_only: &prod_deploy_tag_only
     branches:
       ignore: /.*/
 
+master_branch_only: &master_branch_only
+  filters:
+    branches:
+      only:
+        - master
+
 ### Workflows section
 workflows:
   build_and_deploy_dev_images:
     jobs:
+      - dev_docker_tag:
+          <<: *master_branch_only
       - build_product_catalogue_server:
-          filters:
-            branches:
-              only:
-                - master
+          <<: *master_branch_only
+          requires:
+            - dev_docker_tag
       - build_product_catalogue_client:
-          filters:
-            branches:
-              only:
-                - master
+          <<: *master_branch_only
+          requires:
+            - dev_docker_tag
       - prepare_deploy_product_catalogue:
-          filters:
-            branches:
-              only:
-                - master
+          <<: *master_branch_only
           requires:
             - build_product_catalogue_server
             - build_product_catalogue_client
       - do_deploy_product_catalogue:
-          filters:
-            branches:
-              only:
-                - master
+          <<: *master_branch_only
           requires:
             - prepare_deploy_product_catalogue
 
