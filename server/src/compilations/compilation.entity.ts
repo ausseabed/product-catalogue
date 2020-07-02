@@ -1,11 +1,19 @@
 import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { ApiHideProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
-import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 
+@Entity()
+export class Compilation {
 
-export class CompilationBase {
-
+  /**
+   * Numerical identifier for keeping track of records
+   *
+   * @type {number}
+   * @memberof Compilation
+   */
+  @PrimaryGeneratedColumn()
+  id: number;
 
   /**
    * Unique identifier for reference purposes
@@ -36,46 +44,10 @@ export class CompilationBase {
 
   @ApiHideProperty()
   @Exclude()
-  @Column({
-    name:"sys_period",
-    type:"tstzrange",
-    nullable:false,
-    default: () => "tstzrange(CURRENT_TIMESTAMP, NULL)" 
+  @Column("tstzrange", {
+    name: "sys_period",
+    default: () =>
+      "tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)",
   })
-  sys_period: any;
-}
-
-
-@Entity()
-export class Compilation extends CompilationBase{
-  /**
-   * Numerical identifier for keeping track of records
-   *
-   * @type {number}
-   * @memberof Compilation
-   */
-  @PrimaryGeneratedColumn()
-  @ApiProperty({ type: 'integer' })
-  id: number;
-}
-
-@Entity()
-export class CompilationHistory extends CompilationBase{
-  /**
-   * Numerical identifier for keeping entity records
-   *
-   * @type {number}
-   */
-  @Column({nullable:false})
-  id: number;
-
-  /**
-   * Numerical identifier for keeping history records
-   *
-   * @type {number}
-   */
-  @Exclude()
-  @ApiHideProperty()
-  @PrimaryGeneratedColumn()
-  historyId: number;
+  sysPeriod: string;
 }

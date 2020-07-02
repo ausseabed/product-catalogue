@@ -6,16 +6,36 @@ export class AddHistoryTables1593597694882 implements MigrationInterface {
     name = 'AddHistoryTables1593597694882'
 
     private table_names = ["product_l3_src", "product_l3_dist", "product_l0_src", "product_l0_dist", "survey_l0_relation", "product_l0_instrument_file", "compilation_l3_relation", "compilation", "survey", "survey_l3_relation"];
-    //private table_names = ["survey"];
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+      await queryRunner.query(`CREATE TABLE "compilation_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sysPeriod" tstzrange NOT NULL, "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_ad58e5715390f76707318ac5c89" PRIMARY KEY ("historyId"))`);
+      await queryRunner.query(`CREATE TABLE "compilation_l3_relation_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sysPeriod" tstzrange NOT NULL, "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_adb45ad74617263e531f2acd546" PRIMARY KEY ("historyId"))`);
+      await queryRunner.query(`CREATE TABLE "survey_l0_relation_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sysPeriod" tstzrange NOT NULL, "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_e68a849dd405887d3a49f7276b3" PRIMARY KEY ("historyId"))`);
+      await queryRunner.query(`CREATE TABLE "survey_l3_relation_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sysPeriod" tstzrange NOT NULL, "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_3bf5614f8581f277424225b50fd" PRIMARY KEY ("historyId"))`);
+      await queryRunner.query(`CREATE TABLE "product_l0_dist_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sysPeriod" tstzrange NOT NULL, "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_e8fcfc5686ed9a213d4b68cdd89" PRIMARY KEY ("historyId"))`);
+      await queryRunner.query(`CREATE TABLE "product_l0_instrument_file_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sysPeriod" tstzrange NOT NULL, "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_a9c83dcf58718841c5f7937ed72" PRIMARY KEY ("historyId"))`);
+      await queryRunner.query(`CREATE TABLE "product_l0_src_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sysPeriod" tstzrange NOT NULL, "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_95a441298d127806c535536b0fe" PRIMARY KEY ("historyId"))`);
+      await queryRunner.query(`CREATE TABLE "product_l3_dist_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sysPeriod" tstzrange NOT NULL, "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_688b6eac8de9cbda4a57ac85b63" PRIMARY KEY ("historyId"))`);
+      await queryRunner.query(`CREATE TABLE "product_l3_src_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sysPeriod" tstzrange NOT NULL, "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_9a89c091b23ec70dce3639671dd" PRIMARY KEY ("historyId"))`);
+      await queryRunner.query(`CREATE TABLE "survey_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sysPeriod" tstzrange NOT NULL, "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_1f57bc50c906d529b784ceffc16" PRIMARY KEY ("historyId"))`);
+      await queryRunner.query(`ALTER TABLE "compilation" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)`);
+      await queryRunner.query(`ALTER TABLE "product_l3_src" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)`);
+      await queryRunner.query(`ALTER TABLE "compilation_l3_relation" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)`);
+      await queryRunner.query(`ALTER TABLE "product_l0_src" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)`);
+      await queryRunner.query(`ALTER TABLE "survey" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)`);
+      await queryRunner.query(`ALTER TABLE "survey_l0_relation" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)`);
+      await queryRunner.query(`ALTER TABLE "survey_l3_relation" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)`);
+      await queryRunner.query(`ALTER TABLE "product_l0_instrument_file" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)`);
+      await queryRunner.query(`ALTER TABLE "product_l0_dist" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)`);
+      await queryRunner.query(`ALTER TABLE "product_l3_dist" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)`);
+    
       await queryRunner.query(versioning_function);
       this.table_names.forEach(
         async table_name =>
         {
           const uuidstring = String(uuidv4()).replace("-","")
-          await queryRunner.query(`CREATE TABLE "${table_name}_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL), "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_${uuidstring}" PRIMARY KEY ("historyId"))`);
-          await queryRunner.query(`ALTER TABLE "${table_name}" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL)`);
+          // await queryRunner.query(`CREATE TABLE "${table_name}_history" ("uuid" character varying NOT NULL, "name" character varying NOT NULL, "year" character varying NOT NULL, "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL), "id" integer NOT NULL, "historyId" SERIAL NOT NULL, CONSTRAINT "PK_${uuidstring}" PRIMARY KEY ("historyId"))`);
+          // await queryRunner.query(`ALTER TABLE "${table_name}" ADD "sys_period" tstzrange NOT NULL DEFAULT tstzrange(CURRENT_TIMESTAMP, NULL)`);
           const query_wrapper = `CREATE TRIGGER versioning_trigger
         BEFORE INSERT OR UPDATE OR DELETE ON ${table_name}
         FOR EACH ROW EXECUTE PROCEDURE versioning('sys_period', '${table_name}_history', true)`;
@@ -29,12 +49,33 @@ export class AddHistoryTables1593597694882 implements MigrationInterface {
       this.table_names.forEach(
         async table_name =>
         {
-          const query_wrapper = `DROP TRIGGER versioning_trigger ON ${table_name}`;
-          await queryRunner.query(query_wrapper);
-          await queryRunner.query(`ALTER TABLE "${table_name}" DROP COLUMN "sys_period"`);
-          await queryRunner.query(`DROP TABLE "${table_name}_history"`);
+          await queryRunner.query(`DROP TRIGGER versioning_trigger ON ${table_name}`);
+          // await queryRunner.query(`ALTER TABLE "${table_name}" DROP COLUMN "sys_period"`);
+          // await queryRunner.query(`DROP TABLE "${table_name}_history"`);
         }
       );
+
+      await queryRunner.query(`ALTER TABLE "product_l3_dist" DROP COLUMN "sys_period"`);
+      await queryRunner.query(`ALTER TABLE "product_l0_dist" DROP COLUMN "sys_period"`);
+      await queryRunner.query(`ALTER TABLE "product_l0_instrument_file" DROP COLUMN "sys_period"`);
+      await queryRunner.query(`ALTER TABLE "survey_l3_relation" DROP COLUMN "sys_period"`);
+      await queryRunner.query(`ALTER TABLE "survey_l0_relation" DROP COLUMN "sys_period"`);
+      await queryRunner.query(`ALTER TABLE "survey" DROP COLUMN "sys_period"`);
+      await queryRunner.query(`ALTER TABLE "product_l0_src" DROP COLUMN "sys_period"`);
+      await queryRunner.query(`ALTER TABLE "compilation_l3_relation" DROP COLUMN "sys_period"`);
+      await queryRunner.query(`ALTER TABLE "product_l3_src" DROP COLUMN "sys_period"`);
+      await queryRunner.query(`ALTER TABLE "compilation" DROP COLUMN "sys_period"`);
+      await queryRunner.query(`DROP TABLE "survey_history"`);
+      await queryRunner.query(`DROP TABLE "product_l3_src_history"`);
+      await queryRunner.query(`DROP TABLE "product_l3_dist_history"`);
+      await queryRunner.query(`DROP TABLE "product_l0_src_history"`);
+      await queryRunner.query(`DROP TABLE "product_l0_instrument_file_history"`);
+      await queryRunner.query(`DROP TABLE "product_l0_dist_history"`);
+      await queryRunner.query(`DROP TABLE "survey_l3_relation_history"`);
+      await queryRunner.query(`DROP TABLE "survey_l0_relation_history"`);
+      await queryRunner.query(`DROP TABLE "compilation_l3_relation_history"`);
+      await queryRunner.query(`DROP TABLE "compilation_history"`);
+
       await queryRunner.query(`DROP FUNCTION "versioning"`);
     }
 
