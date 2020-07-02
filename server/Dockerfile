@@ -32,4 +32,4 @@ RUN yarn install
 
 EXPOSE 3000
 # Or yarn migration:run
-CMD ["node","dist/main"] 
+CMD ["yarn", "run", "start:migrate:prod"] 

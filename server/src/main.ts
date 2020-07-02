@@ -9,6 +9,7 @@ import { VerboseAuthGuard } from './auth/verbose-auth-guard';
 import { LoggingInterceptor } from './errors/logging.interceptor';
 import { AllExceptionsFilter } from './errors/all-exceptions.filter';
 import { PassportModule } from '@nestjs/passport';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap () {
   const app = await NestFactory.create(AppModule,
@@ -24,6 +25,7 @@ async function bootstrap () {
   app.use(requestLogger)
   app.useGlobalInterceptors(new TimeoutInterceptor());
   app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   // app.useGlobalFilters(new AllExceptionsFilter()); // Uncomment to catch any exception
   const options = new DocumentBuilder()
     .setTitle('AusSeabed product catalogue')
