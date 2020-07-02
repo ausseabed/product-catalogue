@@ -15,14 +15,27 @@ export class ProductRelationsService {
 
   }
 
-  async findAllProduct<R, S, P> (relationType: new () => R, surveyType: new () => S, productType: new () => P, joinRelationName: string): Promise<RelationSummaryDto[]> {
-    const results = await this.productsEntityManager.createQueryBuilder<R>(relationType, "relation")
-      .innerJoin(surveyType, "survey", "survey.id = relation.survey")
-      .innerJoin(productType, "product", `product.id = relation.${joinRelationName}`)
-      .select(["survey.id", "relation.id", "product.id", "product.name"])
-      .printSql()
-      .getRawMany();
-    return results;
+  async findAllProduct<R, S, P> (relationType: new () => R, surveyType: new () => S, productType: new () => P, 
+  joinRelationName: string, snapshotDateTime: Date| unknown): Promise<RelationSummaryDto[]> {
+    // replace with entityManager.query('SELECT u.name FROM users AS u WHERE u.name = $1 AND u.lastName = $2', ['John', 'Doe']);
+    if (!snapshotDateTime)
+    {
+      const results = await this.productsEntityManager.query(`SELECT "relation"."id" AS "relation_id", "survey"."id" AS "survey_id", \
+      "product"."id" AS "product_id", "product"."name" AS "product_name" FROM "survey_l3_relation" "relation" \
+      INNER JOIN "survey" "survey" ON "survey"."id" = "relation"."surveyId"  \
+      INNER JOIN "product_l3_src" "product" ON "product"."id" = "relation"."${joinRelationName}"`);              
+      return results;
+    }
+    else
+    {
+      const results = await this.productsEntityManager.createQueryBuilder<R>(relationType, "relation")
+        .innerJoin(surveyType, "survey", "survey.id = relation.survey")
+        .innerJoin(productType, "product", `product.id = relation.${joinRelationName}`)
+        .select(["survey.id", "relation.id", "product.id", "product.name"])
+        .printSql()
+        .getRawMany();
+      return results;
+    }
   }
 
   async findConditional<T> (productType: new () => T, conditions: FindConditions<T>): Promise<T> {

@@ -5,9 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CompilationL3Relation } from './compilation-l3-relation.entity';
 import { SurveyL3Relation } from './survey-l3-relation.entity';
 import { SurveyL0Relation } from './survey-l0-relation.entity';
+import { CompilationL3RelationHistory } from './compilation-l3-relation-history.entity';
+import { SurveyL3RelationHistory } from './survey-l3-relation-history.entity';
+import { SurveyL0RelationHistory } from './survey-l0-relation-history.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CompilationL3Relation, SurveyL3Relation, SurveyL0Relation])],
+  imports: [TypeOrmModule.forFeature([CompilationL3Relation, SurveyL3Relation, SurveyL0Relation, 
+    CompilationL3RelationHistory, SurveyL3RelationHistory, SurveyL0RelationHistory])],
   providers: [ProductRelationsService],
   controllers: [ProductRelationsController]
 })

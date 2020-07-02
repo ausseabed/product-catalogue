@@ -2,8 +2,8 @@ import { Injectable, HttpException, HttpStatus, BadRequestException } from '@nes
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, FindConditions, Raw } from 'typeorm';
 import { Survey } from './survey.entity';
-import { SurveyHistory } from './survey.entity';
 import { SurveyDto } from './dto/survey.dto';
+import { SurveyHistory } from './survey-history.entity';
 
 @Injectable()
 export class SurveysService {
@@ -21,14 +21,14 @@ export class SurveysService {
       const surveys = this.surveysRepository.find( 
         {
           where: {
-            sys_period: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
+            sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
           }
         }
         )
       const surveyHistories = this.surveyHistoriesRepository.find( 
         {
           where: {
-            sys_period: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
+            sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
           }
         }
         )

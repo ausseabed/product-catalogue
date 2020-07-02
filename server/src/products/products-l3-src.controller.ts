@@ -1,5 +1,5 @@
-import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe, Query } from '@nestjs/common';
+import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse, ApiQuery } from '@nestjs/swagger';
 import { ErrorDto } from 'src/errors/errors.dto';
 import { ProductsController } from './products.controller';
 import { ProductL3Src } from './product-l3-src.entity';
@@ -7,22 +7,28 @@ import { ProductL3SrcDto } from './dto/product-l3-src.dto';
 import { ProductsService } from './products.service';
 import { Request } from 'express';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
+import { ProductL3SrcHistory } from './product-l3-src-history.entity';
 
 @ApiTags('products/l3-src')
 @Controller('products/l3-src')
 @ApiBearerAuth('access-token')
 @ApiRequestTimeoutResponse({ description: 'Server took too long to respond.', type: ErrorDto })
 @ApiUnauthorizedResponse({ description: 'Unable to authenticate request.', type: ErrorDto })
-export class ProductsL3SrcController extends ProductsController<ProductL3Src, ProductL3SrcDto>{
+export class ProductsL3SrcController extends ProductsController<ProductL3Src, ProductL3SrcHistory, ProductL3SrcDto>{
   constructor(
     productsService: ProductsService,
   ) {
-    super(ProductL3Src, productsService)
+    super(ProductL3Src, ProductL3SrcHistory, productsService)
   }
 
   @Get()
-  async findAll (): Promise<ProductL3Src[]> {
-    return this.productsService.findAll<ProductL3Src>(this.productType);
+  @ApiQuery({
+    name: 'snapshotDateTime',
+    required: false,
+    type: Date
+  })
+  async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL3Src[]> {
+    return this.productsService.findAll<ProductL3Src, ProductL3SrcHistory>(this.productType, this.productHistoryType, snapshotDateTime);
   }
 
   @Get(':productId')

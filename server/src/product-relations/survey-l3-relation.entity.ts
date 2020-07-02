@@ -28,7 +28,6 @@ export class SurveyL3Relation {
   @ApiHideProperty()
   @Exclude()
   @Column("tstzrange", {
-    name: "sys_period",
     default: () =>
       "tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)",
   })

@@ -1,7 +1,7 @@
 import { Controller, Get, Put, Delete, Body, Req, Param, Post, Res, UsePipes, ParseIntPipe, BadRequestException, Logger, Query, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { Request } from 'express';
 import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse, ApiQuery } from '@nestjs/swagger';
-import { Survey, SurveyBase } from './survey.entity'
+import { Survey } from './survey.entity'
 import { SurveysService } from './surveys.service'
 import { SurveyDto } from './dto/survey.dto';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
