@@ -25,7 +25,7 @@ export class ProductL0InstrumentFile {
     default: () =>
       "tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)",
   })
-  sysPeriod: string;
+  sysPeriod: any;
 }
 
 

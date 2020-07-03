@@ -48,5 +48,5 @@ export class Survey {
     default: () =>
       "tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)"
   })
-  sysPeriod: string;
+  sysPeriod: any;
 }

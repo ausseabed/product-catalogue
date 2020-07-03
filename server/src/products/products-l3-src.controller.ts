@@ -7,18 +7,17 @@ import { ProductL3SrcDto } from './dto/product-l3-src.dto';
 import { ProductsService } from './products.service';
 import { Request } from 'express';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
-import { ProductL3SrcHistory } from './product-l3-src-history.entity';
 
 @ApiTags('products/l3-src')
 @Controller('products/l3-src')
 @ApiBearerAuth('access-token')
 @ApiRequestTimeoutResponse({ description: 'Server took too long to respond.', type: ErrorDto })
 @ApiUnauthorizedResponse({ description: 'Unable to authenticate request.', type: ErrorDto })
-export class ProductsL3SrcController extends ProductsController<ProductL3Src, ProductL3SrcHistory, ProductL3SrcDto>{
+export class ProductsL3SrcController extends ProductsController<ProductL3Src, ProductL3SrcDto>{
   constructor(
     productsService: ProductsService,
   ) {
-    super(ProductL3Src, ProductL3SrcHistory, productsService)
+    super(ProductL3Src, productsService)
   }
 
   @Get()
@@ -28,7 +27,7 @@ export class ProductsL3SrcController extends ProductsController<ProductL3Src, Pr
     type: Date
   })
   async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL3Src[]> {
-    return this.productsService.findAll<ProductL3Src, ProductL3SrcHistory>(this.productType, this.productHistoryType, snapshotDateTime);
+    return this.productsService.findAll<ProductL3Src>(this.productType, snapshotDateTime);
   }
 
   @Get(':productId')

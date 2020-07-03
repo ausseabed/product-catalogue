@@ -16,7 +16,7 @@ export class ProductsService {
 
   }
 
-  async findAll<T, HistoryT> (productType: new () => T, productHistoryType: new () => HistoryT, snapshotDateTime: Date| unknown): Promise<T[]> {
+  async findAll<T> (productType: new () => T, snapshotDateTime: Date| unknown): Promise<T[]> {
     if (snapshotDateTime) {
       const products = this.productsEntityManager.find<T>(productType, 
         {
@@ -24,15 +24,8 @@ export class ProductsService {
             sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
           }
         }
-        )
-      const productHistories = this.productsEntityManager.find<HistoryT>(productHistoryType, 
-        {
-          where: {
-            sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
-          }
-        }
-        )
-      return Promise.all([products,productHistories]).then(valArray => valArray[0].concat(valArray[1] as unknown as T[]))
+        );
+      return products;
     }
     else {
       return this.productsEntityManager.find<T>(productType);

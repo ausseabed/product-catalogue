@@ -10,19 +10,17 @@ import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { ProductL0InstrumentFile } from './product-l0-instrument-file.entity';
 import { ProductL0InstrumentFileDto } from './dto/product-l0-instrument-file.dto';
 import { ProductL0Src } from './product-l0-src.entity';
-import { ProductL0DistHistory } from './product-l0-dist-history.entity';
-import { ProductL0InstrumentFileHistory } from './product-l0-instrument-file-history.entity';
 
 @ApiTags('products/l0-dist')
 @Controller('products/l0-dist')
 @ApiBearerAuth('access-token')
 @ApiRequestTimeoutResponse({ description: 'Server took too long to respond.', type: ErrorDto })
 @ApiUnauthorizedResponse({ description: 'Unable to authenticate request.', type: ErrorDto })
-export class ProductsL0DistController extends ProductsController<ProductL0Dist, ProductL0DistHistory, ProductL0DistDto>{
+export class ProductsL0DistController extends ProductsController<ProductL0Dist, ProductL0DistDto>{
   constructor(
     productsService: ProductsService,
   ) {
-    super(ProductL0Dist, ProductL0DistHistory, productsService)
+    super(ProductL0Dist, productsService)
   }
 
   @Get()
@@ -32,7 +30,7 @@ export class ProductsL0DistController extends ProductsController<ProductL0Dist, 
     type: Date
   })
   async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown):  Promise<ProductL0Dist[]> {
-    return this.productsService.findAll<ProductL0Dist, ProductL0DistHistory>(this.productType, this.productHistoryType, snapshotDateTime);
+    return this.productsService.findAll<ProductL0Dist>(this.productType, snapshotDateTime);
   }
 
   @Get(':productId')
@@ -67,7 +65,7 @@ export class ProductsL0DistController extends ProductsController<ProductL0Dist, 
   })
   async findOneInstrument (@Param('productId', new ParseIntPipe(), ) productId: number,
     @Param('instrumentId', new ParseIntPipe()) instrumentId: number, @Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL0InstrumentFile[]> {
-    return this.productsService.findAll<ProductL0InstrumentFile, ProductL0InstrumentFileHistory>(ProductL0InstrumentFile, ProductL0InstrumentFileHistory, snapshotDateTime);
+    return this.productsService.findAll<ProductL0InstrumentFile>(ProductL0InstrumentFile, snapshotDateTime);
   }
 
   @Get(':productId/instrument-files')
@@ -77,7 +75,7 @@ export class ProductsL0DistController extends ProductsController<ProductL0Dist, 
     type: Date
   })
   async findInstruments (@Req() request: Request, @Param('productId', new ParseIntPipe()) productId: number,@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL0InstrumentFile[]> {
-    return this.productsService.findAll<ProductL0InstrumentFile, ProductL0InstrumentFileHistory>(ProductL0InstrumentFile, ProductL0InstrumentFileHistory, snapshotDateTime);
+    return this.productsService.findAll<ProductL0InstrumentFile>(ProductL0InstrumentFile, snapshotDateTime);
   }
 
   @Post(':productId/instrument-files')

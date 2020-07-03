@@ -3,36 +3,29 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, FindConditions, Raw } from 'typeorm';
 import { Survey } from './survey.entity';
 import { SurveyDto } from './dto/survey.dto';
-import { SurveyHistory } from './survey-history.entity';
+import { SurveyHistoryView } from './survey-history-view.entity';
 
 @Injectable()
 export class SurveysService {
   constructor(
     @InjectRepository(Survey)
     private surveysRepository: Repository<Survey>,
+    @InjectRepository(SurveyHistoryView)
+    private surveyHistoriesRepository: Repository<SurveyHistoryView>
 
-    @InjectRepository(SurveyHistory)
-    private surveyHistoriesRepository: Repository<SurveyHistory>
   ) { }
 
   async findAll (snapshotDateTime: Date| unknown): Promise<Survey[]> {
     if (snapshotDateTime)
     {
-      const surveys = this.surveysRepository.find( 
+      const surveys = this.surveyHistoriesRepository.find( 
         {
           where: {
             sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
           }
         }
-        )
-      const surveyHistories = this.surveyHistoriesRepository.find( 
-        {
-          where: {
-            sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
-          }
-        }
-        )
-      return Promise.all([surveys,surveyHistories]).then(valArray => valArray[0].concat(valArray[1]))
+        );
+      return surveys;
     }
     else
     {
