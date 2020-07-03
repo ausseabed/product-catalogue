@@ -27,7 +27,7 @@ async function bootstrap () {
   app.useGlobalInterceptors(new LoggingInterceptor());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
-  // app.useGlobalFilters(new AllExceptionsFilter()); // Uncomment to catch any exception
+  app.useGlobalFilters(new AllExceptionsFilter()); // Uncomment to catch any exception
   const options = new DocumentBuilder()
     .setTitle('AusSeabed product catalogue')
     .setDescription('The API description for the Ausseabed product catalogue inventory')

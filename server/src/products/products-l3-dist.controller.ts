@@ -39,7 +39,6 @@ export class ProductsL3DistController extends ProductsController<ProductL3Dist, 
     }
     else
     {
-      Logger.warn('ere');
       return this.productsService.findAll<ProductL3Dist>(this.productType, snapshotDateTime)
     }
   }
