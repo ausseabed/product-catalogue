@@ -2,12 +2,13 @@ import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { ProductL3Src } from "src/products/product-l3-src.entity";
 import { Compilation } from "src/compilations/compilation.entity";
-import { ApiHideProperty } from "@nestjs/swagger";
+import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
 
 @Entity()
 export class CompilationL3Relation {
 
+  @ApiProperty({type:'integer'})
   @PrimaryGeneratedColumn()
   id: number;
 

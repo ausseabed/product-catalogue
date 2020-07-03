@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **float** |  | 
+**id** | **int** |  | 
 **l0_instrument_location** | **str** |  | 
 **metadata_persistent_id** | **str** |  | 
 **name** | **str** |  | 

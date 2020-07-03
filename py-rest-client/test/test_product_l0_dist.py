@@ -37,15 +37,15 @@ class TestProductL0Dist(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.product_l0_dist.ProductL0Dist()  # noqa: E501
         if include_optional :
             return ProductL0Dist(
-                id = 1.337, 
+                id = 56, 
                 l0_coverage_location = '0', 
                 l0_instrument_files = [
                     product_catalogue_py_rest_client.models.product_l0_instrument_file.ProductL0InstrumentFile(
-                        id = 1.337, 
+                        id = 56, 
                         l0_instrument_file = '0', )
                     ], 
                 source_product = product_catalogue_py_rest_client.models.product_l0_src.ProductL0Src(
-                    id = 1.337, 
+                    id = 56, 
                     l0_instrument_location = '0', 
                     metadata_persistent_id = '0', 
                     name = '0', 
@@ -54,15 +54,15 @@ class TestProductL0Dist(unittest.TestCase):
             )
         else :
             return ProductL0Dist(
-                id = 1.337,
+                id = 56,
                 l0_coverage_location = '0',
                 l0_instrument_files = [
                     product_catalogue_py_rest_client.models.product_l0_instrument_file.ProductL0InstrumentFile(
-                        id = 1.337, 
+                        id = 56, 
                         l0_instrument_file = '0', )
                     ],
                 source_product = product_catalogue_py_rest_client.models.product_l0_src.ProductL0Src(
-                    id = 1.337, 
+                    id = 56, 
                     l0_instrument_location = '0', 
                     metadata_persistent_id = '0', 
                     name = '0', 

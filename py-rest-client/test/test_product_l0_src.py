@@ -37,7 +37,7 @@ class TestProductL0Src(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.product_l0_src.ProductL0Src()  # noqa: E501
         if include_optional :
             return ProductL0Src(
-                id = 1.337, 
+                id = 56, 
                 l0_instrument_location = '0', 
                 metadata_persistent_id = '0', 
                 name = '0', 
@@ -46,7 +46,7 @@ class TestProductL0Src(unittest.TestCase):
             )
         else :
             return ProductL0Src(
-                id = 1.337,
+                id = 56,
                 l0_instrument_location = '0',
                 metadata_persistent_id = '0',
                 name = '0',

@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **bathymetry_location** | **str** |  | 
 **hillshade_location** | **str** |  | 
-**id** | **float** |  | 
+**id** | **int** |  | 
 **l3_coverage_location** | **str** |  | 
 **source_product** | [**ProductL3Src**](ProductL3Src.md) |  | 
 

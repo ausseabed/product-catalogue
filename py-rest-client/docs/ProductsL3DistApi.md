@@ -157,7 +157,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **products_l3_dist_controller_find_all**
-> list[ProductL3Dist] products_l3_dist_controller_find_all()
+> list[ProductL3Dist] products_l3_dist_controller_find_all(snapshot_date_time=snapshot_date_time)
 
 
 
@@ -190,16 +190,20 @@ configuration = product_catalogue_py_rest_client.Configuration(
 with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = product_catalogue_py_rest_client.ProductsL3DistApi(api_client)
-    
+    snapshot_date_time = '2013-10-20' # date |  (optional)
+
     try:
-        api_response = api_instance.products_l3_dist_controller_find_all()
+        api_response = api_instance.products_l3_dist_controller_find_all(snapshot_date_time=snapshot_date_time)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling ProductsL3DistApi->products_l3_dist_controller_find_all: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **snapshot_date_time** | [**date**](.md)|  | [optional] 
 
 ### Return type
 

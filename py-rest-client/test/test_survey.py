@@ -37,14 +37,14 @@ class TestSurvey(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.survey.Survey()  # noqa: E501
         if include_optional :
             return Survey(
-                id = 1.337, 
+                id = 56, 
                 name = '0', 
                 uuid = '0', 
                 year = '0'
             )
         else :
             return Survey(
-                id = 1.337,
+                id = 56,
                 name = '0',
                 uuid = '0',
                 year = '0',

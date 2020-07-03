@@ -37,14 +37,14 @@ class TestCompilation(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.compilation.Compilation()  # noqa: E501
         if include_optional :
             return Compilation(
-                id = 1.337, 
+                id = 56, 
                 name = '0', 
                 uuid = '0', 
                 year = '0'
             )
         else :
             return Compilation(
-                id = 1.337,
+                id = 56,
                 name = '0',
                 uuid = '0',
                 year = '0',

@@ -2,12 +2,13 @@ import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { ProductL0Src } from "src/products/product-l0-src.entity";
 import { Survey } from "src/surveys/survey.entity";
-import { ApiHideProperty } from "@nestjs/swagger";
+import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
 
 @Entity()
 export class SurveyL0Relation {
 
+  @ApiProperty({type:'integer'})
   @PrimaryGeneratedColumn()
   id: number;
 

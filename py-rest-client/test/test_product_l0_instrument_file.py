@@ -37,12 +37,12 @@ class TestProductL0InstrumentFile(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.product_l0_instrument_file.ProductL0InstrumentFile()  # noqa: E501
         if include_optional :
             return ProductL0InstrumentFile(
-                id = 1.337, 
+                id = 56, 
                 l0_instrument_file = '0'
             )
         else :
             return ProductL0InstrumentFile(
-                id = 1.337,
+                id = 56,
                 l0_instrument_file = '0',
         )
 

@@ -37,32 +37,32 @@ class TestSurveyL0Relation(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.survey_l0_relation.SurveyL0Relation()  # noqa: E501
         if include_optional :
             return SurveyL0Relation(
-                id = 1.337, 
+                id = 56, 
                 product_l0_src = product_catalogue_py_rest_client.models.product_l0_src.ProductL0Src(
-                    id = 1.337, 
+                    id = 56, 
                     l0_instrument_location = '0', 
                     metadata_persistent_id = '0', 
                     name = '0', 
                     srs = '0', 
                     uuid = '0', ), 
                 survey = product_catalogue_py_rest_client.models.survey.Survey(
-                    id = 1.337, 
+                    id = 56, 
                     name = '0', 
                     uuid = '0', 
                     year = '0', )
             )
         else :
             return SurveyL0Relation(
-                id = 1.337,
+                id = 56,
                 product_l0_src = product_catalogue_py_rest_client.models.product_l0_src.ProductL0Src(
-                    id = 1.337, 
+                    id = 56, 
                     l0_instrument_location = '0', 
                     metadata_persistent_id = '0', 
                     name = '0', 
                     srs = '0', 
                     uuid = '0', ),
                 survey = product_catalogue_py_rest_client.models.survey.Survey(
-                    id = 1.337, 
+                    id = 56, 
                     name = '0', 
                     uuid = '0', 
                     year = '0', ),

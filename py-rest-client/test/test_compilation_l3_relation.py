@@ -38,13 +38,13 @@ class TestCompilationL3Relation(unittest.TestCase):
         if include_optional :
             return CompilationL3Relation(
                 compilation = product_catalogue_py_rest_client.models.compilation.Compilation(
-                    id = 1.337, 
+                    id = 56, 
                     name = '0', 
                     uuid = '0', 
                     year = '0', ), 
-                id = 1.337, 
+                id = 56, 
                 product_l3_src = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
-                    id = 1.337, 
+                    id = 56, 
                     metadata_persistent_id = '0', 
                     name = '0', 
                     product_tif_location = '0', 
@@ -55,13 +55,13 @@ class TestCompilationL3Relation(unittest.TestCase):
         else :
             return CompilationL3Relation(
                 compilation = product_catalogue_py_rest_client.models.compilation.Compilation(
-                    id = 1.337, 
+                    id = 56, 
                     name = '0', 
                     uuid = '0', 
                     year = '0', ),
-                id = 1.337,
+                id = 56,
                 product_l3_src = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
-                    id = 1.337, 
+                    id = 56, 
                     metadata_persistent_id = '0', 
                     name = '0', 
                     product_tif_location = '0', 

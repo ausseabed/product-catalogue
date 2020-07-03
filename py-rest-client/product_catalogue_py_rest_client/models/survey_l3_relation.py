@@ -34,7 +34,7 @@ class SurveyL3Relation(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'float',
+        'id': 'int',
         'product_l3_src': 'ProductL3Src',
         'survey': 'Survey'
     }
@@ -66,7 +66,7 @@ class SurveyL3Relation(object):
 
 
         :return: The id of this SurveyL3Relation.  # noqa: E501
-        :rtype: float
+        :rtype: int
         """
         return self._id
 
@@ -76,7 +76,7 @@ class SurveyL3Relation(object):
 
 
         :param id: The id of this SurveyL3Relation.  # noqa: E501
-        :type: float
+        :type: int
         """
         if self.local_vars_configuration.client_side_validation and id is None:  # noqa: E501
             raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501

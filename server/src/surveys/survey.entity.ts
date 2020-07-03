@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { ApiHideProperty } from "@nestjs/swagger";
+import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
 
 @Entity()
@@ -12,6 +12,7 @@ export class Survey {
    * @type {number}
    * @memberof Survey
    */
+  @ApiProperty({type:'integer'})
   @PrimaryGeneratedColumn()
   id: number;
 

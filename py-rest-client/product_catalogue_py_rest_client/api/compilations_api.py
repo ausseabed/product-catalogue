@@ -162,6 +162,7 @@ class CompilationsApi(object):
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
+        :param date snapshot_date_time:
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
                                  data. Default is True.
@@ -185,6 +186,7 @@ class CompilationsApi(object):
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
+        :param date snapshot_date_time:
         :param _return_http_data_only: response data without head status code
                                        and headers
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -202,6 +204,7 @@ class CompilationsApi(object):
         local_var_params = locals()
 
         all_params = [
+            'snapshot_date_time'
         ]
         all_params.extend(
             [
@@ -226,6 +229,8 @@ class CompilationsApi(object):
         path_params = {}
 
         query_params = []
+        if 'snapshot_date_time' in local_var_params and local_var_params['snapshot_date_time'] is not None:  # noqa: E501
+            query_params.append(('snapshotDateTime', local_var_params['snapshot_date_time']))  # noqa: E501
 
         header_params = {}
 

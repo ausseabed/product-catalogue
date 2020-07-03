@@ -34,7 +34,7 @@ class Survey(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'float',
+        'id': 'int',
         'name': 'str',
         'uuid': 'str',
         'year': 'str'
@@ -70,7 +70,7 @@ class Survey(object):
 
 
         :return: The id of this Survey.  # noqa: E501
-        :rtype: float
+        :rtype: int
         """
         return self._id
 
@@ -80,7 +80,7 @@ class Survey(object):
 
 
         :param id: The id of this Survey.  # noqa: E501
-        :type: float
+        :type: int
         """
         if self.local_vars_configuration.client_side_validation and id is None:  # noqa: E501
             raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501

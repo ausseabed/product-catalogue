@@ -34,7 +34,7 @@ class ProductL3Src(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'float',
+        'id': 'int',
         'metadata_persistent_id': 'str',
         'name': 'str',
         'product_tif_location': 'str',
@@ -82,7 +82,7 @@ class ProductL3Src(object):
 
 
         :return: The id of this ProductL3Src.  # noqa: E501
-        :rtype: float
+        :rtype: int
         """
         return self._id
 
@@ -92,7 +92,7 @@ class ProductL3Src(object):
 
 
         :param id: The id of this ProductL3Src.  # noqa: E501
-        :type: float
+        :type: int
         """
         if self.local_vars_configuration.client_side_validation and id is None:  # noqa: E501
             raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501

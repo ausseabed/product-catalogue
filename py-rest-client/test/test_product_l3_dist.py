@@ -39,10 +39,10 @@ class TestProductL3Dist(unittest.TestCase):
             return ProductL3Dist(
                 bathymetry_location = '0', 
                 hillshade_location = '0', 
-                id = 1.337, 
+                id = 56, 
                 l3_coverage_location = '0', 
                 source_product = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
-                    id = 1.337, 
+                    id = 56, 
                     metadata_persistent_id = '0', 
                     name = '0', 
                     product_tif_location = '0', 
@@ -54,10 +54,10 @@ class TestProductL3Dist(unittest.TestCase):
             return ProductL3Dist(
                 bathymetry_location = '0',
                 hillshade_location = '0',
-                id = 1.337,
+                id = 56,
                 l3_coverage_location = '0',
                 source_product = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
-                    id = 1.337, 
+                    id = 56, 
                     metadata_persistent_id = '0', 
                     name = '0', 
                     product_tif_location = '0', 

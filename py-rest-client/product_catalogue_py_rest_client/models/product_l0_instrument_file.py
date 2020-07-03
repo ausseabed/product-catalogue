@@ -34,7 +34,7 @@ class ProductL0InstrumentFile(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'float',
+        'id': 'int',
         'l0_instrument_file': 'str'
     }
 
@@ -62,7 +62,7 @@ class ProductL0InstrumentFile(object):
 
 
         :return: The id of this ProductL0InstrumentFile.  # noqa: E501
-        :rtype: float
+        :rtype: int
         """
         return self._id
 
@@ -72,7 +72,7 @@ class ProductL0InstrumentFile(object):
 
 
         :param id: The id of this ProductL0InstrumentFile.  # noqa: E501
-        :type: float
+        :type: int
         """
         if self.local_vars_configuration.client_side_validation and id is None:  # noqa: E501
             raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501

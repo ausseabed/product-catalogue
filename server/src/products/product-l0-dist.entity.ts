@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { Product } from './product.entity';
 import { ProductL0InstrumentFile } from "./product-l0-instrument-file.entity";
-import { ApiBody, ApiHideProperty } from "@nestjs/swagger";
+import { ApiBody, ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Survey } from "src/surveys/survey.entity";
 import { ProductL0Src } from "./product-l0-src.entity";
 import { Exclude } from "class-transformer";
@@ -17,6 +17,7 @@ export class ProductL0Dist implements Product {
    * @type {number}
    * @memberof Product
    */
+  @ApiProperty({type:'integer'})
   @PrimaryGeneratedColumn()
   id: number;
 

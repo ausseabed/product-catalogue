@@ -1,11 +1,12 @@
 import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { ProductL0Dist } from "./product-l0-dist.entity";
-import { ApiHideProperty } from '@nestjs/swagger';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import { Exclude } from "class-transformer";
 
 @Entity()
 export class ProductL0InstrumentFile {
+  @ApiProperty({type:'integer'})
   @PrimaryGeneratedColumn()
   id: number;
 

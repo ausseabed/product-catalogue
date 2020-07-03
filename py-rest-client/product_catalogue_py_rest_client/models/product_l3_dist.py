@@ -36,7 +36,7 @@ class ProductL3Dist(object):
     openapi_types = {
         'bathymetry_location': 'str',
         'hillshade_location': 'str',
-        'id': 'float',
+        'id': 'int',
         'l3_coverage_location': 'str',
         'source_product': 'ProductL3Src'
     }
@@ -120,7 +120,7 @@ class ProductL3Dist(object):
 
 
         :return: The id of this ProductL3Dist.  # noqa: E501
-        :rtype: float
+        :rtype: int
         """
         return self._id
 
@@ -130,7 +130,7 @@ class ProductL3Dist(object):
 
 
         :param id: The id of this ProductL3Dist.  # noqa: E501
-        :type: float
+        :type: int
         """
         if self.local_vars_configuration.client_side_validation and id is None:  # noqa: E501
             raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501

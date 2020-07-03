@@ -37,9 +37,9 @@ class TestSurveyL3Relation(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.survey_l3_relation.SurveyL3Relation()  # noqa: E501
         if include_optional :
             return SurveyL3Relation(
-                id = 1.337, 
+                id = 56, 
                 product_l3_src = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
-                    id = 1.337, 
+                    id = 56, 
                     metadata_persistent_id = '0', 
                     name = '0', 
                     product_tif_location = '0', 
@@ -47,16 +47,16 @@ class TestSurveyL3Relation(unittest.TestCase):
                     srs = '0', 
                     uuid = '0', ), 
                 survey = product_catalogue_py_rest_client.models.survey.Survey(
-                    id = 1.337, 
+                    id = 56, 
                     name = '0', 
                     uuid = '0', 
                     year = '0', )
             )
         else :
             return SurveyL3Relation(
-                id = 1.337,
+                id = 56,
                 product_l3_src = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
-                    id = 1.337, 
+                    id = 56, 
                     metadata_persistent_id = '0', 
                     name = '0', 
                     product_tif_location = '0', 
@@ -64,7 +64,7 @@ class TestSurveyL3Relation(unittest.TestCase):
                     srs = '0', 
                     uuid = '0', ),
                 survey = product_catalogue_py_rest_client.models.survey.Survey(
-                    id = 1.337, 
+                    id = 56, 
                     name = '0', 
                     uuid = '0', 
                     year = '0', ),

@@ -4,7 +4,7 @@
             "Compilation": {
                 "properties": {
                     "id": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "name": {
                         "type": "string"
@@ -52,7 +52,7 @@
                         "$ref": "#/components/schemas/Compilation"
                     },
                     "id": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "productL3Src": {
                         "$ref": "#/components/schemas/ProductL3Src"
@@ -105,7 +105,7 @@
             "ProductL0Dist": {
                 "properties": {
                     "id": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "l0CoverageLocation": {
                         "type": "string"
@@ -143,7 +143,7 @@
             "ProductL0InstrumentFile": {
                 "properties": {
                     "id": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "l0InstrumentFile": {
                         "type": "string"
@@ -175,7 +175,7 @@
             "ProductL0Src": {
                 "properties": {
                     "id": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "l0InstrumentLocation": {
                         "type": "string"
@@ -244,7 +244,7 @@
                         "type": "string"
                     },
                     "id": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "l3CoverageLocation": {
                         "type": "string"
@@ -287,7 +287,7 @@
             "ProductL3Src": {
                 "properties": {
                     "id": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "metadataPersistentId": {
                         "type": "string"
@@ -386,7 +386,7 @@
             "Survey": {
                 "properties": {
                     "id": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "name": {
                         "type": "string"
@@ -431,7 +431,7 @@
             "SurveyL0Relation": {
                 "properties": {
                     "id": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "productL0Src": {
                         "$ref": "#/components/schemas/ProductL0Src"
@@ -467,7 +467,7 @@
             "SurveyL3Relation": {
                 "properties": {
                     "id": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "productL3Src": {
                         "$ref": "#/components/schemas/ProductL3Src"
@@ -528,7 +528,16 @@
         "/compilations": {
             "get": {
                 "operationId": "CompilationsController_findAll",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -797,7 +806,16 @@
         "/product-relations/compilation-to-l3": {
             "get": {
                 "operationId": "ProductRelationsController_findAllL3Compilation",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -1124,7 +1142,16 @@
         "/product-relations/surveys-to-l0": {
             "get": {
                 "operationId": "ProductRelationsController_findAllL0Survey",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -1451,7 +1478,16 @@
         "/product-relations/surveys-to-l3": {
             "get": {
                 "operationId": "ProductRelationsController_findAllL3Survey",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -1778,7 +1814,16 @@
         "/products/l0-dist": {
             "get": {
                 "operationId": "ProductsL0DistController_findAll",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -2064,6 +2109,14 @@
                         "schema": {
                             "type": "number"
                         }
+                    },
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
                     }
                 ],
                 "responses": {
@@ -2250,6 +2303,14 @@
                         "schema": {
                             "type": "number"
                         }
+                    },
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
                     }
                 ],
                 "responses": {
@@ -2257,10 +2318,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "items": {
-                                        "$ref": "#/components/schemas/ProductL0InstrumentFile"
-                                    },
-                                    "type": "array"
+                                    "$ref": "#/components/schemas/ProductL0InstrumentFile"
                                 }
                             }
                         },
@@ -2367,7 +2425,16 @@
         "/products/l0-src": {
             "get": {
                 "operationId": "ProductsL0SrcController_findAll",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -2636,7 +2703,16 @@
         "/products/l3-dist": {
             "get": {
                 "operationId": "ProductsL3DistController_findAll",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -2917,7 +2993,16 @@
         "/products/l3-src": {
             "get": {
                 "operationId": "ProductsL3SrcController_findAll",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -3186,7 +3271,16 @@
         "/surveys": {
             "get": {
                 "operationId": "SurveysController_findAll",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
