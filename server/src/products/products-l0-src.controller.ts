@@ -7,17 +7,18 @@ import { ProductL0SrcDto } from './dto/product-l0-src.dto';
 import { ProductsService } from './products.service';
 import { Request } from 'express';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
+import { ProductL0SrcHistoryView } from './product-l0-src-history-view.entity';
 
 @ApiTags('products/l0-src')
 @Controller('products/l0-src')
 @ApiBearerAuth('access-token')
 @ApiRequestTimeoutResponse({ description: 'Server took too long to respond.', type: ErrorDto })
 @ApiUnauthorizedResponse({ description: 'Unable to authenticate request.', type: ErrorDto })
-export class ProductsL0SrcController extends ProductsController<ProductL0Src, ProductL0SrcDto>{
+export class ProductsL0SrcController extends ProductsController<ProductL0Src, ProductL0SrcHistoryView, ProductL0SrcDto>{
   constructor(
     productsService: ProductsService,
   ) {
-    super(ProductL0Src, productsService)
+    super(ProductL0Src, ProductL0SrcHistoryView, productsService)
   }
 
   @Get()
@@ -27,7 +28,8 @@ export class ProductsL0SrcController extends ProductsController<ProductL0Src, Pr
     type: Date
   })
   async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL0Src[]> {
-    return this.productsService.findAll<ProductL0Src>(this.productType, snapshotDateTime);
+    const prod = this.productsService.findAll<ProductL0SrcHistoryView>(this.productHistoryType, snapshotDateTime)
+    return prod as unknown as Promise<ProductL0Src[]>;
   }
 
   @Get(':productId')

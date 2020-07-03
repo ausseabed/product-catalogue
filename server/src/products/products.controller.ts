@@ -6,9 +6,10 @@ import { ProductsService } from './products.service';
 import { ProductDto } from './dto/product.dto';
 import { ProductL0SrcDto } from './dto/product-l0-src.dto';
 
-export class ProductsController<T extends Product, ProductDtoType> {
+export class ProductsController<T extends Product, HistoryT, ProductDtoType> {
   constructor(
     protected productType: new () => T,
+    protected productHistoryType: new () => HistoryT,
     protected productsService: ProductsService,
   ) {
   }
