@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe, Query, Logger } from '@nestjs/common';
 import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse, ApiQuery } from '@nestjs/swagger';
 import { ProductsController } from './products.controller';
 import { ErrorDto } from 'src/errors/errors.dto';
@@ -9,6 +9,7 @@ import { Request } from 'express';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { ProductL3Src } from './product-l3-src.entity';
 import { ProductL3DistHistoryView } from './product-l3-dist-history-view.entity';
+import { ProductL3SrcHistoryView } from './product-l3-src-history-view.entity';
 
 @ApiTags('products/l3-dist')
 @Controller('products/l3-dist')
@@ -29,8 +30,18 @@ export class ProductsL3DistController extends ProductsController<ProductL3Dist, 
     type: Date
   })
   async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL3Dist[]> {
-    const prod = this.productsService.findAll<ProductL3DistHistoryView>(this.productHistoryType, snapshotDateTime)
-    return prod as unknown as Promise<ProductL3Dist[]>;
+    if (snapshotDateTime)
+    {
+      const prod = await this.productsService.findAll<ProductL3DistHistoryView>(this.productHistoryType, snapshotDateTime);
+      const eagerL3SrcCandidates = await this.productsService.findAll<ProductL3SrcHistoryView>(ProductL3SrcHistoryView, snapshotDateTime);
+      prod.forEach(productDist => productDist.sourceProduct = eagerL3SrcCandidates.find(productSrc => productSrc.id===productDist.sourceProduct))
+      return prod as unknown as ProductL3Dist[];
+    }
+    else
+    {
+      Logger.warn('ere');
+      return this.productsService.findAll<ProductL3Dist>(this.productType, snapshotDateTime)
+    }
   }
 
   @Get(':productId')

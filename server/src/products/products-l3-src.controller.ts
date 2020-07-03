@@ -28,8 +28,15 @@ export class ProductsL3SrcController extends ProductsController<ProductL3Src, Pr
     type: Date
   })
   async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL3Src[]> {
-    const prod = this.productsService.findAll<ProductL3SrcHistoryView>(this.productHistoryType, snapshotDateTime)
-    return prod as unknown as Promise<ProductL3Src[]>;
+    if (snapshotDateTime)
+    {
+      const prod = this.productsService.findAll<ProductL3SrcHistoryView>(this.productHistoryType, snapshotDateTime)
+      return prod as unknown as Promise<ProductL3Src[]>;
+    }
+    else
+    {
+      return this.productsService.findAll<ProductL3Src>(this.productType, snapshotDateTime)
+    }
   }
 
   @Get(':productId')

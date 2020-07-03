@@ -32,8 +32,13 @@ export class ProductsL0DistController extends ProductsController<ProductL0Dist, 
     type: Date
   })
   async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown):  Promise<ProductL0Dist[]> {
-    const prod = this.productsService.findAll<ProductL0DistHistoryView>(this.productHistoryType, snapshotDateTime)
-    return prod as unknown as Promise<ProductL0Dist[]>;
+    if (snapshotDateTime)
+    {
+      const prod = this.productsService.findAll<ProductL0DistHistoryView>(this.productHistoryType, snapshotDateTime)
+      return prod as unknown as Promise<ProductL0Dist[]>;
+    } else {
+      return this.productsService.findAll<ProductL0Dist>(this.productType, snapshotDateTime)
+    }
   }
 
   @Get(':productId')
@@ -78,8 +83,13 @@ export class ProductsL0DistController extends ProductsController<ProductL0Dist, 
     type: Date
   })
   async findInstruments (@Req() request: Request, @Param('productId', new ParseIntPipe()) productId: number,@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL0InstrumentFile[]> {
-    const prod = this.productsService.findAll<ProductL0InstrumentFileHistoryView>(ProductL0InstrumentFileHistoryView, snapshotDateTime)
-    return prod as unknown as Promise<ProductL0InstrumentFile[]>;
+    if (snapshotDateTime)
+    {
+      const prod = this.productsService.findAll<ProductL0InstrumentFileHistoryView>(ProductL0InstrumentFileHistoryView, snapshotDateTime)
+      return prod as unknown as Promise<ProductL0InstrumentFile[]>;
+    } else {
+      return this.productsService.findAll<ProductL0InstrumentFile>(ProductL0InstrumentFile, snapshotDateTime)
+    }
   }
 
   @Post(':productId/instrument-files')

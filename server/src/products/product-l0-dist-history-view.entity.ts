@@ -1,4 +1,5 @@
 import { Column, Entity, ViewEntity, ViewColumn } from "typeorm";
+import { ProductL0Src } from "./product-l0-src.entity";
 
 @ViewEntity({name: "product_l0_dist_with_history", expression: `SELECT * FROM "product_l0_dist" UNION ALL SELECT * FROM "product_l0_dist_history"`})
 export class ProductL0DistHistoryView {
@@ -9,7 +10,7 @@ export class ProductL0DistHistoryView {
   l0CoverageLocation: string;
 
   @ViewColumn( { name: "sourceProductId" })
-  sourceProductId: number;
+  sourceProduct: number | ProductL0Src;
 
   @ViewColumn( { name: "sysPeriod" })
   sysPeriod: any;
