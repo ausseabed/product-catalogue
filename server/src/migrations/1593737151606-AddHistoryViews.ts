@@ -4,6 +4,7 @@ export class AddHistoryViews1593737151606 implements MigrationInterface {
     name = 'AddHistoryViews1593737151606'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`CREATE TABLE typeorm_metadata ( "type" varchar(255) NOT NULL, "database" varchar(255) DEFAULT NULL, "schema" varchar(255) DEFAULT NULL, "table" varchar(255) DEFAULT NULL, "name" varchar(255) DEFAULT NULL, "value" text)`);
         await queryRunner.query(`CREATE VIEW "compilation_with_history" AS SELECT * FROM "compilation" UNION ALL SELECT * FROM "compilation_history"`);
         await queryRunner.query(`INSERT INTO "typeorm_metadata"("type", "schema", "name", "value") VALUES ($1, $2, $3, $4)`, ["VIEW","public","compilation_with_history","SELECT * FROM \"compilation\" UNION ALL SELECT * FROM \"compilation_history\""]);
         await queryRunner.query(`CREATE VIEW "compilation_l3_relation_with_history" AS SELECT * FROM "compilation_l3_relation" UNION ALL SELECT * FROM "compilation_l3_relation_history"`);
@@ -47,6 +48,7 @@ export class AddHistoryViews1593737151606 implements MigrationInterface {
         await queryRunner.query(`DROP VIEW "compilation_l3_relation_with_history"`);
         await queryRunner.query(`DELETE FROM "typeorm_metadata" WHERE "type" = 'VIEW' AND "schema" = $1 AND "name" = $2`, ["public","compilation_with_history"]);
         await queryRunner.query(`DROP VIEW "compilation_with_history"`);
+        await queryRunner.query(`DROP TABLE typeorm_metadata`);
     }
 
 }
