@@ -1,5 +1,5 @@
 require('dotenv').config()
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 declare const module: any;
@@ -9,6 +9,7 @@ import { VerboseAuthGuard } from './auth/verbose-auth-guard';
 import { LoggingInterceptor } from './errors/logging.interceptor';
 import { AllExceptionsFilter } from './errors/all-exceptions.filter';
 import { PassportModule } from '@nestjs/passport';
+import { ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
 
 async function bootstrap () {
   const app = await NestFactory.create(AppModule,
@@ -24,13 +25,15 @@ async function bootstrap () {
   app.use(requestLogger)
   app.useGlobalInterceptors(new TimeoutInterceptor());
   app.useGlobalInterceptors(new LoggingInterceptor());
-  // app.useGlobalFilters(new AllExceptionsFilter()); // Uncomment to catch any exception
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalFilters(new AllExceptionsFilter()); // Uncomment to catch any exception
   const options = new DocumentBuilder()
     .setTitle('AusSeabed product catalogue')
     .setDescription('The API description for the Ausseabed product catalogue inventory')
     .setContact("AusSeabed", "http://ausseabed.gov.au/", "AusSeabed@ga.gov.au")
     .setLicense("Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0.html")
-    .setVersion('0.1.11')
+    .setVersion('0.1.12')
     .addTag('surveys')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },

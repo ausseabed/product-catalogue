@@ -13,6 +13,7 @@
     "start:dev": "nest build --webpack --webpackPath webpack-hmr.config.js",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "start:migrate:prod": "yarn run migration:run && yarn run start:prod",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
     "migration:generate": "yarn run typeorm migration:generate -n",
     "migration:run": "yarn run typeorm migration:run",

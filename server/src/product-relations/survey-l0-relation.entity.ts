@@ -2,10 +2,13 @@ import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { ProductL0Src } from "src/products/product-l0-src.entity";
 import { Survey } from "src/surveys/survey.entity";
+import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
+import { Exclude } from "class-transformer";
 
 @Entity()
 export class SurveyL0Relation {
 
+  @ApiProperty({type:'integer'})
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,4 +25,12 @@ export class SurveyL0Relation {
     eager: true
   })
   productL0Src: ProductL0Src;
+
+  @ApiHideProperty()
+  @Exclude()
+  @Column("tstzrange", {
+    default: () =>
+      "tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)",
+  })
+  sysPeriod: any;
 }

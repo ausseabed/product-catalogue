@@ -1,5 +1,5 @@
-import { Controller, Get, Req, Param, ParseIntPipe, Body, Post, Put, Delete } from '@nestjs/common';
-import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { Controller, Get, Req, Param, ParseIntPipe, Body, Post, Put, Delete, Query } from '@nestjs/common';
+import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse, ApiQuery } from '@nestjs/swagger';
 import { CompilationsService } from './compilations.service';
 import { Compilation } from './compilation.entity';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
@@ -15,9 +15,14 @@ export class CompilationsController {
   constructor(private compilationsService: CompilationsService) { }
 
   @Get()
-  async findAll (): Promise<Compilation[]> {
+  @ApiQuery({
+    name: 'snapshotDateTime',
+    required: false,
+    type: Date
+  })
+  async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<Compilation[]> {
 
-    return this.compilationsService.findAll();
+    return this.compilationsService.findAll(snapshotDateTime);
   }
 
   @ApiBadRequestResponse({ description: 'Could not find the compilation' })

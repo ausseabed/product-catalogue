@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **float** |  | 
+**id** | **int** |  | 
 **metadata_persistent_id** | **str** |  | 
 **name** | **str** |  | 
 **product_tif_location** | **str** |  | 

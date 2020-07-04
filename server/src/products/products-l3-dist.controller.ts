@@ -1,5 +1,5 @@
-import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe, Query } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe, Query, Logger } from '@nestjs/common';
+import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse, ApiQuery } from '@nestjs/swagger';
 import { ProductsController } from './products.controller';
 import { ErrorDto } from 'src/errors/errors.dto';
 import { ProductL3Dist } from './product-l3-dist.entity';
@@ -8,22 +8,39 @@ import { ProductsService } from './products.service';
 import { Request } from 'express';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { ProductL3Src } from './product-l3-src.entity';
+import { ProductL3DistHistoryView } from './product-l3-dist-history-view.entity';
+import { ProductL3SrcHistoryView } from './product-l3-src-history-view.entity';
 
 @ApiTags('products/l3-dist')
 @Controller('products/l3-dist')
 @ApiBearerAuth('access-token')
 @ApiRequestTimeoutResponse({ description: 'Server took too long to respond.', type: ErrorDto })
 @ApiUnauthorizedResponse({ description: 'Unable to authenticate request.', type: ErrorDto })
-export class ProductsL3DistController extends ProductsController<ProductL3Dist, ProductL3DistDto>{
+export class ProductsL3DistController extends ProductsController<ProductL3Dist, ProductL3DistHistoryView, ProductL3DistDto>{
   constructor(
     productsService: ProductsService,
   ) {
-    super(ProductL3Dist, productsService)
+    super(ProductL3Dist, ProductL3DistHistoryView, productsService)
   }
 
   @Get()
-  async findAll (): Promise<ProductL3Dist[]> {
-    return this.productsService.findAll<ProductL3Dist>(this.productType);
+  @ApiQuery({
+    name: 'snapshotDateTime',
+    required: false,
+    type: Date
+  })
+  async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL3Dist[]> {
+    if (snapshotDateTime)
+    {
+      const prod = await this.productsService.findAll<ProductL3DistHistoryView>(this.productHistoryType, snapshotDateTime);
+      const eagerL3SrcCandidates = await this.productsService.findAll<ProductL3SrcHistoryView>(ProductL3SrcHistoryView, snapshotDateTime);
+      prod.forEach(productDist => productDist.sourceProduct = eagerL3SrcCandidates.find(productSrc => productSrc.id===productDist.sourceProduct))
+      return prod as unknown as ProductL3Dist[];
+    }
+    else
+    {
+      return this.productsService.findAll<ProductL3Dist>(this.productType, snapshotDateTime)
+    }
   }
 
   @Get(':productId')

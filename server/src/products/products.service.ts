@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository, InjectEntityManager } from '@nestjs/typeorm';
-import { Repository, EntityManager, FindConditions, FindOperator } from 'typeorm';
+import { Repository, EntityManager, FindConditions, FindOperator, Raw } from 'typeorm';
 import { Product } from './product.entity';
 
 import { plainToClassFromExist, plainToClass } from "class-transformer";
@@ -16,9 +16,20 @@ export class ProductsService {
 
   }
 
-  async findAll<T> (productType: new () => T): Promise<T[]> {
-    return this.productsEntityManager.find<T>(productType);
-
+  async findAll<T> (productType: new () => T, snapshotDateTime: Date| unknown): Promise<T[]> {
+    if (snapshotDateTime) {
+      const products = this.productsEntityManager.find<T>(productType, 
+        {
+          where: {
+            sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
+          }
+        }
+        );
+      return products;
+    }
+    else {
+      return this.productsEntityManager.find<T>(productType);
+    }
   }
 
 

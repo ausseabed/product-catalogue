@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **float** |  | 
+**id** | **int** |  | 
 **product_l0_src** | [**ProductL0Src**](ProductL0Src.md) |  | 
 **survey** | [**Survey**](Survey.md) |  | 
 

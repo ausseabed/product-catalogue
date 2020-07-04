@@ -307,7 +307,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **products_l0_dist_controller_find_all**
-> list[ProductL0Dist] products_l0_dist_controller_find_all()
+> list[ProductL0Dist] products_l0_dist_controller_find_all(snapshot_date_time=snapshot_date_time)
 
 
 
@@ -340,16 +340,20 @@ configuration = product_catalogue_py_rest_client.Configuration(
 with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = product_catalogue_py_rest_client.ProductsL0DistApi(api_client)
-    
+    snapshot_date_time = '2013-10-20' # date |  (optional)
+
     try:
-        api_response = api_instance.products_l0_dist_controller_find_all()
+        api_response = api_instance.products_l0_dist_controller_find_all(snapshot_date_time=snapshot_date_time)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling ProductsL0DistApi->products_l0_dist_controller_find_all: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **snapshot_date_time** | [**date**](.md)|  | [optional] 
 
 ### Return type
 
@@ -374,7 +378,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **products_l0_dist_controller_find_instruments**
-> list[ProductL0InstrumentFile] products_l0_dist_controller_find_instruments(product_id)
+> list[ProductL0InstrumentFile] products_l0_dist_controller_find_instruments(product_id, snapshot_date_time=snapshot_date_time)
 
 
 
@@ -408,9 +412,10 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = product_catalogue_py_rest_client.ProductsL0DistApi(api_client)
     product_id = 3.4 # float | 
+snapshot_date_time = '2013-10-20' # date |  (optional)
 
     try:
-        api_response = api_instance.products_l0_dist_controller_find_instruments(product_id)
+        api_response = api_instance.products_l0_dist_controller_find_instruments(product_id, snapshot_date_time=snapshot_date_time)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling ProductsL0DistApi->products_l0_dist_controller_find_instruments: %s\n" % e)
@@ -421,6 +426,7 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **product_id** | **float**|  | 
+ **snapshot_date_time** | [**date**](.md)|  | [optional] 
 
 ### Return type
 
@@ -517,7 +523,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **products_l0_dist_controller_find_one_instrument**
-> list[ProductL0InstrumentFile] products_l0_dist_controller_find_one_instrument(product_id, instrument_id)
+> ProductL0InstrumentFile products_l0_dist_controller_find_one_instrument(product_id, instrument_id, snapshot_date_time=snapshot_date_time)
 
 
 
@@ -552,9 +558,10 @@ with product_catalogue_py_rest_client.ApiClient(configuration) as api_client:
     api_instance = product_catalogue_py_rest_client.ProductsL0DistApi(api_client)
     product_id = 3.4 # float | 
 instrument_id = 3.4 # float | 
+snapshot_date_time = '2013-10-20' # date |  (optional)
 
     try:
-        api_response = api_instance.products_l0_dist_controller_find_one_instrument(product_id, instrument_id)
+        api_response = api_instance.products_l0_dist_controller_find_one_instrument(product_id, instrument_id, snapshot_date_time=snapshot_date_time)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling ProductsL0DistApi->products_l0_dist_controller_find_one_instrument: %s\n" % e)
@@ -566,10 +573,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **product_id** | **float**|  | 
  **instrument_id** | **float**|  | 
+ **snapshot_date_time** | [**date**](.md)|  | [optional] 
 
 ### Return type
 
-[**list[ProductL0InstrumentFile]**](ProductL0InstrumentFile.md)
+[**ProductL0InstrumentFile**](ProductL0InstrumentFile.md)
 
 ### Authorization
 

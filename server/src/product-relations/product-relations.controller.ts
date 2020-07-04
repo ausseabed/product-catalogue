@@ -1,6 +1,6 @@
-import { Controller, Param, Req, Get, ParseIntPipe, Post, Body, Put, Delete, Logger } from '@nestjs/common';
+import { Controller, Param, Req, Get, ParseIntPipe, Post, Body, Put, Delete, Logger, Query } from '@nestjs/common';
 import { ProductRelationsService } from './product-relations.service';
-import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiResponseProperty, ApiResponse, ApiRequestTimeoutResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiResponseProperty, ApiResponse, ApiRequestTimeoutResponse, ApiUnauthorizedResponse, ApiQuery } from '@nestjs/swagger';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { CompilationL3Relation } from './compilation-l3-relation.entity';
 import { SurveyL3Relation } from './survey-l3-relation.entity';
@@ -15,6 +15,13 @@ import { ProductL0Src } from 'src/products/product-l0-src.entity';
 import { Compilation } from 'src/compilations/compilation.entity';
 import { RelationSummaryDto } from './dto/relation-summary.dto';
 import { ErrorDto } from 'src/errors/errors.dto';
+import { CompilationL3RelationHistoryView } from './compilation-l3-relation-history-view.entity';
+import { CompilationHistoryView } from 'src/compilations/compilation-history-view.entity';
+import { ProductL3SrcHistoryView } from 'src/products/product-l3-src-history-view.entity';
+import { SurveyL3RelationHistoryView } from './survey-l3-relation-history-view.entity';
+import { SurveyHistoryView } from 'src/surveys/survey-history-view.entity';
+import { SurveyL0RelationHistoryView } from './survey-l0-relation-history-view.entity';
+import { ProductL0SrcHistoryView } from 'src/products/product-l0-src-history-view.entity';
 @ApiTags('product-relations')
 @Controller('product-relations')
 @ApiBearerAuth('access-token')
@@ -26,8 +33,22 @@ export class ProductRelationsController {
   /* COMPILATION -> L3 */
   @Get('compilation-to-l3')
   @ApiResponse({ status: 200, type: [RelationSummaryDto] })
-  async findAllL3Compilation (@Req() request: Request): Promise<RelationSummaryDto[]> {
-    return this.productRelationsService.findAllProduct<CompilationL3Relation, Compilation, ProductL3Src>(CompilationL3Relation, Compilation, ProductL3Src, "productL3Src");
+  @ApiQuery({
+    name: 'snapshotDateTime',
+    required: false,
+    type: Date
+  })
+  async findAllL3Compilation (@Req() request: Request, @Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<RelationSummaryDto[]> {
+    if (snapshotDateTime)
+    {
+      return this.productRelationsService.findAllProduct<CompilationL3RelationHistoryView, CompilationHistoryView, ProductL3SrcHistoryView>(
+        CompilationL3RelationHistoryView, CompilationHistoryView, ProductL3Src, "productL3SrcId", snapshotDateTime);
+    }
+    else
+    {
+      return this.productRelationsService.findAllProduct<CompilationL3Relation, Compilation, ProductL3Src>(
+        CompilationL3Relation, Compilation, ProductL3Src, "productL3SrcId", snapshotDateTime);
+    }
   }
 
   @ApiBadRequestResponse({ description: 'Could not find the compilation' })
@@ -62,9 +83,22 @@ export class ProductRelationsController {
 
   /* SURVEY -> L3 */
   @Get('surveys-to-l3')
+  @ApiQuery({
+    name: 'snapshotDateTime',
+    required: false,
+    type: Date
+  })
   @ApiResponse({ status: 200, type: [RelationSummaryDto] })
-  async findAllL3Survey (@Req() request: Request): Promise<RelationSummaryDto[]> {
-    return this.productRelationsService.findAllProduct<SurveyL3Relation, Survey, ProductL3Src>(SurveyL3Relation, Survey, ProductL3Src, "productL3Src");
+  async findAllL3Survey (@Req() request: Request, @Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<RelationSummaryDto[]> {
+    if (snapshotDateTime) {
+      return this.productRelationsService.findAllProduct<SurveyL3RelationHistoryView, SurveyHistoryView, ProductL3SrcHistoryView>(
+        SurveyL3RelationHistoryView, SurveyHistoryView, ProductL3SrcHistoryView, "productL3SrcId", snapshotDateTime);
+    }
+    else
+    {
+      return this.productRelationsService.findAllProduct<SurveyL3Relation, Survey, ProductL3Src>(
+        SurveyL3Relation, Survey, ProductL3Src, "productL3SrcId", snapshotDateTime);
+    }
   }
 
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
@@ -99,8 +133,21 @@ export class ProductRelationsController {
   /* SURVEY -> L0 */
   @Get('surveys-to-l0')
   @ApiResponse({ status: 200, type: [RelationSummaryDto] })
-  async findAllL0Survey (@Req() request: Request): Promise<RelationSummaryDto[]> {
-    return this.productRelationsService.findAllProduct<SurveyL0Relation, Survey, ProductL0Src>(SurveyL0Relation, Survey, ProductL0Src, "productL0Src");
+  @ApiQuery({
+    name: 'snapshotDateTime',
+    required: false,
+    type: Date
+  })
+  async findAllL0Survey (@Req() request: Request, @Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<RelationSummaryDto[]> {
+    if (snapshotDateTime) {
+      return this.productRelationsService.findAllProduct<SurveyL0RelationHistoryView, SurveyHistoryView, ProductL0SrcHistoryView>(
+        SurveyL0RelationHistoryView, SurveyHistoryView, ProductL0SrcHistoryView, "productL0SrcId", snapshotDateTime);
+    }
+    else
+    {
+      return this.productRelationsService.findAllProduct<SurveyL0Relation, Survey, ProductL0Src>(
+        SurveyL0Relation, Survey, ProductL0Src, "productL0SrcId", snapshotDateTime);
+    }
   }
 
   @ApiBadRequestResponse({ description: 'Could not find the survey' })

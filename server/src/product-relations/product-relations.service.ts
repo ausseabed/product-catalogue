@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
-import { EntityManager, FindConditions } from 'typeorm';
+import { EntityManager, FindConditions, Raw } from 'typeorm';
 import { plainToClass, plainToClassFromExist } from 'class-transformer';
 import { SurveyL3Relation } from './survey-l3-relation.entity';
 import { Survey } from 'src/surveys/survey.entity';
@@ -15,14 +15,38 @@ export class ProductRelationsService {
 
   }
 
-  async findAllProduct<R, S, P> (relationType: new () => R, surveyType: new () => S, productType: new () => P, joinRelationName: string): Promise<RelationSummaryDto[]> {
-    const results = await this.productsEntityManager.createQueryBuilder<R>(relationType, "relation")
-      .innerJoin(surveyType, "survey", "survey.id = relation.survey")
-      .innerJoin(productType, "product", `product.id = relation.${joinRelationName}`)
-      .select(["survey.id", "relation.id", "product.id", "product.name"])
-      .printSql()
-      .getRawMany();
-    return results;
+  async findAllProduct<R, S, P> (relationType: new () => R, surveyType: new () => S, productType: new () => P, 
+  joinRelationName: string, snapshotDateTime: Date| unknown): Promise<RelationSummaryDto[]> {
+    // replace with entityManager.query('SELECT u.name FROM users AS u WHERE u.name = $1 AND u.lastName = $2', ['John', 'Doe']);
+    if (snapshotDateTime)
+    {
+      const results = await this.productsEntityManager.createQueryBuilder<R>(relationType, "relation")
+        .innerJoin(surveyType, "survey", "survey.id = relation.\"surveyId\"")
+        .innerJoin(productType, "product", `product.id = relation.\"${joinRelationName}\"`)
+        .select(["survey.id", "relation.id", "product.id", "product.name"])
+        .where({
+            sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
+          }
+        ).orderBy("survey.id","ASC")
+        .addOrderBy("relation.id","ASC")
+        .addOrderBy("product.id","ASC")
+        .printSql()
+        .getRawMany();             
+      return results;
+    }
+    else
+    {
+      const results = await this.productsEntityManager.createQueryBuilder<R>(relationType, "relation")
+        .innerJoin(surveyType, "survey", "survey.id = relation.\"surveyId\"")
+        .innerJoin(productType, "product", `product.id = relation.\"${joinRelationName}\"`)
+        .select(["survey.id", "relation.id", "product.id", "product.name"])
+        .orderBy("survey.id","ASC")
+        .addOrderBy("relation.id","ASC")
+        .addOrderBy("product.id","ASC")
+        .printSql()
+        .getRawMany();
+      return results;
+    }
   }
 
   async findConditional<T> (productType: new () => T, conditions: FindConditions<T>): Promise<T> {

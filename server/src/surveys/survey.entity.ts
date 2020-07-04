@@ -1,5 +1,7 @@
 import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
+import { Exclude } from "class-transformer";
 
 @Entity()
 export class Survey {
@@ -10,6 +12,7 @@ export class Survey {
    * @type {number}
    * @memberof Survey
    */
+  @ApiProperty({type:'integer'})
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -40,4 +43,11 @@ export class Survey {
   @Column()
   year: string;
 
+  @ApiHideProperty()
+  @Exclude()
+  @Column("tstzrange", {
+    default: () =>
+      "tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)"
+  })
+  sysPeriod: any;
 }

@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **float** |  | 
+**id** | **int** |  | 
 **l0_coverage_location** | **str** |  | 
 **l0_instrument_files** | [**list[ProductL0InstrumentFile]**](ProductL0InstrumentFile.md) |  | 
 **source_product** | [**ProductL0Src**](ProductL0Src.md) |  | 

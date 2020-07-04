@@ -3,6 +3,8 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { Product } from './product.entity';
 import { Survey } from "src/surveys/survey.entity";
 import { ProductL3Src } from "./product-l3-src.entity";
+import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
+import { Exclude } from "class-transformer";
 
 @Entity()
 export class ProductL3Dist implements Product {
@@ -13,6 +15,7 @@ export class ProductL3Dist implements Product {
    * @type {number}
    * @memberof Product
    */
+  @ApiProperty({type:'integer'})
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -96,4 +99,11 @@ export class ProductL3Dist implements Product {
   @Column()
   hillshadeLocation: string; // S3 location
 
+  @ApiHideProperty()
+  @Exclude()
+  @Column("tstzrange", {
+    default: () =>
+      "tstzrange(CURRENT_TIMESTAMP, NULL::timestamp with time zone)",
+  })
+  sysPeriod: any;
 }
