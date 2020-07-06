@@ -46,6 +46,7 @@
     "start-server-webpack-plugin": "^2.2.5",
     "swagger-ui-express": "^4.1.4",
     "ts-node": "^8.10.2",
+    "tsconfig-paths": "^3.9.0",
     "typeorm": "^0.2.25",
     "typescript": "^3.9.6",
     "webpack-node-externals": "^1.7.2"
@@ -67,8 +68,7 @@
     "prettier": "^1.19.1",
     "supertest": "^4.0.2",
     "ts-jest": "25.2.1",
-    "ts-loader": "^6.2.1",
-    "tsconfig-paths": "^3.9.0"
+    "ts-loader": "^6.2.1"
   },
   "jest": {
     "moduleFileExtensions": [
