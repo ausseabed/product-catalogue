@@ -31,7 +31,7 @@ RUN yarn global add ts-node
 COPY --from=builder /home/node/package*.json /home/node/
 COPY --from=builder /home/node/yarn.lock /home/node/
 COPY --from=builder /home/node/dist/ /home/node/dist/
-COPY --from=builder /home/node/tsconfig.* /home/node/dist/
+COPY --from=builder /home/node/tsconfig.* /home/node/
 RUN yarn install 
 
 EXPOSE 3000
