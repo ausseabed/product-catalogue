@@ -26,6 +26,8 @@ ENV NODE_ENV production
 ENV APPDIR=/home/node
 WORKDIR $APPDIR
 
+RUN yarn global add ts-node
+
 COPY --from=builder /home/node/package*.json /home/node/
 COPY --from=builder /home/node/dist/ /home/node/dist/
 RUN yarn install 
