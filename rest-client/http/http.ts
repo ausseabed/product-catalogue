@@ -1,7 +1,7 @@
 // typings of url-parse are incorrect...
 // @ts-ignore 
 import * as URLParse from "url-parse";
-import { Observable } from '../rxjsStub';
+import { Observable, from } from '../rxjsStub';
 
 export * from './isomorphic-fetch';
 
@@ -52,7 +52,7 @@ export class RequestContext {
 	 * @param httpMethod http method
 	 */
     public constructor(url: string, private httpMethod: HttpMethod) {
-        this.url = URLParse(url, true);
+        this.url = new URLParse(url, true);
     }
     
     /*
@@ -68,7 +68,7 @@ export class RequestContext {
      *
      */
     public setUrl(url: string) {
-    	this.url = URLParse(url, true);
+        this.url = new URLParse(url, true);
     }
 
     /**
@@ -206,4 +206,16 @@ export class ResponseContext {
 
 export interface HttpLibrary {
     send(request: RequestContext): Observable<ResponseContext>;
+}
+
+export interface PromiseHttpLibrary {
+    send(request: RequestContext): Promise<ResponseContext>;
+}
+
+export function wrapHttpLibrary(promiseHttpLibrary: PromiseHttpLibrary): HttpLibrary {
+  return {
+    send(request: RequestContext): Observable<ResponseContext> {
+      return from(promiseHttpLibrary.send(request));
+    }
+  }
 }

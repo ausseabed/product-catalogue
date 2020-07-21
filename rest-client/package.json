@@ -1,6 +1,6 @@
 {
   "name": "@ausseabed/product-catalogue-rest-client",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "OpenAPI client for @ausseabed/product-catalogue-rest-client",
   "author": "OpenAPI-Generator Contributors",
   "keywords": [
@@ -18,12 +18,11 @@
   },
   "dependencies": {
     "whatwg-fetch": "^3.0.0",
-    "btoa": "^1.2.1",
     "es6-promise": "^4.2.4",
     "url-parse": "^1.4.3"
   },
   "devDependencies": {
-    "typescript": "^2.9.2"
+    "typescript": "^3.9.3"
   },
   "repository": {
     "type": "git",

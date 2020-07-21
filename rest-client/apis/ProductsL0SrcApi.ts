@@ -18,7 +18,7 @@ export class ProductsL0SrcApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param productL0SrcDto 
      */
-    public productsL0SrcControllerCreate(productL0SrcDto: ProductL0SrcDto, options?: Configuration): RequestContext {
+    public async productsL0SrcControllerCreate(productL0SrcDto: ProductL0SrcDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productL0SrcDto' is not null or undefined
@@ -51,21 +51,21 @@ export class ProductsL0SrcApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
      */
-    public productsL0SrcControllerDelete(productId: number, options?: Configuration): RequestContext {
+    public async productsL0SrcControllerDelete(productId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -90,21 +90,23 @@ export class ProductsL0SrcApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
+     * @param snapshotDateTime 
      */
-    public productsL0SrcControllerFindAll(options?: Configuration): RequestContext {
+    public async productsL0SrcControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
+		
 		
 		// Path Params
     	const localVarPath = '/products/l0-src';
@@ -114,6 +116,9 @@ export class ProductsL0SrcApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (snapshotDateTime !== undefined) {
+        	requestContext.setQueryParam("snapshotDateTime", ObjectSerializer.serialize(snapshotDateTime, "string", ""));
+        }
 	
 		// Header Params
 	
@@ -121,21 +126,21 @@ export class ProductsL0SrcApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
      */
-    public productsL0SrcControllerFindOne(productId: number, options?: Configuration): RequestContext {
+    public async productsL0SrcControllerFindOne(productId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -160,22 +165,22 @@ export class ProductsL0SrcApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
      * @param productL0SrcDto 
      */
-    public productsL0SrcControllerUpdate(productId: number, productL0SrcDto: ProductL0SrcDto, options?: Configuration): RequestContext {
+    public async productsL0SrcControllerUpdate(productId: number, productL0SrcDto: ProductL0SrcDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -215,17 +220,17 @@ export class ProductsL0SrcApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
 }
 
 
@@ -283,7 +288,7 @@ export class ProductsL0SrcApiResponseProcessor {
      * @params response Response returned by the server for a request to productsL0SrcControllerDelete
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productsL0SrcControllerDelete(response: ResponseContext): Promise< void> {
+     public async productsL0SrcControllerDelete(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -308,7 +313,11 @@ export class ProductsL0SrcApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
@@ -413,7 +422,7 @@ export class ProductsL0SrcApiResponseProcessor {
      * @params response Response returned by the server for a request to productsL0SrcControllerUpdate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productsL0SrcControllerUpdate(response: ResponseContext): Promise< void> {
+     public async productsL0SrcControllerUpdate(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -438,7 +447,11 @@ export class ProductsL0SrcApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";

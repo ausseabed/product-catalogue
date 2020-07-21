@@ -2,6 +2,7 @@ import { boot } from 'quasar/wrappers'
 import * as msal from '@azure/msal-browser'
 import { ServerConfiguration, Configuration } from '@ausseabed/product-catalogue-rest-client'
 import { StoreInterface } from 'src/store'
+import { ConfigurationParameters, createConfiguration } from '@ausseabed/product-catalogue-rest-client/configuration'
 // import { TokenRenewParameters } from '@azure/msal-common'
 
 let clientIdStr = ''
@@ -87,7 +88,7 @@ export function getAccessToken (): string {
   return ''
 }
 
-export function getRestConfiguration (rootState: StoreInterface | undefined) {
+export function getRestConfiguration (rootState: StoreInterface | undefined): Configuration {
   const serverConfig = new ServerConfiguration('/rest', {})
 
   msalInstance.acquireTokenSilent(requestScopes)
@@ -99,17 +100,18 @@ export function getRestConfiguration (rootState: StoreInterface | undefined) {
     throw Error('Could not authenticate')
   }
 
-  const configuration = new Configuration(
-    {
-      baseServer: serverConfig,
-      authMethods: {
-        'access-token': {
-          token: account.idToken
+  const configuration: ConfigurationParameters =
+      {
+        baseServer: serverConfig,
+        authMethods: {
+          'access-token': {
+            tokenProvider: {
+              getToken: () => { return account.idToken }
+            }
+          }
         }
       }
-    }
-  )
-  return configuration
+  return createConfiguration(configuration)
 }
 
 async function login () {

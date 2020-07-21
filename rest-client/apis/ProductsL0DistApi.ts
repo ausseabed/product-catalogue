@@ -21,7 +21,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
      * @param productL0SrcId 
      * @param productL0DistDto 
      */
-    public productsL0DistControllerCreate(productL0SrcId: number, productL0DistDto: ProductL0DistDto, options?: Configuration): RequestContext {
+    public async productsL0DistControllerCreate(productL0SrcId: number, productL0DistDto: ProductL0DistDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productL0SrcId' is not null or undefined
@@ -63,22 +63,22 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
      * @param productL0InstrumentFileDto 
      */
-    public productsL0DistControllerCreateInstrument(productId: number, productL0InstrumentFileDto: ProductL0InstrumentFileDto, options?: Configuration): RequestContext {
+    public async productsL0DistControllerCreateInstrument(productId: number, productL0InstrumentFileDto: ProductL0InstrumentFileDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -118,21 +118,21 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
      */
-    public productsL0DistControllerDelete(productId: number, options?: Configuration): RequestContext {
+    public async productsL0DistControllerDelete(productId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -157,22 +157,22 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
      * @param instrumentId 
      */
-    public productsL0DistControllerDeleteInstrument(productId: number, instrumentId: number, options?: Configuration): RequestContext {
+    public async productsL0DistControllerDeleteInstrument(productId: number, instrumentId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -204,21 +204,23 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
+     * @param snapshotDateTime 
      */
-    public productsL0DistControllerFindAll(options?: Configuration): RequestContext {
+    public async productsL0DistControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
+		
 		
 		// Path Params
     	const localVarPath = '/products/l0-dist';
@@ -228,6 +230,9 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (snapshotDateTime !== undefined) {
+        	requestContext.setQueryParam("snapshotDateTime", ObjectSerializer.serialize(snapshotDateTime, "string", ""));
+        }
 	
 		// Header Params
 	
@@ -235,21 +240,22 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
+     * @param snapshotDateTime 
      */
-    public productsL0DistControllerFindInstruments(productId: number, options?: Configuration): RequestContext {
+    public async productsL0DistControllerFindInstruments(productId: number, snapshotDateTime?: string, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -257,6 +263,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
             throw new RequiredError('Required parameter productId was null or undefined when calling productsL0DistControllerFindInstruments.');
         }
 
+		
 		
 		// Path Params
     	const localVarPath = '/products/l0-dist/{productId}/instrument-files'
@@ -267,6 +274,9 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (snapshotDateTime !== undefined) {
+        	requestContext.setQueryParam("snapshotDateTime", ObjectSerializer.serialize(snapshotDateTime, "string", ""));
+        }
 	
 		// Header Params
 	
@@ -274,21 +284,21 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
      */
-    public productsL0DistControllerFindOne(productId: number, options?: Configuration): RequestContext {
+    public async productsL0DistControllerFindOne(productId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -313,22 +323,23 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
      * @param instrumentId 
+     * @param snapshotDateTime 
      */
-    public productsL0DistControllerFindOneInstrument(productId: number, instrumentId: number, options?: Configuration): RequestContext {
+    public async productsL0DistControllerFindOneInstrument(productId: number, instrumentId: number, snapshotDateTime?: string, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -343,6 +354,7 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 		
+		
 		// Path Params
     	const localVarPath = '/products/l0-dist/{productId}/instrument-files/{instrumentId}'
             .replace('{' + 'productId' + '}', encodeURIComponent(String(productId)))
@@ -353,6 +365,9 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (snapshotDateTime !== undefined) {
+        	requestContext.setQueryParam("snapshotDateTime", ObjectSerializer.serialize(snapshotDateTime, "string", ""));
+        }
 	
 		// Header Params
 	
@@ -360,22 +375,22 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
      * @param productL0DistDto 
      */
-    public productsL0DistControllerUpdate(productId: number, productL0DistDto: ProductL0DistDto, options?: Configuration): RequestContext {
+    public async productsL0DistControllerUpdate(productId: number, productL0DistDto: ProductL0DistDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -415,23 +430,23 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param productId 
      * @param instrumentId 
      * @param productL0InstrumentFileDto 
      */
-    public productsL0DistControllerUpdateInstrument(productId: number, instrumentId: number, productL0InstrumentFileDto: ProductL0InstrumentFileDto, options?: Configuration): RequestContext {
+    public async productsL0DistControllerUpdateInstrument(productId: number, instrumentId: number, productL0InstrumentFileDto: ProductL0InstrumentFileDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'productId' is not null or undefined
@@ -478,17 +493,17 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
 }
 
 
@@ -590,7 +605,7 @@ export class ProductsL0DistApiResponseProcessor {
      * @params response Response returned by the server for a request to productsL0DistControllerDelete
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productsL0DistControllerDelete(response: ResponseContext): Promise< void> {
+     public async productsL0DistControllerDelete(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -615,7 +630,11 @@ export class ProductsL0DistApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
@@ -629,7 +648,7 @@ export class ProductsL0DistApiResponseProcessor {
      * @params response Response returned by the server for a request to productsL0DistControllerDeleteInstrument
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productsL0DistControllerDeleteInstrument(response: ResponseContext): Promise< void> {
+     public async productsL0DistControllerDeleteInstrument(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -654,7 +673,11 @@ export class ProductsL0DistApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
@@ -803,13 +826,13 @@ export class ProductsL0DistApiResponseProcessor {
      * @params response Response returned by the server for a request to productsL0DistControllerFindOneInstrument
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productsL0DistControllerFindOneInstrument(response: ResponseContext): Promise<Array<ProductL0InstrumentFile> > {
+     public async productsL0DistControllerFindOneInstrument(response: ResponseContext): Promise<ProductL0InstrumentFile > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<ProductL0InstrumentFile> = ObjectSerializer.deserialize(
+            const body: ProductL0InstrumentFile = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<ProductL0InstrumentFile>", ""
-            ) as Array<ProductL0InstrumentFile>;
+                "ProductL0InstrumentFile", ""
+            ) as ProductL0InstrumentFile;
             return body;
         }
         if (isCodeInRange("401", response.httpStatusCode)) {
@@ -829,10 +852,10 @@ export class ProductsL0DistApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<ProductL0InstrumentFile> = ObjectSerializer.deserialize(
+            const body: ProductL0InstrumentFile = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<ProductL0InstrumentFile>", ""
-            ) as Array<ProductL0InstrumentFile>;
+                "ProductL0InstrumentFile", ""
+            ) as ProductL0InstrumentFile;
             return body;
         }
 
@@ -847,7 +870,7 @@ export class ProductsL0DistApiResponseProcessor {
      * @params response Response returned by the server for a request to productsL0DistControllerUpdate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productsL0DistControllerUpdate(response: ResponseContext): Promise< void> {
+     public async productsL0DistControllerUpdate(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -872,7 +895,11 @@ export class ProductsL0DistApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
@@ -886,7 +913,7 @@ export class ProductsL0DistApiResponseProcessor {
      * @params response Response returned by the server for a request to productsL0DistControllerUpdateInstrument
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productsL0DistControllerUpdateInstrument(response: ResponseContext): Promise< void> {
+     public async productsL0DistControllerUpdateInstrument(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -911,7 +938,11 @@ export class ProductsL0DistApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
