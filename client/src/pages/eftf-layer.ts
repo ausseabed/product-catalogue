@@ -206,9 +206,9 @@ export class EftfLayer {
             const miny = bboxesNotNull.map(val => { return val!.miny })
 
             eftfBase.xmax = Math.max(...maxx)
-            eftfBase.xmin = Math.max(...minx)
+            eftfBase.xmin = Math.min(...minx)
             eftfBase.ymax = Math.max(...maxy)
-            eftfBase.ymin = Math.max(...miny)
+            eftfBase.ymin = Math.min(...miny)
             eftfBase.PRODUCTION = this.geoserverProduction
             outputs.push(eftfBase)
           })

@@ -30,10 +30,14 @@ import { ObservableCompilationsApi } from './ObservableAPI';
 import { CompilationsApiRequestFactory, CompilationsApiResponseProcessor} from "../apis/CompilationsApi";
 export class PromiseCompilationsApi {
     private api: ObservableCompilationsApi
- 
-    public constructor(configuration: Configuration, requestFactory?: CompilationsApiRequestFactory, responseProcessor?: CompilationsApiResponseProcessor) {
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: CompilationsApiRequestFactory,
+        responseProcessor?: CompilationsApiResponseProcessor
+    ) {
         this.api = new ObservableCompilationsApi(configuration, requestFactory, responseProcessor);
-	}
+    }
 
     /**
      * @param compilationDto 
@@ -44,9 +48,10 @@ export class PromiseCompilationsApi {
     }
 	
     /**
+     * @param snapshotDateTime 
      */
-    public compilationsControllerFindAll(options?: Configuration): Promise<Array<Compilation>> {
-    	const result = this.api.compilationsControllerFindAll(options);
+    public compilationsControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<Array<Compilation>> {
+    	const result = this.api.compilationsControllerFindAll(snapshotDateTime, options);
         return result.toPromise();
     }
 	
@@ -86,10 +91,14 @@ import { ObservableProductRelationsApi } from './ObservableAPI';
 import { ProductRelationsApiRequestFactory, ProductRelationsApiResponseProcessor} from "../apis/ProductRelationsApi";
 export class PromiseProductRelationsApi {
     private api: ObservableProductRelationsApi
- 
-    public constructor(configuration: Configuration, requestFactory?: ProductRelationsApiRequestFactory, responseProcessor?: ProductRelationsApiResponseProcessor) {
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ProductRelationsApiRequestFactory,
+        responseProcessor?: ProductRelationsApiResponseProcessor
+    ) {
         this.api = new ObservableProductRelationsApi(configuration, requestFactory, responseProcessor);
-	}
+    }
 
     /**
      * @param compilationL3RelationDto 
@@ -140,23 +149,26 @@ export class PromiseProductRelationsApi {
     }
 	
     /**
+     * @param snapshotDateTime 
      */
-    public productRelationsControllerFindAllL0Survey(options?: Configuration): Promise<Array<RelationSummaryDto>> {
-    	const result = this.api.productRelationsControllerFindAllL0Survey(options);
+    public productRelationsControllerFindAllL0Survey(snapshotDateTime?: string, options?: Configuration): Promise<Array<RelationSummaryDto>> {
+    	const result = this.api.productRelationsControllerFindAllL0Survey(snapshotDateTime, options);
         return result.toPromise();
     }
 	
     /**
+     * @param snapshotDateTime 
      */
-    public productRelationsControllerFindAllL3Compilation(options?: Configuration): Promise<Array<RelationSummaryDto>> {
-    	const result = this.api.productRelationsControllerFindAllL3Compilation(options);
+    public productRelationsControllerFindAllL3Compilation(snapshotDateTime?: string, options?: Configuration): Promise<Array<RelationSummaryDto>> {
+    	const result = this.api.productRelationsControllerFindAllL3Compilation(snapshotDateTime, options);
         return result.toPromise();
     }
 	
     /**
+     * @param snapshotDateTime 
      */
-    public productRelationsControllerFindAllL3Survey(options?: Configuration): Promise<Array<RelationSummaryDto>> {
-    	const result = this.api.productRelationsControllerFindAllL3Survey(options);
+    public productRelationsControllerFindAllL3Survey(snapshotDateTime?: string, options?: Configuration): Promise<Array<RelationSummaryDto>> {
+    	const result = this.api.productRelationsControllerFindAllL3Survey(snapshotDateTime, options);
         return result.toPromise();
     }
 	
@@ -246,10 +258,14 @@ import { ObservableProductsL0DistApi } from './ObservableAPI';
 import { ProductsL0DistApiRequestFactory, ProductsL0DistApiResponseProcessor} from "../apis/ProductsL0DistApi";
 export class PromiseProductsL0DistApi {
     private api: ObservableProductsL0DistApi
- 
-    public constructor(configuration: Configuration, requestFactory?: ProductsL0DistApiRequestFactory, responseProcessor?: ProductsL0DistApiResponseProcessor) {
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ProductsL0DistApiRequestFactory,
+        responseProcessor?: ProductsL0DistApiResponseProcessor
+    ) {
         this.api = new ObservableProductsL0DistApi(configuration, requestFactory, responseProcessor);
-	}
+    }
 
     /**
      * @param productL0SrcId 
@@ -287,17 +303,19 @@ export class PromiseProductsL0DistApi {
     }
 	
     /**
+     * @param snapshotDateTime 
      */
-    public productsL0DistControllerFindAll(options?: Configuration): Promise<Array<ProductL0Dist>> {
-    	const result = this.api.productsL0DistControllerFindAll(options);
+    public productsL0DistControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<Array<ProductL0Dist>> {
+    	const result = this.api.productsL0DistControllerFindAll(snapshotDateTime, options);
         return result.toPromise();
     }
 	
     /**
      * @param productId 
+     * @param snapshotDateTime 
      */
-    public productsL0DistControllerFindInstruments(productId: number, options?: Configuration): Promise<Array<ProductL0InstrumentFile>> {
-    	const result = this.api.productsL0DistControllerFindInstruments(productId, options);
+    public productsL0DistControllerFindInstruments(productId: number, snapshotDateTime?: string, options?: Configuration): Promise<Array<ProductL0InstrumentFile>> {
+    	const result = this.api.productsL0DistControllerFindInstruments(productId, snapshotDateTime, options);
         return result.toPromise();
     }
 	
@@ -312,9 +330,10 @@ export class PromiseProductsL0DistApi {
     /**
      * @param productId 
      * @param instrumentId 
+     * @param snapshotDateTime 
      */
-    public productsL0DistControllerFindOneInstrument(productId: number, instrumentId: number, options?: Configuration): Promise<Array<ProductL0InstrumentFile>> {
-    	const result = this.api.productsL0DistControllerFindOneInstrument(productId, instrumentId, options);
+    public productsL0DistControllerFindOneInstrument(productId: number, instrumentId: number, snapshotDateTime?: string, options?: Configuration): Promise<ProductL0InstrumentFile> {
+    	const result = this.api.productsL0DistControllerFindOneInstrument(productId, instrumentId, snapshotDateTime, options);
         return result.toPromise();
     }
 	
@@ -348,10 +367,14 @@ import { ObservableProductsL0SrcApi } from './ObservableAPI';
 import { ProductsL0SrcApiRequestFactory, ProductsL0SrcApiResponseProcessor} from "../apis/ProductsL0SrcApi";
 export class PromiseProductsL0SrcApi {
     private api: ObservableProductsL0SrcApi
- 
-    public constructor(configuration: Configuration, requestFactory?: ProductsL0SrcApiRequestFactory, responseProcessor?: ProductsL0SrcApiResponseProcessor) {
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ProductsL0SrcApiRequestFactory,
+        responseProcessor?: ProductsL0SrcApiResponseProcessor
+    ) {
         this.api = new ObservableProductsL0SrcApi(configuration, requestFactory, responseProcessor);
-	}
+    }
 
     /**
      * @param productL0SrcDto 
@@ -370,9 +393,10 @@ export class PromiseProductsL0SrcApi {
     }
 	
     /**
+     * @param snapshotDateTime 
      */
-    public productsL0SrcControllerFindAll(options?: Configuration): Promise<Array<ProductL0Src>> {
-    	const result = this.api.productsL0SrcControllerFindAll(options);
+    public productsL0SrcControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<Array<ProductL0Src>> {
+    	const result = this.api.productsL0SrcControllerFindAll(snapshotDateTime, options);
         return result.toPromise();
     }
 	
@@ -404,10 +428,14 @@ import { ObservableProductsL3DistApi } from './ObservableAPI';
 import { ProductsL3DistApiRequestFactory, ProductsL3DistApiResponseProcessor} from "../apis/ProductsL3DistApi";
 export class PromiseProductsL3DistApi {
     private api: ObservableProductsL3DistApi
- 
-    public constructor(configuration: Configuration, requestFactory?: ProductsL3DistApiRequestFactory, responseProcessor?: ProductsL3DistApiResponseProcessor) {
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ProductsL3DistApiRequestFactory,
+        responseProcessor?: ProductsL3DistApiResponseProcessor
+    ) {
         this.api = new ObservableProductsL3DistApi(configuration, requestFactory, responseProcessor);
-	}
+    }
 
     /**
      * @param productL3SrcId 
@@ -427,9 +455,10 @@ export class PromiseProductsL3DistApi {
     }
 	
     /**
+     * @param snapshotDateTime 
      */
-    public productsL3DistControllerFindAll(options?: Configuration): Promise<Array<ProductL3Dist>> {
-    	const result = this.api.productsL3DistControllerFindAll(options);
+    public productsL3DistControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<Array<ProductL3Dist>> {
+    	const result = this.api.productsL3DistControllerFindAll(snapshotDateTime, options);
         return result.toPromise();
     }
 	
@@ -461,10 +490,14 @@ import { ObservableProductsL3SrcApi } from './ObservableAPI';
 import { ProductsL3SrcApiRequestFactory, ProductsL3SrcApiResponseProcessor} from "../apis/ProductsL3SrcApi";
 export class PromiseProductsL3SrcApi {
     private api: ObservableProductsL3SrcApi
- 
-    public constructor(configuration: Configuration, requestFactory?: ProductsL3SrcApiRequestFactory, responseProcessor?: ProductsL3SrcApiResponseProcessor) {
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ProductsL3SrcApiRequestFactory,
+        responseProcessor?: ProductsL3SrcApiResponseProcessor
+    ) {
         this.api = new ObservableProductsL3SrcApi(configuration, requestFactory, responseProcessor);
-	}
+    }
 
     /**
      * @param productL3SrcDto 
@@ -483,9 +516,10 @@ export class PromiseProductsL3SrcApi {
     }
 	
     /**
+     * @param snapshotDateTime 
      */
-    public productsL3SrcControllerFindAll(options?: Configuration): Promise<Array<ProductL3Src>> {
-    	const result = this.api.productsL3SrcControllerFindAll(options);
+    public productsL3SrcControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<Array<ProductL3Src>> {
+    	const result = this.api.productsL3SrcControllerFindAll(snapshotDateTime, options);
         return result.toPromise();
     }
 	
@@ -517,10 +551,14 @@ import { ObservableSurveysApi } from './ObservableAPI';
 import { SurveysApiRequestFactory, SurveysApiResponseProcessor} from "../apis/SurveysApi";
 export class PromiseSurveysApi {
     private api: ObservableSurveysApi
- 
-    public constructor(configuration: Configuration, requestFactory?: SurveysApiRequestFactory, responseProcessor?: SurveysApiResponseProcessor) {
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: SurveysApiRequestFactory,
+        responseProcessor?: SurveysApiResponseProcessor
+    ) {
         this.api = new ObservableSurveysApi(configuration, requestFactory, responseProcessor);
-	}
+    }
 
     /**
      * @param surveyDto 
@@ -531,9 +569,10 @@ export class PromiseSurveysApi {
     }
 	
     /**
+     * @param snapshotDateTime 
      */
-    public surveysControllerFindAll(options?: Configuration): Promise<Array<Survey>> {
-    	const result = this.api.surveysControllerFindAll(options);
+    public surveysControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<Array<Survey>> {
+    	const result = this.api.surveysControllerFindAll(snapshotDateTime, options);
         return result.toPromise();
     }
 	

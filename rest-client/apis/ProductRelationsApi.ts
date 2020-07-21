@@ -23,7 +23,7 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param compilationL3RelationDto 
      */
-    public productRelationsControllerCreateCompilation(compilationL3RelationDto: CompilationL3RelationDto, options?: Configuration): RequestContext {
+    public async productRelationsControllerCreateCompilation(compilationL3RelationDto: CompilationL3RelationDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'compilationL3RelationDto' is not null or undefined
@@ -56,21 +56,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param surveyL0RelationDto 
      */
-    public productRelationsControllerCreateL0Survey(surveyL0RelationDto: SurveyL0RelationDto, options?: Configuration): RequestContext {
+    public async productRelationsControllerCreateL0Survey(surveyL0RelationDto: SurveyL0RelationDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'surveyL0RelationDto' is not null or undefined
@@ -103,21 +103,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param surveyL3RelationDto 
      */
-    public productRelationsControllerCreateL3Survey(surveyL3RelationDto: SurveyL3RelationDto, options?: Configuration): RequestContext {
+    public async productRelationsControllerCreateL3Survey(surveyL3RelationDto: SurveyL3RelationDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'surveyL3RelationDto' is not null or undefined
@@ -150,21 +150,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param relationId 
      */
-    public productRelationsControllerDeleteCompilation(relationId: number, options?: Configuration): RequestContext {
+    public async productRelationsControllerDeleteCompilation(relationId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'relationId' is not null or undefined
@@ -189,21 +189,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param relationId 
      */
-    public productRelationsControllerDeleteL0Survey(relationId: number, options?: Configuration): RequestContext {
+    public async productRelationsControllerDeleteL0Survey(relationId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'relationId' is not null or undefined
@@ -228,21 +228,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param relationId 
      */
-    public productRelationsControllerDeleteL3Survey(relationId: number, options?: Configuration): RequestContext {
+    public async productRelationsControllerDeleteL3Survey(relationId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'relationId' is not null or undefined
@@ -267,21 +267,23 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
+     * @param snapshotDateTime 
      */
-    public productRelationsControllerFindAllL0Survey(options?: Configuration): RequestContext {
+    public async productRelationsControllerFindAllL0Survey(snapshotDateTime?: string, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
+		
 		
 		// Path Params
     	const localVarPath = '/product-relations/surveys-to-l0';
@@ -291,6 +293,9 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (snapshotDateTime !== undefined) {
+        	requestContext.setQueryParam("snapshotDateTime", ObjectSerializer.serialize(snapshotDateTime, "string", ""));
+        }
 	
 		// Header Params
 	
@@ -298,21 +303,23 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
+     * @param snapshotDateTime 
      */
-    public productRelationsControllerFindAllL3Compilation(options?: Configuration): RequestContext {
+    public async productRelationsControllerFindAllL3Compilation(snapshotDateTime?: string, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
+		
 		
 		// Path Params
     	const localVarPath = '/product-relations/compilation-to-l3';
@@ -322,6 +329,9 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (snapshotDateTime !== undefined) {
+        	requestContext.setQueryParam("snapshotDateTime", ObjectSerializer.serialize(snapshotDateTime, "string", ""));
+        }
 	
 		// Header Params
 	
@@ -329,21 +339,23 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
+     * @param snapshotDateTime 
      */
-    public productRelationsControllerFindAllL3Survey(options?: Configuration): RequestContext {
+    public async productRelationsControllerFindAllL3Survey(snapshotDateTime?: string, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
+		
 		
 		// Path Params
     	const localVarPath = '/product-relations/surveys-to-l3';
@@ -353,6 +365,9 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (snapshotDateTime !== undefined) {
+        	requestContext.setQueryParam("snapshotDateTime", ObjectSerializer.serialize(snapshotDateTime, "string", ""));
+        }
 	
 		// Header Params
 	
@@ -360,21 +375,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param compilationId 
      */
-    public productRelationsControllerFindConditionalCompilation(compilationId: number, options?: Configuration): RequestContext {
+    public async productRelationsControllerFindConditionalCompilation(compilationId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'compilationId' is not null or undefined
@@ -399,21 +414,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param surveyId 
      */
-    public productRelationsControllerFindConditionalL0Survey(surveyId: number, options?: Configuration): RequestContext {
+    public async productRelationsControllerFindConditionalL0Survey(surveyId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'surveyId' is not null or undefined
@@ -438,21 +453,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param surveyId 
      */
-    public productRelationsControllerFindConditionalL3Survey(surveyId: number, options?: Configuration): RequestContext {
+    public async productRelationsControllerFindConditionalL3Survey(surveyId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'surveyId' is not null or undefined
@@ -477,21 +492,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param relationId 
      */
-    public productRelationsControllerFindOneCompilation(relationId: number, options?: Configuration): RequestContext {
+    public async productRelationsControllerFindOneCompilation(relationId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'relationId' is not null or undefined
@@ -516,21 +531,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param relationId 
      */
-    public productRelationsControllerFindOneL0Survey(relationId: number, options?: Configuration): RequestContext {
+    public async productRelationsControllerFindOneL0Survey(relationId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'relationId' is not null or undefined
@@ -555,21 +570,21 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param relationId 
      */
-    public productRelationsControllerFindOneL3Survey(relationId: number, options?: Configuration): RequestContext {
+    public async productRelationsControllerFindOneL3Survey(relationId: number, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'relationId' is not null or undefined
@@ -594,22 +609,22 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
 
 
 		// Body Params
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param relationId 
      * @param compilationL3RelationDto 
      */
-    public productRelationsControllerUpdateCompilation(relationId: number, compilationL3RelationDto: CompilationL3RelationDto, options?: Configuration): RequestContext {
+    public async productRelationsControllerUpdateCompilation(relationId: number, compilationL3RelationDto: CompilationL3RelationDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'relationId' is not null or undefined
@@ -649,22 +664,22 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param relationId 
      * @param surveyL0RelationDto 
      */
-    public productRelationsControllerUpdateL0Survey(relationId: number, surveyL0RelationDto: SurveyL0RelationDto, options?: Configuration): RequestContext {
+    public async productRelationsControllerUpdateL0Survey(relationId: number, surveyL0RelationDto: SurveyL0RelationDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'relationId' is not null or undefined
@@ -704,22 +719,22 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
     /**
      * @param relationId 
      * @param surveyL3RelationDto 
      */
-    public productRelationsControllerUpdateL3Survey(relationId: number, surveyL3RelationDto: SurveyL3RelationDto, options?: Configuration): RequestContext {
+    public async productRelationsControllerUpdateL3Survey(relationId: number, surveyL3RelationDto: SurveyL3RelationDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
         // verify required parameter 'relationId' is not null or undefined
@@ -759,17 +774,17 @@ export class ProductRelationsApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-		
-		let authMethod = null;
-    	// Apply auth methods
-    	authMethod = config.authMethods["access-token"]
-    	if (authMethod) {
-    		authMethod.applySecurityAuthentication(requestContext);
-    	}
-    	
-    	return requestContext;
+
+        let authMethod = null;
+        // Apply auth methods
+        authMethod = config.authMethods["access-token"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
     }
-			
+
 }
 
 
@@ -915,7 +930,7 @@ export class ProductRelationsApiResponseProcessor {
      * @params response Response returned by the server for a request to productRelationsControllerDeleteCompilation
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productRelationsControllerDeleteCompilation(response: ResponseContext): Promise< void> {
+     public async productRelationsControllerDeleteCompilation(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -940,7 +955,11 @@ export class ProductRelationsApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
@@ -954,7 +973,7 @@ export class ProductRelationsApiResponseProcessor {
      * @params response Response returned by the server for a request to productRelationsControllerDeleteL0Survey
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productRelationsControllerDeleteL0Survey(response: ResponseContext): Promise< void> {
+     public async productRelationsControllerDeleteL0Survey(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -979,7 +998,11 @@ export class ProductRelationsApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
@@ -993,7 +1016,7 @@ export class ProductRelationsApiResponseProcessor {
      * @params response Response returned by the server for a request to productRelationsControllerDeleteL3Survey
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productRelationsControllerDeleteL3Survey(response: ResponseContext): Promise< void> {
+     public async productRelationsControllerDeleteL3Survey(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -1018,7 +1041,11 @@ export class ProductRelationsApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
@@ -1446,7 +1473,7 @@ export class ProductRelationsApiResponseProcessor {
      * @params response Response returned by the server for a request to productRelationsControllerUpdateCompilation
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productRelationsControllerUpdateCompilation(response: ResponseContext): Promise< void> {
+     public async productRelationsControllerUpdateCompilation(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -1471,7 +1498,11 @@ export class ProductRelationsApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
@@ -1485,7 +1516,7 @@ export class ProductRelationsApiResponseProcessor {
      * @params response Response returned by the server for a request to productRelationsControllerUpdateL0Survey
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productRelationsControllerUpdateL0Survey(response: ResponseContext): Promise< void> {
+     public async productRelationsControllerUpdateL0Survey(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -1510,7 +1541,11 @@ export class ProductRelationsApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
@@ -1524,7 +1559,7 @@ export class ProductRelationsApiResponseProcessor {
      * @params response Response returned by the server for a request to productRelationsControllerUpdateL3Survey
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async productRelationsControllerUpdateL3Survey(response: ResponseContext): Promise< void> {
+     public async productRelationsControllerUpdateL3Survey(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
@@ -1549,7 +1584,11 @@ export class ProductRelationsApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return;
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
         }
 
         let body = response.body || "";
