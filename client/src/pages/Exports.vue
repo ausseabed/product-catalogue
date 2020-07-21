@@ -32,7 +32,6 @@
         <q-btn
           class="q-ma-md"
           label="Create CSV"
-          type="submit"
           color="primary"
           @click="buildOutputs"
         />
