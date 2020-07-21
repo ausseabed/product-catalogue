@@ -83,14 +83,12 @@
         <q-btn
           class="q-ma-md"
           label="Submit"
-          type="submit"
           color="primary"
           @click="_ => saveDataLocal(surveyL3Relation.surveyL3RelationSelected.survey.id)"
         />
         <q-btn
           class="q-ma-md"
           label="Cancel"
-          type="cancel"
           color="primary"
           @click="_ => cancel(surveyL3Relation.surveyL3RelationSelected.survey.id)"
           flat
