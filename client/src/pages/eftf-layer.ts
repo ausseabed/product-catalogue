@@ -3,56 +3,61 @@ import { ObservableProductsL3DistApi, ObservableProductsL3SrcApi, ObservableProd
 import { getRestConfiguration } from 'src/boot/auth'
 import { ProductL3Dist, ProductL3Src, RelationSummaryDto, Survey } from '@ausseabed/product-catalogue-rest-client'
 import * as eftfStructure from '../statics/eftf_structure.json'
+import * as eCatStructure from '../statics/ecat_structure.json'
 import { useNamespaces } from 'xpath'
 import { DOMParser } from 'xmldom'
+import AWS, { S3 } from 'aws-sdk'
 
 type BBoxFields = 'minx' | 'miny' | 'maxx' | 'maxy'
 type BBox = { 'minx': number; 'miny': number; 'maxx': number; 'maxy': number }
 
 export class EftfLayer {
-  constructor (private geoserver: string, private geoserverProduction: string, private collapseGroups: boolean) {
+  constructor (private geoserver: string, private geoserverProduction: string, private collapseGroups: boolean,
+    private snapshotEndDate: string, private snapshotPreviousDate: string) {
     this.geoserver = geoserver
     this.geoserverProduction = geoserverProduction
     this.geoserverCapabilities = geoserver + '/ows?service=wms&version=1.3.0&request=GetCapabilities'
     this.geoserverWCS = geoserver + '/wcs'
     this.geoserverWMS = geoserver + '/ows'
     this.collapseGroups = collapseGroups
+    this.snapshotEndDate = snapshotEndDate
+    this.snapshotPreviousDate = snapshotPreviousDate
   }
 
   private geoserverCapabilities: string
   private geoserverWMS: string
   private geoserverWCS: string
 
-  async getPublishedL3SurveyProducts (): Promise<ProductL3Dist[]> {
+  async getPublishedL3SurveyProducts (snapshotDateTime: string | undefined): Promise<ProductL3Dist[]> {
     const productsL3DistApi = new ObservableProductsL3DistApi(getRestConfiguration(undefined))
-    return productsL3DistApi.productsL3DistControllerFindAll().toPromise()
+    return productsL3DistApi.productsL3DistControllerFindAll(snapshotDateTime).toPromise()
       .catch(reason => {
         console.error(reason)
         return []
       })
   }
 
-  async getL3SrcProducts (): Promise<ProductL3Src[]> {
+  async getL3SrcProducts (snapshotDateTime: string | undefined): Promise<ProductL3Src[]> {
     const productsL3SrcApi = new ObservableProductsL3SrcApi(getRestConfiguration(undefined))
-    return productsL3SrcApi.productsL3SrcControllerFindAll().toPromise()
+    return productsL3SrcApi.productsL3SrcControllerFindAll(snapshotDateTime).toPromise()
       .catch(reason => {
         console.error(reason)
         return []
       })
   }
 
-  async getSurveyL3Relations (): Promise<RelationSummaryDto[]> {
+  async getSurveyL3Relations (snapshotDateTime: string | undefined): Promise<RelationSummaryDto[]> {
     const productRelationsApi = new ObservableProductRelationsApi(getRestConfiguration(undefined))
-    return productRelationsApi.productRelationsControllerFindAllL3Survey().toPromise()
+    return productRelationsApi.productRelationsControllerFindAllL3Survey(snapshotDateTime).toPromise()
       .catch(reason => {
         console.error(reason)
         return []
       })
   }
 
-  async getSurveys (): Promise<Survey[]> {
+  async getSurveys (snapshotDateTime: string | undefined): Promise<Survey[]> {
     const surveyApi = new ObservableSurveysApi(getRestConfiguration(undefined))
-    return surveyApi.surveysControllerFindAll().toPromise()
+    return surveyApi.surveysControllerFindAll(snapshotDateTime).toPromise()
       .catch(reason => {
         console.error(reason)
         return []
@@ -131,10 +136,11 @@ export class EftfLayer {
     }
   }
 
-  async getLayerDefinitionsFile (): Promise<Blob> {
-    const productL3DistArray = await this.getPublishedL3SurveyProducts()
-    const productL3RelationsArray = await this.getSurveyL3Relations()
-    const surveysArray = await this.getSurveys()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async generateLayerDefinitions (snapshotDateTime: string | undefined, eftfStructureHeaders: any): Promise<any[]> {
+    const productL3DistArray = await this.getPublishedL3SurveyProducts(snapshotDateTime)
+    const productL3RelationsArray = await this.getSurveyL3Relations(snapshotDateTime)
+    const surveysArray = await this.getSurveys(snapshotDateTime)
     const productIdToProductSrc = new Map<number, ProductL3Src>(productL3DistArray.map(i => [i.sourceProduct.id, i.sourceProduct]))
     const productIdToProductDist = new Map<number, ProductL3Dist>(productL3DistArray.map(i => [i.sourceProduct.id, i]))
 
@@ -146,12 +152,8 @@ export class EftfLayer {
     )
 
     const nameToNode: Map<string, Node> = await this.getNameToNode()
-    const defaultEftf = Object.create(eftfStructure).default
-    defaultEftf['WMS URL'] = this.geoserverWMS
-    defaultEftf['WCS URL'] = this.geoserverWCS
     const namespace = 'ausseabed:'
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const outputs: any[] = [] // array of json eftf structure
+    const outputs: unknown[] = [] // array of json eftf structure
 
     surveysArray.forEach((survey: Survey) => {
       const productIds = surveyToProduct.get(survey.id)
@@ -194,7 +196,7 @@ export class EftfLayer {
               return
             }
 
-            const eftfBase = Object.assign({}, defaultEftf)
+            const eftfBase = Object.assign({}, eftfStructureHeaders)
             eftfBase.NAME = nameFormatted
             eftfBase['WMS LAYER NAMES'] = wmsLayerNames.join(',')
             eftfBase['WCS LAYER NAMES'] = wcsLayerNames.join(',')
@@ -220,7 +222,7 @@ export class EftfLayer {
               const nameFormatted = this.getNameIndividual(productL3Src, survey.year)
               const layer = nameToNode.get(namespace + this.getNcName(nameFormatted))
               if (layer) {
-                const eftfBase = Object.assign({}, defaultEftf)
+                const eftfBase = Object.assign({}, eftfStructureHeaders)
                 eftfBase.NAME = nameFormatted
                 eftfBase['WMS LAYER NAMES'] = namespace + this.getNcName(nameFormatted)
                 eftfBase['WCS LAYER NAMES'] = namespace + this.getNcName(nameFormatted) + '_OV'
@@ -237,14 +239,187 @@ export class EftfLayer {
         }
       }
     })
+    return outputs
+  }
 
-    const fields = Object.keys(defaultEftf)
+  async getLayerDefinitionsFile (): Promise<Blob> {
+    const eftfStructureHeaders = Object.create(eftfStructure).default
+    eftfStructureHeaders['WMS URL'] = this.geoserverWMS
+    eftfStructureHeaders['WCS URL'] = this.geoserverWCS
+
+    const snapshotEnd = await this.generateLayerDefinitions(this.snapshotEndDate, eftfStructureHeaders)
+    const snapshotPrevious = await this.generateLayerDefinitions(this.snapshotPreviousDate, eftfStructureHeaders)
+
+    console.log(`Found ${snapshotEnd.length} entries at end of period`)
+    console.log(`Found ${snapshotPrevious.length} entries at start of period`)
+
+    const fields = Object.keys(eftfStructureHeaders)
     const replacer = function (key: string, value: string) { return value === null ? '' : value }
-    const csvArray = outputs.map(function (row) {
+
+    const csvArrayEnd = snapshotEnd.map(function (row) {
       return fields.map(function (fieldName) {
         return JSON.stringify(row[fieldName], replacer)
       }).join(',')
     })
+
+    const csvArrayPrevious = snapshotPrevious.map(function (row) {
+      return fields.map(function (fieldName) {
+        return JSON.stringify(row[fieldName], replacer)
+      }).join(',')
+    })
+
+    const csvArray = csvArrayEnd.filter(val => !csvArrayPrevious.find(myval => myval === val))
+
+    csvArray.sort()
+    csvArray.unshift(fields.join(',')) // add header column
+    const csv = csvArray.join('\r\n')
+    return new Blob([csv], { type: 'text/plain;charset=utf-8' })
+  }
+
+  getBucketFromS3Uri (urlString: string): {Bucket: string; Key: string}| undefined {
+    const regex = /s3:\/\/(?<bucket>[^/]*)\/(?<key>.*)/
+
+    const found = regex.exec(urlString)
+
+    if (!found || found.length < 3) {
+      console.log('uri did not resolve')
+      return undefined
+    }
+
+    const headParams = {
+      Bucket: found[1],
+      Key: found[2]
+    }
+    return headParams
+  }
+
+  getHttpsUrl (headParams: {Bucket: string; Key: string}, region: string): string {
+    return `https://${headParams.Bucket}.s3.${region}.amazonaws.com/${headParams.Key}`
+  }
+
+  async getS3ObjectMeta (headParams: {Bucket: string; Key: string}, region: string): Promise<string> {
+    AWS.config.region = region
+    const s3 = new S3()
+    // s3.config.region =
+    try {
+      const headObjectData = await s3.makeUnauthenticatedRequest('headObject', headParams).promise()
+      if (headObjectData.ContentLength) {
+        return this.formatBytes(headObjectData.ContentLength)
+      } else {
+        console.log('could not find size')
+      }
+    } catch (reason) {
+      console.log(reason)
+    }
+    return ''
+  }
+
+  formatBytes (bytes: number, decimals = 2): string {
+    if (bytes === 0) return '0 Bytes'
+
+    const k = 1024
+    const dm = decimals < 0 ? 0 : decimals
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async generateEcatDefinitions (snapshotDateTime: string | undefined, eCatStructure: any): Promise<any[]> {
+    const region = 'ap-southeast-2'
+    const productL3DistArray = await this.getPublishedL3SurveyProducts(snapshotDateTime)
+    const productL3RelationsArray = await this.getSurveyL3Relations(snapshotDateTime)
+    const surveysArray = await this.getSurveys(snapshotDateTime)
+    const productIdToProductSrc = new Map<number, ProductL3Src>(productL3DistArray.map(i => [i.sourceProduct.id, i.sourceProduct]))
+    const productIdToProductDist = new Map<number, ProductL3Dist>(productL3DistArray.map(i => [i.sourceProduct.id, i]))
+
+    const surveyToProduct = productL3RelationsArray.reduce<Map<number, number[]>>(
+      (previousMap, relationsSummaryDto) => previousMap.set(
+        relationsSummaryDto.surveyId, [...previousMap.get(relationsSummaryDto.surveyId) || [],
+          relationsSummaryDto.productId]),
+      new Map()
+    )
+
+    const nameToNode: Map<string, Node> = await this.getNameToNode()
+    const namespace = 'ausseabed:'
+    const outputs: unknown[] = [] // array of json eftf structure
+
+    await Promise.all(
+      surveysArray.map(async (survey: Survey) => {
+        const productIds = surveyToProduct.get(survey.id)
+        if (productIds) {
+          const productsWithOutDistributables = productIds.filter(id => !productIdToProductSrc.get(id))
+          if (productsWithOutDistributables.length > 0) {
+            console.warn('Products without distributables for ' + survey.name)
+          }
+
+          await Promise.all(
+            productIds.map(
+              async (prodId: number) => {
+                const productL3Src = productIdToProductSrc.get(prodId)
+                const productL3Dist = productIdToProductDist.get(prodId)
+                if (productL3Src && productL3Dist) {
+                  const nameFormatted = this.getNameIndividual(productL3Src, survey.year)
+                  const layer = nameToNode.get(namespace + this.getNcName(nameFormatted))
+                  if (layer) {
+                    const ecatBase = Object.assign({}, eCatStructure)
+                    const bucketkeypair = this.getBucketFromS3Uri(productL3Dist.bathymetryLocation)
+                    if (bucketkeypair) {
+                      ecatBase['File Size'] = await this.getS3ObjectMeta(bucketkeypair, region)
+                      ecatBase['Source file'] = this.getHttpsUrl(bucketkeypair, region)
+                    } else {
+                      ecatBase['File Size'] = ''
+                      ecatBase['Source file'] = ''
+                    }
+                    if (ecatBase['File Size'] === '') {
+                      console.log(`Could not find product for dist id: ${productL3Dist.id}`)
+                    }
+                    ecatBase['Survey Name'] = survey.name
+                    ecatBase['PMP Record'] = ''
+                    ecatBase['ecat Record'] = productL3Src.metadataPersistentId
+                    ecatBase['ecat Disply Name'] = nameFormatted
+                    ecatBase['Survey ID'] = survey.uuid
+                    ecatBase['Date Sent to Dataman'] = ''
+
+                    outputs.push(ecatBase)
+                  }
+                }
+              })
+          )
+        }
+      })
+    )
+    return outputs
+  }
+
+  async getEcatFileDefinition (): Promise<Blob> {
+    const ecatStructureHeaders = Object.create(eCatStructure).default
+
+    const snapshotEnd = await this.generateEcatDefinitions(this.snapshotEndDate, ecatStructureHeaders)
+    const snapshotPrevious = await this.generateEcatDefinitions(this.snapshotPreviousDate, ecatStructureHeaders)
+
+    console.log(`Found ${snapshotEnd.length} entries at end of period`)
+    console.log(`Found ${snapshotPrevious.length} entries at start of period`)
+
+    const fields = Object.keys(ecatStructureHeaders)
+    const replacer = function (key: string, value: string) { return value === null ? '' : value }
+
+    const csvArrayEnd = snapshotEnd.map(function (row) {
+      return fields.map(function (fieldName) {
+        return JSON.stringify(row[fieldName], replacer)
+      }).join(',')
+    })
+
+    const csvArrayPrevious = snapshotPrevious.map(function (row) {
+      return fields.map(function (fieldName) {
+        return JSON.stringify(row[fieldName], replacer)
+      }).join(',')
+    })
+
+    const csvArray = csvArrayEnd.filter(val => !csvArrayPrevious.find(myval => myval === val))
+
     csvArray.sort()
     csvArray.unshift(fields.join(',')) // add header column
     const csv = csvArray.join('\r\n')
