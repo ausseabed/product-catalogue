@@ -332,6 +332,7 @@ export class EftfLayer {
     const productL3DistArray = await this.getPublishedL3SurveyProducts(snapshotDateTime)
     const productL3RelationsArray = await this.getSurveyL3Relations(snapshotDateTime)
     const surveysArray = await this.getSurveys(snapshotDateTime)
+
     const productIdToProductSrc = new Map<number, ProductL3Src>(productL3DistArray.map(i => [i.sourceProduct.id, i.sourceProduct]))
     const productIdToProductDist = new Map<number, ProductL3Dist>(productL3DistArray.map(i => [i.sourceProduct.id, i]))
 
@@ -342,8 +343,6 @@ export class EftfLayer {
       new Map()
     )
 
-    const nameToNode: Map<string, Node> = await this.getNameToNode()
-    const namespace = 'ausseabed:'
     const outputs: unknown[] = [] // array of json eftf structure
 
     await Promise.all(
@@ -362,29 +361,26 @@ export class EftfLayer {
                 const productL3Dist = productIdToProductDist.get(prodId)
                 if (productL3Src && productL3Dist) {
                   const nameFormatted = this.getNameIndividual(productL3Src, survey.year)
-                  const layer = nameToNode.get(namespace + this.getNcName(nameFormatted))
-                  if (layer) {
-                    const ecatBase = Object.assign({}, eCatStructure)
-                    const bucketkeypair = this.getBucketFromS3Uri(productL3Dist.bathymetryLocation)
-                    if (bucketkeypair) {
-                      ecatBase['File Size'] = await this.getS3ObjectMeta(bucketkeypair, region)
-                      ecatBase['Source file'] = this.getHttpsUrl(bucketkeypair, region)
-                    } else {
-                      ecatBase['File Size'] = ''
-                      ecatBase['Source file'] = ''
-                    }
-                    if (ecatBase['File Size'] === '') {
-                      console.log(`Could not find product for dist id: ${productL3Dist.id}`)
-                    }
-                    ecatBase['Survey Name'] = survey.name
-                    ecatBase['PMP Record'] = ''
-                    ecatBase['ecat Record'] = productL3Src.metadataPersistentId
-                    ecatBase['ecat Disply Name'] = nameFormatted
-                    ecatBase['Survey ID'] = survey.uuid
-                    ecatBase['Date Sent to Dataman'] = ''
-
-                    outputs.push(ecatBase)
+                  const ecatBase = Object.assign({}, eCatStructure)
+                  const bucketkeypair = this.getBucketFromS3Uri(productL3Dist.bathymetryLocation)
+                  if (bucketkeypair) {
+                    ecatBase['File Size'] = await this.getS3ObjectMeta(bucketkeypair, region)
+                    ecatBase['Source file'] = this.getHttpsUrl(bucketkeypair, region)
+                  } else {
+                    ecatBase['File Size'] = ''
+                    ecatBase['Source file'] = ''
                   }
+                  if (ecatBase['File Size'] === '') {
+                    console.log(`Could not find product for dist id: ${productL3Dist.id}`)
+                  }
+                  ecatBase['Survey Name'] = survey.name
+                  ecatBase['PMP Record'] = ''
+                  ecatBase['ecat Record'] = productL3Src.metadataPersistentId
+                  ecatBase['ecat Disply Name'] = nameFormatted
+                  ecatBase['Survey ID'] = survey.uuid
+                  ecatBase['Date Sent to Dataman'] = ''
+
+                  outputs.push(ecatBase)
                 }
               })
           )
