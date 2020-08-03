@@ -21,13 +21,14 @@ export class ProductRelationsService {
     if (snapshotDateTime)
     {
       const results = await this.productsEntityManager.createQueryBuilder<R>(relationType, "relation")
-        .innerJoin(surveyType, "survey", "survey.id = relation.\"surveyId\"")
-        .innerJoin(productType, "product", `product.id = relation.\"${joinRelationName}\"`)
+        .innerJoin(surveyType, "survey", `survey.id = relation.\"surveyId\" and survey.sysPeriod @> '${snapshotDateTime}'::timestamptz`)
+        .innerJoin(productType, "product", `product.id = relation.\"${joinRelationName}\" and product.sysPeriod @> '${snapshotDateTime}'::timestamptz`)
         .select(["survey.id", "relation.id", "product.id", "product.name"])
         .where({
             sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
           }
-        ).orderBy("survey.id","ASC")
+        )
+        .orderBy("survey.id","ASC")
         .addOrderBy("relation.id","ASC")
         .addOrderBy("product.id","ASC")
         .printSql()
