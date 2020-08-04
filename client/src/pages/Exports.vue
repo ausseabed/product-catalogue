@@ -119,7 +119,7 @@
         <div class="row">
           <q-btn
             class="q-ma-md col"
-            label="Create Poral CSV"
+            label="Create Portal CSV"
             color="primary"
             @click="buildOutputs"
           />
