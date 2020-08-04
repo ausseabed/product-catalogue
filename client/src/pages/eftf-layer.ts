@@ -172,9 +172,6 @@ export class EftfLayer {
             new Map()
           )
           surveyNameToProducts.forEach((productsWithDistributables: number[], nameFormatted: string) => {
-            const wmsLayerNames = productsWithDistributables.map(prodId => {
-              return namespace + this.getNcName(this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year))
-            })
             const wcsLayerNames = productsWithDistributables.map(prodId => {
               return namespace + this.getNcName(this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year) + '_OV')
             })
@@ -198,7 +195,7 @@ export class EftfLayer {
 
             const eftfBase = Object.assign({}, eftfStructureHeaders)
             eftfBase.NAME = nameFormatted
-            eftfBase['WMS LAYER NAMES'] = wmsLayerNames.join(',')
+            eftfBase['WMS LAYER NAMES'] = namespace + this.getNcName(nameFormatted)
             eftfBase['WCS LAYER NAMES'] = wcsLayerNames.join(',')
 
             // replace with bboxes extent
