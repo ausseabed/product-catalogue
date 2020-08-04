@@ -6,7 +6,7 @@ import * as eftfStructure from '../statics/eftf_structure.json'
 import * as eCatStructure from '../statics/ecat_structure.json'
 import { useNamespaces } from 'xpath'
 import { DOMParser } from 'xmldom'
-import AWS, { S3 } from 'aws-sdk'
+import { S3Util } from '../components/s3-util'
 
 type BBoxFields = 'minx' | 'miny' | 'maxx' | 'maxy'
 type BBox = { 'minx': number; 'miny': number; 'maxx': number; 'maxy': number }
@@ -273,59 +273,8 @@ export class EftfLayer {
     return new Blob([csv], { type: 'text/plain;charset=utf-8' })
   }
 
-  getBucketFromS3Uri (urlString: string): {Bucket: string; Key: string}| undefined {
-    const regex = /s3:\/\/(?<bucket>[^/]*)\/(?<key>.*)/
-
-    const found = regex.exec(urlString)
-
-    if (!found || found.length < 3) {
-      console.log('uri did not resolve')
-      return undefined
-    }
-
-    const headParams = {
-      Bucket: found[1],
-      Key: found[2]
-    }
-    return headParams
-  }
-
-  getHttpsUrl (headParams: {Bucket: string; Key: string}, region: string): string {
-    return `https://${headParams.Bucket}.s3.${region}.amazonaws.com/${headParams.Key}`
-  }
-
-  async getS3ObjectMeta (headParams: {Bucket: string; Key: string}, region: string): Promise<string> {
-    AWS.config.region = region
-    const s3 = new S3()
-    // s3.config.region =
-    try {
-      const headObjectData = await s3.makeUnauthenticatedRequest('headObject', headParams).promise()
-      if (headObjectData.ContentLength) {
-        return this.formatBytes(headObjectData.ContentLength)
-      } else {
-        console.log('could not find size')
-      }
-    } catch (reason) {
-      console.log(reason)
-    }
-    return ''
-  }
-
-  formatBytes (bytes: number, decimals = 2): string {
-    if (bytes === 0) return '0 Bytes'
-
-    const k = 1024
-    const dm = decimals < 0 ? 0 : decimals
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async generateEcatDefinitions (snapshotDateTime: string | undefined, eCatStructure: any): Promise<any[]> {
-    const region = 'ap-southeast-2'
     const productL3DistArray = await this.getPublishedL3SurveyProducts(snapshotDateTime)
     const productL3RelationsArray = await this.getSurveyL3Relations(snapshotDateTime)
     const surveysArray = await this.getSurveys(snapshotDateTime)
@@ -359,10 +308,10 @@ export class EftfLayer {
                 if (productL3Src && productL3Dist) {
                   const nameFormatted = this.getNameIndividual(productL3Src, survey.year)
                   const ecatBase = Object.assign({}, eCatStructure)
-                  const bucketkeypair = this.getBucketFromS3Uri(productL3Dist.bathymetryLocation)
+                  const bucketkeypair = S3Util.getBucketFromS3Uri(productL3Dist.bathymetryLocation)
                   if (bucketkeypair) {
-                    ecatBase['File Size'] = await this.getS3ObjectMeta(bucketkeypair, region)
-                    ecatBase['Source file'] = this.getHttpsUrl(bucketkeypair, region)
+                    ecatBase['File Size'] = await S3Util.getS3ObjectMeta(bucketkeypair)
+                    ecatBase['Source file'] = S3Util.getHttpsUrl(bucketkeypair)
                   } else {
                     ecatBase['File Size'] = ''
                     ecatBase['Source file'] = ''

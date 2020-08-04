@@ -75,9 +75,7 @@
           :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation"
           @input="value=>updateProduct( {element:'productTifLocation',value: value})"
           label="L3 Product Tif Location"
-          :rules="[
-          val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.',
-        ]"
+          :rules="[isS3Url]"
           lazy-rules
         />
         <q-btn
@@ -104,6 +102,7 @@ import Component from 'vue-class-component'
 import { Action, State, Mutation } from 'vuex-class'
 import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
 import SpatialReference from './SpatialReference.vue'
+import { S3Util } from '../components/s3-util'
 
 const SurveyIdProps = Vue.extend({
   props: {
@@ -170,6 +169,28 @@ export default class ProductEditor extends SurveyIdProps {
     this.fetchData(this.relationId)
   }
 
+  async isS3Url2 (urlToTest: string): Promise<boolean> {
+    if (!(this.isValidUrl(urlToTest))) { return false }
+    try {
+      const bucketkeypair = S3Util.getBucketFromS3Uri(urlToTest)
+      if (bucketkeypair === undefined) {
+        return false
+      }
+      return S3Util.objectExists(bucketkeypair)
+    } catch (e) {
+      return false
+    }
+  }
+
+  isS3Url (val: string) {
+    return new Promise((resolve, reject) => {
+      this.isS3Url2(val).then(
+        (val: boolean) => {
+          if (val) { resolve(val) } else { resolve('* Did not resolve') }
+        })
+    })
+  }
+
   isValidUrl (urlToTest: string) {
     let throwaway: URL
     try {
@@ -177,7 +198,6 @@ export default class ProductEditor extends SurveyIdProps {
     } catch (_) {
       return false
     }
-
     return throwaway !== undefined
   }
 }
