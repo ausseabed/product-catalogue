@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ObservableProductsL3DistApi, ObservableProductsL3SrcApi, ObservableProductRelationsApi, ObservableSurveysApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
-import { getRestConfiguration } from 'src/boot/auth'
-import { ProductL3Dist, ProductL3Src, RelationSummaryDto, Survey } from '@ausseabed/product-catalogue-rest-client'
+import { ProductL3Dist, ProductL3Src, RelationSummaryDto, Survey, Configuration } from '@ausseabed/product-catalogue-rest-client'
 import * as eftfStructure from '../statics/eftf_structure.json'
 import * as eCatStructure from '../statics/ecat_structure.json'
 import { useNamespaces } from 'xpath'
 import { DOMParser } from 'xmldom'
 import { S3Util } from '../components/s3-util'
-
 type BBoxFields = 'minx' | 'miny' | 'maxx' | 'maxy'
 type BBox = { 'minx': number; 'miny': number; 'maxx': number; 'maxy': number }
 
 export class EftfLayer {
   constructor (private geoserver: string, private geoserverProduction: string, private collapseGroups: boolean,
-    private snapshotEndDate: string, private snapshotPreviousDate: string) {
+    private snapshotEndDate: string, private snapshotPreviousDate: string, private configuration: Configuration) {
     this.geoserver = geoserver
     this.geoserverProduction = geoserverProduction
     this.geoserverCapabilities = geoserver + '/ows?service=wms&version=1.3.0&request=GetCapabilities'
@@ -22,6 +20,7 @@ export class EftfLayer {
     this.collapseGroups = collapseGroups
     this.snapshotEndDate = snapshotEndDate
     this.snapshotPreviousDate = snapshotPreviousDate
+    this.configuration = configuration
   }
 
   private geoserverCapabilities: string
@@ -29,7 +28,7 @@ export class EftfLayer {
   private geoserverWCS: string
 
   async getPublishedL3SurveyProducts (snapshotDateTime: string | undefined): Promise<ProductL3Dist[]> {
-    const productsL3DistApi = new ObservableProductsL3DistApi(getRestConfiguration(undefined))
+    const productsL3DistApi = new ObservableProductsL3DistApi(this.configuration)
     return productsL3DistApi.productsL3DistControllerFindAll(snapshotDateTime).toPromise()
       .catch(reason => {
         console.error(reason)
@@ -38,7 +37,7 @@ export class EftfLayer {
   }
 
   async getL3SrcProducts (snapshotDateTime: string | undefined): Promise<ProductL3Src[]> {
-    const productsL3SrcApi = new ObservableProductsL3SrcApi(getRestConfiguration(undefined))
+    const productsL3SrcApi = new ObservableProductsL3SrcApi(this.configuration)
     return productsL3SrcApi.productsL3SrcControllerFindAll(snapshotDateTime).toPromise()
       .catch(reason => {
         console.error(reason)
@@ -47,7 +46,7 @@ export class EftfLayer {
   }
 
   async getSurveyL3Relations (snapshotDateTime: string | undefined): Promise<RelationSummaryDto[]> {
-    const productRelationsApi = new ObservableProductRelationsApi(getRestConfiguration(undefined))
+    const productRelationsApi = new ObservableProductRelationsApi(this.configuration)
     return productRelationsApi.productRelationsControllerFindAllL3Survey(snapshotDateTime).toPromise()
       .catch(reason => {
         console.error(reason)
@@ -56,7 +55,7 @@ export class EftfLayer {
   }
 
   async getSurveys (snapshotDateTime: string | undefined): Promise<Survey[]> {
-    const surveyApi = new ObservableSurveysApi(getRestConfiguration(undefined))
+    const surveyApi = new ObservableSurveysApi(this.configuration)
     return surveyApi.surveysControllerFindAll(snapshotDateTime).toPromise()
       .catch(reason => {
         console.error(reason)
