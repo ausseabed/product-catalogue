@@ -183,7 +183,7 @@ export default class ProductEditor extends SurveyIdProps {
   }
 
   isS3Url (val: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.isS3Url2(val).then(
         (val: boolean) => {
           if (val) { resolve(val) } else { resolve('* Did not resolve') }

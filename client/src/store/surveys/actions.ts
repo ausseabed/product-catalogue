@@ -13,7 +13,8 @@ export interface UpdateRowInterface {
 }
 
 const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
-  fetchData ({ commit, rootState, rootGetters }) {
+  async fetchData ({ commit, rootGetters, dispatch }) {
+    await dispatch('auth/getLoginToken', {}, { root: true })
     const configuration = rootGetters['auth/configuration']
     const surveyApi = new ObservableSurveysApi(configuration)
     surveyApi.surveysControllerFindAll().toPromise().then((surveys) =>
@@ -30,12 +31,13 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
         commit('errorMessage', reason)
       })
   },
-  async newSurvey ({ commit, rootState, rootGetters }) {
+  async newSurvey ({ commit, rootGetters, dispatch }) {
     const surveyDto: SurveyDto = {
       name: '',
       uuid: '',
       year: ''
     }
+    await dispatch('auth/getLoginToken', {}, { root: true })
     const configuration = rootGetters['auth/configuration']
     const surveyApi = new ObservableSurveysApi(configuration)
     return await surveyApi.surveysControllerCreate(surveyDto).toPromise().then((newSurvey) => {
@@ -46,7 +48,8 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
       commit('errorMessage', reason)
     })
   },
-  deleteSurvey ({ commit, rootState, rootGetters }, payload: Survey) {
+  async deleteSurvey ({ commit, rootGetters, dispatch }, payload: Survey) {
+    await dispatch('auth/getLoginToken', {}, { root: true })
     const configuration = rootGetters['auth/configuration']
     const surveyApi = new ObservableSurveysApi(configuration)
     surveyApi.surveysControllerRemove(payload.id).toPromise().then(() => {
@@ -57,7 +60,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
     })
   },
 
-  updateEntry ({ commit, state, rootState, rootGetters }, payload: UpdateRowInterface) {
+  async updateEntry ({ commit, state, rootGetters, dispatch }, payload: UpdateRowInterface) {
     console.log(`payload '${payload.rowId}' '${payload.elementName}' '${payload.elementValue}'`)
     const survey: Survey | undefined = state.surveys.find(surv => surv.id === payload.rowId)
     if (!survey) {
@@ -72,6 +75,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
     surveyDto[payload.elementName] = payload.elementValue
     surveyClone[payload.elementName] = payload.elementValue
     // const surveysApiRequestFactory = new SurveysApiRequestFactory(configuration)
+    await dispatch('auth/getLoginToken', {}, { root: true })
     const configuration = rootGetters['auth/configuration']
     const surveyApi = new ObservableSurveysApi(configuration)
     commit('updateSurveys', [surveyClone])
@@ -83,7 +87,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
         commit('errorMessage', reason)
       })
   },
-  async createProduct ({ rootState, rootGetters }, surveyId: number): Promise<number> {
+  async createProduct ({ rootGetters, dispatch }, surveyId: number): Promise<number> {
     const dto: ProductL3SrcDto = {
       metadataPersistentId: '',
       name: '',
@@ -92,6 +96,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
       srs: '',
       uuid: ''
     }
+    await dispatch('auth/getLoginToken', {}, { root: true })
     const configuration = rootGetters['auth/configuration']
     const productsL3SrcApi = new ObservableProductsL3SrcApi(configuration)
     const productRelationshipSrcApi = new ObservableProductRelationsApi(configuration)
@@ -106,7 +111,8 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
     console.log(surveyL3Relation)
     return surveyL3Relation.id
   },
-  deleteProduct ({ commit, rootState, rootGetters }, productId: number) {
+  async deleteProduct ({ commit, rootGetters, dispatch }, productId: number) {
+    await dispatch('auth/getLoginToken', {}, { root: true })
     const configuration = rootGetters['auth/configuration']
     const productsL3SrcApi = new ObservableProductsL3SrcApi(configuration)
     productsL3SrcApi.productsL3SrcControllerDelete(productId).toPromise().then(() => {

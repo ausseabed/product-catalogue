@@ -1,16 +1,14 @@
 
-import * as msal from '@azure/msal-browser'
+import { AccountInfo } from '@azure/msal-browser'
 
 export interface AuthStateInterface {
-  user: string | undefined;
+  account: AccountInfo | undefined;
   bearerToken: string | undefined;
-  msalInstance: msal.PublicClientApplication | undefined;
 }
 
 const state: AuthStateInterface = {
-  user: undefined,
-  bearerToken: undefined,
-  msalInstance: undefined
+  account: undefined,
+  bearerToken: undefined
 }
 
 export default state

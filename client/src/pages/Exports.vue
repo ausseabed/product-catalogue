@@ -147,6 +147,7 @@ export default Vue.extend({
   name: 'ExportsPage',
   methods: {
     buildOutputs: async function () {
+      await this.$store.dispatch('auth/getLoginToken', {}, { root: true })
       const configuration = this.$store.getters['auth/configuration']
       this.progress = true
       const production = (this.geoserverProduction ? 'YES' : 'NO')
@@ -158,6 +159,7 @@ export default Vue.extend({
       this.progress = false
     },
     buildEcat: async function () {
+      await this.$store.dispatch('auth/getLoginToken', {}, { root: true })
       const configuration = this.$store.getters['auth/configuration']
       this.progress = true
       const production = (this.geoserverProduction ? 'YES' : 'NO')

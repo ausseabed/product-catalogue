@@ -6,7 +6,7 @@ import { ConfigurationParameters, createConfiguration } from '@ausseabed/product
 import { ServerConfiguration } from '@ausseabed/product-catalogue-rest-client'
 const getters: GetterTree<AuthStateInterface, StoreInterface> = {
   loggedIn (state) {
-    return state.user !== undefined // && state.bearerToken !== undefined
+    return state.account !== undefined // && state.bearerToken !== undefined
   },
   configuration (state) {
     const serverConfig = new ServerConfiguration('/rest', {})

@@ -60,6 +60,7 @@
           clickable
           exact
           @click="logoutfn"
+          v-if="userName !== ''"
         >
           <q-item-section avatar>
             <q-icon :name="matSchool" />
@@ -99,7 +100,7 @@ export default class MainLayout extends Vue {
   }
 
   getKey () {
-    const key: string = this.$store.getters['auth/bearerToken']
+    const key: string = this.$store.state.auth.bearerToken
     navigator.clipboard.writeText(key).then(function () {
       console.log('Async: Copying to clipboard was successful!')
     }, function (err) {
@@ -108,9 +109,9 @@ export default class MainLayout extends Vue {
   }
 
   get userName (): string {
-    const user = this.$store.state.auth.user
-    return user !== undefined
-      ? user
+    const account = this.$store.state.auth.account
+    return account !== undefined
+      ? account.userName
       : ''
   }
 
