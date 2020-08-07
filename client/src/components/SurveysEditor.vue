@@ -23,7 +23,8 @@
     <div class="col">
       <q-table
         class="my-sticky-virtscroll-table"
-        style="height:85vh"
+        style="height: calc(100vh - 98px)"
+        table-class="survey"
         title="Surveys"
         :data="surveys.surveys"
         :columns="columns"
@@ -190,6 +191,12 @@
   </div>
 </template>
 <style lang="sass">
+// .survey tr > *:nth-child(1)
+//   width: 1cm
+
+// .survey tr > *:nth-child(5)
+//   width: 40rem
+
 .my-sticky-virtscroll-table
   /* height or max-height is important */
   height: 410px

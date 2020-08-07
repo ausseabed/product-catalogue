@@ -34,7 +34,6 @@ const actions: ActionTree<AuthStateInterface, StoreInterface> = {
     })
   },
   logout ({ commit }) {
-    console.log('logoutfn')
     msalInstance.logout()
     commit('setToken', undefined)
     commit('setAccount', undefined)
