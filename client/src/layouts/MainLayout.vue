@@ -60,6 +60,7 @@
           clickable
           exact
           @click="logoutfn"
+          v-if="userName !== ''"
         >
           <q-item-section avatar>
             <q-icon :name="matSchool" />
@@ -85,8 +86,6 @@
 <script lang='ts'>
 import EssentialLink from 'components/EssentialLink.vue'
 import { matMenu, matSchool, matVpnKey } from '@quasar/extras/material-icons'
-const msalInstance = require('../boot/auth').msalInstance
-import { getAccessToken } from '../boot/auth'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
@@ -97,11 +96,11 @@ import Component from 'vue-class-component'
 })
 export default class MainLayout extends Vue {
   logoutfn () {
-    msalInstance.logout()
+    this.$store.dispatch('auth/logout')
   }
 
   getKey () {
-    const key: string = getAccessToken()
+    const key: string = this.$store.state.auth.bearerToken
     navigator.clipboard.writeText(key).then(function () {
       console.log('Async: Copying to clipboard was successful!')
     }, function (err) {
@@ -110,9 +109,9 @@ export default class MainLayout extends Vue {
   }
 
   get userName (): string {
-    return this.$store.state !== undefined &&
-      this.$store.state.account !== undefined
-      ? this.$store.state.account.userName
+    const account = this.$store.state.auth.account
+    return account !== undefined
+      ? account.userName
       : ''
   }
 
