@@ -4,8 +4,7 @@ const REGION = 'ap-southeast-2'
 
 export class S3Util {
   static getBucketFromS3Uri (urlString: string): {Bucket: string; Key: string}| undefined {
-    const regex = /s3:\/\/(?<bucket>[^/]*)\/(?<key>.*)/
-
+    const regex = RegExp('s3:\\/\\/([^/]*)\\/(.*)')
     const found = regex.exec(urlString)
 
     if (!found || found.length < 3) {
@@ -35,6 +34,7 @@ export class S3Util {
         return false
       }
     } catch (reason) {
+      console.log(reason)
       return false
     }
   }

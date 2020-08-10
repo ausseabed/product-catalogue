@@ -178,6 +178,7 @@ export default class ProductEditor extends SurveyIdProps {
       }
       return S3Util.objectExists(bucketkeypair)
     } catch (e) {
+      console.log(e)
       return false
     }
   }
@@ -192,13 +193,10 @@ export default class ProductEditor extends SurveyIdProps {
   }
 
   isValidUrl (urlToTest: string) {
-    let throwaway: URL
-    try {
-      throwaway = new URL(urlToTest)
-    } catch (_) {
-      return false
-    }
-    return throwaway !== undefined
+    const elm = document.createElement('input')
+    elm.setAttribute('type', 'url')
+    elm.value = urlToTest
+    return elm.validity.valid
   }
 }
 </script>

@@ -27,7 +27,6 @@
     "uuid": "^8.1.0",
     "vue-class-component": "^7.2.3",
     "vuex-class": "^0.3.2",
-    "xmldom": "^0.3.0",
     "xpath": "^0.0.27"
   },
   "devDependencies": {

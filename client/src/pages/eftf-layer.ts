@@ -4,7 +4,6 @@ import { ProductL3Dist, ProductL3Src, RelationSummaryDto, Survey, Configuration 
 import * as eftfStructure from '../statics/eftf_structure.json'
 import * as eCatStructure from '../statics/ecat_structure.json'
 import { useNamespaces } from 'xpath'
-import { DOMParser } from 'xmldom'
 import { S3Util } from '../components/s3-util'
 type BBoxFields = 'minx' | 'miny' | 'maxx' | 'maxy'
 type BBox = { 'minx': number; 'miny': number; 'maxx': number; 'maxy': number }
