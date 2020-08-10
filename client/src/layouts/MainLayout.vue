@@ -95,8 +95,9 @@ import Component from 'vue-class-component'
   }
 })
 export default class MainLayout extends Vue {
-  logoutfn () {
-    this.$store.dispatch('auth/logout')
+  async logoutfn () {
+    await this.$store.dispatch('auth/logout')
+    this.$router.push({ name: '/' })
   }
 
   getKey () {

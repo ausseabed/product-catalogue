@@ -33,10 +33,10 @@ const actions: ActionTree<AuthStateInterface, StoreInterface> = {
       console.log(error)
     })
   },
-  logout ({ commit }) {
-    msalInstance.logout()
+  async logout ({ commit }) {
     commit('setToken', undefined)
     commit('setAccount', undefined)
+    return await msalInstance.logout()
   },
   async fetch ({ commit, dispatch }) {
     const currentAccounts = msalInstance.getAllAccounts()
