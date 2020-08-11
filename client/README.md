@@ -1,25 +1,24 @@
-# Product Catalogue (product-catalogue)
+# Product Catalogue (client)
 
 A simple application for specifying properties of bathymetry products
 
+## EPSG Data
+Ownership of the EPSG Dataset by IOGP must be acknowledged in any publication or transmission (by whatever means) thereof (including permitted modifications). See http://www.epsg.org/Termsofuse.aspx. A snapshopt of data from EPSG is in client/src/statics/reference-system.json
+
 ## Install the dependencies
 ```bash
-yarn
+yarn global add @quasar/cli
+yarn install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+## Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
-quasar dev
+yarn dev
 ```
 
-### Lint the files
+## Build the app for production (run out of circle.ci)
 ```bash
-yarn run lint
-```
-
-### Build the app for production
-```bash
-quasar build
+docker build ....
 ```
 
 ### Customize the configuration
