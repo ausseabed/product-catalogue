@@ -51,8 +51,8 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label>Access Key</q-item-label>
-            <q-item-label caption> For retrieving data through the restful interface </q-item-label>
+            <q-item-label>REST API</q-item-label>
+            <q-item-label caption>Directly access the REST API to the Product Catalogue</q-item-label>
           </q-item-section>
         </q-item>
 
@@ -107,6 +107,11 @@ export default class MainLayout extends Vue {
     }, function (err) {
       console.error('Async: Could not copy text: ', err)
     })
+    sessionStorage.setItem('rest-session-key', key)
+    const win = window.open(window.location.origin + '/rest/api/', '_blank')
+    if (win) {
+      win.focus()
+    }
   }
 
   get userName (): string {

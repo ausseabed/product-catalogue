@@ -1,6 +1,6 @@
 require('dotenv').config()
 import { NestFactory, Reflector } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { SwaggerModule, DocumentBuilder, SwaggerCustomOptions } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 declare const module: any;
 import { requestLogger } from './errors/request-logger.middleware';
@@ -44,7 +44,20 @@ async function bootstrap () {
     ignoreGlobalPrefix: false,
   });
 
-  SwaggerModule.setup('api', app, document);
+  const nowText = Date.now()
+  const swaggerCustomOptions: SwaggerCustomOptions = {
+    swaggerOptions: {
+      onComplete: function() {
+        var key = sessionStorage.getItem('rest-session-key');
+        if (key)
+        {
+          sessionStorage.removeItem('rest-session-key');
+          window.eval('ui').preauthorizeApiKey("access-token", key);
+        }
+      }
+    }
+  }
+  SwaggerModule.setup('api', app, document, swaggerCustomOptions);
 
   await app.listen(3000);
 
