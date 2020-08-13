@@ -95,8 +95,11 @@ export class EftfLayer {
     const result = select(query, xml)
     const nameToNode: Map<string, Node> = new Map<string, Node>()
     result.forEach(selectedValue => {
-      const recordName = select('./x:Name/text()', selectedValue.valueOf() as Node, true)
-      nameToNode.set(recordName.toString(), selectedValue.valueOf() as Node)
+      const recordName = select('./x:Name/text()', selectedValue.valueOf() as Node, true) as Text
+
+      if (recordName && recordName.textContent) {
+        nameToNode.set(recordName.textContent, selectedValue.valueOf() as Node)
+      }
     })
     return nameToNode
   }
