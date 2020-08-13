@@ -10,16 +10,19 @@
   "SINGLETILE": "false",
   "WMS URL": "",
   "WCS URL": "",
+  "CSV URL": "",
   "LEGEND URL": "",
   "xmin": "",
   "ymin": "",
   "xmax": "",
   "ymax": "",
-  "GEOMETRY TYPE": "RASTER",
+  "GEOMETRY": "RASTER",
+  "POLYGON KEY": "",
   "TIME SERIES": "null",
   "PERSONA": "Marine",
   "JSON": "",
   "PRODUCTION": "YES",
   "FILTER JSON": "",
-  "INITIALISE_FOR_PERSONAS": ""
+  "INITIALISE_FOR_PERSONAS": "",
+  "RELATED_RECORDS": ""
 }
