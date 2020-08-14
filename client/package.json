@@ -3,8 +3,6 @@
   "version": "0.0.1",
   "description": "A simple application for specifying properties of bathymetry products",
   "productName": "Product Catalogue",
-  "cordovaId": "au.gov.ausseabed",
-  "capacitorId": "",
   "author": "DaveP",
   "private": true,
   "scripts": {
@@ -21,6 +19,7 @@
     "@vue/composition-api": "^0.5.0",
     "aws-sdk": "^2.722.0",
     "axios": "^0.18.1",
+    "core-js": "^3.0.0",
     "dotenv": "^8.2.0",
     "file-saver": "^2.0.2",
     "quasar": "^1.9.5",
@@ -53,9 +52,16 @@
     "yarn": ">= 1.21.1"
   },
   "browserslist": [
-    "last 1 version, not dead, ie >= 11"
+    "ie 11",
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
   ],
-  "resolutions": {
-    "@babel/parser": "7.7.5"
-  }
+  "resolutions": {}
 }

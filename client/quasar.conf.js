@@ -72,9 +72,6 @@ module.exports = configure(function (ctx) {
       plugins: ['Dialog']
     },
 
-    // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
-    supportIE: true,
-
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ts
     supportTS: {
       tsCheckerConfig: { eslint: true }
@@ -94,8 +91,8 @@ module.exports = configure(function (ctx) {
       // analyze: true,
       env:
       {
-        AUTH_HOST: JSON.stringify(process.env.AUTH_HOST),
-        AUTH_CLIENT_ID: JSON.stringify(process.env.AUTH_CLIENT_ID)
+        AUTH_HOST: process.env.AUTH_HOST,
+        AUTH_CLIENT_ID: process.env.AUTH_CLIENT_ID
       },
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
