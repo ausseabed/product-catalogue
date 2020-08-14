@@ -21,7 +21,9 @@ module.exports = {
   },
 
   env: {
-    browser: true
+    node: true,
+    browser: true,
+    commonjs: true
   },
 
   // Rules order is important, please avoid shuffling them

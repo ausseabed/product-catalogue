@@ -1,7 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository, InjectEntityManager } from '@nestjs/typeorm';
-import { Repository, EntityManager, FindConditions, FindOperator, Raw } from 'typeorm';
-import { Product } from './product.entity';
+import { Repository, EntityManager, FindConditions, Raw } from 'typeorm';
 
 import { plainToClassFromExist, plainToClass } from "class-transformer";
 import { ProductL0InstrumentFile } from './product-l0-instrument-file.entity';
@@ -16,25 +15,46 @@ export class ProductsService {
 
   }
 
-  async findAll<T> (productType: new () => T, snapshotDateTime: Date| unknown): Promise<T[]> {
+  async findAll<T> (productType: new () => T, snapshotDateTime: Date| unknown, filterByProductSrcId?: number): Promise<T[]> {
     if (snapshotDateTime) {
+      if (filterByProductSrcId)
+      {
+        const products = this.productsEntityManager.find<T>(productType, 
+        {
+          where: {
+            sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`),
+            sourceProduct: filterByProductSrcId 
+          }          
+        }
+        );
+      return products;
+      }
+      else {
       const products = this.productsEntityManager.find<T>(productType, 
         {
           where: {
             sysPeriod: Raw(alias =>`${alias} @> '${snapshotDateTime}'::timestamptz`)
-          }
+          }          
         }
         );
       return products;
+      }
     }
     else {
-      return this.productsEntityManager.find<T>(productType);
+      if (filterByProductSrcId)
+      {
+        return this.productsEntityManager.find<T>(productType, { where: { sourceProduct: filterByProductSrcId  } });
+      }
+      else
+      {
+        return this.productsEntityManager.find<T>(productType);
+      }
     }
   }
 
 
   async findInstrumentsForProduct (productId: number): Promise<ProductL0InstrumentFile[]> {
-    let productL0Dist = this.findOne<ProductL0Dist>(ProductL0Dist, productId)
+    const productL0Dist = this.findOne<ProductL0Dist>(ProductL0Dist, productId)
     return this.productsEntityManager.find<ProductL0InstrumentFile>(ProductL0InstrumentFile,
       {
         relations: ["productL0Dist"],
@@ -60,8 +80,8 @@ export class ProductsService {
   }
 
   create<T, ProductDtoType> (productType: new () => T, createProductDto: ProductDtoType, fieldName?: string, fieldValue?: any) {
-    let product = productType;
-    let productEntry = plainToClass(product, createProductDto);
+    const product = productType;
+    const productEntry = plainToClass(product, createProductDto);
     if (fieldName && fieldValue) {
       productEntry[fieldName] = fieldValue
     }
@@ -69,8 +89,8 @@ export class ProductsService {
   }
 
   async update<T, ProductDtoType> (productType: new () => T, id: number, updateProductDto: ProductDtoType): Promise<void> {
-    let product = await this.findOne(productType, id);
-    let productEntry = plainToClassFromExist(product, updateProductDto);
+    const product = await this.findOne(productType, id);
+    const productEntry = plainToClassFromExist(product, updateProductDto);
     await this.productsEntityManager.save<T>(productEntry);
   }
 

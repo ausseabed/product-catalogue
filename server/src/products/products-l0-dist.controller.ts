@@ -31,13 +31,18 @@ export class ProductsL0DistController extends ProductsController<ProductL0Dist, 
     required: false,
     type: Date
   })
-  async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown):  Promise<ProductL0Dist[]> {
+  @ApiQuery({
+    name: 'filterByProductSrcId',
+    required: false,
+    type: Number
+  })
+  async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown, @Query('filterByProductSrcId') filterByProductSrcId: number | undefined):  Promise<ProductL0Dist[]> {
     if (snapshotDateTime)
     {
-      const prod = this.productsService.findAll<ProductL0DistHistoryView>(this.productHistoryType, snapshotDateTime)
+      const prod = this.productsService.findAll<ProductL0DistHistoryView>(this.productHistoryType, snapshotDateTime, filterByProductSrcId)
       return prod as unknown as Promise<ProductL0Dist[]>;
     } else {
-      return this.productsService.findAll<ProductL0Dist>(this.productType, snapshotDateTime)
+      return this.productsService.findAll<ProductL0Dist>(this.productType, snapshotDateTime, filterByProductSrcId)
     }
   }
 
