@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "dev": "yarn run start:dev",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest build --webpack --webpackPath webpack-hmr.config.js",

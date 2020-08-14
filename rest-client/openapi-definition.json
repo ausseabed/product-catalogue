@@ -521,7 +521,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.1.12"
+        "version": "0.1.13"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -1817,6 +1817,14 @@
                 "parameters": [
                     {
                         "in": "query",
+                        "name": "filterByProductSrcId",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "in": "query",
                         "name": "snapshotDateTime",
                         "required": false,
                         "schema": {
@@ -2704,6 +2712,14 @@
             "get": {
                 "operationId": "ProductsL3DistController_findAll",
                 "parameters": [
+                    {
+                        "in": "query",
+                        "name": "filterByProductSrcId",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
                     {
                         "in": "query",
                         "name": "snapshotDateTime",

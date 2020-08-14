@@ -3,9 +3,9 @@
 
 
 "@ausseabed/product-catalogue-rest-client@^0.1.12":
-  version "0.1.12"
-  resolved "https://npm.pkg.github.com/download/@ausseabed/product-catalogue-rest-client/0.1.12/2151da19ef4387ec42232d6e349e5cacaea220e2c333f55721092a9d6cd013e0#97738c12ee0cb7b868b3442c5f424e1e08c95f6f"
-  integrity sha512-+vCpnxsHQps/CIMgI0hRyu90vcuOnZUyd5a+CvCEE3hzgywOmH09y2hvrT20dpHM0QrkPBbl2TzzIWUx2LZrrA==
+  version "0.1.13"
+  resolved "https://npm.pkg.github.com/download/@ausseabed/product-catalogue-rest-client/0.1.13/742d9ec22a51a123333d8bc9fd34c53558de5092d66d9c2c08283edf0b04171f#b09697541f622afdadac18d8a1beb79f0a5f7198"
+  integrity sha512-mecXs6fr71IT/qDEOqe3BLZSCo/ldmKlWgyNovTVEYQS3sNIYEZUrVMGBUfg4uGpQ3e9qVcrJ/28BO6Zh7XSxA==
   dependencies:
     es6-promise "^4.2.4"
     url-parse "^1.4.3"
@@ -281,15 +281,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.10.4", "@babel/parser@^7.11.0", "@babel/parser@^7.11.1":
+"@babel/parser@^7.10.4", "@babel/parser@^7.11.0", "@babel/parser@^7.11.1", "@babel/parser@^7.7.0":
   version "7.11.3"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.11.3.tgz#9e1eae46738bcd08e23e867bab43e7b95299a8f9"
   integrity sha512-REo8xv7+sDxkKvoxEywIdsNFiZLybwdI7hcT5uEPyQrSMB4YQ973BfC9OOrD/81MaIjh6UxdulIQXkjmiH3PcA==
-
-"@babel/parser@^7.7.0":
-  version "7.7.5"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.7.5.tgz#cbf45321619ac12d83363fcf9c94bb67fa646d71"
-  integrity sha512-KNlOe9+/nk4i29g0VXgl8PEXIRms5xKLJeuZ6UptN0fHv+jDiriG+y94X6qAgWTR0h3KaoM1wK5G5h7MHFRSig==
 
 "@babel/plugin-proposal-async-generator-functions@^7.10.4":
   version "7.10.5"
@@ -2468,9 +2463,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001061, caniuse-lite@^1.0.30001111:
-  version "1.0.30001113"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001113.tgz#22016ab55b5a8b04fa00ca342d9ee1b98df48065"
-  integrity sha512-qMvjHiKH21zzM/VDZr6oosO6Ri3U0V2tC015jRXjOecwQCJtsU5zklTNTk31jQbIOP8gha0h1ccM/g0ECP+4BA==
+  version "1.0.30001114"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001114.tgz#2e88119afb332ead5eaa330e332e951b1c4bfea9"
+  integrity sha512-ml/zTsfNBM+T1+mjglWRPgVsu2L76GAaADKX5f4t0pbhttEp0WMawJsHDYlFkVZkoA+89uvBRrVrEE4oqenzXQ==
 
 caseless@~0.12.0:
   version "0.12.0"

@@ -29,17 +29,22 @@ export class ProductsL3DistController extends ProductsController<ProductL3Dist, 
     required: false,
     type: Date
   })
-  async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL3Dist[]> {
+  @ApiQuery({
+    name: 'filterByProductSrcId',
+    required: false,
+    type: Number
+  })
+  async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown, @Query('filterByProductSrcId') filterByProductSrcId: number | undefined): Promise<ProductL3Dist[]> {
     if (snapshotDateTime)
     {
-      const prod = await this.productsService.findAll<ProductL3DistHistoryView>(this.productHistoryType, snapshotDateTime);
-      const eagerL3SrcCandidates = await this.productsService.findAll<ProductL3SrcHistoryView>(ProductL3SrcHistoryView, snapshotDateTime);
+      const prod = await this.productsService.findAll<ProductL3DistHistoryView>(this.productHistoryType, snapshotDateTime, filterByProductSrcId );
+      const eagerL3SrcCandidates = await this.productsService.findAll<ProductL3SrcHistoryView>(ProductL3SrcHistoryView, snapshotDateTime );
       prod.forEach(productDist => productDist.sourceProduct = eagerL3SrcCandidates.find(productSrc => productSrc.id===productDist.sourceProduct))
       return prod as unknown as ProductL3Dist[];
     }
     else
     {
-      return this.productsService.findAll<ProductL3Dist>(this.productType, snapshotDateTime)
+      return this.productsService.findAll<ProductL3Dist>(this.productType, snapshotDateTime, filterByProductSrcId)
     }
   }
 

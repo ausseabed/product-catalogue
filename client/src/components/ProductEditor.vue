@@ -90,6 +90,7 @@
           flat
         />
       </q-form>
+      <l3-product-dist-detail :l3ProductSrcId='surveyL3Relation.surveyL3RelationSelected.productL3Src.id' />
     </div>
   </div>
 </template>
@@ -100,6 +101,7 @@ import Component from 'vue-class-component'
 import { Action, State, Mutation } from 'vuex-class'
 import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
 import SpatialReference from './SpatialReference.vue'
+import L3ProductDistDetail from './L3ProductDistDetail.vue'
 import { S3Util } from '../components/s3-util'
 
 const SurveyIdProps = Vue.extend({
@@ -116,7 +118,7 @@ const SurveyIdProps = Vue.extend({
 })
 const namespace = 'surveyl3relation'
 
-@Component({ components: { SpatialReference } })
+@Component({ components: { 'spatial-reference': SpatialReference, 'l3-product-dist-detail': L3ProductDistDetail } })
 export default class ProductEditor extends SurveyIdProps {
   @State('surveyl3relation') surveyL3Relation!: SurveyL3RelationStateInterface
 

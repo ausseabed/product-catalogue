@@ -303,10 +303,11 @@ export class PromiseProductsL0DistApi {
     }
 	
     /**
+     * @param filterByProductSrcId 
      * @param snapshotDateTime 
      */
-    public productsL0DistControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<Array<ProductL0Dist>> {
-    	const result = this.api.productsL0DistControllerFindAll(snapshotDateTime, options);
+    public productsL0DistControllerFindAll(filterByProductSrcId?: number, snapshotDateTime?: string, options?: Configuration): Promise<Array<ProductL0Dist>> {
+    	const result = this.api.productsL0DistControllerFindAll(filterByProductSrcId, snapshotDateTime, options);
         return result.toPromise();
     }
 	
@@ -455,10 +456,11 @@ export class PromiseProductsL3DistApi {
     }
 	
     /**
+     * @param filterByProductSrcId 
      * @param snapshotDateTime 
      */
-    public productsL3DistControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<Array<ProductL3Dist>> {
-    	const result = this.api.productsL3DistControllerFindAll(snapshotDateTime, options);
+    public productsL3DistControllerFindAll(filterByProductSrcId?: number, snapshotDateTime?: string, options?: Configuration): Promise<Array<ProductL3Dist>> {
+    	const result = this.api.productsL3DistControllerFindAll(filterByProductSrcId, snapshotDateTime, options);
         return result.toPromise();
     }
 	

@@ -8,7 +8,8 @@
     "resolveJsonModule": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "*.js"
   ],
   "exclude": [
     ".quasar",

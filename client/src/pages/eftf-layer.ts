@@ -28,7 +28,7 @@ export class EftfLayer {
 
   async getPublishedL3SurveyProducts (snapshotDateTime: string | undefined): Promise<ProductL3Dist[]> {
     const productsL3DistApi = new ObservableProductsL3DistApi(this.configuration)
-    return productsL3DistApi.productsL3DistControllerFindAll(snapshotDateTime).toPromise()
+    return productsL3DistApi.productsL3DistControllerFindAll(undefined, snapshotDateTime).toPromise()
       .catch(reason => {
         console.error(reason)
         return []

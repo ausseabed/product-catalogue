@@ -21,7 +21,9 @@ module.exports = {
   },
 
   env: {
-    browser: true
+    node: true,
+    browser: true,
+    commonjs: true
   },
 
   // Rules order is important, please avoid shuffling them
@@ -31,7 +33,7 @@ module.exports = {
 
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#usage
     // ESLint typescript rules
-    'plugin:@typescript-eslint/eslint-recommended',
+    //'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     // consider disabling this class of rules if linting takes too long
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
@@ -85,8 +87,9 @@ module.exports = {
     'prefer-promise-reject-errors': 'off',
 
     // TypeScript
-    'quotes': ['warn', 'single'],
+    'quotes': ['warn', 'single', { avoidEscape: true }],
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
 
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
