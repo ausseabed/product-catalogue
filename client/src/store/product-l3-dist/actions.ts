@@ -9,11 +9,12 @@ const actions: ActionTree<ProductL3DistStateInterface, StoreInterface> = {
     const configuration = rootGetters['auth/configuration']
     const productsL3DistApi = new ObservableProductsL3DistApi(configuration)
 
-    const productsL3Dist = await productsL3DistApi.productsL3DistControllerFindOne(productSrcId).toPromise().catch(
+    const productsL3Dist = await productsL3DistApi.productsL3DistControllerFindAll(productSrcId).toPromise().catch(
       (reason: undefined) => { commit('errorMessage', reason) })
 
-    if (productsL3Dist) {
-      commit('assignProductL3Dist', productsL3Dist)
+    console.log(productsL3Dist)
+    if (productsL3Dist && productsL3Dist.length > 0) {
+      commit('assignProductL3Dist', productsL3Dist[0])
     }
   }
 }

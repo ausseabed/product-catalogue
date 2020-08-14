@@ -76,7 +76,6 @@
           :rules="[isS3Url]"
           lazy-rules
         />
-        <l3-product-dist-detail :l3ProductSrcId='surveyL3Relation.surveyL3RelationSelected.productL3Src.id' />
         <q-btn
           class="q-ma-md"
           label="Submit"
@@ -91,6 +90,7 @@
           flat
         />
       </q-form>
+      <l3-product-dist-detail :l3ProductSrcId='surveyL3Relation.surveyL3RelationSelected.productL3Src.id' />
     </div>
   </div>
 </template>

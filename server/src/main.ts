@@ -33,7 +33,7 @@ async function bootstrap () {
     .setDescription('The API description for the Ausseabed product catalogue inventory')
     .setContact("AusSeabed", "http://ausseabed.gov.au/", "AusSeabed@ga.gov.au")
     .setLicense("Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0.html")
-    .setVersion('0.1.12')
+    .setVersion('0.1.13')
     .addTag('surveys')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
@@ -48,7 +48,7 @@ async function bootstrap () {
   const swaggerCustomOptions: SwaggerCustomOptions = {
     swaggerOptions: {
       onComplete: function() {
-        var key = sessionStorage.getItem('rest-session-key');
+        const key = sessionStorage.getItem('rest-session-key');
         if (key)
         {
           sessionStorage.removeItem('rest-session-key');

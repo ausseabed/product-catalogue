@@ -1,20 +1,45 @@
 <template>
-  <div class="doc-note doc-note--tip row q-ml-md">
+  <div
+    class="row q-ml-md"
+    v-if="productl3dist"
+    id="infobox"
+  >
     <div class="col col-md-auto">
-      <div class="q-my-md">
+      <div class="q-ma-md">
         <q-icon
           :name="matCog"
           style="font-size: 2rem;"
         />
       </div>
     </div>
-    <div
-      class="col"
-      v-if="productl3dist"
-    > {{productl3dist.bathymetryLocation}}
+    <div class="col q-ma-md">
+      <div class="row">
+        Processed Products:
+      </div>
+      <div class="row">
+        Bathymetry: {{productl3dist.productL3Dist.bathymetryLocation}}
+      </div>
+      <div class="row">
+        Hillshade: {{productl3dist.productL3Dist.hillshadeLocation}}
+      </div>
+      <div class="row">
+        Polygon: {{productl3dist.productL3Dist.l3CoverageLocation}}
+      </div>
+      <div class="row">
+      </div>
     </div>
   </div>
 </template>
+<style lang="scss">
+#infobox {
+  background-color: rgba(97, 175, 254, 0.1);
+  border-color: #61affe;
+  border: 1px solid #61affe;
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.19);
+  color: #3b4151;
+}
+</style>
 
 <script lang='ts'>
 import Vue from 'vue'

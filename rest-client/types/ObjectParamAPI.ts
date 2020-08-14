@@ -511,6 +511,12 @@ export interface ProductsL0DistApiProductsL0DistControllerDeleteInstrumentReques
 export interface ProductsL0DistApiProductsL0DistControllerFindAllRequest {
     /**
      * 
+     * @type number
+     * @memberof ProductsL0DistApiproductsL0DistControllerFindAll
+     */
+    filterByProductSrcId?: number
+    /**
+     * 
      * @type string
      * @memberof ProductsL0DistApiproductsL0DistControllerFindAll
      */
@@ -638,7 +644,7 @@ export class ObjectProductsL0DistApi {
      * @param param the request object
      */
     public productsL0DistControllerFindAll(param: ProductsL0DistApiProductsL0DistControllerFindAllRequest, options?: Configuration): Promise<Array<ProductL0Dist>> {
-        return this.api.productsL0DistControllerFindAll(param.snapshotDateTime,  options).toPromise();
+        return this.api.productsL0DistControllerFindAll(param.filterByProductSrcId, param.snapshotDateTime,  options).toPromise();
     }
 	
     /**
@@ -815,6 +821,12 @@ export interface ProductsL3DistApiProductsL3DistControllerDeleteRequest {
 export interface ProductsL3DistApiProductsL3DistControllerFindAllRequest {
     /**
      * 
+     * @type number
+     * @memberof ProductsL3DistApiproductsL3DistControllerFindAll
+     */
+    filterByProductSrcId?: number
+    /**
+     * 
      * @type string
      * @memberof ProductsL3DistApiproductsL3DistControllerFindAll
      */
@@ -871,7 +883,7 @@ export class ObjectProductsL3DistApi {
      * @param param the request object
      */
     public productsL3DistControllerFindAll(param: ProductsL3DistApiProductsL3DistControllerFindAllRequest, options?: Configuration): Promise<Array<ProductL3Dist>> {
-        return this.api.productsL3DistControllerFindAll(param.snapshotDateTime,  options).toPromise();
+        return this.api.productsL3DistControllerFindAll(param.filterByProductSrcId, param.snapshotDateTime,  options).toPromise();
     }
 	
     /**

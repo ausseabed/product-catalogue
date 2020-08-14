@@ -689,10 +689,11 @@ export class ObservableProductsL0DistApi {
     }
 	
     /**
+     * @param filterByProductSrcId 
      * @param snapshotDateTime 
      */
-    public productsL0DistControllerFindAll(snapshotDateTime?: string, options?: Configuration): Observable<Array<ProductL0Dist>> {
-    	const requestContextPromise = this.requestFactory.productsL0DistControllerFindAll(snapshotDateTime, options);
+    public productsL0DistControllerFindAll(filterByProductSrcId?: number, snapshotDateTime?: string, options?: Configuration): Observable<Array<ProductL0Dist>> {
+    	const requestContextPromise = this.requestFactory.productsL0DistControllerFindAll(filterByProductSrcId, snapshotDateTime, options);
 
 		// build promise chain
     let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1027,10 +1028,11 @@ export class ObservableProductsL3DistApi {
     }
 	
     /**
+     * @param filterByProductSrcId 
      * @param snapshotDateTime 
      */
-    public productsL3DistControllerFindAll(snapshotDateTime?: string, options?: Configuration): Observable<Array<ProductL3Dist>> {
-    	const requestContextPromise = this.requestFactory.productsL3DistControllerFindAll(snapshotDateTime, options);
+    public productsL3DistControllerFindAll(filterByProductSrcId?: number, snapshotDateTime?: string, options?: Configuration): Observable<Array<ProductL3Dist>> {
+    	const requestContextPromise = this.requestFactory.productsL3DistControllerFindAll(filterByProductSrcId, snapshotDateTime, options);
 
 		// build promise chain
     let middlewarePreObservable = from<RequestContext>(requestContextPromise);

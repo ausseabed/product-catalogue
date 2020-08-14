@@ -216,10 +216,12 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * @param filterByProductSrcId 
      * @param snapshotDateTime 
      */
-    public async productsL0DistControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<RequestContext> {
+    public async productsL0DistControllerFindAll(filterByProductSrcId?: number, snapshotDateTime?: string, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
+		
 		
 		
 		// Path Params
@@ -230,6 +232,9 @@ export class ProductsL0DistApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (filterByProductSrcId !== undefined) {
+        	requestContext.setQueryParam("filterByProductSrcId", ObjectSerializer.serialize(filterByProductSrcId, "number", ""));
+        }
         if (snapshotDateTime !== undefined) {
         	requestContext.setQueryParam("snapshotDateTime", ObjectSerializer.serialize(snapshotDateTime, "string", ""));
         }
