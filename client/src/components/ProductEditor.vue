@@ -28,21 +28,19 @@
         v-if='surveyL3Relation.surveyL3RelationSelected.productL3Src && surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid !== undefined'
       >
         <div class="text-h6 q-ml-md">Edit level 3 product associated with '{{surveyL3Relation.surveyL3RelationSelected.survey.name}}'</div>
-        <q-input
-          class="q-ml-md"
-          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid"
-          @input="value=>updateProduct( {element:'uuid',value: value})"
-          label="UUID"
-        >
-          <template v-slot:append>
+        <div class="row items-center justify-end">
+          <div class="q-ml-md col col-md-auto">
+            {{surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid}}
+            <q-tooltip> UUID </q-tooltip>
+          </div>
+          <div class="q-ml-md col col-md-auto">
             <q-btn
               color="primary"
-              label="New GUID"
+              label="New UUID"
               @click="createGuid"
             />
-            <!--<q-icon name="fingerprint" />-->
-          </template>
-        </q-input>
+          </div>
+        </div>
         <q-input
           class="q-ml-md"
           :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.name"

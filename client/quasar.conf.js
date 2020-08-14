@@ -61,7 +61,7 @@ module.exports = configure(function (ctx) {
         'QBtn', 'QIcon', 'QList', 'QItem', 'QItemSection', 'QOptionGroup', 'QItemLabel',
         'QTable', 'QTh', 'QInput', 'QForm', 'QSpinner', 'QTr', 'QBtn',
         'QTd', 'QMarkupTable', 'QCircularProgress', 'QLinearProgress', 'QCheckbox',
-        'QDate', 'QTime', 'QPopupProxy', 'ClosePopup'
+        'QDate', 'QTime', 'QPopupProxy', 'ClosePopup', 'QTooltip'
       ],
 
       directives: [
