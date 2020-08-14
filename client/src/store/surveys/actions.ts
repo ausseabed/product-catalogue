@@ -3,6 +3,7 @@ import { StoreInterface } from '../index'
 import { SurveyStateInterface } from './state'
 import { ObservableSurveysApi, ObservableProductRelationsApi, ObservableProductsL3SrcApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
 import { SurveyDto, Survey, ProductL3SrcDto, SurveyL3RelationDto } from '@ausseabed/product-catalogue-rest-client'
+import { v4 as uuidv4 } from 'uuid'
 
 export type UpdateRowKnownTypes = 'year' | 'uuid' | 'name'
 
@@ -37,6 +38,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
       uuid: '',
       year: ''
     }
+    console.log(surveyDto)
     await dispatch('auth/getLoginToken', {}, { root: true })
     const configuration = rootGetters['auth/configuration']
     const surveyApi = new ObservableSurveysApi(configuration)
@@ -94,7 +96,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
       productTifLocation: '',
       resolution: '',
       srs: '',
-      uuid: ''
+      uuid: uuidv4().toString()
     }
     await dispatch('auth/getLoginToken', {}, { root: true })
     const configuration = rootGetters['auth/configuration']

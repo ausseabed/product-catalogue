@@ -7,6 +7,9 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     ".quasar",
     "node_modules",
