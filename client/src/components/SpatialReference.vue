@@ -83,24 +83,10 @@ import Component from 'vue-class-component'
 import { Mutation, State } from 'vuex-class'
 import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
 import { matSearch } from '@quasar/extras/material-icons'
-import * as rs from './reference-system.json'
+import { SearchRecordInterface, ReferenceSystem } from './reference-system'
 
 type SrsSearchCategories = 'geographic' | 'projected' | 'gda' | 'wgsutm' | 'all' | 'mga'
 
-interface SearchRecordInterface {
-  Area: string;
-  Code: number;
-  DataSource: string;
-  Deprecated: boolean;
-  Links: {
-    href: string;
-    rel: string;
-  }[];
-  Name: string;
-  Remarks: string;
-  RevisionDate: string;
-  Type: string;
-}
 const srsSearchFilters = {
   geographic: (srsOptionList: SearchRecordInterface[]) => { return srsOptionList.filter(v => v.Type === 'geographic 2D') },
   projected: (srsOptionList: SearchRecordInterface[]) => { return srsOptionList.filter(v => v.Type === 'projected') },
@@ -109,7 +95,7 @@ const srsSearchFilters = {
   mga: (srsOptionList: SearchRecordInterface[]) => { return srsOptionList.filter(v => v.Name.includes('MGA zone')) },
   all: (srsOptionList: SearchRecordInterface[]) => { return srsOptionList }
 }
-const srsOptionsBasis: SearchRecordInterface[] = rs.Results as SearchRecordInterface[]
+const srsOptionsBasis: SearchRecordInterface[] = ReferenceSystem
 
 const SpatialReferenceProps = Vue.extend({
   props: {
