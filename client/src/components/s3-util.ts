@@ -19,6 +19,26 @@ export class S3Util {
     return headParams
   }
 
+  static getBucketFromHttpsUrl (urlString: string): {Bucket: string; Key: string}| undefined {
+    const regex = RegExp('https:\\/\\/([^/.]*).s3.([^/.]*).amazonaws.com\\/(.*)')
+    const found = regex.exec(urlString)
+
+    if (!found || found.length < 4) {
+      console.log('uri did not resolve')
+      return undefined
+    }
+
+    const headParams = {
+      Bucket: found[1], // region is 2
+      Key: found[3]
+    }
+    return headParams
+  }
+
+  static getS3Url (headParams: {Bucket: string; Key: string}): string {
+    return `s3://${headParams.Bucket}/${headParams.Key}`
+  }
+
   static getHttpsUrl (headParams: {Bucket: string; Key: string}, region: string = REGION): string {
     return `https://${headParams.Bucket}.s3.${region}.amazonaws.com/${headParams.Key}`
   }

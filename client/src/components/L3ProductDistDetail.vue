@@ -1,7 +1,7 @@
 <template>
   <div
     class="row q-ml-md items-center"
-    v-if="productl3dist"
+    v-if="productl3dist && productl3dist.productL3Dist"
     id="infobox"
   >
     <div class="col col-md-auto">
@@ -14,9 +14,8 @@
     </div>
     <q-markup-table
       class="col q-ma-md"
-      separator='None'
+      separator='none'
       flat
-      bordered=false
       dense
       style='background-color: rgba(255, 255, 255, 0.0); color: #3b4151'
     >

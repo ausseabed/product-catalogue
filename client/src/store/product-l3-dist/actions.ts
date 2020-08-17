@@ -12,7 +12,6 @@ const actions: ActionTree<ProductL3DistStateInterface, StoreInterface> = {
     const productsL3Dist = await productsL3DistApi.productsL3DistControllerFindAll(productSrcId).toPromise().catch(
       (reason: undefined) => { commit('errorMessage', reason) })
 
-    console.log(productsL3Dist)
     if (productsL3Dist && productsL3Dist.length > 0) {
       commit('assignProductL3Dist', productsL3Dist[0])
     }
