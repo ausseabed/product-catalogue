@@ -21,12 +21,9 @@
 
     <div
       class="col"
-      v-if="surveyL3Relation.surveyL3RelationSelected"
+      v-if="surveyL3Relation.surveyL3RelationSelected && surveyL3Relation.surveyL3RelationSelected.productL3Src && surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid !== undefined"
     >
-      <q-form
-        ref="myForm"
-        v-if='surveyL3Relation.surveyL3RelationSelected.productL3Src && surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid !== undefined'
-      >
+      <q-form ref="myForm">
         <div class="text-h6 q-ml-md">Edit level 3 product associated with '{{surveyL3Relation.surveyL3RelationSelected.survey.name}}'</div>
         <div class="row items-center justify-end">
           <div class="q-ml-md col col-md-auto">
@@ -66,29 +63,57 @@
         ]"
           lazy-rules
         />
-        <q-input
-          class="q-ml-md"
-          type="url"
-          hint="url"
-          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation"
-          @input="value=>updateProduct( {element:'productTifLocation',value: value})"
-          label="L3 Product Tif Location"
-          :rules="[isS3Url]"
-          lazy-rules
-        />
-        <q-btn
-          class="q-ma-md"
-          label="Submit"
-          color="primary"
-          @click="_ => saveDataLocal(surveyL3Relation.surveyL3RelationSelected.survey.id)"
-        />
-        <q-btn
-          class="q-ma-md"
-          label="Cancel"
-          color="primary"
-          @click="_ => cancel(surveyL3Relation.surveyL3RelationSelected.survey.id)"
-          flat
-        />
+        <div class="row items-center">
+
+          <q-input
+            v-if="productTifLocationUrlType==='s3'"
+            class="q-ml-md col col-grow"
+            type="url"
+            hint="s3 uri"
+            :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation"
+            @input="value=>updateProduct( {element:'productTifLocation',value: value})"
+            label="L3 Product Tif Location"
+            :rules="[isS3Url]"
+            lazy-rules
+          />
+          <q-input
+            v-if="productTifLocationUrlType==='https'"
+            class="q-ml-md col col-grow"
+            type="url"
+            hint="https url"
+            :value="s3ToHttps(surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation)"
+            @input="value=>updateProduct( {element:'productTifLocation',value: httpsToS3(value)})"
+            label="L3 Product Tif Location"
+            :rules="[ val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.' ]"
+            lazy-rules
+          />
+          <q-btn-toggle
+            v-model="productTifLocationUrlType"
+            push
+            no-caps
+            rounded
+            toggle-color="primary"
+            :options="[
+          {label: 's3', value: 's3'},
+          {label: 'https', value: 'https'}
+        ]"
+          />
+        </div>
+        <div class="q-ma-lg col col-md-auto">
+          <q-btn
+            class="q-ma-md"
+            label="Submit"
+            color="primary"
+            @click="_ => saveDataLocal(surveyL3Relation.surveyL3RelationSelected.survey.id)"
+          />
+          <q-btn
+            class="q-ma-md"
+            label="Cancel"
+            color="primary"
+            @click="_ => cancel(surveyL3Relation.surveyL3RelationSelected.survey.id)"
+            flat
+          />
+        </div>
       </q-form>
       <l3-product-dist-detail :l3ProductSrcId='surveyL3Relation.surveyL3RelationSelected.productL3Src.id' />
     </div>
@@ -159,6 +184,44 @@ export default class ProductEditor extends SurveyIdProps {
           }
         })
     }
+  }
+
+  s3ToHttps (urlToTest: string) {
+    if (!(this.isValidUrl(urlToTest))) {
+      return urlToTest
+    }
+    try {
+      const bucketkeypair = S3Util.getBucketFromS3Uri(urlToTest)
+      if (bucketkeypair === undefined) {
+        return urlToTest
+      }
+      return S3Util.getHttpsUrl(bucketkeypair)
+    } catch (e) {
+      console.log(e)
+      return urlToTest
+    }
+  }
+
+  httpsToS3 (urlToTest: string) {
+    if (!(this.isValidUrl(urlToTest))) {
+      return urlToTest
+    }
+    try {
+      const bucketkeypair = S3Util.getBucketFromHttpsUrl(urlToTest)
+      if (bucketkeypair === undefined) {
+        return urlToTest
+      }
+      return S3Util.getS3Url(bucketkeypair)
+    } catch (e) {
+      console.log(e)
+      return urlToTest
+    }
+  }
+
+  productTifLocationUrlType = 's3'
+
+  convertHttp () {
+    // do nothing
   }
 
   createGuid () {

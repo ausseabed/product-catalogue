@@ -1,7 +1,7 @@
 <template>
   <div
-    class="row q-ml-md"
-    v-if="productl3dist"
+    class="row q-ml-md items-center"
+    v-if="productl3dist && productl3dist.productL3Dist"
     id="infobox"
   >
     <div class="col col-md-auto">
@@ -12,32 +12,48 @@
         />
       </div>
     </div>
-    <div class="col q-ma-md">
-      <div class="row">
-        Processed Products:
-      </div>
-      <div class="row">
-        Bathymetry: {{productl3dist.productL3Dist.bathymetryLocation}}
-      </div>
-      <div class="row">
-        Hillshade: {{productl3dist.productL3Dist.hillshadeLocation}}
-      </div>
-      <div class="row">
-        Polygon: {{productl3dist.productL3Dist.l3CoverageLocation}}
-      </div>
-      <div class="row">
-      </div>
-    </div>
+    <q-markup-table
+      class="col q-ma-md"
+      separator='none'
+      flat
+      dense
+      style='background-color: rgba(255, 255, 255, 0.0); color: #3b4151'
+    >
+      <thead>
+        <tr>
+          <th
+            colspan="2"
+            class="text-left"
+            style="font-weight: bold"
+          >Processed Products:
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-left">Bathymetry:</td>
+          <td class="text-left">{{productl3dist.productL3Dist.bathymetryLocation}}</td>
+        </tr>
+        <tr>
+          <td class="text-left">Hillshade:</td>
+          <td class="text-left">{{productl3dist.productL3Dist.hillshadeLocation}}</td>
+        </tr>
+        <tr>
+          <td class="text-left">Polygon:</td>
+          <td class="text-left">{{productl3dist.productL3Dist.l3CoverageLocation}}</td>
+        </tr>
+      </tbody>
+    </q-markup-table>
   </div>
 </template>
 <style lang="scss">
 #infobox {
   background-color: rgba(97, 175, 254, 0.1);
+  color: #3b4151;
   border-color: #61affe;
   border: 1px solid #61affe;
   border-radius: 4px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.19);
-  color: #3b4151;
 }
 </style>
 
