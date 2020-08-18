@@ -140,7 +140,7 @@
 import { saveAs } from 'file-saver'
 import { matToday, matAccessTime } from '@quasar/extras/material-icons'
 
-import { EftfLayer } from './eftf-layer'
+import { EftfLayer } from '../lib/eftf-layer'
 import { date } from 'quasar'
 import Vue from 'vue'
 export default Vue.extend({

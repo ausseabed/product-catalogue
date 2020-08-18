@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ObservableProductsL3DistApi, ObservableProductsL3SrcApi, ObservableProductRelationsApi, ObservableSurveysApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
 import { ProductL3Dist, ProductL3Src, RelationSummaryDto, Survey, Configuration } from '@ausseabed/product-catalogue-rest-client'
-import * as eftfStructure from '../components/eftf_structure.json'
-import * as eCatStructure from '../components/ecat_structure.json'
+import * as eftfStructure from '../lib/eftf_structure.json'
+import * as eCatStructure from '../lib/ecat_structure.json'
 import { useNamespaces } from 'xpath'
-import { S3Util } from '../components/s3-util'
+import { S3Util } from '../lib/s3-util'
 type BBoxFields = 'minx' | 'miny' | 'maxx' | 'maxy'
 type BBox = { 'minx': number; 'miny': number; 'maxx': number; 'maxy': number }
 

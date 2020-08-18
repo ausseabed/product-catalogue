@@ -83,7 +83,7 @@ import Component from 'vue-class-component'
 import { Mutation, State } from 'vuex-class'
 import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
 import { matSearch } from '@quasar/extras/material-icons'
-import { SearchRecordInterface, ReferenceSystem } from './reference-system'
+import { SearchRecordInterface, ReferenceSystem } from '../lib/reference-system'
 
 type SrsSearchCategories = 'geographic' | 'projected' | 'gda' | 'wgsutm' | 'all' | 'mga'
 

@@ -136,7 +136,7 @@ import { Action, State, Mutation, Getter } from 'vuex-class'
 import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
 import SpatialReference from './SpatialReference.vue'
 import L3ProductDistDetail from './L3ProductDistDetail.vue'
-import { S3Util } from '../components/s3-util'
+import { S3Util } from '../lib/s3-util'
 
 const SurveyIdProps = Vue.extend({
   props: {
