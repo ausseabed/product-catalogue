@@ -25,7 +25,7 @@
             colspan="2"
             class="text-left"
             style="font-weight: bold"
-          >Processed Products:
+          >Processed Products (id=<span style="user-select: all;">{{productl3dist.productL3Dist.id}}</span>):
           </th>
         </tr>
       </thead>
