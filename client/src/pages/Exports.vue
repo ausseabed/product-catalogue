@@ -147,6 +147,7 @@ export default Vue.extend({
   name: 'ExportsPage',
   methods: {
     buildOutputs: async function () {
+      const colon = RegExp('[:.-]', 'g')
       await this.$store.dispatch('auth/getLoginToken', {}, { root: true })
       const configuration = this.$store.getters['auth/configuration']
       this.progress = true
@@ -155,17 +156,18 @@ export default Vue.extend({
       const blob = await eftfLayer.getLayerDefinitionsFile()
       const productionText = (this.geoserverProduction ? 'PROD' : 'NONPROD')
       const groupedText = (this.collapseGroups ? 'GROUPED' : 'UNGROUPED')
-      saveAs(blob, `EFTF_Layer_${productionText}_${groupedText}_${this.snapshotEndDate.replace(':', '.')}.csv`)
+      saveAs(blob, `EFTF_Layer_${productionText}_${groupedText}_${this.snapshotEndDate.replace(colon, '')}.csv`)
       this.progress = false
     },
     buildEcat: async function () {
+      const colon = RegExp('[:.-]', 'g')
       await this.$store.dispatch('auth/getLoginToken', {}, { root: true })
       const configuration = this.$store.getters['auth/configuration']
       this.progress = true
       const production = (this.geoserverProduction ? 'YES' : 'NO')
       const eftfLayer = new EftfLayer(this.geoserverUrl, production, this.collapseGroups, this.snapshotEndDate, this.snapshotPreviousDate, configuration)
       const blob = await eftfLayer.getEcatFileDefinition()
-      saveAs(blob, `EFTF_Layer_${this.snapshotEndDate.replace(':', '.')}.csv`)
+      saveAs(blob, `ECAT_Layer_${this.snapshotEndDate.replace(colon, '')}.csv`)
       this.progress = false
     }
   },

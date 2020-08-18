@@ -23,14 +23,38 @@
       class="col"
       v-if="surveyL3Relation.surveyL3RelationSelected && surveyL3Relation.surveyL3RelationSelected.productL3Src && surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid !== undefined"
     >
+      <div
+        class="text-h6 q-ml-md"
+        style="text-align: center"
+      >Edit level 3 product associated with '{{surveyL3Relation.surveyL3RelationSelected.survey.name}}'</div>
       <q-form ref="myForm">
-        <div class="text-h6 q-ml-md">Edit level 3 product associated with '{{surveyL3Relation.surveyL3RelationSelected.survey.name}}'</div>
+        <div
+          class="row q-ma-md items-center"
+          id="infobox"
+        >
+          <div class="col col-md-auto">
+            <div class="q-ma-md text-primary">
+              <q-icon
+                :name="matInfo"
+                style="font-size: 2rem"
+              />
+            </div>
+          </div>
+          <div class="col col-md-auto">
+            <div class="q-ma-md">
+              <span style='font-weight: bold'>Product presentation string: </span><span style="user-select: all;">{{productPresentationString}}</span>
+            </div>
+            <div class="q-ma-md">
+              <span style='font-weight: bold'>Collated presentation string: </span><span style="user-select: all;">{{surveyPresentationString}}</span>
+            </div>
+          </div>
+        </div>
         <div class="row items-center justify-end">
           <div class="q-ml-md col col-md-auto">
             {{surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid}}
             <q-tooltip> UUID </q-tooltip>
           </div>
-          <div class="q-ml-md col col-md-auto">
+          <div class="q-mx-md col col-md-auto">
             <q-btn
               color="primary"
               label="New UUID"
@@ -50,14 +74,7 @@
           @input="value=>updateProduct( {element:'resolution',value: value})"
           label="Resolution"
         />
-        <div
-          class="q-ma-md items-center"
-          id="infobox"
-        >
-          <div class="q-ma-md">
-            Presentation string: <span style="user-select: all;">{{productPresentationString}}</span>
-          </div>
-        </div>
+
         <spatial-reference :srs='surveyL3Relation.surveyL3RelationSelected.productL3Src.srs' />
         <q-input
           type="url"
@@ -108,7 +125,7 @@
         ]"
           />
         </div>
-        <div class="q-ma-lg col col-md-auto">
+        <div class="col col-md-auto">
           <q-btn
             class="q-ma-md"
             label="Submit"
@@ -137,7 +154,7 @@ import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/stat
 import SpatialReference from './SpatialReference.vue'
 import L3ProductDistDetail from './L3ProductDistDetail.vue'
 import { S3Util } from '../lib/s3-util'
-
+import { matInfo } from '@quasar/extras/material-icons'
 const SurveyIdProps = Vue.extend({
   props: {
     title: {
@@ -173,6 +190,9 @@ export default class ProductEditor extends SurveyIdProps {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Getter('productPresentationString', { namespace }) productPresentationString!: any
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Getter('surveyPresentationString', { namespace }) surveyPresentationString!: any
 
   async saveDataLocal (surveyId: number) {
     await this.saveData()
@@ -272,6 +292,12 @@ export default class ProductEditor extends SurveyIdProps {
     elm.setAttribute('type', 'url')
     elm.value = urlToTest
     return elm.validity.valid
+  }
+
+  data () {
+    return {
+      matInfo: matInfo
+    }
   }
 }
 </script>
