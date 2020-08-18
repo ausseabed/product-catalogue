@@ -1,11 +1,11 @@
 <template>
   <div
-    class="row q-ml-md items-center"
+    class="row q-ma-md items-center"
     v-if="productl3dist && productl3dist.productL3Dist"
     id="infobox"
   >
     <div class="col col-md-auto">
-      <div class="q-ma-md">
+      <div class="q-ma-md text-primary">
         <q-icon
           :name="matCog"
           style="font-size: 2rem;"
@@ -25,7 +25,7 @@
             colspan="2"
             class="text-left"
             style="font-weight: bold"
-          >Processed Products:
+          >Processed Products (id=<span style="user-select: all;">{{productl3dist.productL3Dist.id}}</span>):
           </th>
         </tr>
       </thead>

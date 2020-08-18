@@ -2,7 +2,11 @@
   <div>
     <p>{{ title }}</p>
     <ul>
-      <li v-for="todo in todos" :key="todo.id" @click="increment">
+      <li
+        v-for="todo in todos"
+        :key="todo.id"
+        @click="increment"
+      >
         {{ todo.id }} - {{ todo.content }}
       </li>
     </ul>
@@ -14,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from '@vue/composition-api'
-import { Todo, Meta } from './models'
+import { Todo, Meta } from '../lib/models'
 
 function useClickCount () {
   const clickCount = ref(0)

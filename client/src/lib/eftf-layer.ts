@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ObservableProductsL3DistApi, ObservableProductsL3SrcApi, ObservableProductRelationsApi, ObservableSurveysApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
 import { ProductL3Dist, ProductL3Src, RelationSummaryDto, Survey, Configuration } from '@ausseabed/product-catalogue-rest-client'
-import * as eftfStructure from '../components/eftf_structure.json'
-import * as eCatStructure from '../components/ecat_structure.json'
+import * as eftfStructure from '../lib/eftf_structure.json'
+import * as eCatStructure from '../lib/ecat_structure.json'
 import { useNamespaces } from 'xpath'
-import { S3Util } from '../components/s3-util'
+import { PortalNaming } from './portal_naming'
+import { S3Util } from '../lib/s3-util'
 type BBoxFields = 'minx' | 'miny' | 'maxx' | 'maxy'
 type BBox = { 'minx': number; 'miny': number; 'maxx': number; 'maxy': number }
 
@@ -104,39 +105,6 @@ export class EftfLayer {
     return nameToNode
   }
 
-  SLASH_I_LESS_COLON = 'A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD'
-  SLASH_C_LESS_COLON = '-0-9A-Z_a-z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD'
-
-  getNcName (label: string) {
-    const reSlashI = new RegExp('^[^' + this.SLASH_I_LESS_COLON + ']')
-    const reSlashC = new RegExp('[^' + this.SLASH_C_LESS_COLON + ']', 'g')
-    return label.replace(reSlashC, '_').replace(reSlashI, '_')
-  }
-
-  getNameIndividual (productL3Src: ProductL3Src | undefined, year: string): string {
-    if (productL3Src) {
-      return `${productL3Src.name} ${year} ${productL3Src.resolution}`
-    } else {
-      console.error('Could not find product')
-      return 'unknown'
-    }
-  }
-
-  getNameSurvey (survey: Survey | undefined, productL3Src: ProductL3Src | undefined, year: string): string {
-    if (productL3Src && survey) {
-      return `${survey.name} ${year} ${productL3Src.resolution}`
-    } else {
-      if (survey) {
-        console.error('Could not find product for survey: ' + survey.name)
-        return 'unknown'
-      } else if (productL3Src) {
-        throw Error('Could not find survey for product: ' + productL3Src.name)
-      } else {
-        throw Error('Could not find product')
-      }
-    }
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async generateLayerDefinitions (snapshotDateTime: string | undefined, eftfStructureHeaders: any): Promise<any[]> {
     const productL3DistArray = await this.getPublishedL3SurveyProducts(snapshotDateTime)
@@ -167,18 +135,18 @@ export class EftfLayer {
           const productsWithDistributables = productIds.filter(id => productIdToProductSrc.get(id))
           const surveyNameToProducts = productsWithDistributables.reduce<Map<string, number[]>>(
             (previousMap, productId) => previousMap.set(
-              this.getNameSurvey(survey, productIdToProductSrc.get(productId), survey.year), [...previousMap
-                .get(this.getNameSurvey(survey, productIdToProductSrc.get(productId), survey.year)) || [],
+              PortalNaming.getNameSurvey(survey, productIdToProductSrc.get(productId), survey.year), [...previousMap
+                .get(PortalNaming.getNameSurvey(survey, productIdToProductSrc.get(productId), survey.year)) || [],
               productId]),
             new Map()
           )
           surveyNameToProducts.forEach((productsWithDistributables: number[], nameFormatted: string) => {
             const wcsLayerNames = productsWithDistributables.map(prodId => {
-              return namespace + this.getNcName(this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year) + '_OV')
+              return namespace + PortalNaming.getNcName(PortalNaming.getNameIndividual(productIdToProductSrc.get(prodId), survey.year) + '_OV')
             })
 
             const bboxes = productsWithDistributables.map(prodId => {
-              const nameIndividualFormatted = namespace + this.getNcName(this.getNameIndividual(productIdToProductSrc.get(prodId), survey.year))
+              const nameIndividualFormatted = namespace + PortalNaming.getNcName(PortalNaming.getNameIndividual(productIdToProductSrc.get(prodId), survey.year))
               const layer = nameToNode.get(nameIndividualFormatted)
               if (layer) {
                 return this.getBoundingBox(layer)
@@ -196,7 +164,7 @@ export class EftfLayer {
 
             const eftfBase = Object.assign({}, eftfStructureHeaders)
             eftfBase.NAME = nameFormatted
-            eftfBase['WMS LAYER NAMES'] = namespace + this.getNcName(nameFormatted)
+            eftfBase['WMS LAYER NAMES'] = namespace + PortalNaming.getNcName(nameFormatted)
             eftfBase['WCS LAYER NAMES'] = wcsLayerNames.join(',')
 
             // replace with bboxes extent
@@ -217,13 +185,13 @@ export class EftfLayer {
             const productL3Src = productIdToProductSrc.get(prodId)
             const productL3Dist = productIdToProductDist.get(prodId)
             if (productL3Src && productL3Dist) {
-              const nameFormatted = this.getNameIndividual(productL3Src, survey.year)
-              const layer = nameToNode.get(namespace + this.getNcName(nameFormatted))
+              const nameFormatted = PortalNaming.getNameIndividual(productL3Src, survey.year)
+              const layer = nameToNode.get(namespace + PortalNaming.getNcName(nameFormatted))
               if (layer) {
                 const eftfBase = Object.assign({}, eftfStructureHeaders)
                 eftfBase.NAME = nameFormatted
-                eftfBase['WMS LAYER NAMES'] = namespace + this.getNcName(nameFormatted)
-                eftfBase['WCS LAYER NAMES'] = namespace + this.getNcName(nameFormatted) + '_OV'
+                eftfBase['WMS LAYER NAMES'] = namespace + PortalNaming.getNcName(nameFormatted)
+                eftfBase['WCS LAYER NAMES'] = namespace + PortalNaming.getNcName(nameFormatted) + '_OV'
                 const bbox = this.getBoundingBox(layer)
                 eftfBase.xmax = bbox.maxx
                 eftfBase.xmin = bbox.minx
@@ -307,7 +275,7 @@ export class EftfLayer {
                 const productL3Src = productIdToProductSrc.get(prodId)
                 const productL3Dist = productIdToProductDist.get(prodId)
                 if (productL3Src && productL3Dist) {
-                  const nameFormatted = this.getNameIndividual(productL3Src, survey.year)
+                  const nameFormatted = PortalNaming.getNameIndividual(productL3Src, survey.year)
                   const ecatBase = Object.assign({}, eCatStructure)
                   const bucketkeypair = S3Util.getBucketFromS3Uri(productL3Dist.bathymetryLocation)
                   if (bucketkeypair) {

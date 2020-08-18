@@ -8,6 +8,7 @@ ARG AUTH_CLIENT_ID
 ADD package.json yarn.lock babel.config.js quasar.conf.js .postcssrc.js tsconfig.json .npmrc $APPDIR/
 RUN yarn global add @quasar/cli
 ADD src $APPDIR/src
+ADD public $APPDIR/public
 
 COPY .npmrc $APPDIR/
 RUN cat .npmrc
