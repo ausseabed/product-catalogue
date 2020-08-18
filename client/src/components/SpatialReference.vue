@@ -69,7 +69,7 @@
             label="Spatial Reference System"
           />
         </div>
-        <div class="col q-my-md col-md-auto">
+        <div class="col q-ma-md col-md-auto">
           {{srsName}}
         </div>
       </div>

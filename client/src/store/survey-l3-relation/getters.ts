@@ -3,8 +3,8 @@ import { StoreInterface } from '../index'
 import { SurveyL3RelationStateInterface } from './state'
 
 const getters: GetterTree<SurveyL3RelationStateInterface, StoreInterface> = {
-  someAction (/* context */) {
-    // your code
+  productPresentationString (state) {
+    return state.surveyL3RelationSelected.survey.name
   }
 }
 

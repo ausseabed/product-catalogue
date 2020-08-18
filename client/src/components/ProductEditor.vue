@@ -39,22 +39,30 @@
           </div>
         </div>
         <q-input
-          class="q-ml-md"
+          class="q-ma-md"
           :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.name"
           @input="value=>updateProduct( {element:'name',value: value})"
           label="Gazetteer"
         />
         <q-input
-          class="q-ml-md"
+          class="q-ma-md"
           :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.resolution"
           @input="value=>updateProduct( {element:'resolution',value: value})"
           label="Resolution"
         />
+        <div
+          class="q-ma-md items-center"
+          id="infobox"
+        >
+          <div class="q-ma-md">
+            Presentation string: <span style="user-select: all;">{{productPresentationString}}</span>
+          </div>
+        </div>
         <spatial-reference :srs='surveyL3Relation.surveyL3RelationSelected.productL3Src.srs' />
         <q-input
           type="url"
           hint="url"
-          class="q-ml-md"
+          class="q-ma-md"
           :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.metadataPersistentId"
           @input="value=>updateProduct( {element:'metadataPersistentId',value: value})"
           label="Metadata Persistent Id"
@@ -67,7 +75,7 @@
 
           <q-input
             v-if="productTifLocationUrlType==='s3'"
-            class="q-ml-md col col-grow"
+            class="q-ma-md col col-grow"
             type="url"
             hint="s3 uri"
             :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation"
@@ -78,7 +86,7 @@
           />
           <q-input
             v-if="productTifLocationUrlType==='https'"
-            class="q-ml-md col col-grow"
+            class="q-ma-md col col-grow"
             type="url"
             hint="https url"
             :value="s3ToHttps(surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation)"
@@ -89,6 +97,7 @@
           />
           <q-btn-toggle
             v-model="productTifLocationUrlType"
+            class="q-ma-md"
             push
             no-caps
             rounded
@@ -123,7 +132,7 @@
 <script lang='ts'>
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Action, State, Mutation } from 'vuex-class'
+import { Action, State, Mutation, Getter } from 'vuex-class'
 import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
 import SpatialReference from './SpatialReference.vue'
 import L3ProductDistDetail from './L3ProductDistDetail.vue'
@@ -161,6 +170,9 @@ export default class ProductEditor extends SurveyIdProps {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Mutation('clearErrorMessagesMutation', { namespace }) clearErrorMessages!: any
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Getter('productPresentationString', { namespace }) productPresentationString!: any
 
   async saveDataLocal (surveyId: number) {
     await this.saveData()
