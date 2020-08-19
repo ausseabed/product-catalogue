@@ -47,8 +47,8 @@ export class S3Util {
     AWS.config.region = region
     const s3 = new S3()
     try {
-      const headObjectData = await s3.makeUnauthenticatedRequest('headObject', headParams).promise()
-      if (headObjectData.ContentLength) {
+      const headObjectData = await s3.makeUnauthenticatedRequest('headObject', headParams).promise() as undefined | {ContentLength:number}
+      if (headObjectData && headObjectData.ContentLength) {
         return this.formatBytes(headObjectData.ContentLength) !== undefined
       } else {
         return false
@@ -63,8 +63,8 @@ export class S3Util {
     AWS.config.region = region
     const s3 = new S3()
     try {
-      const headObjectData = await s3.makeUnauthenticatedRequest('headObject', headParams).promise()
-      if (headObjectData.ContentLength) {
+      const headObjectData = await s3.makeUnauthenticatedRequest('headObject', headParams).promise() as undefined | {ContentLength:number}
+      if (headObjectData && headObjectData.ContentLength) {
         return this.formatBytes(headObjectData.ContentLength)
       } else {
         console.log('could not find size')
@@ -84,6 +84,6 @@ export class S3Util {
 
     const i = Math.floor(Math.log(bytes) / Math.log(k))
 
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
   }
 }

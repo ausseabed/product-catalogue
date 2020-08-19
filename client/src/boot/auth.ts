@@ -1,5 +1,8 @@
 import { boot } from 'quasar/wrappers'
 import * as msal from '@azure/msal-browser'
+import { StoreInterface } from 'src/store'
+import { Store } from 'vuex'
+
 let clientIdStr = ''
 if (process && process.env && process.env.AUTH_CLIENT_ID) {
   clientIdStr = process.env.AUTH_CLIENT_ID
@@ -26,21 +29,24 @@ export const requestScopes = {
 export const msalInstance = new msal.PublicClientApplication(msalConfig)
 
 // more info on params: https://quasar.dev/quasar-cli/cli-documentation/boot-files#Anatomy-of-a-boot-file
-export default boot(({ router, store }) => {
+export default boot<Store<StoreInterface>>(({ router, store }) => {
   router.beforeEach((to, from, next) => {
     // var noAuth = true
     if (to.path === '/404' || to.path === '/' || to.path === '/health') { // allow not-found page to be shown
       next()
     } else { // try to get login information
       store.dispatch('auth/fetch').then(() => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (!store.getters['auth/loggedIn']) {
           if (from.path !== '/') {
-            router.push('/')
+            router.push('/').catch(
+              (e) => { console.log(e) })
           }
         } else {
           next()
         }
-      })
+      }).catch(
+        (e) => { console.log(e) })
     }
   })
 })

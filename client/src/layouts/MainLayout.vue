@@ -47,7 +47,10 @@
           v-if="userName !== ''"
         >
           <q-item-section avatar>
-            <q-icon :name="matVpnKey" />
+            <q-icon
+              :name="matVpnKey"
+              size='lg'
+            />
           </q-item-section>
 
           <q-item-section>
@@ -63,7 +66,10 @@
           v-if="userName !== ''"
         >
           <q-item-section avatar>
-            <q-icon :name="matSchool" />
+            <q-icon
+              :name="matPowerSettingsNew"
+              size='lg'
+            />
           </q-item-section>
 
           <q-item-section>
@@ -85,9 +91,10 @@
 
 <script lang='ts'>
 import EssentialLink from 'components/EssentialLink.vue'
-import { matMenu, matSchool, matVpnKey } from '@quasar/extras/material-icons'
+import { matMenu, matSchool, matVpnKey, matHome, matDirectionsBoat, matImportExport, matTextSnippet, matPowerSettingsNew } from '@quasar/extras/material-icons'
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import { AuthStateInterface } from '../store/auth/state'
 
 @Component({
   components: {
@@ -97,11 +104,12 @@ import Component from 'vue-class-component'
 export default class MainLayout extends Vue {
   async logoutfn () {
     await this.$store.dispatch('auth/logout')
-    this.$router.push({ name: '/' })
+    this.$router.push({ name: '/' }).catch((e) => { console.log(e) })
   }
 
   getKey () {
-    const key: string = this.$store.state.auth.bearerToken
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const key: string = (this.$store.state.auth as AuthStateInterface).bearerToken as string
     navigator.clipboard.writeText(key).then(function () {
       console.log('Async: Copying to clipboard was successful!')
     }, function (err) {
@@ -115,9 +123,10 @@ export default class MainLayout extends Vue {
   }
 
   get userName (): string {
-    const account = this.$store.state.auth.account
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const account = (this.$store.state.auth as AuthStateInterface).account
     return account !== undefined
-      ? account.userName
+      ? account.username
       : ''
   }
 
@@ -125,26 +134,37 @@ export default class MainLayout extends Vue {
     return {
       matMenu: matMenu,
       matSchool: matSchool,
+      matHome: matHome,
       matVpnKey: matVpnKey,
+      matDirectionsBoat: matDirectionsBoat,
+      matImportExport: matImportExport,
+      matTextSnippet: matTextSnippet,
+      matPowerSettingsNew: matPowerSettingsNew,
 
       leftDrawerOpen: false,
       essentialLinks: [
         {
           title: 'Home',
           caption: 'Welcome page',
-          icon: matSchool,
+          icon: matHome,
           link: '/'
         },
         {
           title: 'Survey Datasets',
           caption: 'Add or remove information about bathymetry products',
-          icon: matSchool,
+          icon: matDirectionsBoat,
           link: '/surveys'
+        },
+        {
+          title: 'Reports',
+          caption: 'Identify files that are missing',
+          icon: matTextSnippet,
+          link: '/reports'
         },
         {
           title: 'Export Datasets',
           caption: 'Export dataset information for use in the Marine Portal',
-          icon: matSchool,
+          icon: matImportExport,
           link: '/exports'
         }
       ]

@@ -155,6 +155,7 @@ import SpatialReference from './SpatialReference.vue'
 import L3ProductDistDetail from './L3ProductDistDetail.vue'
 import { S3Util } from '../lib/s3-util'
 import { matInfo } from '@quasar/extras/material-icons'
+import { UpdateProductKnownTypes } from '../store/survey-l3-relation/mutations'
 const SurveyIdProps = Vue.extend({
   props: {
     title: {
@@ -173,26 +174,19 @@ const namespace = 'surveyl3relation'
 export default class ProductEditor extends SurveyIdProps {
   @State('surveyl3relation') surveyL3Relation!: SurveyL3RelationStateInterface
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Action('saveData', { namespace }) saveData!: any
+  @Action('saveData', { namespace }) saveData!: () => Promise<void>
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Action('fetchData', { namespace }) fetchData!: any
+  @Action('fetchData', { namespace }) fetchData!: (relationId: number) => Promise<void>
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Mutation('createGuid', { namespace }) createGuidRef!: any
+  @Mutation('createGuid', { namespace }) createGuidRef!: () => void
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Mutation('updateProduct', { namespace }) updateProduct!: any
+  @Mutation('updateProduct', { namespace }) updateProduct!: (elementValuePair: { element: UpdateProductKnownTypes; value: string }) => void
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Mutation('clearErrorMessagesMutation', { namespace }) clearErrorMessages!: any
+  @Mutation('clearErrorMessagesMutation', { namespace }) clearErrorMessages!: () => void
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Getter('productPresentationString', { namespace }) productPresentationString!: any
+  @Getter('productPresentationString', { namespace }) productPresentationString!: string
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Getter('surveyPresentationString', { namespace }) surveyPresentationString!: any
+  @Getter('surveyPresentationString', { namespace }) surveyPresentationString!: string
 
   async saveDataLocal (surveyId: number) {
     await this.saveData()
@@ -202,7 +196,7 @@ export default class ProductEditor extends SurveyIdProps {
         query: {
           surveyId: String(surveyId)
         }
-      })
+      }).catch((e) => { console.log(e) })
   }
 
   async cancel (surveyId: number) {
@@ -214,7 +208,7 @@ export default class ProductEditor extends SurveyIdProps {
           query: {
             surveyId: String(surveyId)
           }
-        })
+        }).catch((e) => { console.log(e) })
     }
   }
 
@@ -260,8 +254,8 @@ export default class ProductEditor extends SurveyIdProps {
     this.createGuidRef()
   }
 
-  mounted () {
-    this.fetchData(this.relationId)
+  async mounted () {
+    await this.fetchData(this.relationId)
   }
 
   async isS3Url2 (urlToTest: string): Promise<boolean> {
@@ -283,7 +277,7 @@ export default class ProductEditor extends SurveyIdProps {
       this.isS3Url2(val).then(
         (val: boolean) => {
           if (val) { resolve(val) } else { resolve('* Did not resolve') }
-        })
+        }).catch((e) => { console.log(e) })
     })
   }
 

@@ -233,6 +233,7 @@ import { State, Action, Mutation } from 'vuex-class'
 import Component from 'vue-class-component'
 import { SurveyStateInterface } from '../store/surveys/state'
 import { UpdateRowInterface, UpdateRowKnownTypes } from '../store/surveys/actions'
+import { QTable } from 'quasar'
 const namespace = 'surveys'
 
 @Component
@@ -246,35 +247,28 @@ export default class SurveysEditor extends Vue {
   [x: string]: any
   @State('surveys') surveys!: SurveyStateInterface
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Action('fetchData', { namespace }) fetchData!: any
+  @Action('fetchData', { namespace }) fetchData!: () => Promise<void>
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Action('newSurvey', { namespace }) newSurvey!: any
+  @Action('newSurvey', { namespace }) newSurvey!: () => Promise<void>
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Mutation('clearErrorMessagesMutation', { namespace }) clearErrorMessages!: any
+  @Mutation('clearErrorMessagesMutation', { namespace }) clearErrorMessages!: () => void
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Action('deleteSurvey', { namespace }) removeRow!: any
+  @Action('deleteSurvey', { namespace }) removeRow!: (payload: Survey) => Promise<void>
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  removeRowDialogue (deleteText: string, argList: any) {
+  removeRowDialogue (deleteText: string, argList: Survey) {
     this.$q.dialog({
       title: 'Confirm',
       message: `Are you sure you want to permanently delete '${deleteText}'?`,
       cancel: true,
       persistent: true
-    }).onOk(() => {
-      this.removeRow(argList)
+    }).onOk(async () => {
+      await this.removeRow(argList)
     })
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Action('createProduct', { namespace }) createProduct!: any
+  @Action('createProduct', { namespace }) createProduct!: (surveyId: number) => Promise<number>
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Action('deleteProduct', { namespace }) deleteProduct!: any
+  @Action('deleteProduct', { namespace }) deleteProduct!: (productId: number) => Promise<void>
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   deleteProductDialogue (deleteText: string, argList: any) {
@@ -283,8 +277,8 @@ export default class SurveysEditor extends Vue {
       message: `Are you sure you want to permanently delete '${deleteText}'?`,
       cancel: true,
       persistent: true
-    }).onOk(() => {
-      this.deleteProduct(argList)
+    }).onOk(async () => {
+      await this.deleteProduct(argList)
     })
   }
   // @Action('updateEntry', { namespace }) update!: any
@@ -295,13 +289,13 @@ export default class SurveysEditor extends Vue {
       elementName: element,
       elementValue: value
     }
-    this.$store.dispatch('surveys/updateEntry', dir)
+    this.$store.dispatch('surveys/updateEntry', dir).catch((e) => { console.log(e) })
   }
 
   scrollToRow (selectedRow: Survey) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const table: any = (this.$refs.table as any)
-    const index = table.computedRows.map((e: Survey) => e.id).indexOf(selectedRow.id)
+    const table = this.$refs.table as QTable
+    // eslint-disable-next-line
+    const index = (table as any).computedRows.map((e: Survey) => e.id).indexOf(selectedRow.id)
     table.scrollTo(index)
     this.toggleEditMode(selectedRow, false)
   }
@@ -329,7 +323,7 @@ export default class SurveysEditor extends Vue {
           relationId: String(relationId)
         }
       }
-    )
+    ).catch((e) => { console.log(e) })
   }
 
   editProduct (relationId: number) {
@@ -340,17 +334,17 @@ export default class SurveysEditor extends Vue {
           relationId: String(relationId)
         }
       }
-    )
+    ).catch((e) => { console.log(e) })
   }
 
-  mounted () {
-    this.fetchData()
+  async mounted () {
+    await this.fetchData()
     // the virtual-scroll position of the table does not appear to be saved as part of keep-alive
     if (this.$route.query.surveyId) {
       const surveyId = parseInt(String(this.$route.query.surveyId))
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const table: any = (this.$refs.table as any)
-      const index = table.computedRows.map((e: Survey) => e.id).indexOf(surveyId)
+      const table = this.$refs.table as QTable
+      // eslint-disable-next-line
+      const index = (table as any).computedRows.map((e: Survey) => e.id).indexOf(surveyId)
       if (index) {
         table.scrollTo(index)
       }

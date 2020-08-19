@@ -17,7 +17,7 @@ const actions: ActionTree<AuthStateInterface, StoreInterface> = {
 
     await msalInstance.acquireTokenSilent(requestAccountScopes).then(tokenResponse => {
       // Do something with the tokenResponse
-      console.log(`Token exires on ${tokenResponse.expiresOn}`)
+      console.log(`Token exires on ${tokenResponse.expiresOn.toString()}`)
       commit('setToken', tokenResponse.accessToken)
     }).catch(error => {
       if (error instanceof InteractionRequiredAuthError) {
@@ -46,6 +46,7 @@ const actions: ActionTree<AuthStateInterface, StoreInterface> = {
       commit('setAccount', account)
       return dispatch('getLoginToken')
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return await msalInstance.loginPopup(requestScopes).then(
         async resp => {
           let account: AccountInfo | undefined

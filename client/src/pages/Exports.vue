@@ -140,6 +140,8 @@
 import { saveAs } from 'file-saver'
 import { matToday, matAccessTime } from '@quasar/extras/material-icons'
 
+import { Configuration } from '@ausseabed/product-catalogue-rest-client/configuration'
+
 import { EftfLayer } from '../lib/eftf-layer'
 import { date } from 'quasar'
 import Vue from 'vue'
@@ -149,7 +151,8 @@ export default Vue.extend({
     buildOutputs: async function () {
       const colon = RegExp('[:.-]', 'g')
       await this.$store.dispatch('auth/getLoginToken', {}, { root: true })
-      const configuration = this.$store.getters['auth/configuration']
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const configuration = this.$store.getters['auth/configuration'] as Configuration
       this.progress = true
       const production = (this.geoserverProduction ? 'YES' : 'NO')
       const eftfLayer = new EftfLayer(this.geoserverUrl, production, this.collapseGroups, this.snapshotEndDate, this.snapshotPreviousDate, configuration)
@@ -162,7 +165,8 @@ export default Vue.extend({
     buildEcat: async function () {
       const colon = RegExp('[:.-]', 'g')
       await this.$store.dispatch('auth/getLoginToken', {}, { root: true })
-      const configuration = this.$store.getters['auth/configuration']
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const configuration = this.$store.getters['auth/configuration'] as Configuration
       this.progress = true
       const production = (this.geoserverProduction ? 'YES' : 'NO')
       const eftfLayer = new EftfLayer(this.geoserverUrl, production, this.collapseGroups, this.snapshotEndDate, this.snapshotPreviousDate, configuration)
