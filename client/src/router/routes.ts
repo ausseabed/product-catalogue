@@ -20,6 +20,11 @@ const routes: RouteConfig[] = [
     children: [{ path: '', component: () => import('pages/Exports.vue') }]
   },
   {
+    path: '/reports',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Reports.vue') }]
+  },
+  {
     path: '/login',
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/Index.vue') }]

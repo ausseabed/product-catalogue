@@ -84,6 +84,7 @@ import { Mutation, State } from 'vuex-class'
 import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
 import { matSearch } from '@quasar/extras/material-icons'
 import { SearchRecordInterface, ReferenceSystem } from '../lib/reference-system'
+import { UpdateProductKnownTypes } from '../store/survey-l3-relation/mutations'
 
 type SrsSearchCategories = 'geographic' | 'projected' | 'gda' | 'wgsutm' | 'all' | 'mga'
 
@@ -111,15 +112,13 @@ const namespace = 'surveyl3relation'
 export default class SpatialReference extends SpatialReferenceProps {
   @State('surveyl3relation') surveyL3Relation!: SurveyL3RelationStateInterface
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Mutation('updateProduct', { namespace }) updateProduct!: any
+  @Mutation('updateProduct', { namespace }) updateProduct!: (elementValuePair: { element: UpdateProductKnownTypes; value: string }) => void
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  filterBySelectionSrs (details: any) {
-    if (details === undefined || details.rows.length === 0) {
+  filterBySelectionSrs (details: undefined | { rows: [{ Code: string }] | [] }) {
+    if (details === undefined || details.rows === undefined || details.rows.length === 0) {
       return
     }
-    const code = 'EPSG:' + details.rows[0].Code
+    const code = `EPSG: ${details.rows[0].Code}`
     this.updateProduct({ element: 'srs', value: code })
   }
 
@@ -127,7 +126,7 @@ export default class SpatialReference extends SpatialReferenceProps {
     this.filterSRS = ''
     this.filterFn(this.filterSRS)
     if (this.srs !== undefined || this.srs !== '') {
-      const matches = srsOptionsBasis.filter(v => 'EPSG:' + v.Code === this.srs)
+      const matches = srsOptionsBasis.filter(v => `EPSG: ${v.Code}` === this.srs)
       if (matches.length > 0) {
         this.selectedSrs = [matches[0]]
         return
@@ -158,7 +157,7 @@ export default class SpatialReference extends SpatialReferenceProps {
 
   get srsName (): string {
     if (this.srs !== undefined || this.srs !== '') {
-      const matches = srsOptionsBasis.filter(v => 'EPSG:' + v.Code === this.srs)
+      const matches = srsOptionsBasis.filter(v => `EPSG: ${v.Code}` === this.srs)
       if (matches.length > 0) {
         return matches[0].Name + ' (' + matches[0].Type + ')'
       }
@@ -175,8 +174,8 @@ export default class SpatialReference extends SpatialReferenceProps {
       srsColumns: [
         {
           name: 'Code',
-          label: (row: SearchRecordInterface) => { return 'EPSG:' + row.Code },
-          field: (row: SearchRecordInterface) => { return 'EPSG:' + row.Code },
+          label: (row: SearchRecordInterface) => { return `EPSG: ${row.Code}` },
+          field: (row: SearchRecordInterface) => { return `EPSG: ${row.Code}` },
           align: 'left',
           sortable: true
         },

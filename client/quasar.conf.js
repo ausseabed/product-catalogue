@@ -3,13 +3,13 @@
  * the ES6 features that are supported by your Node version. https://node.green/
  */
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config()
 
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/camelcase */
 const { configure } = require('quasar/wrappers')
 
 module.exports = configure(function (ctx) {
@@ -19,8 +19,7 @@ module.exports = configure(function (ctx) {
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
       'auth',
-      'composition-api',
-      'axios'
+      'composition-api'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -106,6 +105,7 @@ module.exports = configure(function (ctx) {
             loader: 'eslint-loader',
             exclude: /node_modules/,
             options: {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
               formatter: require('eslint').CLIEngine.getFormatter('stylish')
             }
           })

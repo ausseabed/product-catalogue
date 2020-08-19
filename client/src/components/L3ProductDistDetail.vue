@@ -79,8 +79,7 @@ const namespace = 'productl3dist'
 export default class L3ProductDistDetail extends L3ProductDistDetailProps {
   @State('productl3dist') productl3dist!: ProductL3DistStateInterface
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Action('fetchData', { namespace }) fetchData!: any
+  @Action('fetchData', { namespace }) fetchData!: (payload: number) => Promise<void>
 
   data () {
     return {
@@ -88,8 +87,8 @@ export default class L3ProductDistDetail extends L3ProductDistDetailProps {
     }
   }
 
-  mounted () {
-    this.fetchData(this.l3ProductSrcId)
+  async mounted () {
+    await this.fetchData(this.l3ProductSrcId)
   }
 }
 </script>

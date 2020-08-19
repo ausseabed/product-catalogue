@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { ActionTree } from 'vuex'
 import { StoreInterface } from '../index'
 import { SurveyStateInterface } from './state'
 import { ObservableSurveysApi, ObservableProductRelationsApi, ObservableProductsL3SrcApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
 import { SurveyDto, Survey, ProductL3SrcDto, SurveyL3RelationDto } from '@ausseabed/product-catalogue-rest-client'
 import { v4 as uuidv4 } from 'uuid'
+
+import { Configuration } from '@ausseabed/product-catalogue-rest-client/configuration'
 
 export type UpdateRowKnownTypes = 'year' | 'uuid' | 'name'
 
@@ -16,7 +19,7 @@ export interface UpdateRowInterface {
 const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
   async fetchData ({ commit, rootGetters, dispatch }) {
     await dispatch('auth/getLoginToken', {}, { root: true })
-    const configuration = rootGetters['auth/configuration']
+    const configuration = rootGetters['auth/configuration'] as Configuration
     const surveyApi = new ObservableSurveysApi(configuration)
     surveyApi.surveysControllerFindAll().toPromise().then((surveys) =>
       commit('dataLoaded', surveys))
@@ -40,7 +43,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
     }
     console.log(surveyDto)
     await dispatch('auth/getLoginToken', {}, { root: true })
-    const configuration = rootGetters['auth/configuration']
+    const configuration = rootGetters['auth/configuration'] as Configuration
     const surveyApi = new ObservableSurveysApi(configuration)
     return await surveyApi.surveysControllerCreate(surveyDto).toPromise().then((newSurvey) => {
       commit('addNewSurvey', newSurvey)
@@ -52,7 +55,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
   },
   async deleteSurvey ({ commit, rootGetters, dispatch }, payload: Survey) {
     await dispatch('auth/getLoginToken', {}, { root: true })
-    const configuration = rootGetters['auth/configuration']
+    const configuration = rootGetters['auth/configuration'] as Configuration
     const surveyApi = new ObservableSurveysApi(configuration)
     surveyApi.surveysControllerRemove(payload.id).toPromise().then(() => {
       commit('removeSurvey', payload)
@@ -78,7 +81,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
     surveyClone[payload.elementName] = payload.elementValue
     // const surveysApiRequestFactory = new SurveysApiRequestFactory(configuration)
     await dispatch('auth/getLoginToken', {}, { root: true })
-    const configuration = rootGetters['auth/configuration']
+    const configuration = rootGetters['auth/configuration'] as Configuration
     const surveyApi = new ObservableSurveysApi(configuration)
     commit('updateSurveys', [surveyClone])
     surveyApi.surveysControllerUpdate(payload.rowId, surveyDto).toPromise()
@@ -99,7 +102,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
       uuid: uuidv4().toString()
     }
     await dispatch('auth/getLoginToken', {}, { root: true })
-    const configuration = rootGetters['auth/configuration']
+    const configuration = rootGetters['auth/configuration'] as Configuration
     const productsL3SrcApi = new ObservableProductsL3SrcApi(configuration)
     const productRelationshipSrcApi = new ObservableProductRelationsApi(configuration)
 
@@ -115,7 +118,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
   },
   async deleteProduct ({ commit, rootGetters, dispatch }, productId: number) {
     await dispatch('auth/getLoginToken', {}, { root: true })
-    const configuration = rootGetters['auth/configuration']
+    const configuration = rootGetters['auth/configuration'] as Configuration
     const productsL3SrcApi = new ObservableProductsL3SrcApi(configuration)
     productsL3SrcApi.productsL3SrcControllerDelete(productId).toPromise().then(() => {
       commit('removeProduct', productId)

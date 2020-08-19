@@ -18,7 +18,6 @@ export interface StoreInterface {
   // Define your own store structure, using submodules if needed
   surveyStore: SurveyStateInterface;
   surveyL3RelationStore: SurveyL3RelationStateInterface;
-  bearerToken: string;
   authStore: AuthStateInterface;
   productL3DistStore: ProductL3DistStateInterface;
 }

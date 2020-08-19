@@ -3,10 +3,13 @@ import { StoreInterface } from '../index'
 import { ProductL3DistStateInterface } from './state'
 import { ObservableProductsL3DistApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
 
+import { Configuration } from '@ausseabed/product-catalogue-rest-client/configuration'
+
 const actions: ActionTree<ProductL3DistStateInterface, StoreInterface> = {
   async fetchData ({ commit, rootGetters, dispatch }, productSrcId: number) {
     await dispatch('auth/getLoginToken', {}, { root: true })
-    const configuration = rootGetters['auth/configuration']
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const configuration = rootGetters['auth/configuration'] as Configuration
     const productsL3DistApi = new ObservableProductsL3DistApi(configuration)
 
     const productsL3Dist = await productsL3DistApi.productsL3DistControllerFindAll(productSrcId).toPromise().catch(
