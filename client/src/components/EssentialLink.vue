@@ -8,7 +8,10 @@
       v-if="icon"
       avatar
     >
-      <q-icon :name="icon" />
+      <q-icon
+        :name="icon"
+        size='lg'
+      />
     </q-item-section>
 
     <q-item-section>
