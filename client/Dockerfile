@@ -6,7 +6,7 @@ ARG AUTH_HOST
 ARG AUTH_CLIENT_ID
 ARG APC_VERSION
 
-ADD package.json yarn.lock babel.config.js quasar.conf.js .postcssrc.js tsconfig.json .npmrc $APPDIR/
+ADD package.json yarn.lock babel.config.js quasar.conf.js .postcssrc.js tsconfig.json .npmrc .eslintignore .eslintrc.js $APPDIR/
 RUN yarn global add @quasar/cli
 ADD src $APPDIR/src
 ADD public $APPDIR/public
