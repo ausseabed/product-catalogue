@@ -118,7 +118,7 @@ export default class SpatialReference extends SpatialReferenceProps {
     if (details === undefined || details.rows === undefined || details.rows.length === 0) {
       return
     }
-    const code = `EPSG: ${details.rows[0].Code}`
+    const code = `EPSG:${details.rows[0].Code}`
     this.updateProduct({ element: 'srs', value: code })
   }
 
@@ -126,7 +126,7 @@ export default class SpatialReference extends SpatialReferenceProps {
     this.filterSRS = ''
     this.filterFn(this.filterSRS)
     if (this.srs !== undefined || this.srs !== '') {
-      const matches = srsOptionsBasis.filter(v => `EPSG: ${v.Code}` === this.srs)
+      const matches = srsOptionsBasis.filter(v => `EPSG:${v.Code}` === this.srs)
       if (matches.length > 0) {
         this.selectedSrs = [matches[0]]
         return
@@ -157,7 +157,7 @@ export default class SpatialReference extends SpatialReferenceProps {
 
   get srsName (): string {
     if (this.srs !== undefined || this.srs !== '') {
-      const matches = srsOptionsBasis.filter(v => `EPSG: ${v.Code}` === this.srs)
+      const matches = srsOptionsBasis.filter(v => `EPSG:${v.Code}` === this.srs)
       if (matches.length > 0) {
         return matches[0].Name + ' (' + matches[0].Type + ')'
       }
@@ -174,8 +174,8 @@ export default class SpatialReference extends SpatialReferenceProps {
       srsColumns: [
         {
           name: 'Code',
-          label: (row: SearchRecordInterface) => { return `EPSG: ${row.Code}` },
-          field: (row: SearchRecordInterface) => { return `EPSG: ${row.Code}` },
+          label: (row: SearchRecordInterface) => { return `EPSG:${row.Code}` },
+          field: (row: SearchRecordInterface) => { return `EPSG:${row.Code}` },
           align: 'left',
           sortable: true
         },
