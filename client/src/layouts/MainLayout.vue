@@ -15,7 +15,7 @@
           Ausseabed Product Catalogue
         </q-toolbar-title>
 
-        <div>v{{ apcVersion }}</div>
+        <div>v-{{ apcVersion }}</div>
       </q-toolbar>
     </q-header>
 

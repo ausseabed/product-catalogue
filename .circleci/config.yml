@@ -153,6 +153,7 @@ jobs:
           command: |
             echo "export AUTH_HOST=$AUTH_HOST" >> $BASH_ENV
             echo "export AUTH_CLIENT_ID=$AUTH_CLIENT_ID" >> $BASH_ENV
+            cat /tmp/cci-extras/workspace/docker_tag_vars >> $BASH_ENV
       - aws-cli/install
       - aws-cli/configure:
           aws-region: AWS_REGION_ENV_VAR_NAME
@@ -164,7 +165,7 @@ jobs:
           dockerfile: ./Dockerfile
           path: ./client
           repo: ausseabed-product-catalogue-client
-          extra-build-args: "--build-arg AUTH_HOST=$AUTH_HOST --build-arg AUTH_CLIENT_ID=$AUTH_CLIENT_ID --build-arg APC_VERSION=$tag"
+          extra-build-args: "--build-arg AUTH_HOST=$AUTH_HOST --build-arg AUTH_CLIENT_ID=$AUTH_CLIENT_ID --build-arg APC_VERSION=$DOCKER_TAG"
           tag: circleci-build,latest
       - ecr-tag-and-push:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
