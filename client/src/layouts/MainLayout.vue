@@ -15,7 +15,7 @@
           Ausseabed Product Catalogue
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>v{{ apcVersion }}</div>
       </q-toolbar>
     </q-header>
 
@@ -78,6 +78,10 @@
           </q-item-section>
         </q-item>
       </q-list>
+      <div
+        class="q-ma-lg"
+        v-if="userName !== ''"
+      >Quasar v{{ $q.version }}</div>
     </q-drawer>
 
     <q-page-container>
@@ -132,6 +136,7 @@ export default class MainLayout extends Vue {
 
   data () {
     return {
+      apcVersion: process.env.APC_VERSION,
       matMenu: matMenu,
       matSchool: matSchool,
       matHome: matHome,
