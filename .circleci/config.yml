@@ -164,7 +164,7 @@ jobs:
           dockerfile: ./Dockerfile
           path: ./client
           repo: ausseabed-product-catalogue-client
-          extra-build-args: "--build-arg AUTH_HOST=$AUTH_HOST --build-arg AUTH_CLIENT_ID=$AUTH_CLIENT_ID"
+          extra-build-args: "--build-arg AUTH_HOST=$AUTH_HOST --build-arg AUTH_CLIENT_ID=$AUTH_CLIENT_ID --build-arg APC_VERSION=$DOCKER_TAG"
           tag: circleci-build,latest
       - ecr-tag-and-push:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
