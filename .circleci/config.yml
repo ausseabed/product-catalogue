@@ -5,6 +5,30 @@ orbs:
   aws-cli: circleci/aws-cli@0.1.13
 
 commands:
+  ecr-get-tag:
+    description: "Get the tag that is going to be used"
+    parameters:
+      account-url:
+        default: AWS_ECR_ACCOUNT_URL
+        description: |
+          Env var storing Amazon ECR account URL that maps to an AWS account, e.g. {awsAccountNum}.dkr.ecr.us-west-2.amazonaws.com defaults to AWS_ECR_ACCOUNT_URL
+        type: env_var_name
+      repo:
+        description: Name of an Amazon ECR repository
+        type: string
+      docker_tag:
+        default: DOCKER_TAG
+        description: Env var storing docker image tag (default = DOCKER_TAG)
+        type: env_var_name
+    steps:
+      - attach_workspace:
+          at: /tmp/cci-extras/workspace
+      - run: cat /tmp/cci-extras/workspace/docker_tag_vars >> $BASH_ENV
+      - run:
+          name: "Show Docker tag"
+          command: |
+            echo "DOCKER TAG: $DOCKER_TAG"
+
   ecr-tag-and-push:
     description: "Tag and Push Docker Image because CircleCI is incapable of sanity"
     parameters:
@@ -153,7 +177,10 @@ jobs:
           command: |
             echo "export AUTH_HOST=$AUTH_HOST" >> $BASH_ENV
             echo "export AUTH_CLIENT_ID=$AUTH_CLIENT_ID" >> $BASH_ENV
-            cat /tmp/cci-extras/workspace/docker_tag_vars >> $BASH_ENV
+      - ecr-get-tag:
+          account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
+          repo: ausseabed-product-catalogue-client
+          docker_tag: DOCKER_TAG
       - aws-cli/install
       - aws-cli/configure:
           aws-region: AWS_REGION_ENV_VAR_NAME
