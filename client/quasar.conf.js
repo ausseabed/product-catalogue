@@ -91,7 +91,8 @@ module.exports = configure(function (ctx) {
       env:
       {
         AUTH_HOST: process.env.AUTH_HOST,
-        AUTH_CLIENT_ID: process.env.AUTH_CLIENT_ID
+        AUTH_CLIENT_ID: process.env.AUTH_CLIENT_ID,
+        APC_VERSION: process.env.APC_VERSION
       },
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,

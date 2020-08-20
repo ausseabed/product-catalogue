@@ -14,7 +14,39 @@
         </thead>
         <tbody>
           <tr>
-            <td>Records</td>
+            <td>Surveys</td>
+            <td v-if='!reports.productL3Srcs'>
+              <q-spinner
+                color="primary"
+                size="3em"
+              />
+            </td>
+            <td v-if='reports.productL3Srcs'>Count = {{reports.productL3Srcs.length}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Survey Files</td>
+            <td v-if='!reports.fileExists'>
+              <q-spinner
+                color="primary"
+                size="3em"
+              />
+            </td>
+            <td v-if='reports.fileExists'>
+              Source Tifs ({{reports.fileExists.srcTifLocation.filter(entry=>{return entry.exists}).length}}/{{reports.fileExists.srcTifLocation.length}})
+            </td>
+            <td>
+              <q-btn
+                round
+                color='primary'
+                :icon="matSaveAlt"
+                size='md'
+                @click='saveSrcReport'
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Surveys with Distributables</td>
             <td v-if='!reports.productL3Dists'>
               <q-spinner
                 color="primary"
@@ -25,7 +57,7 @@
             <td></td>
           </tr>
           <tr>
-            <td>Files</td>
+            <td>Distributables</td>
             <td v-if='!reports.fileExists'>
               <q-spinner
                 color="primary"
@@ -43,7 +75,7 @@
                 color='primary'
                 :icon="matSaveAlt"
                 size='md'
-                @click='saveReport'
+                @click='saveDistReport'
               />
             </td>
           </tr>
@@ -74,16 +106,28 @@ export default class ProductEditor extends Vue {
     await this.fetchData()
   }
 
-  saveReport () {
+  saveSrcReport () {
     if (!this.reports.fileExists) return
     const colon = RegExp('[:.-]', 'g')
+    const header = 'type,name,uri,exists\r\n'
+    const srctif = this.reports.fileExists.srcTifLocation.map((row) => { return `srcgeotiff,${row.product.name},${row.product.productTifLocation},${row.exists ? 'true' : 'false'}` }).sort()
+
+    const csv = header + srctif.join('\r\n')
+    const blob = new Blob([csv], { type: 'text/plain;charset=utf-8' })
+    saveAs(blob, `Files_Src_${(new Date()).toISOString().replace(colon, '')}.csv`)
+  }
+
+  saveDistReport () {
+    if (!this.reports.fileExists) return
+    const colon = RegExp('[:.-]', 'g')
+    const header = 'type,uri,exists\r\n'
     const bathy = this.reports.fileExists.bathymetryLocation.map((row) => { return `bathymetry,${row.product.bathymetryLocation},${row.exists ? 'true' : 'false'}` }).sort()
     const hill = this.reports.fileExists.hillshadeLocation.map((row) => { return `hillshade,${row.product.hillshadeLocation},${row.exists ? 'true' : 'false'}` }).sort()
     const poly = this.reports.fileExists.l3CoverageLocation.map((row) => { return `polygon,${row.product.l3CoverageLocation},${row.exists ? 'true' : 'false'}` }).sort()
 
-    const csv = bathy.concat(hill).concat(poly).join('\r\n')
+    const csv = header + bathy.concat(hill).concat(poly).join('\r\n')
     const blob = new Blob([csv], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, `Files_${(new Date()).toISOString().replace(colon, '')}.csv`)
+    saveAs(blob, `Files_Dist_${(new Date()).toISOString().replace(colon, '')}.csv`)
   }
 }
 </script>

@@ -43,7 +43,7 @@ export class S3Util {
     return `https://${headParams.Bucket}.s3.${region}.amazonaws.com/${headParams.Key}`
   }
 
-  static async objectExists (headParams: {Bucket: string; Key: string}, region: string = REGION): Promise<boolean> {
+  static async objectExists (headParams: {Bucket: string; Key: string}, region: string = REGION, silent = false): Promise<boolean> {
     AWS.config.region = region
     const s3 = new S3()
     try {
@@ -54,7 +54,7 @@ export class S3Util {
         return false
       }
     } catch (reason) {
-      console.log(reason)
+      if (!silent) console.log(reason)
       return false
     }
   }
