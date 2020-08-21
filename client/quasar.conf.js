@@ -68,7 +68,10 @@ module.exports = configure(function (ctx) {
       ],
 
       // Quasar plugins
-      plugins: ['Dialog']
+      plugins: ['Dialog', 'Notify'],
+      config: {
+        notify: { /* look at QUASARCONFOPTIONS from the API card (bottom of page) */ }
+      }
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ts
