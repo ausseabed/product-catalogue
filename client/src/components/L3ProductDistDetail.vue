@@ -32,18 +32,65 @@
       <tbody>
         <tr>
           <td class="text-left">Bathymetry:</td>
-          <td class="text-left">{{productl3dist.productL3Dist.bathymetryLocation}}</td>
+          <td
+            class="text-left"
+            v-if="productTifLocationUrlType==='s3'"
+            style="user-select: all;"
+            @click="_ => copyToClipboard(productl3dist.productL3Dist.bathymetryLocation)"
+          >{{productl3dist.productL3Dist.bathymetryLocation}}</td>
+          <td
+            class="text-left"
+            v-if="productTifLocationUrlType==='https'"
+            style="user-select: all;"
+            @click="_ => copyToClipboard(s3ToHttps(productl3dist.productL3Dist.bathymetryLocation))"
+          >{{s3ToHttps(productl3dist.productL3Dist.bathymetryLocation)}}</td>
         </tr>
         <tr>
           <td class="text-left">Hillshade:</td>
-          <td class="text-left">{{productl3dist.productL3Dist.hillshadeLocation}}</td>
+          <td
+            class="text-left"
+            v-if="productTifLocationUrlType==='s3'"
+            style="user-select: all;"
+            @click="_ => copyToClipboard(productl3dist.productL3Dist.hillshadeLocation)"
+          >{{productl3dist.productL3Dist.hillshadeLocation}}</td>
+          <td
+            class="text-left"
+            v-if="productTifLocationUrlType==='https'"
+            style="user-select: all;"
+            @click="_ => copyToClipboard(s3ToHttps(productl3dist.productL3Dist.hillshadeLocation))"
+          >{{s3ToHttps(productl3dist.productL3Dist.hillshadeLocation)}}</td>
         </tr>
         <tr>
           <td class="text-left">Polygon:</td>
-          <td class="text-left">{{productl3dist.productL3Dist.l3CoverageLocation}}</td>
+          <td
+            class="text-left"
+            v-if="productTifLocationUrlType==='s3'"
+            style="user-select: all;"
+            @click="_ => copyToClipboard(productl3dist.productL3Dist.l3CoverageLocation)"
+          >{{productl3dist.productL3Dist.l3CoverageLocation}}</td>
+          <td
+            class="text-left"
+            v-if="productTifLocationUrlType==='https'"
+            style="user-select: all;"
+            @click="_ => copyToClipboard(s3ToHttps(productl3dist.productL3Dist.l3CoverageLocation))"
+          >{{s3ToHttps(productl3dist.productL3Dist.l3CoverageLocation)}}</td>
         </tr>
       </tbody>
     </q-markup-table>
+    <div class="col col-md-auto">
+      <q-btn-toggle
+        v-model="productTifLocationUrlType"
+        class="q-ma-md"
+        push
+        no-caps
+        rounded
+        toggle-color="primary"
+        :options="[
+          {label: 's3', value: 's3'},
+          {label: 'https', value: 'https'}
+        ]"
+      />
+    </div>
   </div>
 </template>
 <style lang="scss">
@@ -58,6 +105,7 @@
 </style>
 
 <script lang='ts'>
+import { copyToClipboard } from 'quasar'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Action, State } from 'vuex-class'
@@ -73,6 +121,7 @@ const L3ProductDistDetailProps = Vue.extend({
     }
   }
 })
+import { S3Util } from '../lib/s3-util'
 
 const namespace = 'productl3dist'
 @Component
@@ -87,6 +136,56 @@ export default class L3ProductDistDetail extends L3ProductDistDetailProps {
     }
   }
 
+  copyToClipboard (x: string) {
+    copyToClipboard(x)
+      .then(() => {
+        this.$q.notify({ message: 'Copied to clipboard', color: 'primary' })
+      })
+      .catch(() => {
+        console.log('Could not copy to clipboard') // Silentish fail
+      })
+  }
+
+  isValidUrl (urlToTest: string) {
+    const elm = document.createElement('input')
+    elm.setAttribute('type', 'url')
+    elm.value = urlToTest
+    return elm.validity.valid
+  }
+
+  s3ToHttps (urlToTest: string) {
+    if (!(this.isValidUrl(urlToTest))) {
+      return urlToTest
+    }
+    try {
+      const bucketkeypair = S3Util.getBucketFromS3Uri(urlToTest)
+      if (bucketkeypair === undefined) {
+        return urlToTest
+      }
+      return S3Util.getHttpsUrl(bucketkeypair)
+    } catch (e) {
+      console.log(e)
+      return urlToTest
+    }
+  }
+
+  httpsToS3 (urlToTest: string) {
+    if (!(this.isValidUrl(urlToTest))) {
+      return urlToTest
+    }
+    try {
+      const bucketkeypair = S3Util.getBucketFromHttpsUrl(urlToTest)
+      if (bucketkeypair === undefined) {
+        return urlToTest
+      }
+      return S3Util.getS3Url(bucketkeypair)
+    } catch (e) {
+      console.log(e)
+      return urlToTest
+    }
+  }
+
+  productTifLocationUrlType = 's3'
   async mounted () {
     await this.fetchData(this.l3ProductSrcId)
   }
