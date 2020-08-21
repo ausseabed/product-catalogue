@@ -41,9 +41,9 @@
           <td
             class="text-left"
             v-if="productTifLocationUrlType==='https'"
-            style="user-select: all;"
-            @click="_ => copyToClipboard(s3ToHttps(productl3dist.productL3Dist.bathymetryLocation))"
-          >{{s3ToHttps(productl3dist.productL3Dist.bathymetryLocation)}}</td>
+          >
+            <a :href="s3ToHttps(productl3dist.productL3Dist.bathymetryLocation)">
+              {{s3ToHttps(productl3dist.productL3Dist.bathymetryLocation)}}</a></td>
         </tr>
         <tr>
           <td class="text-left">Hillshade:</td>
@@ -56,24 +56,65 @@
           <td
             class="text-left"
             v-if="productTifLocationUrlType==='https'"
-            style="user-select: all;"
-            @click="_ => copyToClipboard(s3ToHttps(productl3dist.productL3Dist.hillshadeLocation))"
-          >{{s3ToHttps(productl3dist.productL3Dist.hillshadeLocation)}}</td>
+          >
+            <a :href="s3ToHttps(productl3dist.productL3Dist.hillshadeLocation)">
+              {{s3ToHttps(productl3dist.productL3Dist.hillshadeLocation)}}</a></td>
         </tr>
         <tr>
           <td class="text-left">Polygon:</td>
-          <td
-            class="text-left"
-            v-if="productTifLocationUrlType==='s3'"
-            style="user-select: all;"
-            @click="_ => copyToClipboard(productl3dist.productL3Dist.l3CoverageLocation)"
-          >{{productl3dist.productL3Dist.l3CoverageLocation}}</td>
-          <td
-            class="text-left"
-            v-if="productTifLocationUrlType==='https'"
-            style="user-select: all;"
-            @click="_ => copyToClipboard(s3ToHttps(productl3dist.productL3Dist.l3CoverageLocation))"
-          >{{s3ToHttps(productl3dist.productL3Dist.l3CoverageLocation)}}</td>
+          <td>
+
+            <div
+              class="text-left"
+              v-if="productTifLocationUrlType==='s3'"
+              style="user-select: all;"
+              @click="_ => copyToClipboard(productl3dist.productL3Dist.l3CoverageLocation)"
+            >{{productl3dist.productL3Dist.l3CoverageLocation}}</div>
+            <div
+              class="text-left"
+              v-if="productTifLocationUrlType==='https'"
+            >
+              <a :href="s3ToHttps(productl3dist.productL3Dist.l3CoverageLocation)">{{s3ToHttps(productl3dist.productL3Dist.l3CoverageLocation)}}</a>
+            </div>
+            <div
+              class="text-left"
+              v-if="productTifLocationUrlType==='s3'"
+              style="user-select: all;"
+              @click="_ => copyToClipboard(shpSideCar('.dbf',productl3dist.productL3Dist.l3CoverageLocation))"
+            >{{shpSideCar('.dbf',productl3dist.productL3Dist.l3CoverageLocation)}}</div>
+            <div
+              class="text-left"
+              v-if="productTifLocationUrlType==='https'"
+            >
+              <a :href="s3ToHttps(shpSideCar('.dbf',productl3dist.productL3Dist.l3CoverageLocation))">{{s3ToHttps(shpSideCar('.dbf',productl3dist.productL3Dist.l3CoverageLocation))}}</a>
+            </div>
+            <div
+              class="text-left"
+              v-if="productTifLocationUrlType==='s3'"
+              style="user-select: all;"
+              @click="_ => copyToClipboard(shpSideCar('.prj',productl3dist.productL3Dist.l3CoverageLocation))"
+            >{{shpSideCar('.prj',productl3dist.productL3Dist.l3CoverageLocation)}}</div>
+            <div
+              class="text-left"
+              v-if="productTifLocationUrlType==='https'"
+            >
+              <a :href="s3ToHttps(shpSideCar('.prj',productl3dist.productL3Dist.l3CoverageLocation))">
+                {{s3ToHttps(shpSideCar('.prj',productl3dist.productL3Dist.l3CoverageLocation))}}</a>
+            </div>
+            <div
+              class="text-left"
+              v-if="productTifLocationUrlType==='s3'"
+              style="user-select: all;"
+              @click="_ => copyToClipboard(shpSideCar('.shx',productl3dist.productL3Dist.l3CoverageLocation))"
+            >{{shpSideCar('.shx',productl3dist.productL3Dist.l3CoverageLocation)}}</div>
+            <div
+              class="text-left"
+              v-if="productTifLocationUrlType==='https'"
+            >
+              <a :href="s3ToHttps(shpSideCar('.shx',productl3dist.productL3Dist.l3CoverageLocation))">
+                {{s3ToHttps(shpSideCar('.shx',productl3dist.productL3Dist.l3CoverageLocation))}}</a>
+            </div>
+          </td>
         </tr>
       </tbody>
     </q-markup-table>
@@ -144,6 +185,11 @@ export default class L3ProductDistDetail extends L3ProductDistDetailProps {
       .catch(() => {
         console.log('Could not copy to clipboard') // Silentish fail
       })
+  }
+
+  shpSideCar (desiredExtension: string, url: string) {
+    const regex = RegExp('.shp$')
+    return url.replace(regex, desiredExtension)
   }
 
   isValidUrl (urlToTest: string) {
