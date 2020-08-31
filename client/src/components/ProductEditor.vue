@@ -181,7 +181,7 @@ export default class ProductEditor extends SurveyIdProps {
   // eslint-disable-next-line
   @State(state => state.productl3dist) productL3dist!: ProductL3DistStateInterface
   @Action('fetchData', { namespace: 'productl3dist' }) fetchDataL3Dist!: (payload: number) => Promise<void>
-  @Mutation('clearL3Dist', { namespace: 'productl3dist' }) clearL3Dist!: () => Promise<void>
+  @Mutation('clearL3Dist', { namespace: 'productl3dist' }) clearL3Dist!: () => void
 
   @State('surveyl3relation') surveyL3Relation!: SurveyL3RelationStateInterface
 
