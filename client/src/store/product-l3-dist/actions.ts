@@ -17,6 +17,8 @@ const actions: ActionTree<ProductL3DistStateInterface, StoreInterface> = {
 
     if (productsL3Dist && productsL3Dist.length > 0) {
       commit('assignProductL3Dist', productsL3Dist[0])
+    } else {
+      commit('assignProductL3Dist', undefined)
     }
   }
 }

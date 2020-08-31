@@ -141,7 +141,11 @@
           />
         </div>
       </q-form>
-      <l3-product-dist-detail :l3ProductSrcId='surveyL3Relation.surveyL3RelationSelected.productL3Src.id' />
+
+      <l3-product-dist-detail
+        v-if='productL3dist'
+        :productl3dist='productL3dist'
+      />
     </div>
   </div>
 </template>
@@ -156,6 +160,8 @@ import L3ProductDistDetail from './L3ProductDistDetail.vue'
 import { S3Util } from '../lib/s3-util'
 import { matInfo } from '@quasar/extras/material-icons'
 import { UpdateProductKnownTypes } from '../store/survey-l3-relation/mutations'
+
+import { ProductL3DistStateInterface } from '../store/product-l3-dist/state'
 const SurveyIdProps = Vue.extend({
   props: {
     title: {
@@ -172,6 +178,11 @@ const namespace = 'surveyl3relation'
 
 @Component({ components: { 'spatial-reference': SpatialReference, 'l3-product-dist-detail': L3ProductDistDetail } })
 export default class ProductEditor extends SurveyIdProps {
+  // eslint-disable-next-line
+  @State(state => state.productl3dist) productL3dist!: ProductL3DistStateInterface
+  @Action('fetchData', { namespace: 'productl3dist' }) fetchDataL3Dist!: (payload: number) => Promise<void>
+  @Mutation('clearL3Dist', { namespace: 'productl3dist' }) clearL3Dist!: () => Promise<void>
+
   @State('surveyl3relation') surveyL3Relation!: SurveyL3RelationStateInterface
 
   @Action('saveData', { namespace }) saveData!: () => Promise<void>
@@ -256,6 +267,12 @@ export default class ProductEditor extends SurveyIdProps {
 
   async mounted () {
     await this.fetchData(this.relationId)
+    if (this.surveyL3Relation && this.surveyL3Relation.surveyL3RelationSelected &&
+      this.surveyL3Relation.surveyL3RelationSelected.productL3Src) {
+      await this.fetchDataL3Dist(this.surveyL3Relation.surveyL3RelationSelected.productL3Src.id)
+    } else {
+      this.clearL3Dist()
+    }
   }
 
   async isS3Url2 (urlToTest: string): Promise<boolean> {

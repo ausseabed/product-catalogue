@@ -1,7 +1,7 @@
 <template>
   <div
     class="row q-ma-md items-center"
-    v-if="productl3dist && productl3dist.productL3Dist"
+    v-if="productl3dist && productl3dist.productL3Dist && productl3dist.productL3Dist.bathymetryLocation"
     id="infobox"
   >
     <div class="col col-md-auto">
@@ -149,28 +149,21 @@
 import { copyToClipboard } from 'quasar'
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Action, State } from 'vuex-class'
 // import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
 import { matMiscellaneousServices } from '@quasar/extras/material-icons'
-import { ProductL3DistStateInterface } from '../store/product-l3-dist/state'
 
 const L3ProductDistDetailProps = Vue.extend({
   props: {
-    l3ProductSrcId: {
-      type: Number,
+    productl3dist: {
+      type: Object,
       required: true
     }
   }
 })
 import { S3Util } from '../lib/s3-util'
 
-const namespace = 'productl3dist'
 @Component
 export default class L3ProductDistDetail extends L3ProductDistDetailProps {
-  @State('productl3dist') productl3dist!: ProductL3DistStateInterface
-
-  @Action('fetchData', { namespace }) fetchData!: (payload: number) => Promise<void>
-
   data () {
     return {
       matCog: matMiscellaneousServices
@@ -232,8 +225,5 @@ export default class L3ProductDistDetail extends L3ProductDistDetailProps {
   }
 
   productTifLocationUrlType = 's3'
-  async mounted () {
-    await this.fetchData(this.l3ProductSrcId)
-  }
 }
 </script>
