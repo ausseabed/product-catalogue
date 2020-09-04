@@ -33,7 +33,7 @@ async function bootstrap () {
     .setDescription('The API description for the Ausseabed product catalogue inventory')
     .setContact("AusSeabed", "http://ausseabed.gov.au/", "AusSeabed@ga.gov.au")
     .setLicense("Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0.html")
-    .setVersion('0.1.13')
+    .setVersion('0.1.14')
     .addTag('surveys')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
@@ -44,7 +44,6 @@ async function bootstrap () {
     ignoreGlobalPrefix: false,
   });
 
-  const nowText = Date.now()
   const swaggerCustomOptions: SwaggerCustomOptions = {
     swaggerOptions: {
       onComplete: function() {

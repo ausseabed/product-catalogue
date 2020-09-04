@@ -7,7 +7,7 @@ const devsetup: TypeOrmModuleOptions = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DATABASE,
-  entities: [__dirname + '/**/*.{entity.ts,dto.ts}'],
+  entities: [__dirname + '/**/*.{entity,dto}{.ts,.js}'],
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   cli: {
     // Location of migration should be inside src folder

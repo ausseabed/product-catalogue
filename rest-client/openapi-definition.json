@@ -178,6 +178,7 @@
                         "type": "integer"
                     },
                     "l0InstrumentLocation": {
+                        "description": "Location of instrument files",
                         "type": "string"
                     },
                     "metadataPersistentId": {
@@ -191,15 +192,44 @@
                     },
                     "uuid": {
                         "type": "string"
+                    },
+                    "verticalDatum": {
+                        "enum": [
+                            "Unknown",
+                            "LAT",
+                            "AHD",
+                            "LMSL",
+                            "WGS84",
+                            "NAD83(HARN)",
+                            "NAD83(CORSxx)",
+                            "NAD83(NSRSxx)",
+                            "NAD83(PACPxx)",
+                            "NAD83(MARPxx)",
+                            "ITRFxx",
+                            "NAVD88",
+                            "NGVD29",
+                            "EGM2008",
+                            "EGM1996",
+                            "EGM1984",
+                            "MLLW",
+                            "MLW",
+                            "MHW",
+                            "MHHW",
+                            "DTL",
+                            "MTL",
+                            "LWD"
+                        ],
+                        "type": "string"
                     }
                 },
                 "required": [
                     "id",
+                    "l0InstrumentLocation",
                     "uuid",
                     "name",
                     "srs",
-                    "metadataPersistentId",
-                    "l0InstrumentLocation"
+                    "verticalDatum",
+                    "metadataPersistentId"
                 ],
                 "type": "object"
             },
@@ -210,7 +240,7 @@
                         "type": "string"
                     },
                     "metadataPersistentId": {
-                        "description": "Persistent Id of final product ",
+                        "description": "Persistent Id of final product",
                         "type": "string"
                     },
                     "name": {
@@ -224,6 +254,35 @@
                     "uuid": {
                         "description": "Unique identifier for reference purposes",
                         "type": "string"
+                    },
+                    "verticalDatum": {
+                        "description": "Vertical datum of bathymetry\n* `Lat` - Lowest Astronomical Tide\n* `AHD` - Australian Height Datum\n* `LMSL` - LMSL - Local Mean Sea Level (or just Mean Sea Level)\n* `WGS84` - WGS84 'Ellipsoid'",
+                        "enum": [
+                            "Unknown",
+                            "LAT",
+                            "AHD",
+                            "LMSL",
+                            "WGS84",
+                            "NAD83(HARN)",
+                            "NAD83(CORSxx)",
+                            "NAD83(NSRSxx)",
+                            "NAD83(PACPxx)",
+                            "NAD83(MARPxx)",
+                            "ITRFxx",
+                            "NAVD88",
+                            "NGVD29",
+                            "EGM2008",
+                            "EGM1996",
+                            "EGM1984",
+                            "MLLW",
+                            "MLW",
+                            "MHW",
+                            "MHHW",
+                            "DTL",
+                            "MTL",
+                            "LWD"
+                        ],
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -231,7 +290,8 @@
                     "name",
                     "srs",
                     "metadataPersistentId",
-                    "l0InstrumentLocation"
+                    "l0InstrumentLocation",
+                    "verticalDatum"
                 ],
                 "type": "object"
             },
@@ -306,6 +366,34 @@
                     },
                     "uuid": {
                         "type": "string"
+                    },
+                    "verticalDatum": {
+                        "enum": [
+                            "Unknown",
+                            "LAT",
+                            "AHD",
+                            "LMSL",
+                            "WGS84",
+                            "NAD83(HARN)",
+                            "NAD83(CORSxx)",
+                            "NAD83(NSRSxx)",
+                            "NAD83(PACPxx)",
+                            "NAD83(MARPxx)",
+                            "ITRFxx",
+                            "NAVD88",
+                            "NGVD29",
+                            "EGM2008",
+                            "EGM1996",
+                            "EGM1984",
+                            "MLLW",
+                            "MLW",
+                            "MHW",
+                            "MHHW",
+                            "DTL",
+                            "MTL",
+                            "LWD"
+                        ],
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -313,6 +401,7 @@
                     "uuid",
                     "name",
                     "srs",
+                    "verticalDatum",
                     "metadataPersistentId",
                     "resolution",
                     "productTifLocation"
@@ -322,7 +411,7 @@
             "ProductL3SrcDto": {
                 "properties": {
                     "metadataPersistentId": {
-                        "description": "Persistent Id of final product ",
+                        "description": "Persistent Id of final product",
                         "type": "string"
                     },
                     "name": {
@@ -344,6 +433,35 @@
                     "uuid": {
                         "description": "Unique identifier for reference purposes",
                         "type": "string"
+                    },
+                    "verticalDatum": {
+                        "description": "Vertical datum of bathymetry\n* `Lat` - Lowest Astronomical Tide\n* `AHD` - Australian Height Datum\n* `LMSL` - LMSL - Local Mean Sea Level (or just Mean Sea Level)\n* `WGS84` - WGS84 'Ellipsoid'",
+                        "enum": [
+                            "Unknown",
+                            "LAT",
+                            "AHD",
+                            "LMSL",
+                            "WGS84",
+                            "NAD83(HARN)",
+                            "NAD83(CORSxx)",
+                            "NAD83(NSRSxx)",
+                            "NAD83(PACPxx)",
+                            "NAD83(MARPxx)",
+                            "ITRFxx",
+                            "NAVD88",
+                            "NGVD29",
+                            "EGM2008",
+                            "EGM1996",
+                            "EGM1984",
+                            "MLLW",
+                            "MLW",
+                            "MHW",
+                            "MHHW",
+                            "DTL",
+                            "MTL",
+                            "LWD"
+                        ],
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -352,7 +470,8 @@
                     "srs",
                     "metadataPersistentId",
                     "resolution",
-                    "productTifLocation"
+                    "productTifLocation",
+                    "verticalDatum"
                 ],
                 "type": "object"
             },
@@ -521,7 +640,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.1.13"
+        "version": "0.1.14"
     },
     "openapi": "3.0.0",
     "paths": {

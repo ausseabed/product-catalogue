@@ -30,12 +30,12 @@ import { ProductL0Dist } from './ProductL0Dist';
 import { ProductL0DistDto } from './ProductL0DistDto';
 import { ProductL0InstrumentFile } from './ProductL0InstrumentFile';
 import { ProductL0InstrumentFileDto } from './ProductL0InstrumentFileDto';
-import { ProductL0Src } from './ProductL0Src';
-import { ProductL0SrcDto } from './ProductL0SrcDto';
+import { ProductL0Src      , ProductL0SrcVerticalDatumEnum   } from './ProductL0Src';
+import { ProductL0SrcDto     , ProductL0SrcDtoVerticalDatumEnum   } from './ProductL0SrcDto';
 import { ProductL3Dist } from './ProductL3Dist';
 import { ProductL3DistDto } from './ProductL3DistDto';
-import { ProductL3Src } from './ProductL3Src';
-import { ProductL3SrcDto } from './ProductL3SrcDto';
+import { ProductL3Src       , ProductL3SrcVerticalDatumEnum   } from './ProductL3Src';
+import { ProductL3SrcDto      , ProductL3SrcDtoVerticalDatumEnum   } from './ProductL3SrcDto';
 import { RelationSummaryDto } from './RelationSummaryDto';
 import { Survey } from './Survey';
 import { SurveyDto } from './SurveyDto';
@@ -63,6 +63,10 @@ const supportedMediaTypes: { [mediaType: string]: number } = {
 
                  
 let enumsMap: Set<string> = new Set<string>([
+					"ProductL0SrcVerticalDatumEnum",
+					"ProductL0SrcDtoVerticalDatumEnum",
+					"ProductL3SrcVerticalDatumEnum",
+					"ProductL3SrcDtoVerticalDatumEnum",
 ]);
 
 let typeMap: {[index: string]: any} = {

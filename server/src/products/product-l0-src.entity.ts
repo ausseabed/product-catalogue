@@ -70,6 +70,9 @@ export class ProductL0Src implements Product {
    * @type {string}
    * @memberof ProductL0Src
    */
+  @ApiProperty({
+    description: 'Location of instrument files'
+  })
   @Column()
   l0InstrumentLocation: string;
 
