@@ -13,7 +13,7 @@ export class ProductL0SrcDto extends ProductDto {
   @IsEnum(VerticalDatum)
   @ApiProperty({ enum: VerticalDatum,
     description: `Vertical datum of bathymetry
-* \`Lat\` - Lowest Astronomical Tide
+* \`LAT\` - Lowest Astronomical Tide
 * \`AHD\` - Australian Height Datum
 * \`LMSL\` - LMSL - Local Mean Sea Level (or just Mean Sea Level)
 * \`WGS84\` - WGS84 'Ellipsoid'`

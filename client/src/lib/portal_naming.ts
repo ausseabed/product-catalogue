@@ -10,18 +10,29 @@ export class PortalNaming {
     return label.replace(reSlashC, '_').replace(reSlashI, '_')
   }
 
-  static getNameIndividual (productL3Src: ProductL3Src | undefined, year: string): string {
+  static translateVerticalDatum (verticalDatum: string) {
+    if (verticalDatum === 'WGS84') {
+      return 'Ellipsoid'
+    } else if (verticalDatum === 'LMSL') {
+      return 'MSL'
+    }
+    return verticalDatum
+  }
+
+  static getNameIndividual (productL3Src: ProductL3Src | undefined, year: string, includeVerticalDatum = true): string {
     if (productL3Src) {
-      return `${productL3Src.name} ${year} ${productL3Src.resolution}`
+      const verticalDatum = (includeVerticalDatum ? ' ' + PortalNaming.translateVerticalDatum(productL3Src.verticalDatum) : '')
+      return `${productL3Src.name} ${year} ${productL3Src.resolution}${verticalDatum}`
     } else {
       console.error('Could not find product')
       return 'unknown'
     }
   }
 
-  static getNameSurvey (survey: Survey | undefined, productL3Src: ProductL3Src | undefined, year: string): string {
+  static getNameSurvey (survey: Survey | undefined, productL3Src: ProductL3Src | undefined, year: string, includeVerticalDatum = true): string {
     if (productL3Src && survey) {
-      return `${survey.name} ${year} ${productL3Src.resolution}`
+      const verticalDatum = (includeVerticalDatum ? ' ' + PortalNaming.translateVerticalDatum(productL3Src.verticalDatum) : '')
+      return `${survey.name} ${year} ${productL3Src.resolution}${verticalDatum}`
     } else {
       if (survey) {
         console.error('Could not find product for survey: ' + survey.name)

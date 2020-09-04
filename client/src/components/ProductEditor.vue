@@ -76,6 +76,15 @@
         />
 
         <spatial-reference :srs='surveyL3Relation.surveyL3RelationSelected.productL3Src.srs' />
+        <q-select
+          class="q-ma-md"
+          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.verticalDatum"
+          emit-value
+          map-options
+          :options="verticalDatumOptions"
+          @input="value=>updateProduct( {element:'verticalDatum',value: value})"
+          label="Vertical Datum"
+        />
         <q-input
           type="url"
           hint="url"
@@ -307,7 +316,35 @@ export default class ProductEditor extends SurveyIdProps {
 
   data () {
     return {
-      matInfo: matInfo
+      matInfo: matInfo,
+      verticalDatumOptions: [
+        {
+          label: 'Australian Height Datum (AHD)',
+          value: 'AHD',
+          description: 'Australian Height Datum - Used by CSIRO historically'
+        },
+        {
+          label: 'Ellipsoid (Best)',
+          value: 'WGS84',
+          description: 'WGS84 "Ellipsoid"'
+        },
+        {
+          label: 'Lowest Astronomical Tide (LAT)',
+          value: 'LAT',
+          description: 'Lowest Astronomical Tide - Used by AHO for safety-at-sea reasons'
+        },
+        {
+          label: 'Mean Sea Level (MSL)',
+          value: 'LMSL',
+          description: 'Local Mean Sea Level (or just Mean Sea Level)'
+        },
+        {
+          label: 'Unknown',
+          value: 'Unknown',
+          description: 'Unknown'
+        }
+
+      ]
     }
   }
 }
