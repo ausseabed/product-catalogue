@@ -1,9 +1,10 @@
 import "reflect-metadata";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { Product } from './product.entity';
-import { Survey } from "src/surveys/survey.entity";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Product, VerticalDatum } from './product.entity';
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
+import "crypto";
+
 
 @Entity()
 export class ProductL3Src implements Product {
@@ -44,6 +45,17 @@ export class ProductL3Src implements Product {
    */
   @Column()
   srs: string;
+
+  /**
+   * Vertical Reference of product
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  @Column({type: "enum",
+        enum: VerticalDatum,
+        default: VerticalDatum.Unknown})
+  verticalDatum: VerticalDatum;
 
   /**
    * Persistent Id of the metadata product

@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { Product } from './product.entity';
-import { Survey } from "src/surveys/survey.entity";
 import { ProductL3Src } from "./product-l3-src.entity";
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
@@ -25,7 +24,7 @@ export class ProductL3Dist implements Product {
   * @type {Survey}
   * @memberof Product
   */
-  @ManyToOne(type => ProductL3Src, {
+  @ManyToOne(() => ProductL3Src, {
     nullable: false,
     onDelete: 'CASCADE',
     eager: true

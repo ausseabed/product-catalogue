@@ -1,4 +1,28 @@
-import { Survey } from "src/surveys/survey.entity";
+// From https://vdatum.noaa.gov/docs/datums.html
+export enum VerticalDatum {
+Nad83Harn='NAD83(HARN)', //NAD83(HARN)
+Nad83Corsxx='NAD83(CORSxx)', //NAD83(CORSxx)
+Nad83Nsrsxx='NAD83(NSRSxx)', //NAD83(NSRSxx)
+Nad83Pacpxx='NAD83(PACPxx)', //NAD83(PACPxx)
+Nad83Marpxx='NAD83(MARPxx)', //NAD83(MARPxx)
+Itrfxx='ITRFxx', //ITRFxx
+Wgs84='WGS84', //WGS84
+Navd88='NAVD88', //NAVD88
+Ngvd29='NGVD29', //NGVD29
+Egm2008='EGM2008', //EGM2008
+Egm1996='EGM1996', //EGM1996
+Egm1984='EGM1984', //EGM1984
+Lmsl='LMSL', //LMSL - Local Mean Sea Level **
+Mllw='MLLW', //MLLW
+Mlw='MLW', //MLW
+Mhw='MHW', //MHW
+Mhhw='MHHW', //MHHW
+Dtl='DTL', //DTL
+Mtl='MTL', //MTL
+Lwd='LWD', //LWD
+Ahd='AHD', // Australian Height Datum
+Unknown='Unknown'
+};
 
 /**
  * Defines the basic properties of all products
