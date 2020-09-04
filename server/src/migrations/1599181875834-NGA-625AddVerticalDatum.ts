@@ -7,7 +7,11 @@ export class NGA625AddVerticalDatum1599181875834 implements MigrationInterface {
         await queryRunner.query(`CREATE TYPE "product_l3_src_verticaldatum_enum" AS ENUM('Unknown', 'LAT', 'AHD', 'LMSL', 'WGS84', 'NAD83(HARN)', 'NAD83(CORSxx)', 'NAD83(NSRSxx)', 'NAD83(PACPxx)', 'NAD83(MARPxx)', 'ITRFxx', 'NAVD88', 'NGVD29', 'EGM2008', 'EGM1996', 'EGM1984', 'MLLW', 'MLW', 'MHW', 'MHHW', 'DTL', 'MTL', 'LWD')`);
         await queryRunner.query(`ALTER TABLE "product_l3_src" ADD "verticalDatum" "product_l3_src_verticaldatum_enum" NOT NULL DEFAULT 'Unknown'`);
         await queryRunner.query(`ALTER TABLE "product_l3_src_history" ADD "verticalDatum" "product_l3_src_verticaldatum_enum" NOT NULL DEFAULT 'Unknown'`);
-        
+
+        // Set default for GA grids
+        await queryRunner.query(`UPDATE "product_l3_src" SET "verticalDatum"='LMSL'`);
+        await queryRunner.query(`UPDATE "product_l3_src_history" SET "verticalDatum"='LMSL'`);
+
         await queryRunner.query(`CREATE TYPE "product_l0_src_verticaldatum_enum" AS ENUM('Unknown', 'LAT', 'AHD', 'LMSL', 'WGS84', 'NAD83(HARN)', 'NAD83(CORSxx)', 'NAD83(NSRSxx)', 'NAD83(PACPxx)', 'NAD83(MARPxx)', 'ITRFxx', 'NAVD88', 'NGVD29', 'EGM2008', 'EGM1996', 'EGM1984', 'MLLW', 'MLW', 'MHW', 'MHHW', 'DTL', 'MTL', 'LWD')`);
         await queryRunner.query(`ALTER TABLE "product_l0_src" ADD "verticalDatum" "product_l0_src_verticaldatum_enum" NOT NULL DEFAULT 'Unknown'`);
         await queryRunner.query(`ALTER TABLE "product_l0_src_history" ADD "verticalDatum" "product_l0_src_verticaldatum_enum" NOT NULL DEFAULT 'Unknown'`);
