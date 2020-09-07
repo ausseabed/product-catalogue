@@ -57,7 +57,10 @@
               :props="props"
               key="UUID"
             >
-              <div v-if="!props.selected">
+              <div
+                v-if="!props.selected"
+                style="max-width:8em;white-space: normal;word-wrap: break-word"
+              >
                 {{ props.row.uuid}}
               </div>
               <div v-if="props.selected">
@@ -75,7 +78,10 @@
               :props="props"
               key="surveyName"
             >
-              <div v-if="!props.selected">
+              <div
+                v-if="!props.selected"
+                style="min-width:10em;white-space: normal;"
+              >
                 {{ props.row.name }}
               </div>
               <div v-if="props.selected">
@@ -111,29 +117,10 @@
               :props="props"
               key="products"
             >
-              <div class='row'>
-                <div
-                  class="q-gutter-xs col-auto truncate-chip-labels"
-                  style="max-width: 200px"
-                >
-                  <div
-                    v-for="item in productsFor(props.row.id)"
-                    :key="item.productId"
-                  >
-                    <q-chip
-                      class="glossy"
-                      color="orange"
-                      text-color="white"
-                      clickable
-                      removable
-                      :label="item.productName"
-                      :title="item.productName"
-                      @click="() => editProduct(item.relationId)"
-                      @remove="() => deleteProductDialogue(item.productName, item.productId)"
-                    />
-                  </div>
-                </div>
-                <div class="col-grow" />
+              <div
+                class='row reverse'
+                style="white-space: normal"
+              >
                 <div class="col-shrink">
 
                   {{ props.row.products }}
@@ -143,6 +130,64 @@
                     color="primary"
                     @click="() => createProductInternal(props.row.id)"
                   />
+                </div>
+
+                <div class="col-grow" />
+                <div
+                  class="q-gutter-xs col truncate-chip-label"
+                  style="white-space: normal"
+                  v-if='productsFor(props.row.id).length>2'
+                >
+                  <span
+                    v-for="item in productsFor(props.row.id)"
+                    :key="item.productId"
+                  >
+                    <q-chip
+                      class="glossy"
+                      color="orange"
+                      text-color="white"
+                      clickable
+                      removable
+                      :title="item.productName"
+                      @click="() => editProduct(item.relationId)"
+                      @remove="() => deleteProductDialogue(item.productName, item.productId)"
+                    >
+                      <template v-slot:default>
+                        <span
+                          class="ellipsis"
+                          style='max-width:8em;direction: rtl;text-align: left;'
+                        >{{item.productName}}</span>
+                      </template>
+                    </q-chip>
+                  </span>
+                </div>
+                <div
+                  class="q-gutter-xs col truncate-chip-label"
+                  style="white-space: normal"
+                  v-if='productsFor(props.row.id).length<=2'
+                >
+                  <span
+                    v-for="item in productsFor(props.row.id)"
+                    :key="item.productId"
+                  >
+                    <q-chip
+                      class="glossy"
+                      color="orange"
+                      text-color="white"
+                      clickable
+                      removable
+                      :title="item.productName"
+                      @click="() => editProduct(item.relationId)"
+                      @remove="() => deleteProductDialogue(item.productName, item.productId)"
+                    >
+                      <template v-slot:default>
+                        <span
+                          class="ellipsis"
+                          style='max-width:20em;direction: rtl;text-align: left;'
+                        >{{item.productName}}</span>
+                      </template>
+                    </q-chip>
+                  </span>
                 </div>
               </div>
             </q-td>
@@ -195,7 +240,7 @@
 //   width: 1cm
 
 // .survey tr > *:nth-child(5)
-//   width: 40rem
+//   width: 10rem
 
 .my-sticky-virtscroll-table
   /* height or max-height is important */
