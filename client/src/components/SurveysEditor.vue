@@ -136,7 +136,6 @@
                 <div
                   class="q-gutter-xs col truncate-chip-label"
                   style="white-space: normal"
-                  v-if='productsFor(props.row.id).length>2'
                 >
                   <span
                     v-for="item in productsFor(props.row.id)"
@@ -156,34 +155,12 @@
                         <span
                           class="ellipsis"
                           style='max-width:8em;direction: rtl;text-align: left;'
+                          v-if='productsFor(props.row.id).length>2'
                         >{{item.productName}}</span>
-                      </template>
-                    </q-chip>
-                  </span>
-                </div>
-                <div
-                  class="q-gutter-xs col truncate-chip-label"
-                  style="white-space: normal"
-                  v-if='productsFor(props.row.id).length<=2'
-                >
-                  <span
-                    v-for="item in productsFor(props.row.id)"
-                    :key="item.productId"
-                  >
-                    <q-chip
-                      class="glossy"
-                      color="orange"
-                      text-color="white"
-                      clickable
-                      removable
-                      :title="item.productName"
-                      @click="() => editProduct(item.relationId)"
-                      @remove="() => deleteProductDialogue(item.productName, item.productId)"
-                    >
-                      <template v-slot:default>
                         <span
                           class="ellipsis"
                           style='max-width:20em;direction: rtl;text-align: left;'
+                          v-if='productsFor(props.row.id).length<=2'
                         >{{item.productName}}</span>
                       </template>
                     </q-chip>
