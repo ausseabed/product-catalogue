@@ -256,7 +256,7 @@
                         "type": "string"
                     },
                     "verticalDatum": {
-                        "description": "Vertical datum of bathymetry\n* `Lat` - Lowest Astronomical Tide\n* `AHD` - Australian Height Datum\n* `LMSL` - LMSL - Local Mean Sea Level (or just Mean Sea Level)\n* `WGS84` - WGS84 'Ellipsoid'",
+                        "description": "Vertical datum of bathymetry\n* `LAT` - Lowest Astronomical Tide\n* `AHD` - Australian Height Datum\n* `LMSL` - LMSL - Local Mean Sea Level (or just Mean Sea Level)\n* `WGS84` - WGS84 'Ellipsoid'",
                         "enum": [
                             "Unknown",
                             "LAT",
@@ -435,7 +435,7 @@
                         "type": "string"
                     },
                     "verticalDatum": {
-                        "description": "Vertical datum of bathymetry\n* `Lat` - Lowest Astronomical Tide\n* `AHD` - Australian Height Datum\n* `LMSL` - LMSL - Local Mean Sea Level (or just Mean Sea Level)\n* `WGS84` - WGS84 'Ellipsoid'",
+                        "description": "Vertical datum of bathymetry\n* `LAT` - Lowest Astronomical Tide\n* `AHD` - Australian Height Datum\n* `LMSL` - LMSL - Local Mean Sea Level (or just Mean Sea Level)\n* `WGS84` - WGS84 'Ellipsoid'",
                         "enum": [
                             "Unknown",
                             "LAT",
