@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe, Query, Logger } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Body, Req, Param, Post, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiTags, ApiBody, ApiBadRequestResponse, ApiBearerAuth, ApiRequestTimeoutResponse, ApiUnauthorizedResponse, ApiQuery } from '@nestjs/swagger';
 import { ProductsController } from './products.controller';
 import { ErrorDto } from 'src/errors/errors.dto';

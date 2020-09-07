@@ -1,4 +1,4 @@
-export const versioning_function = `
+export const versioningFunction = `
 -- forked from yktv4/temporal_tables
 -- The MIT License (MIT)
 

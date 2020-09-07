@@ -99,6 +99,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
       productTifLocation: '',
       resolution: '',
       srs: '',
+      verticalDatum: 'Unknown',
       uuid: uuidv4().toString()
     }
     await dispatch('auth/getLoginToken', {}, { root: true })

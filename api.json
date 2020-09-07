@@ -1,0 +1,3695 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AusSeabed product catalogue",
+    "description": "The API description for the Ausseabed product catalogue inventory",
+    "version": "0.1.14",
+    "contact": {
+      "name": "AusSeabed",
+      "url": "http://ausseabed.gov.au/",
+      "email": "AusSeabed@ga.gov.au"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "surveys",
+      "description": ""
+    }
+  ],
+  "servers": [
+    {
+      "url": "/rest"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "access-token": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP status code"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error string"
+          }
+        },
+        "required": [
+          "statusCode"
+        ]
+      },
+      "Survey": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "year": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "year"
+        ]
+      },
+      "SurveyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of product for display purposes - from gazeteer"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Unique identifier for reference purposes"
+          },
+          "year": {
+            "type": "string",
+            "description": "Year of product for display purposes"
+          }
+        },
+        "required": [
+          "name",
+          "uuid",
+          "year"
+        ]
+      },
+      "ProductL0Src": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "srs": {
+            "type": "string"
+          },
+          "verticalDatum": {
+            "enum": [
+              "Unknown",
+              "LAT",
+              "AHD",
+              "LMSL",
+              "WGS84",
+              "NAD83(HARN)",
+              "NAD83(CORSxx)",
+              "NAD83(NSRSxx)",
+              "NAD83(PACPxx)",
+              "NAD83(MARPxx)",
+              "ITRFxx",
+              "NAVD88",
+              "NGVD29",
+              "EGM2008",
+              "EGM1996",
+              "EGM1984",
+              "MLLW",
+              "MLW",
+              "MHW",
+              "MHHW",
+              "DTL",
+              "MTL",
+              "LWD"
+            ],
+            "type": "string"
+          },
+          "metadataPersistentId": {
+            "type": "string"
+          },
+          "l0InstrumentLocation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "srs",
+          "verticalDatum",
+          "metadataPersistentId",
+          "l0InstrumentLocation"
+        ]
+      },
+      "ProductL0SrcDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Unique identifier for reference purposes"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of product for display purposes - from gazeteer"
+          },
+          "srs": {
+            "type": "string",
+            "description": "Spatial Reference of product"
+          },
+          "metadataPersistentId": {
+            "type": "string",
+            "description": "Persistent Id of final product"
+          },
+          "l0InstrumentLocation": {
+            "type": "string",
+            "description": "Location of instrument files"
+          },
+          "verticalDatum": {
+            "enum": [
+              "Unknown",
+              "LAT",
+              "AHD",
+              "LMSL",
+              "WGS84",
+              "NAD83(HARN)",
+              "NAD83(CORSxx)",
+              "NAD83(NSRSxx)",
+              "NAD83(PACPxx)",
+              "NAD83(MARPxx)",
+              "ITRFxx",
+              "NAVD88",
+              "NGVD29",
+              "EGM2008",
+              "EGM1996",
+              "EGM1984",
+              "MLLW",
+              "MLW",
+              "MHW",
+              "MHHW",
+              "DTL",
+              "MTL",
+              "LWD"
+            ],
+            "type": "string",
+            "description": "Vertical datum of bathymetry"
+          }
+        },
+        "required": [
+          "uuid",
+          "name",
+          "srs",
+          "metadataPersistentId",
+          "l0InstrumentLocation",
+          "verticalDatum"
+        ]
+      },
+      "ProductL3Src": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "srs": {
+            "type": "string"
+          },
+          "verticalDatum": {
+            "enum": [
+              "Unknown",
+              "LAT",
+              "AHD",
+              "LMSL",
+              "WGS84",
+              "NAD83(HARN)",
+              "NAD83(CORSxx)",
+              "NAD83(NSRSxx)",
+              "NAD83(PACPxx)",
+              "NAD83(MARPxx)",
+              "ITRFxx",
+              "NAVD88",
+              "NGVD29",
+              "EGM2008",
+              "EGM1996",
+              "EGM1984",
+              "MLLW",
+              "MLW",
+              "MHW",
+              "MHHW",
+              "DTL",
+              "MTL",
+              "LWD"
+            ],
+            "type": "string"
+          },
+          "metadataPersistentId": {
+            "type": "string"
+          },
+          "resolution": {
+            "type": "string"
+          },
+          "productTifLocation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "srs",
+          "verticalDatum",
+          "metadataPersistentId",
+          "resolution",
+          "productTifLocation"
+        ]
+      },
+      "ProductL3SrcDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Unique identifier for reference purposes"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of product for display purposes - from gazeteer"
+          },
+          "srs": {
+            "type": "string",
+            "description": "Spatial Reference of product"
+          },
+          "metadataPersistentId": {
+            "type": "string",
+            "description": "Persistent Id of final product"
+          },
+          "resolution": {
+            "type": "string",
+            "description": "Resolution of product for display purposes "
+          },
+          "productTifLocation": {
+            "type": "string",
+            "description": "Location of final product "
+          },
+          "verticalDatum": {
+            "enum": [
+              "Unknown",
+              "LAT",
+              "AHD",
+              "LMSL",
+              "WGS84",
+              "NAD83(HARN)",
+              "NAD83(CORSxx)",
+              "NAD83(NSRSxx)",
+              "NAD83(PACPxx)",
+              "NAD83(MARPxx)",
+              "ITRFxx",
+              "NAVD88",
+              "NGVD29",
+              "EGM2008",
+              "EGM1996",
+              "EGM1984",
+              "MLLW",
+              "MLW",
+              "MHW",
+              "MHHW",
+              "DTL",
+              "MTL",
+              "LWD"
+            ],
+            "type": "string",
+            "description": "Vertical datum of bathymetry"
+          }
+        },
+        "required": [
+          "uuid",
+          "name",
+          "srs",
+          "metadataPersistentId",
+          "resolution",
+          "productTifLocation",
+          "verticalDatum"
+        ]
+      },
+      "ProductL0InstrumentFile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "l0InstrumentFile": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "l0InstrumentFile"
+        ]
+      },
+      "ProductL0Dist": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "sourceProduct": {
+            "$ref": "#/components/schemas/ProductL0Src"
+          },
+          "l0InstrumentFiles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductL0InstrumentFile"
+            }
+          },
+          "l0CoverageLocation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "sourceProduct",
+          "l0InstrumentFiles",
+          "l0CoverageLocation"
+        ]
+      },
+      "ProductL0DistDto": {
+        "type": "object",
+        "properties": {
+          "l0CoverageLocation": {
+            "type": "string",
+            "description": "Location of coverage file for extent"
+          }
+        },
+        "required": [
+          "l0CoverageLocation"
+        ]
+      },
+      "ProductL0InstrumentFileDto": {
+        "type": "object",
+        "properties": {
+          "instrumentFile": {
+            "type": "string",
+            "description": "Location of instrument file"
+          },
+          "coverageFile": {
+            "type": "string",
+            "description": "Location of shapefile describing instrument file extent"
+          }
+        },
+        "required": [
+          "instrumentFile",
+          "coverageFile"
+        ]
+      },
+      "ProductL3Dist": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "sourceProduct": {
+            "$ref": "#/components/schemas/ProductL3Src"
+          },
+          "l3CoverageLocation": {
+            "type": "string"
+          },
+          "bathymetryLocation": {
+            "type": "string"
+          },
+          "hillshadeLocation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "sourceProduct",
+          "l3CoverageLocation",
+          "bathymetryLocation",
+          "hillshadeLocation"
+        ]
+      },
+      "ProductL3DistDto": {
+        "type": "object",
+        "properties": {
+          "l3CoverageLocation": {
+            "type": "string",
+            "description": "Location of coverage extent of L3 product"
+          },
+          "hillshadeLocation": {
+            "type": "string",
+            "description": "S3 location of hillshade"
+          },
+          "bathymetryLocation": {
+            "type": "string",
+            "description": "Location of the raster bathymetry"
+          }
+        },
+        "required": [
+          "l3CoverageLocation",
+          "hillshadeLocation",
+          "bathymetryLocation"
+        ]
+      },
+      "Compilation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "year": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "year"
+        ]
+      },
+      "CompilationDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of product for display purposes - from gazeteer"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Unique identifier for reference purposes"
+          },
+          "year": {
+            "type": "string",
+            "description": "Year of product for display purposes"
+          }
+        },
+        "required": [
+          "name",
+          "uuid",
+          "year"
+        ]
+      },
+      "RelationSummaryDto": {
+        "type": "object",
+        "properties": {
+          "relation_id": {
+            "type": "object",
+            "description": "Identifier of the relation between the products"
+          },
+          "survey_id": {
+            "type": "object",
+            "description": "Identifier of the survey/compilation that contains the products"
+          },
+          "product_id": {
+            "type": "object",
+            "description": "Identifier of the products"
+          },
+          "product_name": {
+            "type": "object",
+            "description": "The name of the product"
+          }
+        },
+        "required": [
+          "relation_id",
+          "survey_id",
+          "product_id",
+          "product_name"
+        ]
+      },
+      "CompilationL3Relation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "compilation": {
+            "$ref": "#/components/schemas/Compilation"
+          },
+          "productL3Src": {
+            "$ref": "#/components/schemas/ProductL3Src"
+          }
+        },
+        "required": [
+          "id",
+          "compilation",
+          "productL3Src"
+        ]
+      },
+      "CompilationL3RelationDto": {
+        "type": "object",
+        "properties": {
+          "compilation": {
+            "type": "number",
+            "description": "Identifier of the compilation that contains the products"
+          },
+          "productL3Src": {
+            "type": "number",
+            "description": "Identifier of the product"
+          }
+        },
+        "required": [
+          "compilation",
+          "productL3Src"
+        ]
+      },
+      "SurveyL3Relation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "survey": {
+            "$ref": "#/components/schemas/Survey"
+          },
+          "productL3Src": {
+            "$ref": "#/components/schemas/ProductL3Src"
+          }
+        },
+        "required": [
+          "id",
+          "survey",
+          "productL3Src"
+        ]
+      },
+      "SurveyL3RelationDto": {
+        "type": "object",
+        "properties": {
+          "survey": {
+            "type": "number",
+            "description": "Identifier of the survey that produced the products"
+          },
+          "productL3Src": {
+            "type": "number",
+            "description": "Identifier of the product produced as part of the survey"
+          }
+        },
+        "required": [
+          "survey",
+          "productL3Src"
+        ]
+      },
+      "SurveyL0Relation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "survey": {
+            "$ref": "#/components/schemas/Survey"
+          },
+          "productL0Src": {
+            "$ref": "#/components/schemas/ProductL0Src"
+          }
+        },
+        "required": [
+          "id",
+          "survey",
+          "productL0Src"
+        ]
+      },
+      "SurveyL0RelationDto": {
+        "type": "object",
+        "properties": {
+          "survey": {
+            "type": "number",
+            "description": "Identifier of the survey that produced the products"
+          },
+          "productL0Src": {
+            "type": "number",
+            "description": "Identifier of the product produced as part of the survey"
+          }
+        },
+        "required": [
+          "survey",
+          "productL0Src"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/surveys": {
+      "get": {
+        "operationId": "SurveysController_findAll",
+        "parameters": [
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Survey"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "surveys"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "SurveysController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Survey"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "surveys"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/surveys/{surveyId}": {
+      "get": {
+        "operationId": "SurveysController_findOne",
+        "parameters": [
+          {
+            "name": "surveyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Survey"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "surveys"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "SurveysController_update",
+        "parameters": [
+          {
+            "name": "surveyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "surveys"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "SurveysController_remove",
+        "parameters": [
+          {
+            "name": "surveyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "surveys"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/products/l0-src": {
+      "get": {
+        "operationId": "ProductsL0SrcController_findAll",
+        "parameters": [
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductL0Src"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-src"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "ProductsL0SrcController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductL0SrcDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductL0Src"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-src"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/products/l0-src/{productId}": {
+      "get": {
+        "operationId": "ProductsL0SrcController_findOne",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductL0Src"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-src"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "ProductsL0SrcController_update",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductL0SrcDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-src"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "ProductsL0SrcController_delete",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-src"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/products/l3-src": {
+      "get": {
+        "operationId": "ProductsL3SrcController_findAll",
+        "parameters": [
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductL3Src"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l3-src"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "ProductsL3SrcController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductL3SrcDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductL3Src"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l3-src"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/products/l3-src/{productId}": {
+      "get": {
+        "operationId": "ProductsL3SrcController_findOne",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductL3Src"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l3-src"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "ProductsL3SrcController_update",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductL3SrcDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l3-src"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "ProductsL3SrcController_delete",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l3-src"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/products/l0-dist": {
+      "get": {
+        "operationId": "ProductsL0DistController_findAll",
+        "parameters": [
+          {
+            "name": "filterByProductSrcId",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductL0Dist"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "ProductsL0DistController_create",
+        "parameters": [
+          {
+            "name": "productL0SrcId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductL0DistDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductL0Dist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/products/l0-dist/{productId}": {
+      "get": {
+        "operationId": "ProductsL0DistController_findOne",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductL0Dist"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "ProductsL0DistController_update",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductL0DistDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "ProductsL0DistController_delete",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/products/l0-dist/{productId}/instrument-files/{instrumentId}": {
+      "get": {
+        "operationId": "ProductsL0DistController_findOneInstrument",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "instrumentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductL0InstrumentFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "ProductsL0DistController_updateInstrument",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "instrumentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductL0InstrumentFileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the instrument"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "ProductsL0DistController_deleteInstrument",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "instrumentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the instrument"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/products/l0-dist/{productId}/instrument-files": {
+      "get": {
+        "operationId": "ProductsL0DistController_findInstruments",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductL0InstrumentFile"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "ProductsL0DistController_createInstrument",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductL0InstrumentFileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductL0InstrumentFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l0-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/products/l3-dist": {
+      "get": {
+        "operationId": "ProductsL3DistController_findAll",
+        "parameters": [
+          {
+            "name": "filterByProductSrcId",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductL3Dist"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l3-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "ProductsL3DistController_create",
+        "parameters": [
+          {
+            "name": "productL3SrcId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductL3DistDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductL3Dist"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l3-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/products/l3-dist/{productId}": {
+      "get": {
+        "operationId": "ProductsL3DistController_findOne",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductL3Dist"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l3-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "ProductsL3DistController_update",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductL3DistDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l3-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "ProductsL3DistController_delete",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "products/l3-dist"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/compilations": {
+      "get": {
+        "operationId": "CompilationsController_findAll",
+        "parameters": [
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Compilation"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "compilations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "CompilationsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompilationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Compilation"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "compilations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/compilations/{compilationId}": {
+      "get": {
+        "operationId": "CompilationsController_findOne",
+        "parameters": [
+          {
+            "name": "compilationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Compilation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the compilation"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "compilations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "CompilationsController_update",
+        "parameters": [
+          {
+            "name": "compilationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompilationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the compilation"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "compilations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "CompilationsController_remove",
+        "parameters": [
+          {
+            "name": "compilationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the compilation"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "compilations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/product-relations/compilation-to-l3": {
+      "get": {
+        "operationId": "ProductRelationsController_findAllL3Compilation",
+        "parameters": [
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RelationSummaryDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "ProductRelationsController_createCompilation",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompilationL3RelationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompilationL3Relation"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/product-relations/compilation-to-l3/compilation/{compilationId}": {
+      "get": {
+        "operationId": "ProductRelationsController_findConditionalCompilation",
+        "parameters": [
+          {
+            "name": "compilationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompilationL3Relation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the compilation"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/product-relations/compilation-to-l3/{relationId}": {
+      "get": {
+        "operationId": "ProductRelationsController_findOneCompilation",
+        "parameters": [
+          {
+            "name": "relationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompilationL3Relation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the compilation"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "ProductRelationsController_updateCompilation",
+        "parameters": [
+          {
+            "name": "relationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompilationL3RelationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the compilation"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "ProductRelationsController_deleteCompilation",
+        "parameters": [
+          {
+            "name": "relationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the compilation"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/product-relations/surveys-to-l3": {
+      "get": {
+        "operationId": "ProductRelationsController_findAllL3Survey",
+        "parameters": [
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RelationSummaryDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "ProductRelationsController_createL3Survey",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyL3RelationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyL3Relation"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/product-relations/surveys-to-l3/survey/{surveyId}": {
+      "get": {
+        "operationId": "ProductRelationsController_findConditionalL3Survey",
+        "parameters": [
+          {
+            "name": "surveyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyL3Relation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/product-relations/surveys-to-l3/{relationId}": {
+      "get": {
+        "operationId": "ProductRelationsController_findOneL3Survey",
+        "parameters": [
+          {
+            "name": "relationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyL3Relation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "ProductRelationsController_updateL3Survey",
+        "parameters": [
+          {
+            "name": "relationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyL3RelationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "ProductRelationsController_deleteL3Survey",
+        "parameters": [
+          {
+            "name": "relationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the compilation"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/product-relations/surveys-to-l0": {
+      "get": {
+        "operationId": "ProductRelationsController_findAllL0Survey",
+        "parameters": [
+          {
+            "name": "snapshotDateTime",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RelationSummaryDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "ProductRelationsController_createL0Survey",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyL0RelationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyL0Relation"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/product-relations/surveys-to-l0/survey/{surveyId}": {
+      "get": {
+        "operationId": "ProductRelationsController_findConditionalL0Survey",
+        "parameters": [
+          {
+            "name": "surveyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyL0Relation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/product-relations/surveys-to-l0/{relationId}": {
+      "get": {
+        "operationId": "ProductRelationsController_findOneL0Survey",
+        "parameters": [
+          {
+            "name": "relationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyL0Relation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not find the compilation"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "ProductRelationsController_updateL0Survey",
+        "parameters": [
+          {
+            "name": "relationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyL0RelationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the survey"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "ProductRelationsController_deleteL0Survey",
+        "parameters": [
+          {
+            "name": "relationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "Could not find the compilation"
+          },
+          "401": {
+            "description": "Unable to authenticate request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Server took too long to respond.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "product-relations"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    }
+  }
+}

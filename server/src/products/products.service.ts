@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { InjectRepository, InjectEntityManager } from '@nestjs/typeorm';
-import { Repository, EntityManager, FindConditions, Raw } from 'typeorm';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { EntityManager, Raw } from 'typeorm';
 
 import { plainToClassFromExist, plainToClass } from "class-transformer";
 import { ProductL0InstrumentFile } from './product-l0-instrument-file.entity';

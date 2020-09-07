@@ -1,7 +1,6 @@
 import "reflect-metadata";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { Product } from './product.entity';
-import { Survey } from "src/surveys/survey.entity";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Product, VerticalDatum } from './product.entity';
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
 
@@ -46,6 +45,17 @@ export class ProductL0Src implements Product {
   srs: string;
 
   /**
+   * Vertical Reference of product
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  @Column({type: "enum",
+        enum: VerticalDatum,
+        default: VerticalDatum.Unknown})
+  verticalDatum: VerticalDatum;
+
+  /**
    * Persistent Id of the metadata product
    *
    * @type {string}
@@ -60,6 +70,9 @@ export class ProductL0Src implements Product {
    * @type {string}
    * @memberof ProductL0Src
    */
+  @ApiProperty({
+    description: 'Location of instrument files'
+  })
   @Column()
   l0InstrumentLocation: string;
 

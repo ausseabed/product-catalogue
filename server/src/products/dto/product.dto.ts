@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsString, IsEnum } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class ProductDto {
@@ -17,9 +17,10 @@ export class ProductDto {
     description: 'Spatial Reference of product'
   })
   srs: string;
+
   @IsString()
   @ApiProperty({
-    description: 'Persistent Id of final product '
+    description: 'Persistent Id of final product'
   })
   metadataPersistentId: string;
 }

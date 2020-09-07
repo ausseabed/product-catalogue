@@ -11,6 +11,10 @@ import { S3Util } from '../lib/s3-util'
 type BBoxFields = 'minx' | 'miny' | 'maxx' | 'maxy'
 type BBox = { 'minx': number; 'miny': number; 'maxx': number; 'maxy': number }
 
+/**
+ * The EftfLayer class builds csv files that the EFTF Portal can use for presenting
+ * layers from the Warehouse
+ */
 export class EftfLayer {
   constructor (private geoserver: string, private geoserverProduction: string, private collapseGroups: boolean,
     private snapshotEndDate: string, private snapshotPreviousDate: string, private configuration: Configuration) {
@@ -149,7 +153,8 @@ export class EftfLayer {
 
             const bboxes = productsWithDistributables.map(prodId => {
               const nameIndividualFormatted = namespace + PortalNaming.getNcName(PortalNaming.getNameIndividual(productIdToProductSrc.get(prodId), survey.year))
-              const layer = nameToNode.get(nameIndividualFormatted)
+              const nameIndividualFormattedLessExtension = namespace + PortalNaming.getNcName(PortalNaming.getNameIndividual(productIdToProductSrc.get(prodId), survey.year, false))
+              const layer = nameToNode.get(nameIndividualFormatted) || nameToNode.get(nameIndividualFormattedLessExtension)
               if (layer) {
                 return this.getBoundingBox(layer)
               } else {
@@ -188,7 +193,8 @@ export class EftfLayer {
             const productL3Dist = productIdToProductDist.get(prodId)
             if (productL3Src && productL3Dist) {
               const nameFormatted = PortalNaming.getNameIndividual(productL3Src, survey.year)
-              const layer = nameToNode.get(namespace + PortalNaming.getNcName(nameFormatted))
+              const nameFormattedNoExtension = PortalNaming.getNameIndividual(productL3Src, survey.year, false)
+              const layer = nameToNode.get(namespace + PortalNaming.getNcName(nameFormatted)) || nameToNode.get(namespace + PortalNaming.getNcName(nameFormattedNoExtension))
               if (layer) {
                 const eftfBase = Object.assign({}, eftfStructureHeaders)
                 eftfBase.NAME = nameFormatted

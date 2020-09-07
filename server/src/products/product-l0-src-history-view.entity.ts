@@ -1,4 +1,5 @@
-import { Column, Entity, ViewEntity, ViewColumn } from "typeorm";
+import { ViewEntity, ViewColumn } from "typeorm";
+import { VerticalDatum } from "./product.entity";
 
 @ViewEntity({name: "product_l0_src_with_history", expression: `SELECT * FROM "product_l0_src" UNION ALL SELECT * FROM "product_l0_src_history"`})
 export class ProductL0SrcHistoryView {
@@ -14,6 +15,9 @@ export class ProductL0SrcHistoryView {
   @ViewColumn( { name: "srs" })
   srs: string;
 
+  @ViewColumn( { name: "verticalDatum" })
+  verticalDatum: VerticalDatum;
+  
   @ViewColumn( { name: "metadataPersistentId" })
   metadataPersistentId: string;
 
