@@ -98,18 +98,19 @@ const srsSearchFilters = {
 }
 const srsOptionsBasis: SearchRecordInterface[] = ReferenceSystem
 
-const SpatialReferenceProps = Vue.extend({
-  props: {
-    srs: {
-      type: String,
-      required: true
-    }
-  }
-})
 const namespace = 'surveyl3relation'
 
-@Component
-export default class SpatialReference extends SpatialReferenceProps {
+@Component(
+  {
+    props: {
+      srs: {
+        type: String,
+        required: true
+      }
+    }
+  }
+)
+export default class SpatialReference extends Vue {
   @State('surveyl3relation') surveyL3Relation!: SurveyL3RelationStateInterface
 
   @Mutation('updateProduct', { namespace }) updateProduct!: (elementValuePair: { element: UpdateProductKnownTypes; value: string }) => void
@@ -125,8 +126,8 @@ export default class SpatialReference extends SpatialReferenceProps {
   srsMakeSelection () {
     this.filterSRS = ''
     this.filterFn(this.filterSRS)
-    if (this.srs !== undefined || this.srs !== '') {
-      const matches = srsOptionsBasis.filter(v => `EPSG:${v.Code}` === this.srs)
+    if (this.$props.srs !== undefined || this.$props.srs !== '') {
+      const matches = srsOptionsBasis.filter(v => `EPSG:${v.Code}` === this.$props.srs)
       if (matches.length > 0) {
         this.selectedSrs = [matches[0]]
         return
@@ -156,8 +157,8 @@ export default class SpatialReference extends SpatialReferenceProps {
   filterSRS = ''
 
   get srsName (): string {
-    if (this.srs !== undefined || this.srs !== '') {
-      const matches = srsOptionsBasis.filter(v => `EPSG:${v.Code}` === this.srs)
+    if (this.$props.srs !== undefined || this.$props.srs !== '') {
+      const matches = srsOptionsBasis.filter(v => `EPSG:${v.Code}` === this.$props.srs)
       if (matches.length > 0) {
         return matches[0].Name + ' (' + matches[0].Type + ')'
       }

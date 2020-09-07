@@ -171,7 +171,11 @@ import { matInfo } from '@quasar/extras/material-icons'
 import { UpdateProductKnownTypes } from '../store/survey-l3-relation/mutations'
 
 import { ProductL3DistStateInterface } from '../store/product-l3-dist/state'
-const SurveyIdProps = Vue.extend({
+
+const namespace = 'surveyl3relation'
+
+@Component({
+  components: { 'spatial-reference': SpatialReference, 'l3-product-dist-detail': L3ProductDistDetail },
   props: {
     title: {
       type: String,
@@ -183,10 +187,7 @@ const SurveyIdProps = Vue.extend({
     }
   }
 })
-const namespace = 'surveyl3relation'
-
-@Component({ components: { 'spatial-reference': SpatialReference, 'l3-product-dist-detail': L3ProductDistDetail } })
-export default class ProductEditor extends SurveyIdProps {
+export default class ProductEditor extends Vue {
   // eslint-disable-next-line
   @State(state => state.productl3dist) productL3dist!: ProductL3DistStateInterface
   @Action('fetchData', { namespace: 'productl3dist' }) fetchDataL3Dist!: (payload: number) => Promise<void>
@@ -221,7 +222,7 @@ export default class ProductEditor extends SurveyIdProps {
 
   async cancel (surveyId: number) {
     if (surveyId) {
-      await this.fetchData(this.relationId)
+      await this.fetchData(this.$props.relationId)
       this.$router.push(
         {
           name: 'surveys',
@@ -275,7 +276,7 @@ export default class ProductEditor extends SurveyIdProps {
   }
 
   async mounted () {
-    await this.fetchData(this.relationId)
+    await this.fetchData(this.$props.relationId)
     if (this.surveyL3Relation && this.surveyL3Relation.surveyL3RelationSelected &&
       this.surveyL3Relation.surveyL3RelationSelected.productL3Src) {
       await this.fetchDataL3Dist(this.surveyL3Relation.surveyL3RelationSelected.productL3Src.id)

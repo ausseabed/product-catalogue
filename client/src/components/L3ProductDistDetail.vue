@@ -152,7 +152,9 @@ import Component from 'vue-class-component'
 // import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
 import { matMiscellaneousServices } from '@quasar/extras/material-icons'
 
-const L3ProductDistDetailProps = Vue.extend({
+import { S3Util } from '../lib/s3-util'
+
+@Component({
   props: {
     productl3dist: {
       type: Object,
@@ -160,10 +162,7 @@ const L3ProductDistDetailProps = Vue.extend({
     }
   }
 })
-import { S3Util } from '../lib/s3-util'
-
-@Component
-export default class L3ProductDistDetail extends L3ProductDistDetailProps {
+export default class L3ProductDistDetail extends Vue {
   data () {
     return {
       matCog: matMiscellaneousServices
