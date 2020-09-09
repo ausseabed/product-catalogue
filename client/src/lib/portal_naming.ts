@@ -19,7 +19,7 @@ export class PortalNaming {
     return verticalDatum
   }
 
-  static getNameIndividual (productL3Src: ProductL3Src | undefined, year: string, includeVerticalDatum = true): string {
+  static getNameIndividual (productL3Src: ProductL3Src | undefined, year: string, includeVerticalDatum = false): string {
     if (productL3Src) {
       const verticalDatum = (includeVerticalDatum ? ' ' + PortalNaming.translateVerticalDatum(productL3Src.verticalDatum) : '')
       return `${productL3Src.name} ${year} ${productL3Src.resolution}${verticalDatum}`
@@ -29,7 +29,7 @@ export class PortalNaming {
     }
   }
 
-  static getNameSurvey (survey: Survey | undefined, productL3Src: ProductL3Src | undefined, year: string, includeVerticalDatum = true): string {
+  static getNameSurvey (survey: Survey | undefined, productL3Src: ProductL3Src | undefined, year: string, includeVerticalDatum = false): string {
     if (productL3Src && survey) {
       const verticalDatum = (includeVerticalDatum ? ' ' + PortalNaming.translateVerticalDatum(productL3Src.verticalDatum) : '')
       return `${survey.name} ${year} ${productL3Src.resolution}${verticalDatum}`
