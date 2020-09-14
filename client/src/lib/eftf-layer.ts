@@ -153,8 +153,7 @@ export class EftfLayer {
 
             const bboxes = productsWithDistributables.map(prodId => {
               const nameIndividualFormatted = namespace + PortalNaming.getNcName(PortalNaming.getNameIndividual(productIdToProductSrc.get(prodId), survey.year))
-              const nameIndividualFormattedLessExtension = namespace + PortalNaming.getNcName(PortalNaming.getNameIndividual(productIdToProductSrc.get(prodId), survey.year, false))
-              const layer = nameToNode.get(nameIndividualFormatted) || nameToNode.get(nameIndividualFormattedLessExtension)
+              const layer = nameToNode.get(nameIndividualFormatted)
               if (layer) {
                 return this.getBoundingBox(layer)
               } else {
@@ -170,7 +169,14 @@ export class EftfLayer {
             }
 
             const eftfBase = Object.assign({}, eftfStructureHeaders)
-            eftfBase.NAME = nameFormatted
+            if (productsWithDistributables.length === 1) {
+              const prodFirstId = productsWithDistributables[0]
+              const productL3Src = productIdToProductSrc.get(prodFirstId)
+              const nameIndividualFormatted = PortalNaming.getNameIndividual(productL3Src, survey.year)
+              eftfBase.NAME = nameIndividualFormatted
+            } else {
+              eftfBase.NAME = nameFormatted
+            }
             eftfBase['WMS LAYER NAMES'] = namespace + PortalNaming.getNcName(nameFormatted)
             eftfBase['WCS LAYER NAMES'] = wcsLayerNames.join(',')
 
@@ -193,8 +199,7 @@ export class EftfLayer {
             const productL3Dist = productIdToProductDist.get(prodId)
             if (productL3Src && productL3Dist) {
               const nameFormatted = PortalNaming.getNameIndividual(productL3Src, survey.year)
-              const nameFormattedNoExtension = PortalNaming.getNameIndividual(productL3Src, survey.year, false)
-              const layer = nameToNode.get(namespace + PortalNaming.getNcName(nameFormatted)) || nameToNode.get(namespace + PortalNaming.getNcName(nameFormattedNoExtension))
+              const layer = nameToNode.get(namespace + PortalNaming.getNcName(nameFormatted))
               if (layer) {
                 const eftfBase = Object.assign({}, eftfStructureHeaders)
                 eftfBase.NAME = nameFormatted
