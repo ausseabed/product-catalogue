@@ -15,13 +15,13 @@
         <tbody>
           <tr>
             <td>Surveys</td>
-            <td v-if='!reports.productL3Srcs'>
+            <td v-if='!reports.surveys'>
               <q-spinner
                 color="primary"
                 size="3em"
               />
             </td>
-            <td v-if='reports.productL3Srcs'>Count = {{reports.productL3Srcs.length}}</td>
+            <td v-if='reports.surveys'>Count = {{reports.surveys.length}}</td>
             <td></td>
           </tr>
           <tr>
@@ -79,6 +79,27 @@
               />
             </td>
           </tr>
+          <tr>
+            <td>Area Covered</td>
+            <td v-if='!reports.fileExists'>
+              <q-spinner
+                color="primary"
+                size="3em"
+              />
+            </td>
+            <td v-if='reports.fileExists'>
+              {{reports.polygonArea.reduce((a, b) => a + b.area, 0).toLocaleString()}} km² (from {{reports.polygonArea.length}})
+            </td>
+            <td>
+              <q-btn
+                round
+                color='primary'
+                :icon="matSaveAlt"
+                size='md'
+                @click='savePolygonReport'
+              />
+            </td>
+          </tr>
         </tbody>
       </q-markup-table>
     </div>
@@ -126,6 +147,16 @@ export default class ProductEditor extends Vue {
     const poly = this.reports.fileExists.l3CoverageLocation.map((row) => { return `polygon,${row.product.l3CoverageLocation},${row.exists ? 'true' : 'false'}` }).sort()
 
     const csv = header + bathy.concat(hill).concat(poly).join('\r\n')
+    const blob = new Blob([csv], { type: 'text/plain;charset=utf-8' })
+    saveAs(blob, `Files_Dist_${(new Date()).toISOString().replace(colon, '')}.csv`)
+  }
+
+  savePolygonReport () {
+    const colon = RegExp('[:.-]', 'g')
+    const header = 'Product Name,Resolution,Date Processed (GMT),Area\r\n'
+    const bathy = this.reports.polygonArea.map((row) => { return `${row.productL3Dist.sourceProduct.name},${row.productL3Dist.sourceProduct.resolution},${row.lastModified.toISOString().replace('T', ' ').replace('Z', '')},${row.area}` }).sort()
+
+    const csv = header + bathy.join('\r\n')
     const blob = new Blob([csv], { type: 'text/plain;charset=utf-8' })
     saveAs(blob, `Files_Dist_${(new Date()).toISOString().replace(colon, '')}.csv`)
   }

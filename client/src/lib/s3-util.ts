@@ -59,6 +59,22 @@ export class S3Util {
     }
   }
 
+  static async objectLastModified (headParams: {Bucket: string; Key: string}, region: string = REGION): Promise<Date | undefined> {
+    AWS.config.region = region
+    const s3 = new S3()
+    try {
+      const headObjectData = await s3.makeUnauthenticatedRequest('headObject', headParams).promise() as undefined | {ContentLength:number, LastModified: string}
+      if (headObjectData && headObjectData.LastModified) {
+        return new Date(headObjectData.LastModified)
+      } else {
+        return undefined
+      }
+    } catch (reason) {
+      console.log(reason)
+      return undefined
+    }
+  }
+
   static async getS3ObjectMeta (headParams: {Bucket: string; Key: string}, region: string = REGION): Promise<string> {
     AWS.config.region = region
     const s3 = new S3()
