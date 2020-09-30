@@ -1,17 +1,30 @@
 import { ActionTree } from 'vuex'
 import { StoreInterface } from '../index'
 import { ReportsStateInterface } from './state'
-import { ObservableProductsL3DistApi, ObservableProductsL3SrcApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
+import { ObservableSurveysApi, ObservableProductsL3DistApi, ObservableProductsL3SrcApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
 
 import { Configuration } from '@ausseabed/product-catalogue-rest-client/configuration'
 import { S3Util } from 'src/lib/s3-util'
 import { ProductL3Dist, ProductL3Src } from '@ausseabed/product-catalogue-rest-client'
+
+import axios from 'axios'
+import { Buffer } from 'buffer/'
+
+// eslint-disable-next-line
+const parseDBF = require('parsedbf')
 
 const actions: ActionTree<ReportsStateInterface, StoreInterface> = {
   async fetchData ({ commit, rootGetters, dispatch }) {
     await dispatch('auth/getLoginToken', {}, { root: true })
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const configuration = rootGetters['auth/configuration'] as Configuration
+
+    const surveyApi = new ObservableSurveysApi(configuration)
+    surveyApi.surveysControllerFindAll().toPromise().then((surveys) =>
+      commit('assignSurveys', surveys))
+      .catch(reason => {
+        commit('errorMessage', reason)
+      })
 
     const productsL3SrcApi = new ObservableProductsL3SrcApi(configuration)
     const productsL3SrcAll = await productsL3SrcApi.productsL3SrcControllerFindAll().toPromise().catch(
@@ -67,6 +80,31 @@ const actions: ActionTree<ReportsStateInterface, StoreInterface> = {
           if (uri) {
             const exists = await S3Util.objectExists(uri, undefined, true)
             commit('assignExists', { key: 'l3CoverageLocation', product: productsL3Dist, exists: exists })
+
+            const uriBath = S3Util.getBucketFromS3Uri(productsL3Dist.bathymetryLocation)
+            if (uriBath) {
+              const lastModified = await S3Util.objectLastModified(uriBath, undefined)
+              // Get Area from url
+              const httpsurl = S3Util.getHttpsUrl(uri)
+              const dbfUrl = httpsurl.replace('.shp', '.dbf')
+              // eslint-disable-next-line
+              axios.get(dbfUrl,{
+                responseType: 'arraybuffer',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/dbf'
+                }
+              }).then(response => {
+                const buffer = Buffer.from(response.data)
+                // eslint-disable-next-line
+              const parsedDBF = parseDBF(buffer)
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                if (parsedDBF.length > 0) {
+                  // eslint-disable-next-line
+                commit('assignArea', {productL3Dist: productsL3Dist, areaKm2: parsedDBF[0].area_km2, lastModified: lastModified})
+                }
+              })
+            }
           } else {
             commit('assignExists', { key: 'l3CoverageLocation', product: productsL3Dist, exists: false })
           }
