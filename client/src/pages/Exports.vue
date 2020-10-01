@@ -116,6 +116,12 @@
           v-model="collapseGroups"
           label="Collapse groups by survey?"
         />
+        <q-checkbox
+          class="q-ml-md"
+          style="width:100%"
+          v-model="metadataChanges"
+          label="Show metadata changes in ecat?"
+        />
         <div class="row">
           <q-btn
             class="q-ma-md col"
@@ -155,7 +161,7 @@ export default Vue.extend({
       const configuration = this.$store.getters['auth/configuration'] as Configuration
       this.progress = true
       const production = (this.geoserverProduction ? 'YES' : 'NO')
-      const eftfLayer = new EftfLayer(this.geoserverUrl, production, this.collapseGroups, this.snapshotEndDate, this.snapshotPreviousDate, configuration)
+      const eftfLayer = new EftfLayer(this.geoserverUrl, production, this.collapseGroups, this.snapshotEndDate, this.snapshotPreviousDate, configuration, this.metadataChanges)
       const blob = await eftfLayer.getLayerDefinitionsFile()
       const productionText = (this.geoserverProduction ? 'PROD' : 'NONPROD')
       const groupedText = (this.collapseGroups ? 'GROUPED' : 'UNGROUPED')
@@ -169,7 +175,7 @@ export default Vue.extend({
       const configuration = this.$store.getters['auth/configuration'] as Configuration
       this.progress = true
       const production = (this.geoserverProduction ? 'YES' : 'NO')
-      const eftfLayer = new EftfLayer(this.geoserverUrl, production, this.collapseGroups, this.snapshotEndDate, this.snapshotPreviousDate, configuration)
+      const eftfLayer = new EftfLayer(this.geoserverUrl, production, this.collapseGroups, this.snapshotEndDate, this.snapshotPreviousDate, configuration, this.metadataChanges)
       const blob = await eftfLayer.getEcatFileDefinition()
       saveAs(blob, `ECAT_Layer_${this.snapshotEndDate.replace(colon, '')}.csv`)
       this.progress = false
@@ -183,6 +189,7 @@ export default Vue.extend({
       geoserverUrl: 'https://warehouse.ausseabed.gov.au/geoserver',
       geoserverProduction: false,
       collapseGroups: true,
+      metadataChanges: false,
       snapshotPreviousDate: date.formatDate(Date.parse('2020-01-01'), 'YYYY-MM-DDTHH:mm:ss.SSSZ'),
       snapshotEndDate: date.formatDate(Date.now(), 'YYYY-MM-DDTHH:mm:ss.SSSZ')
     }
