@@ -17,7 +17,8 @@ type BBox = { 'minx': number; 'miny': number; 'maxx': number; 'maxy': number }
  */
 export class EftfLayer {
   constructor (private geoserver: string, private geoserverProduction: string, private collapseGroups: boolean,
-    private snapshotEndDate: string, private snapshotPreviousDate: string, private configuration: Configuration) {
+    private snapshotEndDate: string, private snapshotPreviousDate: string, private configuration: Configuration,
+    private metadataChanges: boolean) {
     this.geoserver = geoserver
     this.geoserverProduction = geoserverProduction
     this.geoserverCapabilities = geoserver + '/ows?service=wms&version=1.3.0&request=GetCapabilities'
@@ -27,6 +28,7 @@ export class EftfLayer {
     this.snapshotEndDate = snapshotEndDate
     this.snapshotPreviousDate = snapshotPreviousDate
     this.configuration = configuration
+    this.metadataChanges = metadataChanges
   }
 
   private geoserverCapabilities: string
@@ -331,18 +333,27 @@ export class EftfLayer {
     const replacer = function (key: string, value: string) { return value === null ? '' : value }
 
     const csvArrayEnd = snapshotEnd.map(function (row) {
-      return fields.map(function (fieldName) {
-        return JSON.stringify(row[fieldName], replacer)
-      }).join(',')
+      return {
+        Source: row['Source file'],
+        Data: fields.map(function (fieldName) {
+          return JSON.stringify(row[fieldName], replacer)
+        }).join(',')
+      }
     })
 
     const csvArrayPrevious = snapshotPrevious.map(function (row) {
-      return fields.map(function (fieldName) {
-        return JSON.stringify(row[fieldName], replacer)
-      }).join(',')
+      return {
+        Source: row['Source file'],
+        Data: fields.map(function (fieldName) {
+          return JSON.stringify(row[fieldName], replacer)
+        }).join(',')
+      }
     })
 
-    const csvArray = csvArrayEnd.filter(val => !csvArrayPrevious.find(myval => myval === val))
+    const csvArray = (
+      this.metadataChanges ? csvArrayEnd.filter(val => !csvArrayPrevious.find(myval => myval.Data === val.Data)).map(record => record.Data)
+        : csvArrayEnd.filter(val => !csvArrayPrevious.find(myval => myval.Source === val.Source)).map(record => record.Data)
+    )
 
     csvArray.sort()
     csvArray.unshift(fields.join(',')) // add header column
