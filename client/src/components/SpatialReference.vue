@@ -62,11 +62,18 @@
           </q-popup-edit>
         </div>
         <div class="col">
+          <datalist id="autosuggestSrs">
+            <option
+              v-for="srs in Array.from(new Set(surveyL3Relation.suggestions.srs))"
+              :key="srs"
+            >{{srs}}</option>
+          </datalist>
           <q-input
             class="q-ml-md"
             :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.srs"
             @input="valuedef=>updateProduct( {element:'srs',value: valuedef})"
             label="Spatial Reference System"
+            list='autosuggestSrs'
           />
         </div>
         <div class="col q-ma-md col-md-auto">

@@ -77,8 +77,8 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
       uuid: survey.uuid,
       year: survey.year
     }
-    surveyDto[payload.elementName] = payload.elementValue
-    surveyClone[payload.elementName] = payload.elementValue
+    surveyDto[payload.elementName] = payload.elementValue.trim()
+    surveyClone[payload.elementName] = payload.elementValue.trim()
     // const surveysApiRequestFactory = new SurveysApiRequestFactory(configuration)
     await dispatch('auth/getLoginToken', {}, { root: true })
     const configuration = rootGetters['auth/configuration'] as Configuration
