@@ -5,7 +5,7 @@ import { ActionTree } from 'vuex'
 import { StoreInterface } from '../index'
 import { SurveyL3RelationStateInterface } from './state'
 import { ObservableProductRelationsApi, ObservableProductsL3SrcApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
-import { ProductL3SrcDto } from '@ausseabed/product-catalogue-rest-client'
+import { ProductL3SrcDto, ProductL3Src } from '@ausseabed/product-catalogue-rest-client'
 
 const actions: ActionTree<SurveyL3RelationStateInterface, StoreInterface> = {
   async fetchData ({ commit, rootGetters, dispatch }, relationId: number) {
@@ -17,6 +17,25 @@ const actions: ActionTree<SurveyL3RelationStateInterface, StoreInterface> = {
       (reason: undefined) => { commit('errorMessage', reason) })
 
     commit('assignSurveyL3Relation', surveyL3Relation)
+
+    // Add the autofill stuff
+    const productsL3SrcApi = new ObservableProductsL3SrcApi(configuration)
+    productRelationshipSrcApi.productRelationsControllerFindAllL3Survey().toPromise().then(async relations => {
+      const surveyMatches = relations.filter(relation => relation.relationId === relationId)
+      if (surveyMatches.length > 0) {
+        const siblingRelations = relations.filter(relation => relation.surveyId === surveyMatches[0].surveyId && relation.relationId !== relationId)
+        if (siblingRelations.length > 0) {
+          const siblingProducts:ProductL3Src[] = await Promise.all(
+            siblingRelations.map(async sibling => {
+              return productsL3SrcApi.productsL3SrcControllerFindOne(sibling.productId).toPromise()
+            }))
+          commit('createSuggestions', siblingProducts)
+        }
+      }
+    })
+      .catch(reason => {
+        commit('errorMessage', reason)
+      })
   },
   async saveData ({ commit, state, rootGetters, dispatch }) {
     await dispatch('auth/getLoginToken', {}, { root: true })

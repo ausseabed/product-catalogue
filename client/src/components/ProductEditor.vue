@@ -62,16 +62,30 @@
             />
           </div>
         </div>
+        <datalist id="autosuggestGazetteer">
+          <option
+            v-for="gazeteername in Array.from(new Set(surveyL3Relation.suggestions.gazeteer))"
+            :key="gazeteername"
+          >{{gazeteername}}</option>
+        </datalist>
         <q-input
           class="q-ma-md"
           :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.name"
           @input="value=>updateProduct( {element:'name',value: value})"
+          list='autosuggestGazetteer'
           label="Gazetteer"
         />
+        <datalist id="autosuggestResolution">
+          <option
+            v-for="resolution in Array.from(new Set(surveyL3Relation.suggestions.resolution))"
+            :key="resolution"
+          >{{resolution}}</option>
+        </datalist>
         <q-input
           class="q-ma-md"
           :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.resolution"
           @input="value=>updateProduct( {element:'resolution',value: value})"
+          list='autosuggestResolution'
           label="Resolution"
         />
 
@@ -85,12 +99,19 @@
           @input="value=>updateProduct( {element:'verticalDatum',value: value})"
           label="Vertical Datum"
         />
+        <datalist id="autosuggestMetadataPersistentId">
+          <option
+            v-for="metadataPersistentId in Array.from(new Set(surveyL3Relation.suggestions.metadataPersistentId))"
+            :key="metadataPersistentId"
+          >{{metadataPersistentId}}</option>
+        </datalist>
         <q-input
           type="url"
           hint="url"
           class="q-ma-md"
           :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.metadataPersistentId"
           @input="value=>updateProduct( {element:'metadataPersistentId',value: value})"
+          list='autosuggestMetadataPersistentId'
           label="Metadata Persistent Id"
           :rules="[
           val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.',
