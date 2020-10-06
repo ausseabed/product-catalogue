@@ -155,6 +155,44 @@
         ]"
           />
         </div>
+
+        <div class="row items-center">
+
+          <q-input
+            v-if="productTifLocationUrlType==='s3'"
+            class="q-ma-md col col-grow"
+            type="url"
+            hint="s3 uri"
+            :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productBagLocation"
+            @input="value=>updateProduct( {element:'productBagLocation',value: value})"
+            label="L3 Product BAG Location"
+            :rules="[ val => (val.length === 0 || isS3Url(val))]"
+            lazy-rules
+          />
+          <q-input
+            v-if="productTifLocationUrlType==='https'"
+            class="q-ma-md col col-grow"
+            type="url"
+            hint="https url"
+            :value="s3ToHttps(surveyL3Relation.surveyL3RelationSelected.productL3Src.productBagLocation)"
+            @input="value=>updateProduct( {element:'productBagLocation',value: httpsToS3(value)})"
+            label="L3 Product BAG Location"
+            :rules="[ val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.' ]"
+            lazy-rules
+          />
+          <q-btn-toggle
+            v-model="productTifLocationUrlType"
+            class="q-ma-md"
+            push
+            no-caps
+            rounded
+            toggle-color="primary"
+            :options="[
+          {label: 's3', value: 's3'},
+          {label: 'https', value: 'https'}
+        ]"
+          />
+        </div>
         <div class="col col-md-auto">
           <q-btn
             class="q-ma-md"
