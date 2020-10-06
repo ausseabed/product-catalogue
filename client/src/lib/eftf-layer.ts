@@ -156,9 +156,9 @@ export class EftfLayer {
             const wmsLayerNamesByProduct = productsWithDistributables.map(prodId => {
               const productName = PortalNaming.getNameIndividual(productIdToProductSrc.get(prodId), survey.year)
               const productNames = {
-                bathy: PortalNaming.getNcName(productName + '_OV'),
-                hillshade: PortalNaming.getNcName(productName + '_HS'),
-                poly: PortalNaming.getNcName(productName + '_L0_Coverage')
+                bathy: namespace + PortalNaming.getNcName(productName + '_OV'),
+                hillshade: namespace + PortalNaming.getNcName(productName + '_HS'),
+                poly: namespace + PortalNaming.getNcName(productName + '_L0_Coverage')
               }
               return productNames
             })
