@@ -13,6 +13,9 @@ export class ProductL3DistHistoryView {
   @ViewColumn( { name: "bathymetryLocation" })
   bathymetryLocation: string;
 
+  @ViewColumn( { name: "bathymetryBagLocation" })
+  bathymetryBagLocation: string;
+
   @ViewColumn( { name: "hillshadeLocation" })
   hillshadeLocation: string;
 

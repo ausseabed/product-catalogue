@@ -12,10 +12,16 @@ export class ProductL3SrcDto extends ProductDto {
 
   @IsString()
   @ApiProperty({
-    description: 'Location of final product '
+    description: 'Location of final tif product '
   })
   productTifLocation: string;
-  
+ 
+  @IsString()
+  @ApiProperty({
+    description: 'Location of final bag product '
+  })
+  productBagLocation: string;
+
   @IsEnum(VerticalDatum)
   @ApiProperty({ enum: VerticalDatum,
     description: `Vertical datum of bathymetry

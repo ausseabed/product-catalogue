@@ -19,4 +19,10 @@ export class ProductL3DistDto {
   })
   @IsString()
   bathymetryLocation: string;
+
+  @ApiProperty({
+    description: 'Location of BAG format bathymetry'
+  })
+  @IsString()
+  bathymetryBagLocation: string;
 }

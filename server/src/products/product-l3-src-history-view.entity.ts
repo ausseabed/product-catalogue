@@ -27,6 +27,9 @@ export class ProductL3SrcHistoryView {
   @ViewColumn( { name: "productTifLocation" })
   productTifLocation: string;
 
+  @ViewColumn({ name: "productBagLocation" })
+  productBagLocation: string;
+
   @ViewColumn( { name: "sysPeriod" })
   sysPeriod: any;
 }

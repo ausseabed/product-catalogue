@@ -84,6 +84,15 @@ export class ProductL3Src implements Product {
   @Column()
   productTifLocation: string;
 
+  /**
+   * Location of final bag product
+   *
+   * @type {string}
+   * @memberof ProductL3Src
+   */
+  @Column()
+  productBagLocation: string;
+
   @ApiHideProperty()
   @Exclude()
   @Column("tstzrange", {
