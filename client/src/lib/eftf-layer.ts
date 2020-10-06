@@ -153,6 +153,21 @@ export class EftfLayer {
               return namespace + PortalNaming.getNcName(PortalNaming.getNameIndividual(productIdToProductSrc.get(prodId), survey.year) + '_OV')
             })
 
+            const wmsLayerNamesByProduct = productsWithDistributables.map(prodId => {
+              const productName = PortalNaming.getNameIndividual(productIdToProductSrc.get(prodId), survey.year)
+              const productNames = {
+                bathy: PortalNaming.getNcName(productName + '_OV'),
+                hillshade: PortalNaming.getNcName(productName + '_HS'),
+                poly: PortalNaming.getNcName(productName + '_L0_Coverage')
+              }
+              return productNames
+            })
+            const wmsLayerNamesByType = wmsLayerNamesByProduct.map(prod => prod.bathy).concat(
+              wmsLayerNamesByProduct.map(prod => prod.hillshade)
+            ).concat(
+              wmsLayerNamesByProduct.map(prod => prod.poly)
+            )
+
             const bboxes = productsWithDistributables.map(prodId => {
               const nameIndividualFormatted = namespace + PortalNaming.getNcName(PortalNaming.getNameIndividual(productIdToProductSrc.get(prodId), survey.year))
               const layer = nameToNode.get(nameIndividualFormatted)
@@ -179,7 +194,8 @@ export class EftfLayer {
             } else {
               eftfBase.NAME = nameFormatted
             }
-            eftfBase['WMS LAYER NAMES'] = namespace + PortalNaming.getNcName(nameFormatted)
+            // eftfBase['WMS LAYER NAMES'] = namespace + PortalNaming.getNcName(nameFormatted)
+            eftfBase['WMS LAYER NAMES'] = wmsLayerNamesByType.join(',')
             eftfBase['WCS LAYER NAMES'] = wcsLayerNames.join(',')
 
             // replace with bboxes extent
