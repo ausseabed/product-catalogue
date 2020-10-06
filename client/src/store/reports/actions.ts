@@ -55,6 +55,16 @@ const actions: ActionTree<ReportsStateInterface, StoreInterface> = {
           }
         })),
       Promise.all(
+        productsL3SrcAll.map(async (productL3Src: ProductL3Src) => {
+          const uri = S3Util.getBucketFromS3Uri(productL3Src.productBagLocation)
+          if (uri) {
+            const exists = await S3Util.objectExists(uri, undefined, true)
+            commit('assignSrcExists', { key: 'productBagLocation', product: productL3Src, exists: exists })
+          } else {
+            commit('assignSrcExists', { key: 'productBagLocation', product: productL3Src, exists: false })
+          }
+        })),
+      Promise.all(
         productsL3Dists.map(async (productsL3Dist: ProductL3Dist) => {
           const uri = S3Util.getBucketFromS3Uri(productsL3Dist.bathymetryLocation)
           if (uri) {
@@ -62,6 +72,16 @@ const actions: ActionTree<ReportsStateInterface, StoreInterface> = {
             commit('assignExists', { key: 'bathymetryLocation', product: productsL3Dist, exists: exists })
           } else {
             commit('assignExists', { key: 'bathymetryLocation', product: productsL3Dist, exists: false })
+          }
+        })),
+      Promise.all(
+        productsL3Dists.map(async (productsL3Dist: ProductL3Dist) => {
+          const uri = S3Util.getBucketFromS3Uri(productsL3Dist.bathymetryBagLocation)
+          if (uri) {
+            const exists = await S3Util.objectExists(uri, undefined, true)
+            commit('assignExists', { key: 'bathymetryBagLocation', product: productsL3Dist, exists: exists })
+          } else {
+            commit('assignExists', { key: 'bathymetryBagLocation', product: productsL3Dist, exists: false })
           }
         })),
       Promise.all(

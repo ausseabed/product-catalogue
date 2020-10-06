@@ -90,6 +90,15 @@ export class ProductL3Dist implements Product {
   bathymetryLocation: string;
 
   /**
+   * Location of BAG format bathymetry
+   *
+   * @type {string}
+   * @memberof ProductL3Dist
+   */
+  @Column()
+  bathymetryBagLocation: string;
+
+  /**
    * Location of the hillshade associated with the raster
    *
    * @type {string}

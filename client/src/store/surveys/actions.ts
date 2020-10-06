@@ -97,6 +97,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
       metadataPersistentId: '',
       name: '',
       productTifLocation: '',
+      productBagLocation: '',
       resolution: '',
       srs: '',
       verticalDatum: 'Unknown',

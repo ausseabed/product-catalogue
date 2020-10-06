@@ -297,6 +297,9 @@
             },
             "ProductL3Dist": {
                 "properties": {
+                    "bathymetryBagLocation": {
+                        "type": "string"
+                    },
                     "bathymetryLocation": {
                         "type": "string"
                     },
@@ -318,12 +321,17 @@
                     "sourceProduct",
                     "l3CoverageLocation",
                     "bathymetryLocation",
+                    "bathymetryBagLocation",
                     "hillshadeLocation"
                 ],
                 "type": "object"
             },
             "ProductL3DistDto": {
                 "properties": {
+                    "bathymetryBagLocation": {
+                        "description": "Location of BAG format bathymetry",
+                        "type": "string"
+                    },
                     "bathymetryLocation": {
                         "description": "Location of the raster bathymetry",
                         "type": "string"
@@ -340,7 +348,8 @@
                 "required": [
                     "l3CoverageLocation",
                     "hillshadeLocation",
-                    "bathymetryLocation"
+                    "bathymetryLocation",
+                    "bathymetryBagLocation"
                 ],
                 "type": "object"
             },
@@ -353,6 +362,9 @@
                         "type": "string"
                     },
                     "name": {
+                        "type": "string"
+                    },
+                    "productBagLocation": {
                         "type": "string"
                     },
                     "productTifLocation": {
@@ -404,7 +416,8 @@
                     "verticalDatum",
                     "metadataPersistentId",
                     "resolution",
-                    "productTifLocation"
+                    "productTifLocation",
+                    "productBagLocation"
                 ],
                 "type": "object"
             },
@@ -418,8 +431,12 @@
                         "description": "Name of product for display purposes - from gazeteer",
                         "type": "string"
                     },
+                    "productBagLocation": {
+                        "description": "Location of final bag product ",
+                        "type": "string"
+                    },
                     "productTifLocation": {
-                        "description": "Location of final product ",
+                        "description": "Location of final tif product ",
                         "type": "string"
                     },
                     "resolution": {
@@ -471,6 +488,7 @@
                     "metadataPersistentId",
                     "resolution",
                     "productTifLocation",
+                    "productBagLocation",
                     "verticalDatum"
                 ],
                 "type": "object"
@@ -640,7 +658,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.1.14"
+        "version": "0.1.15"
     },
     "openapi": "3.0.0",
     "paths": {

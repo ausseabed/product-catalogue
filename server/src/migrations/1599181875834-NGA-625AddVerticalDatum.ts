@@ -21,7 +21,7 @@ export class NGA625AddVerticalDatum1599181875834 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "product_l0_src_history" ADD "verticalDatum" "product_l0_src_verticaldatum_enum" NOT NULL DEFAULT 'Unknown'`);
 
         await queryRunner.query(`CREATE VIEW "product_l3_src_with_history" AS SELECT * FROM "product_l3_src" UNION ALL SELECT * FROM "product_l3_src_history"`);
-        await queryRunner.query(`CREATE VIEW "product_l0_src_with_history" AS SELECT * FROM "product_l3_src" UNION ALL SELECT * FROM "product_l3_src_history"`);
+        await queryRunner.query(`CREATE VIEW "product_l0_src_with_history" AS SELECT * FROM "product_l0_src" UNION ALL SELECT * FROM "product_l0_src_history"`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
@@ -35,7 +35,7 @@ export class NGA625AddVerticalDatum1599181875834 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "product_l0_src" DROP COLUMN "verticalDatum"`);
         await queryRunner.query(`DROP TYPE "product_l0_src_verticaldatum_enum"`);
 
-        await queryRunner.query(`CREATE VIEW "product_l0_src_with_history" AS SELECT * FROM "product_l3_src" UNION ALL SELECT * FROM "product_l3_src_history"`);
+        await queryRunner.query(`CREATE VIEW "product_l0_src_with_history" AS SELECT * FROM "product_l0_src" UNION ALL SELECT * FROM "product_l0_src_history"`);
         await queryRunner.query(`CREATE VIEW "product_l3_src_with_history" AS SELECT * FROM "product_l3_src" UNION ALL SELECT * FROM "product_l3_src_history"`);
     }
 

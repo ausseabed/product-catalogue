@@ -31,7 +31,7 @@
       </thead>
       <tbody>
         <tr>
-          <td class="text-left">Bathymetry:</td>
+          <td class="text-left">Bathymetry (tif):</td>
           <td
             class="text-left"
             v-if="productTifLocationUrlType==='s3'"
@@ -43,7 +43,24 @@
             v-if="productTifLocationUrlType==='https'"
           >
             <a :href="s3ToHttps(productl3dist.productL3Dist.bathymetryLocation)">
-              {{s3ToHttps(productl3dist.productL3Dist.bathymetryLocation)}}</a></td>
+              {{s3ToHttps(productl3dist.productL3Dist.bathymetryLocation)}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-left">Bathymetry (bag):</td>
+          <td
+            class="text-left"
+            v-if="productTifLocationUrlType==='s3'"
+            style="user-select: all;"
+            @click="_ => copyToClipboard(productl3dist.productL3Dist.bathymetryBagLocation)"
+          >{{productl3dist.productL3Dist.bathymetryBagLocation}}</td>
+          <td
+            class="text-left"
+            v-if="productTifLocationUrlType==='https'"
+          >
+            <a :href="s3ToHttps(productl3dist.productL3Dist.bathymetryBagLocation)">
+              {{s3ToHttps(productl3dist.productL3Dist.bathymetryBagLocation)}}</a>
+          </td>
         </tr>
         <tr>
           <td class="text-left">Hillshade:</td>
@@ -58,7 +75,8 @@
             v-if="productTifLocationUrlType==='https'"
           >
             <a :href="s3ToHttps(productl3dist.productL3Dist.hillshadeLocation)">
-              {{s3ToHttps(productl3dist.productL3Dist.hillshadeLocation)}}</a></td>
+              {{s3ToHttps(productl3dist.productL3Dist.hillshadeLocation)}}</a>
+          </td>
         </tr>
         <tr>
           <td class="text-left">Polygon:</td>

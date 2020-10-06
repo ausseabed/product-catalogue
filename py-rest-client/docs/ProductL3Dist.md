@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**bathymetry_bag_location** | **str** |  | 
 **bathymetry_location** | **str** |  | 
 **hillshade_location** | **str** |  | 
 **id** | **int** |  | 

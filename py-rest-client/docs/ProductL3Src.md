@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | 
 **metadata_persistent_id** | **str** |  | 
 **name** | **str** |  | 
+**product_bag_location** | **str** |  | 
 **product_tif_location** | **str** |  | 
 **resolution** | **str** |  | 
 **srs** | **str** |  | 
