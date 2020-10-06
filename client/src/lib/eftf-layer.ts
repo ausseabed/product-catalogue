@@ -162,10 +162,10 @@ export class EftfLayer {
               }
               return productNames
             })
-            const wmsLayerNamesByType = wmsLayerNamesByProduct.map(prod => prod.bathy).concat(
+            const wmsLayerNamesByType = wmsLayerNamesByProduct.map(prod => prod.poly).concat(
               wmsLayerNamesByProduct.map(prod => prod.hillshade)
             ).concat(
-              wmsLayerNamesByProduct.map(prod => prod.poly)
+              wmsLayerNamesByProduct.map(prod => prod.bathy)
             )
 
             const bboxes = productsWithDistributables.map(prodId => {
