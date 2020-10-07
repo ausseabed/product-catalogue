@@ -2,13 +2,13 @@
   <div class="column justify-center">
     <div
       class="col-auto q-md q-gutter-sm"
-      v-if="surveyL3Relation.errorMessages.length>0"
+      v-if="surveyL2Relation.errorMessages.length>0"
     >
       <q-banner
         inline-actions
         class="text-white bg-red"
       >
-        {{surveyL3Relation.errorMessages.slice(-1)[0]}}
+        {{surveyL2Relation.errorMessages.slice(-1)[0]}}
         <template v-slot:action>
           <q-btn
             flat
@@ -21,37 +21,16 @@
 
     <div
       class="col"
-      v-if="surveyL3Relation.surveyL3RelationSelected && surveyL3Relation.surveyL3RelationSelected.productL3Src && surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid !== undefined"
+      v-if="surveyL2Relation.surveyL2RelationSelected && surveyL2Relation.surveyL2RelationSelected.productL2Src && surveyL2Relation.surveyL2RelationSelected.productL2Src.uuid !== undefined"
     >
       <div
         class="text-h6 q-ml-md"
         style="text-align: center"
-      >Edit level 3 product associated with '{{surveyL3Relation.surveyL3RelationSelected.survey.name}}'</div>
+      >Edit level 3 product associated with '{{surveyL2Relation.surveyL2RelationSelected.survey.name}}'</div>
       <q-form ref="myForm">
-        <div
-          class="row q-ma-md items-center"
-          id="infobox"
-        >
-          <div class="col col-md-auto">
-            <div class="q-ma-md text-primary">
-              <q-icon
-                :name="matInfo"
-                style="font-size: 2rem"
-              />
-            </div>
-          </div>
-          <div class="col col-md-auto">
-            <div class="q-ma-md">
-              <span style='font-weight: bold'>Product presentation string: </span><span style="user-select: all;">{{productPresentationString}}</span>
-            </div>
-            <div class="q-ma-md">
-              <span style='font-weight: bold'>Collated presentation string: </span><span style="user-select: all;">{{surveyPresentationString}}</span>
-            </div>
-          </div>
-        </div>
         <div class="row items-center justify-end">
           <div class="q-ml-md col col-md-auto">
-            {{surveyL3Relation.surveyL3RelationSelected.productL3Src.uuid}}
+            {{surveyL2Relation.surveyL2RelationSelected.productL2Src.uuid}}
             <q-tooltip> UUID </q-tooltip>
           </div>
           <div class="q-mx-md col col-md-auto">
@@ -64,38 +43,24 @@
         </div>
         <datalist id="autosuggestGazetteer">
           <option
-            v-for="gazeteername in Array.from(new Set(surveyL3Relation.suggestions.gazeteer))"
+            v-for="gazeteername in Array.from(new Set(surveyL2Relation.suggestions.gazeteer))"
             :key="gazeteername"
           >{{gazeteername}}</option>
         </datalist>
         <q-input
           class="q-ma-md"
-          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.name"
+          :value="surveyL2Relation.surveyL2RelationSelected.productL2Src.name"
           @input="value=>updateProduct( {element:'name',value: value})"
           list='autosuggestGazetteer'
           label="Gazetteer"
         />
-        <datalist id="autosuggestResolution">
-          <option
-            v-for="resolution in Array.from(new Set(surveyL3Relation.suggestions.resolution))"
-            :key="resolution"
-          >{{resolution}}</option>
-        </datalist>
-        <q-input
-          class="q-ma-md"
-          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.resolution"
-          @input="value=>updateProduct( {element:'resolution',value: value})"
-          list='autosuggestResolution'
-          label="Resolution"
-        />
-
         <spatial-reference-generic
-          :srs='surveyL3Relation.surveyL3RelationSelected.productL3Src.srs'
+          :srs='surveyL2Relation.surveyL2RelationSelected.productL2Src.srs'
           v-on:change='updateSrs'
         />
         <q-select
           class="q-ma-md"
-          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.verticalDatum"
+          :value="surveyL2Relation.surveyL2RelationSelected.productL2Src.verticalDatum"
           emit-value
           map-options
           :options="verticalDatumOptions"
@@ -104,7 +69,7 @@
         />
         <datalist id="autosuggestMetadataPersistentId">
           <option
-            v-for="metadataPersistentId in Array.from(new Set(surveyL3Relation.suggestions.metadataPersistentId))"
+            v-for="metadataPersistentId in Array.from(new Set(surveyL2Relation.suggestions.metadataPersistentId))"
             :key="metadataPersistentId"
           >{{metadataPersistentId}}</option>
         </datalist>
@@ -112,7 +77,7 @@
           type="url"
           hint="url"
           class="q-ma-md"
-          :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.metadataPersistentId"
+          :value="surveyL2Relation.surveyL2RelationSelected.productL2Src.metadataPersistentId"
           @input="value=>updateProduct( {element:'metadataPersistentId',value: value})"
           list='autosuggestMetadataPersistentId'
           label="Metadata Persistent Id"
@@ -124,29 +89,29 @@
         <div class="row items-center">
 
           <q-input
-            v-if="productTifLocationUrlType==='s3'"
+            v-if="productGsfLocationUrlType==='s3'"
             class="q-ma-md col col-grow"
             type="url"
             hint="s3 uri"
-            :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation"
-            @input="value=>updateProduct( {element:'productTifLocation',value: value})"
-            label="L3 Product Tif Location"
+            :value="surveyL2Relation.surveyL2RelationSelected.productL2Src.productGsfLocation"
+            @input="value=>updateProduct( {element:'productGsfLocation',value: value})"
+            label="L2 Product GSF Location"
             :rules="[isS3Url]"
             lazy-rules
           />
           <q-input
-            v-if="productTifLocationUrlType==='https'"
+            v-if="productGsfLocationUrlType==='https'"
             class="q-ma-md col col-grow"
             type="url"
             hint="https url"
-            :value="s3ToHttps(surveyL3Relation.surveyL3RelationSelected.productL3Src.productTifLocation)"
-            @input="value=>updateProduct( {element:'productTifLocation',value: httpsToS3(value)})"
-            label="L3 Product Tif Location"
+            :value="s3ToHttps(surveyL2Relation.surveyL2RelationSelected.productL2Src.productGsfLocation)"
+            @input="value=>updateProduct( {element:'productGsfLocation',value: httpsToS3(value)})"
+            label="L2 Product GSF Location"
             :rules="[ val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.' ]"
             lazy-rules
           />
           <q-btn-toggle
-            v-model="productTifLocationUrlType"
+            v-model="productGsfLocationUrlType"
             class="q-ma-md"
             push
             no-caps
@@ -162,29 +127,29 @@
         <div class="row items-center">
 
           <q-input
-            v-if="productTifLocationUrlType==='s3'"
+            v-if="productGsfLocationUrlType==='s3'"
             class="q-ma-md col col-grow"
             type="url"
             hint="s3 uri"
-            :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.productBagLocation"
-            @input="value=>updateProduct( {element:'productBagLocation',value: value})"
-            label="L3 Product BAG Location"
+            :value="surveyL2Relation.surveyL2RelationSelected.productL2Src.productPosmvLocation"
+            @input="value=>updateProduct( {element:'productPosmvLocation',value: value})"
+            label="Folder location for POSMV 000 inputs"
             :rules="[ val => (val.length === 0 || isS3Url(val))]"
             lazy-rules
           />
           <q-input
-            v-if="productTifLocationUrlType==='https'"
+            v-if="productGsfLocationUrlType==='https'"
             class="q-ma-md col col-grow"
             type="url"
             hint="https url"
-            :value="s3ToHttps(surveyL3Relation.surveyL3RelationSelected.productL3Src.productBagLocation)"
-            @input="value=>updateProduct( {element:'productBagLocation',value: httpsToS3(value)})"
-            label="L3 Product BAG Location"
+            :value="s3ToHttps(surveyL2Relation.surveyL2RelationSelected.productL2Src.productPosmvLocation)"
+            @input="value=>updateProduct( {element:'productPosmvLocation',value: httpsToS3(value)})"
+            label="Folder location for POSMV 000 inputs"
             :rules="[ val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.' ]"
             lazy-rules
           />
           <q-btn-toggle
-            v-model="productTifLocationUrlType"
+            v-model="productGsfLocationUrlType"
             class="q-ma-md"
             push
             no-caps
@@ -201,22 +166,17 @@
             class="q-ma-md"
             label="Submit"
             color="primary"
-            @click="_ => saveDataLocal(surveyL3Relation.surveyL3RelationSelected.survey.id)"
+            @click="_ => saveDataLocal(surveyL2Relation.surveyL2RelationSelected.survey.id)"
           />
           <q-btn
             class="q-ma-md"
             label="Cancel"
             color="primary"
-            @click="_ => cancel(surveyL3Relation.surveyL3RelationSelected.survey.id)"
+            @click="_ => cancel(surveyL2Relation.surveyL2RelationSelected.survey.id)"
             flat
           />
         </div>
       </q-form>
-
-      <l3-product-dist-detail
-        v-if='productL3dist'
-        :productl3dist='productL3dist'
-      />
     </div>
   </div>
 </template>
@@ -225,19 +185,16 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Action, State, Mutation, Getter } from 'vuex-class'
-import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
+import { SurveyL2RelationStateInterface } from '../store/survey-l2-relation/state'
 import SpatialReferenceGeneric from './SpatialReferenceGeneric.vue'
-import L3ProductDistDetail from './L3ProductDistDetail.vue'
 import { S3Util } from '../lib/s3-util'
 import { matInfo } from '@quasar/extras/material-icons'
-import { UpdateProductKnownTypes } from '../store/survey-l3-relation/mutations'
+import { UpdateProductKnownTypes } from '../store/survey-l2-relation/mutations'
 
-import { ProductL3DistStateInterface } from '../store/product-l3-dist/state'
-
-const namespace = 'surveyl3relation'
+const namespace = 'surveyl2relation'
 
 @Component({
-  components: { 'spatial-reference-generic': SpatialReferenceGeneric, 'l3-product-dist-detail': L3ProductDistDetail },
+  components: { 'spatial-reference-generic': SpatialReferenceGeneric },
   props: {
     title: {
       type: String,
@@ -249,13 +206,10 @@ const namespace = 'surveyl3relation'
     }
   }
 })
-export default class ProductEditor extends Vue {
+export default class ProductEditorL2 extends Vue {
   // eslint-disable-next-line
-  @State(state => state.productl3dist) productL3dist!: ProductL3DistStateInterface
-  @Action('fetchData', { namespace: 'productl3dist' }) fetchDataL3Dist!: (payload: number) => Promise<void>
-  @Mutation('clearL3Dist', { namespace: 'productl3dist' }) clearL3Dist!: () => void
 
-  @State('surveyl3relation') surveyL3Relation!: SurveyL3RelationStateInterface
+  @State('surveyl2relation') surveyL2Relation!: SurveyL2RelationStateInterface
 
   @Action('saveData', { namespace }) saveData!: () => Promise<void>
 
@@ -331,7 +285,7 @@ export default class ProductEditor extends Vue {
     }
   }
 
-  productTifLocationUrlType = 's3'
+  productGsfLocationUrlType = 's3'
 
   convertHttp () {
     // do nothing
@@ -343,12 +297,6 @@ export default class ProductEditor extends Vue {
 
   async mounted () {
     await this.fetchData(this.$props.relationId)
-    if (this.surveyL3Relation && this.surveyL3Relation.surveyL3RelationSelected &&
-      this.surveyL3Relation.surveyL3RelationSelected.productL3Src) {
-      await this.fetchDataL3Dist(this.surveyL3Relation.surveyL3RelationSelected.productL3Src.id)
-    } else {
-      this.clearL3Dist()
-    }
   }
 
   async isS3Url2 (urlToTest: string): Promise<boolean> {

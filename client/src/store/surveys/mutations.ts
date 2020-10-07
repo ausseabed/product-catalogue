@@ -9,8 +9,11 @@ const mutation: MutationTree<SurveyStateInterface> = {
   clearErrorMessagesMutation (state: SurveyStateInterface) {
     while (state.errorMessages.length) { state.errorMessages.pop() }
   },
-  relationsLoaded (state: SurveyStateInterface, payload: RelationSummaryDto[]) {
+  relationsLoadedL3 (state: SurveyStateInterface, payload: RelationSummaryDto[]) {
     state.productShortDescription = payload
+  },
+  relationsLoadedL2 (state: SurveyStateInterface, payload: RelationSummaryDto[]) {
+    state.productShortDescriptionL2 = payload
   },
   updateSurveys (state: SurveyStateInterface, payload: Survey[]) {
     payload.forEach(survey => {
@@ -34,7 +37,15 @@ const mutation: MutationTree<SurveyStateInterface> = {
       state.errorMessages.push('Removed element was not found in list')
     }
   },
-  removeProduct (state: SurveyStateInterface, productId: number) {
+  removeProductL2 (state: SurveyStateInterface, productId: number) {
+    const index = state.productShortDescriptionL2.findIndex(haystack => haystack.productId === productId)
+    if (index > -1) {
+      state.productShortDescriptionL2.splice(index, 1)
+    } else {
+      state.errorMessages.push('Removed element was not found in list')
+    }
+  },
+  removeProductL3 (state: SurveyStateInterface, productId: number) {
     const index = state.productShortDescription.findIndex(haystack => haystack.productId === productId)
     if (index > -1) {
       state.productShortDescription.splice(index, 1)

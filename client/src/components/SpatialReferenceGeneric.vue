@@ -12,8 +12,8 @@
           <q-popup-edit
             ref='qPopupEditDialog'
             buttons
-            :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.srs"
-            @input="valuedef=>updateProduct( {element:'srs',value: valuedef})"
+            :value="srs"
+            @input="valuedef=>updateProductSrs( valuedef)"
             @before-show="srsMakeSelection"
             @cancel="srsCancel"
           >
@@ -62,18 +62,11 @@
           </q-popup-edit>
         </div>
         <div class="col">
-          <datalist id="autosuggestSrs">
-            <option
-              v-for="srs in Array.from(new Set(surveyL3Relation.suggestions.srs))"
-              :key="srs"
-            >{{srs}}</option>
-          </datalist>
           <q-input
             class="q-ml-md"
-            :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.srs"
-            @input="valuedef=>updateProduct( {element:'srs',value: valuedef})"
+            :value="srs"
+            @input="valuedef=>updateProductSrs( valuedef)"
             label="Spatial Reference System"
-            list='autosuggestSrs'
           />
         </div>
         <div class="col q-ma-md col-md-auto">
@@ -87,11 +80,8 @@
 <script lang='ts'>
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Mutation, State } from 'vuex-class'
-import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
 import { matSearch } from '@quasar/extras/material-icons'
 import { SearchRecordInterface, ReferenceSystem } from '../lib/reference-system'
-import { UpdateProductKnownTypes } from '../store/survey-l3-relation/mutations'
 
 type SrsSearchCategories = 'geographic' | 'projected' | 'gda' | 'wgsutm' | 'all' | 'mga'
 
@@ -105,10 +95,12 @@ const srsSearchFilters = {
 }
 const srsOptionsBasis: SearchRecordInterface[] = ReferenceSystem
 
-const namespace = 'surveyl3relation'
-
 @Component(
   {
+    model: {
+      prop: 'srs',
+      event: 'change'
+    },
     props: {
       srs: {
         type: String,
@@ -117,17 +109,18 @@ const namespace = 'surveyl3relation'
     }
   }
 )
-export default class SpatialReference extends Vue {
-  @State('surveyl3relation') surveyL3Relation!: SurveyL3RelationStateInterface
-
-  @Mutation('updateProduct', { namespace }) updateProduct!: (elementValuePair: { element: UpdateProductKnownTypes; value: string }) => void
-
+export default class SpatialReferenceGeneric extends Vue {
   filterBySelectionSrs (details: undefined | { rows: [{ Code: string }] | [] }) {
     if (details === undefined || details.rows === undefined || details.rows.length === 0) {
       return
     }
+    // eslint-disable-next-line
     const code = `EPSG:${details.rows[0].Code}`
-    this.updateProduct({ element: 'srs', value: code })
+    this.updateProductSrs(code)
+  }
+
+  updateProductSrs (code: string) {
+    this.$emit('change', code)
   }
 
   srsMakeSelection () {
