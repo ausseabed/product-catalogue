@@ -134,8 +134,6 @@
             :value="surveyL2Relation.surveyL2RelationSelected.productL2Src.productPosmvLocation"
             @input="value=>updateProduct( {element:'productPosmvLocation',value: value})"
             label="Folder location for POSMV 000 inputs"
-            :rules="[ val => (val.length === 0 || isS3Url(val))]"
-            lazy-rules
           />
           <q-input
             v-if="productGsfLocationUrlType==='https'"
@@ -145,8 +143,6 @@
             :value="s3ToHttps(surveyL2Relation.surveyL2RelationSelected.productL2Src.productPosmvLocation)"
             @input="value=>updateProduct( {element:'productPosmvLocation',value: httpsToS3(value)})"
             label="Folder location for POSMV 000 inputs"
-            :rules="[ val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.' ]"
-            lazy-rules
           />
           <q-btn-toggle
             v-model="productGsfLocationUrlType"
