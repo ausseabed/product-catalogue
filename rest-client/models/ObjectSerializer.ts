@@ -9,6 +9,8 @@ export * from './ProductL0InstrumentFile';
 export * from './ProductL0InstrumentFileDto';
 export * from './ProductL0Src';
 export * from './ProductL0SrcDto';
+export * from './ProductL2Src';
+export * from './ProductL2SrcDto';
 export * from './ProductL3Dist';
 export * from './ProductL3DistDto';
 export * from './ProductL3Src';
@@ -18,6 +20,8 @@ export * from './Survey';
 export * from './SurveyDto';
 export * from './SurveyL0Relation';
 export * from './SurveyL0RelationDto';
+export * from './SurveyL2Relation';
+export * from './SurveyL2RelationDto';
 export * from './SurveyL3Relation';
 export * from './SurveyL3RelationDto';
 
@@ -32,6 +36,8 @@ import { ProductL0InstrumentFile } from './ProductL0InstrumentFile';
 import { ProductL0InstrumentFileDto } from './ProductL0InstrumentFileDto';
 import { ProductL0Src      , ProductL0SrcVerticalDatumEnum   } from './ProductL0Src';
 import { ProductL0SrcDto     , ProductL0SrcDtoVerticalDatumEnum   } from './ProductL0SrcDto';
+import { ProductL2Src       , ProductL2SrcVerticalDatumEnum   } from './ProductL2Src';
+import { ProductL2SrcDto      , ProductL2SrcDtoVerticalDatumEnum   } from './ProductL2SrcDto';
 import { ProductL3Dist } from './ProductL3Dist';
 import { ProductL3DistDto } from './ProductL3DistDto';
 import { ProductL3Src        , ProductL3SrcVerticalDatumEnum   } from './ProductL3Src';
@@ -41,6 +47,8 @@ import { Survey } from './Survey';
 import { SurveyDto } from './SurveyDto';
 import { SurveyL0Relation } from './SurveyL0Relation';
 import { SurveyL0RelationDto } from './SurveyL0RelationDto';
+import { SurveyL2Relation } from './SurveyL2Relation';
+import { SurveyL2RelationDto } from './SurveyL2RelationDto';
 import { SurveyL3Relation } from './SurveyL3Relation';
 import { SurveyL3RelationDto } from './SurveyL3RelationDto';
 
@@ -65,6 +73,8 @@ const supportedMediaTypes: { [mediaType: string]: number } = {
 let enumsMap: Set<string> = new Set<string>([
 					"ProductL0SrcVerticalDatumEnum",
 					"ProductL0SrcDtoVerticalDatumEnum",
+					"ProductL2SrcVerticalDatumEnum",
+					"ProductL2SrcDtoVerticalDatumEnum",
 					"ProductL3SrcVerticalDatumEnum",
 					"ProductL3SrcDtoVerticalDatumEnum",
 ]);
@@ -81,6 +91,8 @@ let typeMap: {[index: string]: any} = {
     "ProductL0InstrumentFileDto": ProductL0InstrumentFileDto,
     "ProductL0Src": ProductL0Src,
     "ProductL0SrcDto": ProductL0SrcDto,
+    "ProductL2Src": ProductL2Src,
+    "ProductL2SrcDto": ProductL2SrcDto,
     "ProductL3Dist": ProductL3Dist,
     "ProductL3DistDto": ProductL3DistDto,
     "ProductL3Src": ProductL3Src,
@@ -90,6 +102,8 @@ let typeMap: {[index: string]: any} = {
     "SurveyDto": SurveyDto,
     "SurveyL0Relation": SurveyL0Relation,
     "SurveyL0RelationDto": SurveyL0RelationDto,
+    "SurveyL2Relation": SurveyL2Relation,
+    "SurveyL2RelationDto": SurveyL2RelationDto,
     "SurveyL3Relation": SurveyL3Relation,
     "SurveyL3RelationDto": SurveyL3RelationDto,
 }

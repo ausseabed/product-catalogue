@@ -295,6 +295,137 @@
                 ],
                 "type": "object"
             },
+            "ProductL2Src": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "metadataPersistentId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "productGsfLocation": {
+                        "type": "string"
+                    },
+                    "productPosmvLocation": {
+                        "type": "string"
+                    },
+                    "srs": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    },
+                    "verticalDatum": {
+                        "enum": [
+                            "Unknown",
+                            "LAT",
+                            "AHD",
+                            "LMSL",
+                            "WGS84",
+                            "NAD83(HARN)",
+                            "NAD83(CORSxx)",
+                            "NAD83(NSRSxx)",
+                            "NAD83(PACPxx)",
+                            "NAD83(MARPxx)",
+                            "ITRFxx",
+                            "NAVD88",
+                            "NGVD29",
+                            "EGM2008",
+                            "EGM1996",
+                            "EGM1984",
+                            "MLLW",
+                            "MLW",
+                            "MHW",
+                            "MHHW",
+                            "DTL",
+                            "MTL",
+                            "LWD"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "uuid",
+                    "name",
+                    "srs",
+                    "verticalDatum",
+                    "metadataPersistentId",
+                    "productGsfLocation",
+                    "productPosmvLocation"
+                ],
+                "type": "object"
+            },
+            "ProductL2SrcDto": {
+                "properties": {
+                    "metadataPersistentId": {
+                        "description": "Persistent Id of final product",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name of product for display purposes - from gazeteer",
+                        "type": "string"
+                    },
+                    "productGsfLocation": {
+                        "description": "Location of gsf input product",
+                        "type": "string"
+                    },
+                    "productPosmvLocation": {
+                        "description": "Folder location for posmv 000 inputs",
+                        "type": "string"
+                    },
+                    "srs": {
+                        "description": "Spatial Reference of product",
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "description": "Unique identifier for reference purposes",
+                        "type": "string"
+                    },
+                    "verticalDatum": {
+                        "description": "Vertical datum of bathymetry\n* `LAT` - Lowest Astronomical Tide\n* `AHD` - Australian Height Datum\n* `LMSL` - LMSL - Local Mean Sea Level (or just Mean Sea Level)\n* `WGS84` - WGS84 'Ellipsoid'",
+                        "enum": [
+                            "Unknown",
+                            "LAT",
+                            "AHD",
+                            "LMSL",
+                            "WGS84",
+                            "NAD83(HARN)",
+                            "NAD83(CORSxx)",
+                            "NAD83(NSRSxx)",
+                            "NAD83(PACPxx)",
+                            "NAD83(MARPxx)",
+                            "ITRFxx",
+                            "NAVD88",
+                            "NGVD29",
+                            "EGM2008",
+                            "EGM1996",
+                            "EGM1984",
+                            "MLLW",
+                            "MLW",
+                            "MHW",
+                            "MHHW",
+                            "DTL",
+                            "MTL",
+                            "LWD"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "uuid",
+                    "name",
+                    "srs",
+                    "metadataPersistentId",
+                    "productGsfLocation",
+                    "productPosmvLocation",
+                    "verticalDatum"
+                ],
+                "type": "object"
+            },
             "ProductL3Dist": {
                 "properties": {
                     "bathymetryBagLocation": {
@@ -601,6 +732,42 @@
                 ],
                 "type": "object"
             },
+            "SurveyL2Relation": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "productL2Src": {
+                        "$ref": "#/components/schemas/ProductL2Src"
+                    },
+                    "survey": {
+                        "$ref": "#/components/schemas/Survey"
+                    }
+                },
+                "required": [
+                    "id",
+                    "survey",
+                    "productL2Src"
+                ],
+                "type": "object"
+            },
+            "SurveyL2RelationDto": {
+                "properties": {
+                    "productL2Src": {
+                        "description": "Identifier of the product produced as part of the survey",
+                        "type": "number"
+                    },
+                    "survey": {
+                        "description": "Identifier of the survey that produced the products",
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "survey",
+                    "productL2Src"
+                ],
+                "type": "object"
+            },
             "SurveyL3Relation": {
                 "properties": {
                     "id": {
@@ -658,7 +825,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.1.15"
+        "version": "0.2.1"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -1569,6 +1736,342 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/SurveyL0RelationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/surveys-to-l2": {
+            "get": {
+                "operationId": "ProductRelationsController_findAllL2Survey",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/RelationSummaryDto"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
+            "post": {
+                "operationId": "ProductRelationsController_createL2Survey",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SurveyL2RelationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL2Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/surveys-to-l2/survey/{surveyId}": {
+            "get": {
+                "operationId": "ProductRelationsController_findConditionalL2Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "surveyId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL2Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            }
+        },
+        "/product-relations/surveys-to-l2/{relationId}": {
+            "delete": {
+                "operationId": "ProductRelationsController_deleteL2Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the compilation"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
+            "get": {
+                "operationId": "ProductRelationsController_findOneL2Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyL2Relation"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "product-relations"
+                ]
+            },
+            "put": {
+                "operationId": "ProductRelationsController_updateL2Survey",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "relationId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SurveyL2RelationDto"
                             }
                         }
                     },
@@ -2842,6 +3345,284 @@
                 ],
                 "tags": [
                     "products/l0-src"
+                ]
+            }
+        },
+        "/products/l2-src": {
+            "get": {
+                "operationId": "ProductsL2SrcController_findAll",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "snapshotDateTime",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductL2Src"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l2-src"
+                ]
+            },
+            "post": {
+                "operationId": "ProductsL2SrcController_create",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL2SrcDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL2Src"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l2-src"
+                ]
+            }
+        },
+        "/products/l2-src/{productId}": {
+            "delete": {
+                "operationId": "ProductsL2SrcController_delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l2-src"
+                ]
+            },
+            "get": {
+                "operationId": "ProductsL2SrcController_findOne",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductL2Src"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l2-src"
+                ]
+            },
+            "put": {
+                "operationId": "ProductsL2SrcController_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "productId",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductL2SrcDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Could not find the survey"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Unable to authenticate request."
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDto"
+                                }
+                            }
+                        },
+                        "description": "Server took too long to respond."
+                    }
+                },
+                "security": [
+                    {
+                        "access-token": []
+                    }
+                ],
+                "tags": [
+                    "products/l2-src"
                 ]
             }
         },

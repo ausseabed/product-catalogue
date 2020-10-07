@@ -12,17 +12,15 @@
 
 import { HttpFile } from '../http/http';
 
-export class ProductL0Src {
+export class ProductL2Src {
     'id': number;
-    /**
-    * Location of instrument files
-    */
-    'l0InstrumentLocation': string;
     'metadataPersistentId': string;
     'name': string;
+    'productGsfLocation': string;
+    'productPosmvLocation': string;
     'srs': string;
     'uuid': string;
-    'verticalDatum': ProductL0SrcVerticalDatumEnum;
+    'verticalDatum': ProductL2SrcVerticalDatumEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -34,12 +32,6 @@ export class ProductL0Src {
             "format": ""
         },
         {
-            "name": "l0InstrumentLocation",
-            "baseName": "l0InstrumentLocation",
-            "type": "string",
-            "format": ""
-        },
-        {
             "name": "metadataPersistentId",
             "baseName": "metadataPersistentId",
             "type": "string",
@@ -48,6 +40,18 @@ export class ProductL0Src {
         {
             "name": "name",
             "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "productGsfLocation",
+            "baseName": "productGsfLocation",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "productPosmvLocation",
+            "baseName": "productPosmvLocation",
             "type": "string",
             "format": ""
         },
@@ -66,12 +70,12 @@ export class ProductL0Src {
         {
             "name": "verticalDatum",
             "baseName": "verticalDatum",
-            "type": "ProductL0SrcVerticalDatumEnum",
+            "type": "ProductL2SrcVerticalDatumEnum",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return ProductL0Src.attributeTypeMap;
+        return ProductL2Src.attributeTypeMap;
     }
     
     public constructor() {
@@ -79,5 +83,5 @@ export class ProductL0Src {
 }
 
 
-export type ProductL0SrcVerticalDatumEnum = "Unknown" | "LAT" | "AHD" | "LMSL" | "WGS84" | "NAD83(HARN)" | "NAD83(CORSxx)" | "NAD83(NSRSxx)" | "NAD83(PACPxx)" | "NAD83(MARPxx)" | "ITRFxx" | "NAVD88" | "NGVD29" | "EGM2008" | "EGM1996" | "EGM1984" | "MLLW" | "MLW" | "MHW" | "MHHW" | "DTL" | "MTL" | "LWD" ;
+export type ProductL2SrcVerticalDatumEnum = "Unknown" | "LAT" | "AHD" | "LMSL" | "WGS84" | "NAD83(HARN)" | "NAD83(CORSxx)" | "NAD83(NSRSxx)" | "NAD83(PACPxx)" | "NAD83(MARPxx)" | "ITRFxx" | "NAVD88" | "NGVD29" | "EGM2008" | "EGM1996" | "EGM1984" | "MLLW" | "MLW" | "MHW" | "MHHW" | "DTL" | "MTL" | "LWD" ;
 

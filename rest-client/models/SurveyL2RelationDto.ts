@@ -12,11 +12,11 @@
 
 import { HttpFile } from '../http/http';
 
-export class SurveyL0RelationDto {
+export class SurveyL2RelationDto {
     /**
     * Identifier of the product produced as part of the survey
     */
-    'productL0Src': number;
+    'productL2Src': number;
     /**
     * Identifier of the survey that produced the products
     */
@@ -26,8 +26,8 @@ export class SurveyL0RelationDto {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "productL0Src",
-            "baseName": "productL0Src",
+            "name": "productL2Src",
+            "baseName": "productL2Src",
             "type": "number",
             "format": ""
         },
@@ -39,7 +39,7 @@ export class SurveyL0RelationDto {
         }    ];
 
     static getAttributeTypeMap() {
-        return SurveyL0RelationDto.attributeTypeMap;
+        return SurveyL2RelationDto.attributeTypeMap;
     }
     
     public constructor() {

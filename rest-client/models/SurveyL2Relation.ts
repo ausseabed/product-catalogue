@@ -10,36 +10,39 @@
  * Do not edit the class manually.
  */
 
+import { ProductL2Src } from './ProductL2Src';
+import { Survey } from './Survey';
 import { HttpFile } from '../http/http';
 
-export class SurveyL0RelationDto {
-    /**
-    * Identifier of the product produced as part of the survey
-    */
-    'productL0Src': number;
-    /**
-    * Identifier of the survey that produced the products
-    */
-    'survey': number;
+export class SurveyL2Relation {
+    'id': number;
+    'productL2Src': ProductL2Src;
+    'survey': Survey;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "productL0Src",
-            "baseName": "productL0Src",
+            "name": "id",
+            "baseName": "id",
             "type": "number",
+            "format": ""
+        },
+        {
+            "name": "productL2Src",
+            "baseName": "productL2Src",
+            "type": "ProductL2Src",
             "format": ""
         },
         {
             "name": "survey",
             "baseName": "survey",
-            "type": "number",
+            "type": "Survey",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return SurveyL0RelationDto.attributeTypeMap;
+        return SurveyL2Relation.attributeTypeMap;
     }
     
     public constructor() {

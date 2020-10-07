@@ -12,26 +12,39 @@
 
 import { HttpFile } from '../http/http';
 
-export class ProductL3Src {
-    'id': number;
+export class ProductL2SrcDto {
+    /**
+    * Persistent Id of final product
+    */
     'metadataPersistentId': string;
+    /**
+    * Name of product for display purposes - from gazeteer
+    */
     'name': string;
-    'productBagLocation': string;
-    'productTifLocation': string;
-    'resolution': string;
+    /**
+    * Location of gsf input product
+    */
+    'productGsfLocation': string;
+    /**
+    * Folder location for posmv 000 inputs
+    */
+    'productPosmvLocation': string;
+    /**
+    * Spatial Reference of product
+    */
     'srs': string;
+    /**
+    * Unique identifier for reference purposes
+    */
     'uuid': string;
-    'verticalDatum': ProductL3SrcVerticalDatumEnum;
+    /**
+    * Vertical datum of bathymetry * `LAT` - Lowest Astronomical Tide * `AHD` - Australian Height Datum * `LMSL` - LMSL - Local Mean Sea Level (or just Mean Sea Level) * `WGS84` - WGS84 'Ellipsoid'
+    */
+    'verticalDatum': ProductL2SrcDtoVerticalDatumEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "number",
-            "format": ""
-        },
         {
             "name": "metadataPersistentId",
             "baseName": "metadataPersistentId",
@@ -45,20 +58,14 @@ export class ProductL3Src {
             "format": ""
         },
         {
-            "name": "productBagLocation",
-            "baseName": "productBagLocation",
+            "name": "productGsfLocation",
+            "baseName": "productGsfLocation",
             "type": "string",
             "format": ""
         },
         {
-            "name": "productTifLocation",
-            "baseName": "productTifLocation",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "resolution",
-            "baseName": "resolution",
+            "name": "productPosmvLocation",
+            "baseName": "productPosmvLocation",
             "type": "string",
             "format": ""
         },
@@ -77,12 +84,12 @@ export class ProductL3Src {
         {
             "name": "verticalDatum",
             "baseName": "verticalDatum",
-            "type": "ProductL3SrcVerticalDatumEnum",
+            "type": "ProductL2SrcDtoVerticalDatumEnum",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return ProductL3Src.attributeTypeMap;
+        return ProductL2SrcDto.attributeTypeMap;
     }
     
     public constructor() {
@@ -90,5 +97,5 @@ export class ProductL3Src {
 }
 
 
-export type ProductL3SrcVerticalDatumEnum = "Unknown" | "LAT" | "AHD" | "LMSL" | "WGS84" | "NAD83(HARN)" | "NAD83(CORSxx)" | "NAD83(NSRSxx)" | "NAD83(PACPxx)" | "NAD83(MARPxx)" | "ITRFxx" | "NAVD88" | "NGVD29" | "EGM2008" | "EGM1996" | "EGM1984" | "MLLW" | "MLW" | "MHW" | "MHHW" | "DTL" | "MTL" | "LWD" ;
+export type ProductL2SrcDtoVerticalDatumEnum = "Unknown" | "LAT" | "AHD" | "LMSL" | "WGS84" | "NAD83(HARN)" | "NAD83(CORSxx)" | "NAD83(NSRSxx)" | "NAD83(PACPxx)" | "NAD83(MARPxx)" | "ITRFxx" | "NAVD88" | "NGVD29" | "EGM2008" | "EGM1996" | "EGM1984" | "MLLW" | "MLW" | "MHW" | "MHHW" | "DTL" | "MTL" | "LWD" ;
 
