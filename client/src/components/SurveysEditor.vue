@@ -126,9 +126,16 @@
                   {{ props.row.products }}
                   <!-- to="/survey-l3-relation" -->
                   <q-btn
+                    label='Add L2'
+                    color="green"
+                    class="q-mx-xs"
+                    @click="() => createProductInternalL2(props.row.id)"
+                  />
+                  <q-btn
                     label='Add L3'
-                    color="primary"
-                    @click="() => createProductInternal(props.row.id)"
+                    color="orange"
+                    class="q-mx-xs"
+                    @click="() => createProductInternalL3(props.row.id)"
                   />
                 </div>
 
@@ -137,6 +144,34 @@
                   class="q-gutter-xs col truncate-chip-label"
                   style="white-space: normal"
                 >
+                  <span
+                    v-for="item in productsForL2(props.row.id)"
+                    :key="item.productId"
+                  >
+                    <q-chip
+                      class="glossy"
+                      color="green"
+                      text-color="white"
+                      clickable
+                      removable
+                      :title="item.productName"
+                      @click="() => editProductL2(item.relationId)"
+                      @remove="() => deleteProductDialogueL2(item.productName, item.productId)"
+                    >
+                      <template v-slot:default>
+                        <span
+                          class="ellipsis"
+                          style='max-width:8em;direction: rtl;text-align: left;'
+                          v-if='productsForL2(props.row.id).length>2'
+                        >{{item.productName}}</span>
+                        <span
+                          class="ellipsis"
+                          style='max-width:20em;direction: rtl;text-align: left;'
+                          v-if='productsForL2(props.row.id).length<=2'
+                        >{{item.productName}}</span>
+                      </template>
+                    </q-chip>
+                  </span>
                   <span
                     v-for="item in productsFor(props.row.id)"
                     :key="item.productId"
@@ -288,7 +323,8 @@ export default class SurveysEditor extends Vue {
     })
   }
 
-  @Action('createProduct', { namespace }) createProduct!: (surveyId: number) => Promise<number>
+  @Action('createProductL3', { namespace }) createProductL3!: (surveyId: number) => Promise<number>
+  @Action('createProductL2', { namespace }) createProductL2!: (surveyId: number) => Promise<number>
 
   @Action('deleteProduct', { namespace }) deleteProduct!: (productId: number) => Promise<void>
 
@@ -301,6 +337,20 @@ export default class SurveysEditor extends Vue {
       persistent: true
     }).onOk(async () => {
       await this.deleteProduct(argList)
+    })
+  }
+
+  @Action('deleteProductL2', { namespace }) deleteProductL2!: (productId: number) => Promise<void>
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  deleteProductDialogueL2 (deleteText: string, argList: any) {
+    this.$q.dialog({
+      title: 'Confirm',
+      message: `Are you sure you want to permanently delete '${deleteText}'?`,
+      cancel: true,
+      persistent: true
+    }).onOk(async () => {
+      await this.deleteProductL2(argList)
     })
   }
   // @Action('updateEntry', { namespace }) update!: any
@@ -335,12 +385,29 @@ export default class SurveysEditor extends Vue {
     return matches
   }
 
+  productsForL2 (surveyId: number): RelationSummaryDto[] {
+    const matches: RelationSummaryDto[] = this.surveys.productShortDescriptionL2.filter(haystack => haystack.surveyId === surveyId)
+    return matches
+  }
+
   // <router-link :to="{ name: 'survey-l3-relation', params: { surveyId: props.row.id} }" style="text-decoration: none; color: inherit;" >
-  async createProductInternal (surveyId: number) {
-    const relationId = await this.createProduct(surveyId)
+  async createProductInternalL3 (surveyId: number) {
+    const relationId = await this.createProductL3(surveyId)
     this.$router.push(
       {
         name: 'survey-l3-relation',
+        params: {
+          relationId: String(relationId)
+        }
+      }
+    ).catch((e) => { console.log(e) })
+  }
+
+  async createProductInternalL2 (surveyId: number) {
+    const relationId = await this.createProductL2(surveyId)
+    this.$router.push(
+      {
+        name: 'survey-l2-relation',
         params: {
           relationId: String(relationId)
         }
@@ -352,6 +419,17 @@ export default class SurveysEditor extends Vue {
     this.$router.push(
       {
         name: 'survey-l3-relation',
+        params: {
+          relationId: String(relationId)
+        }
+      }
+    ).catch((e) => { console.log(e) })
+  }
+
+  editProductL2 (relationId: number) {
+    this.$router.push(
+      {
+        name: 'survey-l2-relation',
         params: {
           relationId: String(relationId)
         }

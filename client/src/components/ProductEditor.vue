@@ -89,7 +89,10 @@
           label="Resolution"
         />
 
-        <spatial-reference :srs='surveyL3Relation.surveyL3RelationSelected.productL3Src.srs' />
+        <spatial-reference-generic
+          :srs='surveyL3Relation.surveyL3RelationSelected.productL3Src.srs'
+          v-on:change='updateSrs'
+        />
         <q-select
           class="q-ma-md"
           :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.verticalDatum"
@@ -223,7 +226,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Action, State, Mutation, Getter } from 'vuex-class'
 import { SurveyL3RelationStateInterface } from '../store/survey-l3-relation/state'
-import SpatialReference from './SpatialReference.vue'
+import SpatialReferenceGeneric from './SpatialReferenceGeneric.vue'
 import L3ProductDistDetail from './L3ProductDistDetail.vue'
 import { S3Util } from '../lib/s3-util'
 import { matInfo } from '@quasar/extras/material-icons'
@@ -234,7 +237,7 @@ import { ProductL3DistStateInterface } from '../store/product-l3-dist/state'
 const namespace = 'surveyl3relation'
 
 @Component({
-  components: { 'spatial-reference': SpatialReference, 'l3-product-dist-detail': L3ProductDistDetail },
+  components: { 'spatial-reference-generic': SpatialReferenceGeneric, 'l3-product-dist-detail': L3ProductDistDetail },
   props: {
     title: {
       type: String,
@@ -267,6 +270,10 @@ export default class ProductEditor extends Vue {
   @Getter('productPresentationString', { namespace }) productPresentationString!: string
 
   @Getter('surveyPresentationString', { namespace }) surveyPresentationString!: string
+
+  updateSrs (code: string) {
+    this.updateProduct({ element: 'srs', value: code })
+  }
 
   async saveDataLocal (surveyId: number) {
     await this.saveData()

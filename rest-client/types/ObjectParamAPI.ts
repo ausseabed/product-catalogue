@@ -13,6 +13,8 @@ import { ProductL0InstrumentFile } from '../models/ProductL0InstrumentFile';
 import { ProductL0InstrumentFileDto } from '../models/ProductL0InstrumentFileDto';
 import { ProductL0Src } from '../models/ProductL0Src';
 import { ProductL0SrcDto } from '../models/ProductL0SrcDto';
+import { ProductL2Src } from '../models/ProductL2Src';
+import { ProductL2SrcDto } from '../models/ProductL2SrcDto';
 import { ProductL3Dist } from '../models/ProductL3Dist';
 import { ProductL3DistDto } from '../models/ProductL3DistDto';
 import { ProductL3Src } from '../models/ProductL3Src';
@@ -22,6 +24,8 @@ import { Survey } from '../models/Survey';
 import { SurveyDto } from '../models/SurveyDto';
 import { SurveyL0Relation } from '../models/SurveyL0Relation';
 import { SurveyL0RelationDto } from '../models/SurveyL0RelationDto';
+import { SurveyL2Relation } from '../models/SurveyL2Relation';
+import { SurveyL2RelationDto } from '../models/SurveyL2RelationDto';
 import { SurveyL3Relation } from '../models/SurveyL3Relation';
 import { SurveyL3RelationDto } from '../models/SurveyL3RelationDto';
 
@@ -149,6 +153,15 @@ export interface ProductRelationsApiProductRelationsControllerCreateL0SurveyRequ
     surveyL0RelationDto: SurveyL0RelationDto
 }
 
+export interface ProductRelationsApiProductRelationsControllerCreateL2SurveyRequest {
+    /**
+     * 
+     * @type SurveyL2RelationDto
+     * @memberof ProductRelationsApiproductRelationsControllerCreateL2Survey
+     */
+    surveyL2RelationDto: SurveyL2RelationDto
+}
+
 export interface ProductRelationsApiProductRelationsControllerCreateL3SurveyRequest {
     /**
      * 
@@ -176,6 +189,15 @@ export interface ProductRelationsApiProductRelationsControllerDeleteL0SurveyRequ
     relationId: number
 }
 
+export interface ProductRelationsApiProductRelationsControllerDeleteL2SurveyRequest {
+    /**
+     * 
+     * @type number
+     * @memberof ProductRelationsApiproductRelationsControllerDeleteL2Survey
+     */
+    relationId: number
+}
+
 export interface ProductRelationsApiProductRelationsControllerDeleteL3SurveyRequest {
     /**
      * 
@@ -190,6 +212,15 @@ export interface ProductRelationsApiProductRelationsControllerFindAllL0SurveyReq
      * 
      * @type string
      * @memberof ProductRelationsApiproductRelationsControllerFindAllL0Survey
+     */
+    snapshotDateTime?: string
+}
+
+export interface ProductRelationsApiProductRelationsControllerFindAllL2SurveyRequest {
+    /**
+     * 
+     * @type string
+     * @memberof ProductRelationsApiproductRelationsControllerFindAllL2Survey
      */
     snapshotDateTime?: string
 }
@@ -230,6 +261,15 @@ export interface ProductRelationsApiProductRelationsControllerFindConditionalL0S
     surveyId: number
 }
 
+export interface ProductRelationsApiProductRelationsControllerFindConditionalL2SurveyRequest {
+    /**
+     * 
+     * @type number
+     * @memberof ProductRelationsApiproductRelationsControllerFindConditionalL2Survey
+     */
+    surveyId: number
+}
+
 export interface ProductRelationsApiProductRelationsControllerFindConditionalL3SurveyRequest {
     /**
      * 
@@ -253,6 +293,15 @@ export interface ProductRelationsApiProductRelationsControllerFindOneL0SurveyReq
      * 
      * @type number
      * @memberof ProductRelationsApiproductRelationsControllerFindOneL0Survey
+     */
+    relationId: number
+}
+
+export interface ProductRelationsApiProductRelationsControllerFindOneL2SurveyRequest {
+    /**
+     * 
+     * @type number
+     * @memberof ProductRelationsApiproductRelationsControllerFindOneL2Survey
      */
     relationId: number
 }
@@ -296,6 +345,21 @@ export interface ProductRelationsApiProductRelationsControllerUpdateL0SurveyRequ
     surveyL0RelationDto: SurveyL0RelationDto
 }
 
+export interface ProductRelationsApiProductRelationsControllerUpdateL2SurveyRequest {
+    /**
+     * 
+     * @type number
+     * @memberof ProductRelationsApiproductRelationsControllerUpdateL2Survey
+     */
+    relationId: number
+    /**
+     * 
+     * @type SurveyL2RelationDto
+     * @memberof ProductRelationsApiproductRelationsControllerUpdateL2Survey
+     */
+    surveyL2RelationDto: SurveyL2RelationDto
+}
+
 export interface ProductRelationsApiProductRelationsControllerUpdateL3SurveyRequest {
     /**
      * 
@@ -336,6 +400,13 @@ export class ObjectProductRelationsApi {
     /**
      * @param param the request object
      */
+    public productRelationsControllerCreateL2Survey(param: ProductRelationsApiProductRelationsControllerCreateL2SurveyRequest, options?: Configuration): Promise<SurveyL2Relation> {
+        return this.api.productRelationsControllerCreateL2Survey(param.surveyL2RelationDto,  options).toPromise();
+    }
+	
+    /**
+     * @param param the request object
+     */
     public productRelationsControllerCreateL3Survey(param: ProductRelationsApiProductRelationsControllerCreateL3SurveyRequest, options?: Configuration): Promise<SurveyL3Relation> {
         return this.api.productRelationsControllerCreateL3Survey(param.surveyL3RelationDto,  options).toPromise();
     }
@@ -357,6 +428,13 @@ export class ObjectProductRelationsApi {
     /**
      * @param param the request object
      */
+    public productRelationsControllerDeleteL2Survey(param: ProductRelationsApiProductRelationsControllerDeleteL2SurveyRequest, options?: Configuration): Promise<void> {
+        return this.api.productRelationsControllerDeleteL2Survey(param.relationId,  options).toPromise();
+    }
+	
+    /**
+     * @param param the request object
+     */
     public productRelationsControllerDeleteL3Survey(param: ProductRelationsApiProductRelationsControllerDeleteL3SurveyRequest, options?: Configuration): Promise<void> {
         return this.api.productRelationsControllerDeleteL3Survey(param.relationId,  options).toPromise();
     }
@@ -366,6 +444,13 @@ export class ObjectProductRelationsApi {
      */
     public productRelationsControllerFindAllL0Survey(param: ProductRelationsApiProductRelationsControllerFindAllL0SurveyRequest, options?: Configuration): Promise<Array<RelationSummaryDto>> {
         return this.api.productRelationsControllerFindAllL0Survey(param.snapshotDateTime,  options).toPromise();
+    }
+	
+    /**
+     * @param param the request object
+     */
+    public productRelationsControllerFindAllL2Survey(param: ProductRelationsApiProductRelationsControllerFindAllL2SurveyRequest, options?: Configuration): Promise<Array<RelationSummaryDto>> {
+        return this.api.productRelationsControllerFindAllL2Survey(param.snapshotDateTime,  options).toPromise();
     }
 	
     /**
@@ -399,6 +484,13 @@ export class ObjectProductRelationsApi {
     /**
      * @param param the request object
      */
+    public productRelationsControllerFindConditionalL2Survey(param: ProductRelationsApiProductRelationsControllerFindConditionalL2SurveyRequest, options?: Configuration): Promise<SurveyL2Relation> {
+        return this.api.productRelationsControllerFindConditionalL2Survey(param.surveyId,  options).toPromise();
+    }
+	
+    /**
+     * @param param the request object
+     */
     public productRelationsControllerFindConditionalL3Survey(param: ProductRelationsApiProductRelationsControllerFindConditionalL3SurveyRequest, options?: Configuration): Promise<SurveyL3Relation> {
         return this.api.productRelationsControllerFindConditionalL3Survey(param.surveyId,  options).toPromise();
     }
@@ -420,6 +512,13 @@ export class ObjectProductRelationsApi {
     /**
      * @param param the request object
      */
+    public productRelationsControllerFindOneL2Survey(param: ProductRelationsApiProductRelationsControllerFindOneL2SurveyRequest, options?: Configuration): Promise<SurveyL2Relation> {
+        return this.api.productRelationsControllerFindOneL2Survey(param.relationId,  options).toPromise();
+    }
+	
+    /**
+     * @param param the request object
+     */
     public productRelationsControllerFindOneL3Survey(param: ProductRelationsApiProductRelationsControllerFindOneL3SurveyRequest, options?: Configuration): Promise<SurveyL3Relation> {
         return this.api.productRelationsControllerFindOneL3Survey(param.relationId,  options).toPromise();
     }
@@ -436,6 +535,13 @@ export class ObjectProductRelationsApi {
      */
     public productRelationsControllerUpdateL0Survey(param: ProductRelationsApiProductRelationsControllerUpdateL0SurveyRequest, options?: Configuration): Promise<void> {
         return this.api.productRelationsControllerUpdateL0Survey(param.relationId, param.surveyL0RelationDto,  options).toPromise();
+    }
+	
+    /**
+     * @param param the request object
+     */
+    public productRelationsControllerUpdateL2Survey(param: ProductRelationsApiProductRelationsControllerUpdateL2SurveyRequest, options?: Configuration): Promise<void> {
+        return this.api.productRelationsControllerUpdateL2Survey(param.relationId, param.surveyL2RelationDto,  options).toPromise();
     }
 	
     /**
@@ -783,6 +889,109 @@ export class ObjectProductsL0SrcApi {
      */
     public productsL0SrcControllerUpdate(param: ProductsL0SrcApiProductsL0SrcControllerUpdateRequest, options?: Configuration): Promise<void> {
         return this.api.productsL0SrcControllerUpdate(param.productId, param.productL0SrcDto,  options).toPromise();
+    }
+	
+
+}
+
+
+
+
+import { ObservableProductsL2SrcApi } from "./ObservableAPI";
+import { ProductsL2SrcApiRequestFactory, ProductsL2SrcApiResponseProcessor} from "../apis/ProductsL2SrcApi";
+
+export interface ProductsL2SrcApiProductsL2SrcControllerCreateRequest {
+    /**
+     * 
+     * @type ProductL2SrcDto
+     * @memberof ProductsL2SrcApiproductsL2SrcControllerCreate
+     */
+    productL2SrcDto: ProductL2SrcDto
+}
+
+export interface ProductsL2SrcApiProductsL2SrcControllerDeleteRequest {
+    /**
+     * 
+     * @type number
+     * @memberof ProductsL2SrcApiproductsL2SrcControllerDelete
+     */
+    productId: number
+}
+
+export interface ProductsL2SrcApiProductsL2SrcControllerFindAllRequest {
+    /**
+     * 
+     * @type string
+     * @memberof ProductsL2SrcApiproductsL2SrcControllerFindAll
+     */
+    snapshotDateTime?: string
+}
+
+export interface ProductsL2SrcApiProductsL2SrcControllerFindOneRequest {
+    /**
+     * 
+     * @type number
+     * @memberof ProductsL2SrcApiproductsL2SrcControllerFindOne
+     */
+    productId: number
+}
+
+export interface ProductsL2SrcApiProductsL2SrcControllerUpdateRequest {
+    /**
+     * 
+     * @type number
+     * @memberof ProductsL2SrcApiproductsL2SrcControllerUpdate
+     */
+    productId: number
+    /**
+     * 
+     * @type ProductL2SrcDto
+     * @memberof ProductsL2SrcApiproductsL2SrcControllerUpdate
+     */
+    productL2SrcDto: ProductL2SrcDto
+}
+
+
+export class ObjectProductsL2SrcApi {
+    private api: ObservableProductsL2SrcApi
+
+    public constructor(configuration: Configuration, requestFactory?: ProductsL2SrcApiRequestFactory, responseProcessor?: ProductsL2SrcApiResponseProcessor) {
+        this.api = new ObservableProductsL2SrcApi(configuration, requestFactory, responseProcessor);
+	}
+
+    /**
+     * @param param the request object
+     */
+    public productsL2SrcControllerCreate(param: ProductsL2SrcApiProductsL2SrcControllerCreateRequest, options?: Configuration): Promise<ProductL2Src> {
+        return this.api.productsL2SrcControllerCreate(param.productL2SrcDto,  options).toPromise();
+    }
+	
+    /**
+     * @param param the request object
+     */
+    public productsL2SrcControllerDelete(param: ProductsL2SrcApiProductsL2SrcControllerDeleteRequest, options?: Configuration): Promise<void> {
+        return this.api.productsL2SrcControllerDelete(param.productId,  options).toPromise();
+    }
+	
+    /**
+     * @param param the request object
+     */
+    public productsL2SrcControllerFindAll(param: ProductsL2SrcApiProductsL2SrcControllerFindAllRequest, options?: Configuration): Promise<Array<ProductL2Src>> {
+        return this.api.productsL2SrcControllerFindAll(param.snapshotDateTime,  options).toPromise();
+    }
+	
+    /**
+     * @param param the request object
+     */
+    public productsL2SrcControllerFindOne(param: ProductsL2SrcApiProductsL2SrcControllerFindOneRequest, options?: Configuration): Promise<ProductL2Src> {
+        return this.api.productsL2SrcControllerFindOne(param.productId,  options).toPromise();
+    }
+	
+    /**
+     * @param param the request object
+     */
+    public productsL2SrcControllerUpdate(param: ProductsL2SrcApiProductsL2SrcControllerUpdateRequest, options?: Configuration): Promise<void> {
+        return this.api.productsL2SrcControllerUpdate(param.productId, param.productL2SrcDto,  options).toPromise();
     }
 	
 

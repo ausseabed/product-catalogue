@@ -13,6 +13,8 @@ import { ProductL0InstrumentFile } from '../models/ProductL0InstrumentFile';
 import { ProductL0InstrumentFileDto } from '../models/ProductL0InstrumentFileDto';
 import { ProductL0Src } from '../models/ProductL0Src';
 import { ProductL0SrcDto } from '../models/ProductL0SrcDto';
+import { ProductL2Src } from '../models/ProductL2Src';
+import { ProductL2SrcDto } from '../models/ProductL2SrcDto';
 import { ProductL3Dist } from '../models/ProductL3Dist';
 import { ProductL3DistDto } from '../models/ProductL3DistDto';
 import { ProductL3Src } from '../models/ProductL3Src';
@@ -22,6 +24,8 @@ import { Survey } from '../models/Survey';
 import { SurveyDto } from '../models/SurveyDto';
 import { SurveyL0Relation } from '../models/SurveyL0Relation';
 import { SurveyL0RelationDto } from '../models/SurveyL0RelationDto';
+import { SurveyL2Relation } from '../models/SurveyL2Relation';
+import { SurveyL2RelationDto } from '../models/SurveyL2RelationDto';
 import { SurveyL3Relation } from '../models/SurveyL3Relation';
 import { SurveyL3RelationDto } from '../models/SurveyL3RelationDto';
 import { ObservableCompilationsApi } from './ObservableAPI';
@@ -117,6 +121,14 @@ export class PromiseProductRelationsApi {
     }
 	
     /**
+     * @param surveyL2RelationDto 
+     */
+    public productRelationsControllerCreateL2Survey(surveyL2RelationDto: SurveyL2RelationDto, options?: Configuration): Promise<SurveyL2Relation> {
+    	const result = this.api.productRelationsControllerCreateL2Survey(surveyL2RelationDto, options);
+        return result.toPromise();
+    }
+	
+    /**
      * @param surveyL3RelationDto 
      */
     public productRelationsControllerCreateL3Survey(surveyL3RelationDto: SurveyL3RelationDto, options?: Configuration): Promise<SurveyL3Relation> {
@@ -143,6 +155,14 @@ export class PromiseProductRelationsApi {
     /**
      * @param relationId 
      */
+    public productRelationsControllerDeleteL2Survey(relationId: number, options?: Configuration): Promise<void> {
+    	const result = this.api.productRelationsControllerDeleteL2Survey(relationId, options);
+        return result.toPromise();
+    }
+	
+    /**
+     * @param relationId 
+     */
     public productRelationsControllerDeleteL3Survey(relationId: number, options?: Configuration): Promise<void> {
     	const result = this.api.productRelationsControllerDeleteL3Survey(relationId, options);
         return result.toPromise();
@@ -153,6 +173,14 @@ export class PromiseProductRelationsApi {
      */
     public productRelationsControllerFindAllL0Survey(snapshotDateTime?: string, options?: Configuration): Promise<Array<RelationSummaryDto>> {
     	const result = this.api.productRelationsControllerFindAllL0Survey(snapshotDateTime, options);
+        return result.toPromise();
+    }
+	
+    /**
+     * @param snapshotDateTime 
+     */
+    public productRelationsControllerFindAllL2Survey(snapshotDateTime?: string, options?: Configuration): Promise<Array<RelationSummaryDto>> {
+    	const result = this.api.productRelationsControllerFindAllL2Survey(snapshotDateTime, options);
         return result.toPromise();
     }
 	
@@ -191,6 +219,14 @@ export class PromiseProductRelationsApi {
     /**
      * @param surveyId 
      */
+    public productRelationsControllerFindConditionalL2Survey(surveyId: number, options?: Configuration): Promise<SurveyL2Relation> {
+    	const result = this.api.productRelationsControllerFindConditionalL2Survey(surveyId, options);
+        return result.toPromise();
+    }
+	
+    /**
+     * @param surveyId 
+     */
     public productRelationsControllerFindConditionalL3Survey(surveyId: number, options?: Configuration): Promise<SurveyL3Relation> {
     	const result = this.api.productRelationsControllerFindConditionalL3Survey(surveyId, options);
         return result.toPromise();
@@ -209,6 +245,14 @@ export class PromiseProductRelationsApi {
      */
     public productRelationsControllerFindOneL0Survey(relationId: number, options?: Configuration): Promise<SurveyL0Relation> {
     	const result = this.api.productRelationsControllerFindOneL0Survey(relationId, options);
+        return result.toPromise();
+    }
+	
+    /**
+     * @param relationId 
+     */
+    public productRelationsControllerFindOneL2Survey(relationId: number, options?: Configuration): Promise<SurveyL2Relation> {
+    	const result = this.api.productRelationsControllerFindOneL2Survey(relationId, options);
         return result.toPromise();
     }
 	
@@ -235,6 +279,15 @@ export class PromiseProductRelationsApi {
      */
     public productRelationsControllerUpdateL0Survey(relationId: number, surveyL0RelationDto: SurveyL0RelationDto, options?: Configuration): Promise<void> {
     	const result = this.api.productRelationsControllerUpdateL0Survey(relationId, surveyL0RelationDto, options);
+        return result.toPromise();
+    }
+	
+    /**
+     * @param relationId 
+     * @param surveyL2RelationDto 
+     */
+    public productRelationsControllerUpdateL2Survey(relationId: number, surveyL2RelationDto: SurveyL2RelationDto, options?: Configuration): Promise<void> {
+    	const result = this.api.productRelationsControllerUpdateL2Survey(relationId, surveyL2RelationDto, options);
         return result.toPromise();
     }
 	
@@ -415,6 +468,67 @@ export class PromiseProductsL0SrcApi {
      */
     public productsL0SrcControllerUpdate(productId: number, productL0SrcDto: ProductL0SrcDto, options?: Configuration): Promise<void> {
     	const result = this.api.productsL0SrcControllerUpdate(productId, productL0SrcDto, options);
+        return result.toPromise();
+    }
+	
+
+}
+
+
+
+import { ObservableProductsL2SrcApi } from './ObservableAPI';
+
+
+import { ProductsL2SrcApiRequestFactory, ProductsL2SrcApiResponseProcessor} from "../apis/ProductsL2SrcApi";
+export class PromiseProductsL2SrcApi {
+    private api: ObservableProductsL2SrcApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ProductsL2SrcApiRequestFactory,
+        responseProcessor?: ProductsL2SrcApiResponseProcessor
+    ) {
+        this.api = new ObservableProductsL2SrcApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param productL2SrcDto 
+     */
+    public productsL2SrcControllerCreate(productL2SrcDto: ProductL2SrcDto, options?: Configuration): Promise<ProductL2Src> {
+    	const result = this.api.productsL2SrcControllerCreate(productL2SrcDto, options);
+        return result.toPromise();
+    }
+	
+    /**
+     * @param productId 
+     */
+    public productsL2SrcControllerDelete(productId: number, options?: Configuration): Promise<void> {
+    	const result = this.api.productsL2SrcControllerDelete(productId, options);
+        return result.toPromise();
+    }
+	
+    /**
+     * @param snapshotDateTime 
+     */
+    public productsL2SrcControllerFindAll(snapshotDateTime?: string, options?: Configuration): Promise<Array<ProductL2Src>> {
+    	const result = this.api.productsL2SrcControllerFindAll(snapshotDateTime, options);
+        return result.toPromise();
+    }
+	
+    /**
+     * @param productId 
+     */
+    public productsL2SrcControllerFindOne(productId: number, options?: Configuration): Promise<ProductL2Src> {
+    	const result = this.api.productsL2SrcControllerFindOne(productId, options);
+        return result.toPromise();
+    }
+	
+    /**
+     * @param productId 
+     * @param productL2SrcDto 
+     */
+    public productsL2SrcControllerUpdate(productId: number, productL2SrcDto: ProductL2SrcDto, options?: Configuration): Promise<void> {
+    	const result = this.api.productsL2SrcControllerUpdate(productId, productL2SrcDto, options);
         return result.toPromise();
     }
 	

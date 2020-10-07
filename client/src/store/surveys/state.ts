@@ -3,12 +3,14 @@ import { Survey, RelationSummaryDto } from '@ausseabed/product-catalogue-rest-cl
 export interface SurveyStateInterface {
   surveys: Survey[];
   productShortDescription: RelationSummaryDto[];
+  productShortDescriptionL2: RelationSummaryDto[];
   errorMessages: string[];
 }
 
 const state: SurveyStateInterface = {
   surveys: [],
   productShortDescription: [],
+  productShortDescriptionL2: [],
   errorMessages: []
 }
 

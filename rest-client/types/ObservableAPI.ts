@@ -15,6 +15,8 @@ import { ProductL0InstrumentFile } from '../models/ProductL0InstrumentFile';
 import { ProductL0InstrumentFileDto } from '../models/ProductL0InstrumentFileDto';
 import { ProductL0Src } from '../models/ProductL0Src';
 import { ProductL0SrcDto } from '../models/ProductL0SrcDto';
+import { ProductL2Src } from '../models/ProductL2Src';
+import { ProductL2SrcDto } from '../models/ProductL2SrcDto';
 import { ProductL3Dist } from '../models/ProductL3Dist';
 import { ProductL3DistDto } from '../models/ProductL3DistDto';
 import { ProductL3Src } from '../models/ProductL3Src';
@@ -24,6 +26,8 @@ import { Survey } from '../models/Survey';
 import { SurveyDto } from '../models/SurveyDto';
 import { SurveyL0Relation } from '../models/SurveyL0Relation';
 import { SurveyL0RelationDto } from '../models/SurveyL0RelationDto';
+import { SurveyL2Relation } from '../models/SurveyL2Relation';
+import { SurveyL2RelationDto } from '../models/SurveyL2RelationDto';
 import { SurveyL3Relation } from '../models/SurveyL3Relation';
 import { SurveyL3RelationDto } from '../models/SurveyL3RelationDto';
 
@@ -221,6 +225,28 @@ export class ObservableProductRelationsApi {
     }
 	
     /**
+     * @param surveyL2RelationDto 
+     */
+    public productRelationsControllerCreateL2Survey(surveyL2RelationDto: SurveyL2RelationDto, options?: Configuration): Observable<SurveyL2Relation> {
+    	const requestContextPromise = this.requestFactory.productRelationsControllerCreateL2Survey(surveyL2RelationDto, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerCreateL2Survey(rsp)));
+	    	}));
+    }
+	
+    /**
      * @param surveyL3RelationDto 
      */
     public productRelationsControllerCreateL3Survey(surveyL3RelationDto: SurveyL3RelationDto, options?: Configuration): Observable<SurveyL3Relation> {
@@ -289,6 +315,28 @@ export class ObservableProductRelationsApi {
     /**
      * @param relationId 
      */
+    public productRelationsControllerDeleteL2Survey(relationId: number, options?: Configuration): Observable<void> {
+    	const requestContextPromise = this.requestFactory.productRelationsControllerDeleteL2Survey(relationId, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerDeleteL2Survey(rsp)));
+	    	}));
+    }
+	
+    /**
+     * @param relationId 
+     */
     public productRelationsControllerDeleteL3Survey(relationId: number, options?: Configuration): Observable<void> {
     	const requestContextPromise = this.requestFactory.productRelationsControllerDeleteL3Survey(relationId, options);
 
@@ -327,6 +375,28 @@ export class ObservableProductRelationsApi {
 	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
 	    		}
 	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerFindAllL0Survey(rsp)));
+	    	}));
+    }
+	
+    /**
+     * @param snapshotDateTime 
+     */
+    public productRelationsControllerFindAllL2Survey(snapshotDateTime?: string, options?: Configuration): Observable<Array<RelationSummaryDto>> {
+    	const requestContextPromise = this.requestFactory.productRelationsControllerFindAllL2Survey(snapshotDateTime, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerFindAllL2Survey(rsp)));
 	    	}));
     }
 	
@@ -421,6 +491,28 @@ export class ObservableProductRelationsApi {
     /**
      * @param surveyId 
      */
+    public productRelationsControllerFindConditionalL2Survey(surveyId: number, options?: Configuration): Observable<SurveyL2Relation> {
+    	const requestContextPromise = this.requestFactory.productRelationsControllerFindConditionalL2Survey(surveyId, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerFindConditionalL2Survey(rsp)));
+	    	}));
+    }
+	
+    /**
+     * @param surveyId 
+     */
     public productRelationsControllerFindConditionalL3Survey(surveyId: number, options?: Configuration): Observable<SurveyL3Relation> {
     	const requestContextPromise = this.requestFactory.productRelationsControllerFindConditionalL3Survey(surveyId, options);
 
@@ -481,6 +573,28 @@ export class ObservableProductRelationsApi {
 	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
 	    		}
 	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerFindOneL0Survey(rsp)));
+	    	}));
+    }
+	
+    /**
+     * @param relationId 
+     */
+    public productRelationsControllerFindOneL2Survey(relationId: number, options?: Configuration): Observable<SurveyL2Relation> {
+    	const requestContextPromise = this.requestFactory.productRelationsControllerFindOneL2Survey(relationId, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerFindOneL2Survey(rsp)));
 	    	}));
     }
 	
@@ -549,6 +663,29 @@ export class ObservableProductRelationsApi {
 	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
 	    		}
 	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerUpdateL0Survey(rsp)));
+	    	}));
+    }
+	
+    /**
+     * @param relationId 
+     * @param surveyL2RelationDto 
+     */
+    public productRelationsControllerUpdateL2Survey(relationId: number, surveyL2RelationDto: SurveyL2RelationDto, options?: Configuration): Observable<void> {
+    	const requestContextPromise = this.requestFactory.productRelationsControllerUpdateL2Survey(relationId, surveyL2RelationDto, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productRelationsControllerUpdateL2Survey(rsp)));
 	    	}));
     }
 	
@@ -957,6 +1094,139 @@ export class ObservableProductsL0SrcApi {
 	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
 	    		}
 	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productsL0SrcControllerUpdate(rsp)));
+	    	}));
+    }
+	
+
+}
+
+
+
+
+import { ProductsL2SrcApiRequestFactory, ProductsL2SrcApiResponseProcessor} from "../apis/ProductsL2SrcApi";
+export class ObservableProductsL2SrcApi {
+    private requestFactory: ProductsL2SrcApiRequestFactory;
+    private responseProcessor: ProductsL2SrcApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ProductsL2SrcApiRequestFactory,
+        responseProcessor?: ProductsL2SrcApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new ProductsL2SrcApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new ProductsL2SrcApiResponseProcessor();
+    }
+
+    /**
+     * @param productL2SrcDto 
+     */
+    public productsL2SrcControllerCreate(productL2SrcDto: ProductL2SrcDto, options?: Configuration): Observable<ProductL2Src> {
+    	const requestContextPromise = this.requestFactory.productsL2SrcControllerCreate(productL2SrcDto, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productsL2SrcControllerCreate(rsp)));
+	    	}));
+    }
+	
+    /**
+     * @param productId 
+     */
+    public productsL2SrcControllerDelete(productId: number, options?: Configuration): Observable<void> {
+    	const requestContextPromise = this.requestFactory.productsL2SrcControllerDelete(productId, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productsL2SrcControllerDelete(rsp)));
+	    	}));
+    }
+	
+    /**
+     * @param snapshotDateTime 
+     */
+    public productsL2SrcControllerFindAll(snapshotDateTime?: string, options?: Configuration): Observable<Array<ProductL2Src>> {
+    	const requestContextPromise = this.requestFactory.productsL2SrcControllerFindAll(snapshotDateTime, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productsL2SrcControllerFindAll(rsp)));
+	    	}));
+    }
+	
+    /**
+     * @param productId 
+     */
+    public productsL2SrcControllerFindOne(productId: number, options?: Configuration): Observable<ProductL2Src> {
+    	const requestContextPromise = this.requestFactory.productsL2SrcControllerFindOne(productId, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productsL2SrcControllerFindOne(rsp)));
+	    	}));
+    }
+	
+    /**
+     * @param productId 
+     * @param productL2SrcDto 
+     */
+    public productsL2SrcControllerUpdate(productId: number, productL2SrcDto: ProductL2SrcDto, options?: Configuration): Observable<void> {
+    	const requestContextPromise = this.requestFactory.productsL2SrcControllerUpdate(productId, productL2SrcDto, options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productsL2SrcControllerUpdate(rsp)));
 	    	}));
     }
 	

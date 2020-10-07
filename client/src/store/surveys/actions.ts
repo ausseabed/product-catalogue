@@ -2,8 +2,8 @@
 import { ActionTree } from 'vuex'
 import { StoreInterface } from '../index'
 import { SurveyStateInterface } from './state'
-import { ObservableSurveysApi, ObservableProductRelationsApi, ObservableProductsL3SrcApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
-import { SurveyDto, Survey, ProductL3SrcDto, SurveyL3RelationDto } from '@ausseabed/product-catalogue-rest-client'
+import { ObservableSurveysApi, ObservableProductRelationsApi, ObservableProductsL3SrcApi, ObservableProductsL2SrcApi } from '@ausseabed/product-catalogue-rest-client/types/ObservableAPI'
+import { SurveyDto, Survey, ProductL3SrcDto, SurveyL3RelationDto, ProductL2SrcDto, SurveyL2RelationDto } from '@ausseabed/product-catalogue-rest-client'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Configuration } from '@ausseabed/product-catalogue-rest-client/configuration'
@@ -30,7 +30,13 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
     const productRelationshipSrcApi = new ObservableProductRelationsApi(configuration)
 
     productRelationshipSrcApi.productRelationsControllerFindAllL3Survey().toPromise().then((relations) =>
-      commit('relationsLoaded', relations))
+      commit('relationsLoadedL3', relations))
+      .catch(reason => {
+        commit('errorMessage', reason)
+      })
+
+    productRelationshipSrcApi.productRelationsControllerFindAllL2Survey().toPromise().then((relations) =>
+      commit('relationsLoadedL2', relations))
       .catch(reason => {
         commit('errorMessage', reason)
       })
@@ -92,7 +98,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
         commit('errorMessage', reason)
       })
   },
-  async createProduct ({ rootGetters, dispatch }, surveyId: number): Promise<number> {
+  async createProductL3 ({ rootGetters, dispatch }, surveyId: number): Promise<number> {
     const dto: ProductL3SrcDto = {
       metadataPersistentId: '',
       name: '',
@@ -118,12 +124,49 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
     console.log(surveyL3Relation)
     return surveyL3Relation.id
   },
+  async createProductL2 ({ rootGetters, dispatch }, surveyId: number): Promise<number> {
+    const dto: ProductL2SrcDto = {
+      metadataPersistentId: '',
+      name: '',
+      productGsfLocation: '',
+      productPosmvLocation: '',
+      srs: '',
+      verticalDatum: 'Unknown',
+      uuid: uuidv4().toString()
+    }
+    await dispatch('auth/getLoginToken', {}, { root: true })
+    const configuration = rootGetters['auth/configuration'] as Configuration
+    const productsL2SrcApi = new ObservableProductsL2SrcApi(configuration)
+    const productRelationshipSrcApi = new ObservableProductRelationsApi(configuration)
+
+    const l2Product = await productsL2SrcApi.productsL2SrcControllerCreate(dto).toPromise()
+
+    const relationDto: SurveyL2RelationDto = {
+      survey: surveyId,
+      productL2Src: l2Product.id
+    }
+    const surveyL2Relation = await productRelationshipSrcApi.productRelationsControllerCreateL2Survey(relationDto).toPromise()
+    console.log(surveyL2Relation)
+    return surveyL2Relation.id
+  },
   async deleteProduct ({ commit, rootGetters, dispatch }, productId: number) {
     await dispatch('auth/getLoginToken', {}, { root: true })
     const configuration = rootGetters['auth/configuration'] as Configuration
     const productsL3SrcApi = new ObservableProductsL3SrcApi(configuration)
     productsL3SrcApi.productsL3SrcControllerDelete(productId).toPromise().then(() => {
-      commit('removeProduct', productId)
+      commit('removeProductL3', productId)
+    }, reason => {
+      commit('errorMessage', reason)
+    }).catch(reason => {
+      commit('errorMessage', reason)
+    })
+  },
+  async deleteProductL2 ({ commit, rootGetters, dispatch }, productId: number) {
+    await dispatch('auth/getLoginToken', {}, { root: true })
+    const configuration = rootGetters['auth/configuration'] as Configuration
+    const productsL2SrcApi = new ObservableProductsL2SrcApi(configuration)
+    productsL2SrcApi.productsL2SrcControllerDelete(productId).toPromise().then(() => {
+      commit('removeProductL2', productId)
     }, reason => {
       commit('errorMessage', reason)
     }).catch(reason => {
