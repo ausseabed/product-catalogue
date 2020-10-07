@@ -66,14 +66,14 @@ export class ProductRelationsService {
   }
 
   create<T, ProductDtoType> (productType: new () => T, createProductDto: ProductDtoType) {
-    let product = productType;
-    let productEntry = plainToClass(product, createProductDto);
+    const product = productType;
+    const productEntry = plainToClass(product, createProductDto);
     return this.productsEntityManager.save<T>(productEntry);
   }
 
   async update<T, ProductDtoType> (productType: new () => T, id: number, updateProductDto: ProductDtoType): Promise<void> {
-    let product = await this.findOne(productType, id);
-    let productEntry = plainToClassFromExist(product, updateProductDto);
+    const product = await this.findOne(productType, id);
+    const productEntry = plainToClassFromExist(product, updateProductDto);
     await this.productsEntityManager.save<T>(productEntry);
   }
 

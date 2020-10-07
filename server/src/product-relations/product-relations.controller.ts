@@ -1,14 +1,17 @@
 import { Controller, Param, Req, Get, ParseIntPipe, Post, Body, Put, Delete, Logger, Query } from '@nestjs/common';
 import { ProductRelationsService } from './product-relations.service';
-import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiResponseProperty, ApiResponse, ApiRequestTimeoutResponse, ApiUnauthorizedResponse, ApiQuery } from '@nestjs/swagger';
+import { ApiTags, ApiBadRequestResponse, ApiBearerAuth, ApiResponse, ApiRequestTimeoutResponse, ApiUnauthorizedResponse, ApiQuery } from '@nestjs/swagger';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { CompilationL3Relation } from './compilation-l3-relation.entity';
+import { SurveyL2Relation } from './survey-l2-relation.entity';
 import { SurveyL3Relation } from './survey-l3-relation.entity';
 import { CompilationL3RelationDto } from './dto/compilation-l3-relation.dto';
+import { SurveyL2RelationDto } from './dto/survey-l2-relation.dto';
 import { SurveyL3RelationDto } from './dto/survey-l3-relation.dto';
 import { Request } from 'express';
 import { SurveyL0Relation } from './survey-l0-relation.entity';
 import { SurveyL0RelationDto } from './dto/survey-l0-relation.dto';
+import { ProductL2Src } from 'src/products/product-l2-src.entity';
 import { ProductL3Src } from 'src/products/product-l3-src.entity';
 import { Survey } from 'src/surveys/survey.entity';
 import { ProductL0Src } from 'src/products/product-l0-src.entity';
@@ -17,7 +20,9 @@ import { RelationSummaryDto } from './dto/relation-summary.dto';
 import { ErrorDto } from 'src/errors/errors.dto';
 import { CompilationL3RelationHistoryView } from './compilation-l3-relation-history-view.entity';
 import { CompilationHistoryView } from 'src/compilations/compilation-history-view.entity';
+import { ProductL2SrcHistoryView } from 'src/products/product-l2-src-history-view.entity';
 import { ProductL3SrcHistoryView } from 'src/products/product-l3-src-history-view.entity';
+import { SurveyL2RelationHistoryView } from './survey-l2-relation-history-view.entity';
 import { SurveyL3RelationHistoryView } from './survey-l3-relation-history-view.entity';
 import { SurveyHistoryView } from 'src/surveys/survey-history-view.entity';
 import { SurveyL0RelationHistoryView } from './survey-l0-relation-history-view.entity';
@@ -128,6 +133,54 @@ export class ProductRelationsController {
   @ApiBadRequestResponse({ description: 'Could not find the compilation' })
   deleteL3Survey (@Param('relationId', new ParseIntPipe()) relationId: number): Promise<void> {
     return this.productRelationsService.delete<SurveyL3Relation>(SurveyL3Relation, relationId);
+  }
+  /* SURVEY -> L2 */
+  @Get('surveys-to-l2')
+  @ApiQuery({
+    name: 'snapshotDateTime',
+    required: false,
+    type: Date
+  })
+  @ApiResponse({ status: 200, type: [RelationSummaryDto] })
+  async findAllL2Survey (@Req() request: Request, @Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<RelationSummaryDto[]> {
+    if (snapshotDateTime) {
+      return this.productRelationsService.findAllProduct<SurveyL2RelationHistoryView, SurveyHistoryView, ProductL2SrcHistoryView>(
+        SurveyL2RelationHistoryView, SurveyHistoryView, ProductL2SrcHistoryView, "productL2SrcId", snapshotDateTime);
+    }
+    else
+    {
+      return this.productRelationsService.findAllProduct<SurveyL2Relation, Survey, ProductL2Src>(
+        SurveyL2Relation, Survey, ProductL2Src, "productL2SrcId", snapshotDateTime);
+    }
+  }
+
+  @ApiBadRequestResponse({ description: 'Could not find the survey' })
+  @Get('surveys-to-l2/survey/:surveyId')
+  async findConditionalL2Survey (@Req() request: Request, @Param('surveyId', new ParseIntPipe()) surveyId: number): Promise<SurveyL2Relation> {
+    return this.productRelationsService.findConditional<SurveyL2Relation>(SurveyL2Relation, { survey: { id: surveyId } });
+  }
+
+  @ApiBadRequestResponse({ description: 'Could not find the survey' })
+  @Get('surveys-to-l2/:relationId')
+  async findOneL2Survey (@Req() request: Request, @Param('relationId', new ParseIntPipe()) relationId: number): Promise<SurveyL2Relation> {
+    return this.productRelationsService.findOne<SurveyL2Relation>(SurveyL2Relation, relationId);
+  }
+
+  @Post('surveys-to-l2')
+  createL2Survey (@Body(new ClassValidationPipe()) survey: SurveyL2RelationDto) {
+    return this.productRelationsService.create<SurveyL2Relation, SurveyL2RelationDto>(SurveyL2Relation, survey);
+  }
+
+  @Put('surveys-to-l2/:relationId')
+  @ApiBadRequestResponse({ description: 'Could not find the survey' })
+  updateL2Survey (@Param('relationId', new ParseIntPipe()) relationId: number, @Body(new ClassValidationPipe()) updateCompilationDto: SurveyL2RelationDto) {
+    return this.productRelationsService.update<SurveyL2Relation, SurveyL2RelationDto>(SurveyL2Relation, relationId, updateCompilationDto);
+  }
+
+  @Delete('surveys-to-l2/:relationId')
+  @ApiBadRequestResponse({ description: 'Could not find the compilation' })
+  deleteL2Survey (@Param('relationId', new ParseIntPipe()) relationId: number): Promise<void> {
+    return this.productRelationsService.delete<SurveyL2Relation>(SurveyL2Relation, relationId);
   }
 
   /* SURVEY -> L0 */
