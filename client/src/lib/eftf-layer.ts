@@ -35,6 +35,9 @@ export class EftfLayer {
   private geoserverWMS: string
   private geoserverWCS: string
 
+  // Should we use Layer Groups or should we use a comma separated list of layers
+  useLayerGroups = true
+
   async getPublishedL3SurveyProducts (snapshotDateTime: string | undefined): Promise<ProductL3Dist[]> {
     const productsL3DistApi = new ObservableProductsL3DistApi(this.configuration)
     return productsL3DistApi.productsL3DistControllerFindAll(undefined, snapshotDateTime).toPromise()
@@ -194,8 +197,11 @@ export class EftfLayer {
             } else {
               eftfBase.NAME = nameFormatted
             }
-            // eftfBase['WMS LAYER NAMES'] = namespace + PortalNaming.getNcName(nameFormatted)
-            eftfBase['WMS LAYER NAMES'] = wmsLayerNamesByType.join(',')
+            if (this.useLayerGroups) {
+              eftfBase['WMS LAYER NAMES'] = namespace + PortalNaming.getNcName(nameFormatted)
+            } else {
+              eftfBase['WMS LAYER NAMES'] = wmsLayerNamesByType.join(',')
+            }
             eftfBase['WCS LAYER NAMES'] = wcsLayerNames.join(',')
 
             // replace with bboxes extent
