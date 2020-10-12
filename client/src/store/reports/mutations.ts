@@ -15,6 +15,7 @@ const mutation: MutationTree<ReportsStateInterface> = {
   clearAssign (state: ReportsStateInterface) {
     if (!state.fileExists) return
     state.fileExists.srcTifLocation.length = 0
+    state.fileExists.productBagLocation.length = 0
     state.fileExists.bathymetryLocation.length = 0
     state.fileExists.hillshadeLocation.length = 0
     state.fileExists.l3CoverageLocation.length = 0
@@ -31,10 +32,14 @@ const mutation: MutationTree<ReportsStateInterface> = {
       state.fileExists.l3CoverageLocation.push({ product: payload.product, exists: payload.exists })
     }
   },
-  assignSrcExists (state: ReportsStateInterface, payload: { product: ProductL3Src; exists: boolean; }) {
+  assignSrcExists (state: ReportsStateInterface, payload: { key: string; product: ProductL3Src; exists: boolean; }) {
     if (!state.fileExists) return
 
-    state.fileExists.srcTifLocation.push({ product: payload.product, exists: payload.exists })
+    if (payload.key === 'srcTifLocation') {
+      state.fileExists.srcTifLocation.push({ product: payload.product, exists: payload.exists })
+    } else if (payload.key === 'productBagLocation') {
+      state.fileExists.productBagLocation.push({ product: payload.product, exists: payload.exists })
+    }
   },
   assignArea (state: ReportsStateInterface, payload: {productL3Dist: ProductL3Dist; areaKm2: number; lastModified: Date}) {
     state.polygonArea.push({ productL3Dist: payload.productL3Dist, area: payload.areaKm2, lastModified: payload.lastModified })

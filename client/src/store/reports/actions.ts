@@ -49,9 +49,9 @@ const actions: ActionTree<ReportsStateInterface, StoreInterface> = {
           const uri = S3Util.getBucketFromS3Uri(productL3Src.productTifLocation)
           if (uri) {
             const exists = await S3Util.objectExists(uri, undefined, true)
-            commit('assignSrcExists', { product: productL3Src, exists: exists })
+            commit('assignSrcExists', { key: 'srcTifLocation', product: productL3Src, exists: exists })
           } else {
-            commit('assignSrcExists', { product: productL3Src, exists: false })
+            commit('assignSrcExists', { key: 'srcTifLocation', product: productL3Src, exists: false })
           }
         })),
       Promise.all(

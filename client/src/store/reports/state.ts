@@ -6,6 +6,7 @@ export interface ReportsStateInterface {
   surveys: [Survey] | undefined;
   fileExists: undefined | {
     srcTifLocation:{ product: ProductL3Src; exists: boolean}[];
+    productBagLocation:{ product: ProductL3Src; exists: boolean}[];
     bathymetryLocation:{ product: ProductL3Dist; exists: boolean}[];
     hillshadeLocation:{ product: ProductL3Dist; exists: boolean}[];
     l3CoverageLocation:{ product: ProductL3Dist; exists: boolean}[];
@@ -20,7 +21,7 @@ export interface ReportsStateInterface {
 const state: ReportsStateInterface = {
   productL3Dists: undefined,
   surveys: undefined,
-  fileExists: { srcTifLocation: [], bathymetryLocation: [], hillshadeLocation: [], l3CoverageLocation: [] },
+  fileExists: { srcTifLocation: [], productBagLocation: [], bathymetryLocation: [], hillshadeLocation: [], l3CoverageLocation: [] },
   productL3Srcs: undefined,
   polygonArea: []
 }

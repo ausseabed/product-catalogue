@@ -26,7 +26,7 @@
       <div
         class="text-h6 q-ml-md"
         style="text-align: center"
-      >Edit level 3 product associated with '{{surveyL2Relation.surveyL2RelationSelected.survey.name}}'</div>
+      >Edit level 2 product associated with '{{surveyL2Relation.surveyL2RelationSelected.survey.name}}'</div>
       <q-form ref="myForm">
         <div class="row items-center justify-end">
           <div class="q-ml-md col col-md-auto">
