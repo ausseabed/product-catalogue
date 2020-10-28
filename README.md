@@ -37,6 +37,7 @@ For details see the [Product Catalogue (server)](server/README.md). The Product 
 The Product Catalogue Server generates an OpenAPI interface document. Using openapi-generator we generate library bindings for:
 * TypeScript: rest-client library
 * Python: py-rest-client library
+* Bash
 
 ## Data Model
 The intended datamodel is shown below. A Survey/Compilation may comprise one or more Level 3 products. These products must refer to a metadata persistent identifier and a resolvable s3 location for the product GeoTiff. The distributable for each product then contains resolvable locations of processed Cloud Optimised Geotiffs. A Compilation is composed of multiple surveys, but this relation is not represented in the data model (references should be described in the associated metadata). A Survey may also comprise one or more references to Level 0 products. The level 0 product may be composed of a distributable, and that may also be composed of a number of instrument files.
