@@ -3,7 +3,7 @@ import { SurveyL2RelationStateInterface } from './state'
 import { SurveyL2Relation, ProductL2Src } from '@ausseabed/product-catalogue-rest-client'
 import { v4 as uuidv4 } from 'uuid'
 
-export type UpdateProductKnownTypes = 'metadataPersistentId' | 'name' | 'productGsfLocation' | 'productPosmvLocation' | 'srs' | 'uuid'
+export type UpdateProductKnownTypes = 'metadataPersistentId' | 'name' | 'productGsfLocation' | 'productPosmvLocation' | 'vesselFileLocation' | 'srs' | 'uuid'
 
 const mutation: MutationTree<SurveyL2RelationStateInterface> = {
   assignSurveyL2Relation (state: SurveyL2RelationStateInterface, surveyRelation: SurveyL2Relation) {
