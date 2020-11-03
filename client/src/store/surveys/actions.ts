@@ -130,6 +130,7 @@ const actions: ActionTree<SurveyStateInterface, StoreInterface> = {
       name: '',
       productGsfLocation: '',
       productPosmvLocation: '',
+      vesselFileLocation: '',
       srs: '',
       verticalDatum: 'Unknown',
       uuid: uuidv4().toString()
