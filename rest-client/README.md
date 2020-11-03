@@ -1,4 +1,4 @@
-## @ausseabed/product-catalogue-rest-client@0.2.1
+## @ausseabed/product-catalogue-rest-client@0.2.2
 
 This generator creates TypeScript/JavaScript client that utilizes fetch-api. 
 
@@ -21,7 +21,7 @@ navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install @ausseabed/product-catalogue-rest-client@0.2.1 --save
+npm install @ausseabed/product-catalogue-rest-client@0.2.2 --save
 ```
 
 _unPublished (not recommended):_

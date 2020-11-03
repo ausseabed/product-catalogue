@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **srs** | **str** |  | 
 **uuid** | **str** |  | 
 **vertical_datum** | **str** |  | 
+**vessel_file_location** | **str** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
