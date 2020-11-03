@@ -12,6 +12,12 @@ export class ProductL2SrcDto extends ProductDto {
  
   @IsString()
   @ApiProperty({
+    description: 'Location of vessel file input'
+  })
+  vesselFileLocation: string;
+
+  @IsString()
+  @ApiProperty({
     description: 'Folder location for posmv 000 inputs'
   })
   productPosmvLocation: string;

@@ -24,6 +24,9 @@ export class ProductL2SrcHistoryView {
   @ViewColumn( { name: "productGsfLocation" })
   productGsfLocation: string;
 
+  @ViewColumn( { name: "vesselFileLocation" })
+  vesselFileLocation: string;
+
   @ViewColumn( { name: "productPosmvLocation" })
   productPosmvLocation: string;
 
