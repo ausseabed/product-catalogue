@@ -345,6 +345,9 @@
                             "LWD"
                         ],
                         "type": "string"
+                    },
+                    "vesselFileLocation": {
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -355,6 +358,7 @@
                     "verticalDatum",
                     "metadataPersistentId",
                     "productGsfLocation",
+                    "vesselFileLocation",
                     "productPosmvLocation"
                 ],
                 "type": "object"
@@ -413,6 +417,10 @@
                             "LWD"
                         ],
                         "type": "string"
+                    },
+                    "vesselFileLocation": {
+                        "description": "Location of vessel file input",
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -421,6 +429,7 @@
                     "srs",
                     "metadataPersistentId",
                     "productGsfLocation",
+                    "vesselFileLocation",
                     "productPosmvLocation",
                     "verticalDatum"
                 ],
@@ -825,7 +834,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "title": "AusSeabed product catalogue",
-        "version": "0.2.1"
+        "version": "0.2.2"
     },
     "openapi": "3.0.0",
     "paths": {

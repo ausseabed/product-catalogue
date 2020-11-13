@@ -76,6 +76,15 @@ export class ProductL2Src implements Product {
   productGsfLocation: string;
 
   /**
+   * Location of vessel file input
+   *
+   * @type {string}
+   * @memberof ProductL2Src
+   */
+  @Column()
+  vesselFileLocation: string;
+
+  /**
    * Folder location for posmv 000 inputs
    *
    * @type {string}

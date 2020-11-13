@@ -95,9 +95,7 @@
             hint="s3 uri"
             :value="surveyL2Relation.surveyL2RelationSelected.productL2Src.productGsfLocation"
             @input="value=>updateProduct( {element:'productGsfLocation',value: value})"
-            label="L2 Product GSF Location"
-            :rules="[isS3Url]"
-            lazy-rules
+            label="Folder location for L2 Product GSFs"
           />
           <q-input
             v-if="productGsfLocationUrlType==='https'"
@@ -106,9 +104,7 @@
             hint="https url"
             :value="s3ToHttps(surveyL2Relation.surveyL2RelationSelected.productL2Src.productGsfLocation)"
             @input="value=>updateProduct( {element:'productGsfLocation',value: httpsToS3(value)})"
-            label="L2 Product GSF Location"
-            :rules="[ val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.' ]"
-            lazy-rules
+            label="Folder location for L2 Product GSFs"
           />
           <q-btn-toggle
             v-model="productGsfLocationUrlType"
@@ -121,6 +117,32 @@
           {label: 's3', value: 's3'},
           {label: 'https', value: 'https'}
         ]"
+          />
+        </div>
+
+        <div class="row items-center">
+
+          <q-input
+            v-if="productGsfLocationUrlType==='s3'"
+            class="q-ma-md col col-grow"
+            type="url"
+            hint="s3 uri"
+            :value="surveyL2Relation.surveyL2RelationSelected.productL2Src.vesselFileLocation"
+            @input="value=>updateProduct( {element:'vesselFileLocation',value: value})"
+            :rules="[isS3Url]"
+            lazy-rules
+            label="Location of vessel file configuration (.hvf)"
+          />
+          <q-input
+            v-if="productGsfLocationUrlType==='https'"
+            class="q-ma-md col col-grow"
+            type="url"
+            hint="https url"
+            :value="s3ToHttps(surveyL2Relation.surveyL2RelationSelected.productL2Src.vesselFileLocation)"
+            :rules="[ val => (val.length === 0 || isValidUrl(val)) || 'Must be a valid url.' ]"
+            lazy-rules
+            @input="value=>updateProduct( {element:'vesselFileLocation',value: httpsToS3(value)})"
+            label="Location of vessel file configuration (.hvf)"
           />
         </div>
 

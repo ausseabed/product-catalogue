@@ -118,9 +118,22 @@ export class EftfLayer {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async generateLayerDefinitions (snapshotDateTime: string | undefined, eftfStructureHeaders: any): Promise<any[]> {
-    const productL3DistArray = await this.getPublishedL3SurveyProducts(snapshotDateTime)
-    const productL3RelationsArray = await this.getSurveyL3Relations(snapshotDateTime)
+    const productL3DistArrayWithNonEllipsoid = await this.getPublishedL3SurveyProducts(snapshotDateTime)
+    const productL3RelationsArrayNonEllipsoid = await this.getSurveyL3Relations(snapshotDateTime)
     const surveysArray = await this.getSurveys(snapshotDateTime)
+
+    // Remove non-ellipsoid products once an ellipsoid product becomes available
+    // That is: for a survey, if there is a single ellipsoid (WGS84) product, then
+    // there should be no reference on the portal to products that are Mean Sea Level
+    const ellipsoidProducts = productL3DistArrayWithNonEllipsoid.filter(i => i.sourceProduct.verticalDatum === 'WGS84').map(i => i.sourceProduct.id)
+    const ellipsoidSurveyIds = productL3RelationsArrayNonEllipsoid.filter(relation => ellipsoidProducts.includes(relation.productId as number)).map(i => i.surveyId as number)
+    const ellipsoidProductRelations = productL3RelationsArrayNonEllipsoid.filter(relation => ellipsoidSurveyIds.includes(relation.surveyId)).map(i => i.productId as number)
+    const nonEllipsoidProducts = productL3DistArrayWithNonEllipsoid.filter(
+      i => i.sourceProduct.verticalDatum !== 'WGS84' && ellipsoidProductRelations.includes(i.sourceProduct.id)).map(i => i.id)
+    const productL3DistArray = productL3DistArrayWithNonEllipsoid.filter(i => !nonEllipsoidProducts.includes(i.id))
+    const productL3RelationsArray = productL3RelationsArrayNonEllipsoid.filter(i => !nonEllipsoidProducts.includes(i.productId))
+    // End remove
+
     const productIdToProductSrc = new Map<number, ProductL3Src>(productL3DistArray.map(i => [i.sourceProduct.id, i.sourceProduct]))
     const productIdToProductDist = new Map<number, ProductL3Dist>(productL3DistArray.map(i => [i.sourceProduct.id, i]))
 
