@@ -15,7 +15,7 @@
   - [How To Deploy to Production](#how-to-deploy-to-production)
 
 # Introduction
-The product catalogue tracks bathymetry artefacts of AusSeabed initiative (see [ausseabed](http://ausseabed.gov.au/)). In particular, it records the names and locations of the artefacts and their associated metadata. The system is designed for internal use at Geoscience Australia. The related warehouse facilities (see [warehouse-ogc-webservices](https://github.com/ausseabed/warehouse-ogc-webservices) on github) build interfaces for distributing these products. The product catalogue provides a web app for entering new records, and export to tools such as eCat and the eftf portal. 
+The product catalogue tracks bathymetry artefacts of AusSeabed initiative (see [ausseabed](http://ausseabed.gov.au/)). In particular, it records the names and locations of the artefacts and their associated metadata. The system is designed for internal use at Geoscience Australia. The related warehouse facilities (see [warehouse-ogc-webservices](https://github.com/ausseabed/warehouse-ogc-webservices) on github) build interfaces for distributing these products. The product catalogue provides a web app for entering new records, and export to tools such as eCat and the AusSeabed Marine Data portal. 
 
 # Architecture
 
