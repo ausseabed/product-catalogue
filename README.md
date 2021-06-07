@@ -80,6 +80,8 @@ git checkout master
 git pull
 git tag prod/publish/0.0.12
 git push origin prod/publish/0.0.12
+git push origin prod/deploy/0.0.12
+
 ```
 then update ausseabed-aws-foundation/pcat-app-deployment/terragrunt.hcl in pcat-app-deployment 
 (git clone git@github.com:ausseabed/ausseabed-aws-foundation.git; cd pcat-app-deployment/terragrunt.hcl)
