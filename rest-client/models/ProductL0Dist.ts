@@ -16,9 +16,9 @@ import { HttpFile } from '../http/http';
 
 export class ProductL0Dist {
     'id': number;
-    'l0CoverageLocation': string;
-    'l0InstrumentFiles': Array<ProductL0InstrumentFile>;
     'sourceProduct': ProductL0Src;
+    'l0InstrumentFiles': Array<ProductL0InstrumentFile>;
+    'l0CoverageLocation': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -30,9 +30,9 @@ export class ProductL0Dist {
             "format": ""
         },
         {
-            "name": "l0CoverageLocation",
-            "baseName": "l0CoverageLocation",
-            "type": "string",
+            "name": "sourceProduct",
+            "baseName": "sourceProduct",
+            "type": "ProductL0Src",
             "format": ""
         },
         {
@@ -42,9 +42,9 @@ export class ProductL0Dist {
             "format": ""
         },
         {
-            "name": "sourceProduct",
-            "baseName": "sourceProduct",
-            "type": "ProductL0Src",
+            "name": "l0CoverageLocation",
+            "baseName": "l0CoverageLocation",
+            "type": "string",
             "format": ""
         }    ];
 

@@ -15,23 +15,23 @@ import { ProductL3Src } from './ProductL3Src';
 import { HttpFile } from '../http/http';
 
 export class CompilationL3Relation {
-    'compilation': Compilation;
     'id': number;
+    'compilation': Compilation;
     'productL3Src': ProductL3Src;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "compilation",
-            "baseName": "compilation",
-            "type": "Compilation",
-            "format": ""
-        },
-        {
             "name": "id",
             "baseName": "id",
             "type": "number",
+            "format": ""
+        },
+        {
+            "name": "compilation",
+            "baseName": "compilation",
+            "type": "Compilation",
             "format": ""
         },
         {

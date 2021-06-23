@@ -16,8 +16,8 @@ import { HttpFile } from '../http/http';
 
 export class SurveyL3Relation {
     'id': number;
-    'productL3Src': ProductL3Src;
     'survey': Survey;
+    'productL3Src': ProductL3Src;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -29,15 +29,15 @@ export class SurveyL3Relation {
             "format": ""
         },
         {
-            "name": "productL3Src",
-            "baseName": "productL3Src",
-            "type": "ProductL3Src",
-            "format": ""
-        },
-        {
             "name": "survey",
             "baseName": "survey",
             "type": "Survey",
+            "format": ""
+        },
+        {
+            "name": "productL3Src",
+            "baseName": "productL3Src",
+            "type": "ProductL3Src",
             "format": ""
         }    ];
 

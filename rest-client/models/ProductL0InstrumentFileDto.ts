@@ -14,26 +14,26 @@ import { HttpFile } from '../http/http';
 
 export class ProductL0InstrumentFileDto {
     /**
-    * Location of shapefile describing instrument file extent
-    */
-    'coverageFile': string;
-    /**
     * Location of instrument file
     */
     'instrumentFile': string;
+    /**
+    * Location of shapefile describing instrument file extent
+    */
+    'coverageFile': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "coverageFile",
-            "baseName": "coverageFile",
+            "name": "instrumentFile",
+            "baseName": "instrumentFile",
             "type": "string",
             "format": ""
         },
         {
-            "name": "instrumentFile",
-            "baseName": "instrumentFile",
+            "name": "coverageFile",
+            "baseName": "coverageFile",
             "type": "string",
             "format": ""
         }    ];

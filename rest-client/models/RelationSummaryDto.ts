@@ -14,14 +14,6 @@ import { HttpFile } from '../http/http';
 
 export class RelationSummaryDto {
     /**
-    * Identifier of the products
-    */
-    'productId': any;
-    /**
-    * The name of the product
-    */
-    'productName': any;
-    /**
     * Identifier of the relation between the products
     */
     'relationId': any;
@@ -29,22 +21,18 @@ export class RelationSummaryDto {
     * Identifier of the survey/compilation that contains the products
     */
     'surveyId': any;
+    /**
+    * Identifier of the products
+    */
+    'productId': any;
+    /**
+    * The name of the product
+    */
+    'productName': any;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "productId",
-            "baseName": "product_id",
-            "type": "any",
-            "format": ""
-        },
-        {
-            "name": "productName",
-            "baseName": "product_name",
-            "type": "any",
-            "format": ""
-        },
         {
             "name": "relationId",
             "baseName": "relation_id",
@@ -54,6 +42,18 @@ export class RelationSummaryDto {
         {
             "name": "surveyId",
             "baseName": "survey_id",
+            "type": "any",
+            "format": ""
+        },
+        {
+            "name": "productId",
+            "baseName": "product_id",
+            "type": "any",
+            "format": ""
+        },
+        {
+            "name": "productName",
+            "baseName": "product_name",
             "type": "any",
             "format": ""
         }    ];

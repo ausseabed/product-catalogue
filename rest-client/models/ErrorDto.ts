@@ -14,25 +14,25 @@ import { HttpFile } from '../http/http';
 
 export class ErrorDto {
     /**
-    * Error string
+    * HTTP status code
     */
-    'error'?: string;
+    'statusCode': number;
     /**
     * Message
     */
     'message'?: string;
     /**
-    * HTTP status code
+    * Error string
     */
-    'statusCode': number;
+    'error'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "error",
-            "baseName": "error",
-            "type": "string",
+            "name": "statusCode",
+            "baseName": "statusCode",
+            "type": "number",
             "format": ""
         },
         {
@@ -42,9 +42,9 @@ export class ErrorDto {
             "format": ""
         },
         {
-            "name": "statusCode",
-            "baseName": "statusCode",
-            "type": "number",
+            "name": "error",
+            "baseName": "error",
+            "type": "string",
             "format": ""
         }    ];
 

@@ -14,44 +14,44 @@ import { HttpFile } from '../http/http';
 
 export class ProductL2SrcDto {
     /**
-    * Persistent Id of final product
+    * Unique identifier for reference purposes
     */
-    'metadataPersistentId': string;
+    'uuid': string;
     /**
     * Name of product for display purposes - from gazeteer
     */
     'name': string;
     /**
+    * Spatial Reference of product
+    */
+    'srs': string;
+    /**
+    * Persistent Id of final product
+    */
+    'metadataPersistentId': string;
+    /**
     * Location of gsf input product
     */
     'productGsfLocation': string;
+    /**
+    * Location of vessel file input
+    */
+    'vesselFileLocation': string;
     /**
     * Folder location for posmv 000 inputs
     */
     'productPosmvLocation': string;
     /**
-    * Spatial Reference of product
-    */
-    'srs': string;
-    /**
-    * Unique identifier for reference purposes
-    */
-    'uuid': string;
-    /**
     * Vertical datum of bathymetry * `LAT` - Lowest Astronomical Tide * `AHD` - Australian Height Datum * `LMSL` - LMSL - Local Mean Sea Level (or just Mean Sea Level) * `WGS84` - WGS84 'Ellipsoid'
     */
     'verticalDatum': ProductL2SrcDtoVerticalDatumEnum;
-    /**
-    * Location of vessel file input
-    */
-    'vesselFileLocation': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "metadataPersistentId",
-            "baseName": "metadataPersistentId",
+            "name": "uuid",
+            "baseName": "uuid",
             "type": "string",
             "format": ""
         },
@@ -62,8 +62,26 @@ export class ProductL2SrcDto {
             "format": ""
         },
         {
+            "name": "srs",
+            "baseName": "srs",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "metadataPersistentId",
+            "baseName": "metadataPersistentId",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "productGsfLocation",
             "baseName": "productGsfLocation",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "vesselFileLocation",
+            "baseName": "vesselFileLocation",
             "type": "string",
             "format": ""
         },
@@ -74,27 +92,9 @@ export class ProductL2SrcDto {
             "format": ""
         },
         {
-            "name": "srs",
-            "baseName": "srs",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "uuid",
-            "baseName": "uuid",
-            "type": "string",
-            "format": ""
-        },
-        {
             "name": "verticalDatum",
             "baseName": "verticalDatum",
             "type": "ProductL2SrcDtoVerticalDatumEnum",
-            "format": ""
-        },
-        {
-            "name": "vesselFileLocation",
-            "baseName": "vesselFileLocation",
-            "type": "string",
             "format": ""
         }    ];
 

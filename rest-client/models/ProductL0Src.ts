@@ -18,11 +18,11 @@ export class ProductL0Src {
     * Location of instrument files
     */
     'l0InstrumentLocation': string;
-    'metadataPersistentId': string;
+    'uuid': string;
     'name': string;
     'srs': string;
-    'uuid': string;
     'verticalDatum': ProductL0SrcVerticalDatumEnum;
+    'metadataPersistentId': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -40,8 +40,8 @@ export class ProductL0Src {
             "format": ""
         },
         {
-            "name": "metadataPersistentId",
-            "baseName": "metadataPersistentId",
+            "name": "uuid",
+            "baseName": "uuid",
             "type": "string",
             "format": ""
         },
@@ -58,15 +58,15 @@ export class ProductL0Src {
             "format": ""
         },
         {
-            "name": "uuid",
-            "baseName": "uuid",
-            "type": "string",
-            "format": ""
-        },
-        {
             "name": "verticalDatum",
             "baseName": "verticalDatum",
             "type": "ProductL0SrcVerticalDatumEnum",
+            "format": ""
+        },
+        {
+            "name": "metadataPersistentId",
+            "baseName": "metadataPersistentId",
+            "type": "string",
             "format": ""
         }    ];
 

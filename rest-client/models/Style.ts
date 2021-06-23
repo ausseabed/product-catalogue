@@ -12,11 +12,11 @@
 
 import { HttpFile } from '../http/http';
 
-export class Survey {
-    'id': number;
-    'uuid': string;
+export class Style {
+    'id': string;
     'name': string;
-    'year': string;
+    'description': string;
+    'geoserverStyleName': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -24,12 +24,6 @@ export class Survey {
         {
             "name": "id",
             "baseName": "id",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "uuid",
-            "baseName": "uuid",
             "type": "string",
             "format": ""
         },
@@ -40,14 +34,20 @@ export class Survey {
             "format": ""
         },
         {
-            "name": "year",
-            "baseName": "year",
+            "name": "description",
+            "baseName": "description",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "geoserverStyleName",
+            "baseName": "geoserverStyleName",
             "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Survey.attributeTypeMap;
+        return Style.attributeTypeMap;
     }
     
     public constructor() {

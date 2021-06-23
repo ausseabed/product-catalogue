@@ -10,18 +10,21 @@
  * Do not edit the class manually.
  */
 
+import { Style } from './Style';
 import { HttpFile } from '../http/http';
 
 export class ProductL3Src {
     'id': number;
-    'metadataPersistentId': string;
-    'name': string;
-    'productBagLocation': string;
-    'productTifLocation': string;
-    'resolution': string;
-    'srs': string;
+    'defaultStyle'?: Style;
+    'availableStyles'?: Array<Style>;
     'uuid': string;
+    'name': string;
+    'srs': string;
     'verticalDatum': ProductL3SrcVerticalDatumEnum;
+    'metadataPersistentId': string;
+    'resolution': string;
+    'productTifLocation': string;
+    'productBagLocation': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -33,8 +36,20 @@ export class ProductL3Src {
             "format": ""
         },
         {
-            "name": "metadataPersistentId",
-            "baseName": "metadataPersistentId",
+            "name": "defaultStyle",
+            "baseName": "defaultStyle",
+            "type": "Style",
+            "format": ""
+        },
+        {
+            "name": "availableStyles",
+            "baseName": "availableStyles",
+            "type": "Array<Style>",
+            "format": ""
+        },
+        {
+            "name": "uuid",
+            "baseName": "uuid",
             "type": "string",
             "format": ""
         },
@@ -45,14 +60,20 @@ export class ProductL3Src {
             "format": ""
         },
         {
-            "name": "productBagLocation",
-            "baseName": "productBagLocation",
+            "name": "srs",
+            "baseName": "srs",
             "type": "string",
             "format": ""
         },
         {
-            "name": "productTifLocation",
-            "baseName": "productTifLocation",
+            "name": "verticalDatum",
+            "baseName": "verticalDatum",
+            "type": "ProductL3SrcVerticalDatumEnum",
+            "format": ""
+        },
+        {
+            "name": "metadataPersistentId",
+            "baseName": "metadataPersistentId",
             "type": "string",
             "format": ""
         },
@@ -63,21 +84,15 @@ export class ProductL3Src {
             "format": ""
         },
         {
-            "name": "srs",
-            "baseName": "srs",
+            "name": "productTifLocation",
+            "baseName": "productTifLocation",
             "type": "string",
             "format": ""
         },
         {
-            "name": "uuid",
-            "baseName": "uuid",
+            "name": "productBagLocation",
+            "baseName": "productBagLocation",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "verticalDatum",
-            "baseName": "verticalDatum",
-            "type": "ProductL3SrcVerticalDatumEnum",
             "format": ""
         }    ];
 

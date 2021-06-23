@@ -14,8 +14,8 @@ import { HttpFile } from '../http/http';
 
 export class Compilation {
     'id': number;
-    'name': string;
     'uuid': string;
+    'name': string;
     'year': string;
 
     static readonly discriminator: string | undefined = undefined;
@@ -28,14 +28,14 @@ export class Compilation {
             "format": ""
         },
         {
-            "name": "name",
-            "baseName": "name",
+            "name": "uuid",
+            "baseName": "uuid",
             "type": "string",
             "format": ""
         },
         {
-            "name": "uuid",
-            "baseName": "uuid",
+            "name": "name",
+            "baseName": "name",
             "type": "string",
             "format": ""
         },

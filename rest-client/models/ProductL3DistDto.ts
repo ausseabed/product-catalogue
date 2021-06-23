@@ -14,34 +14,28 @@ import { HttpFile } from '../http/http';
 
 export class ProductL3DistDto {
     /**
-    * Location of BAG format bathymetry
+    * Location of coverage extent of L3 product
     */
-    'bathymetryBagLocation': string;
-    /**
-    * Location of the raster bathymetry
-    */
-    'bathymetryLocation': string;
+    'l3CoverageLocation': string;
     /**
     * S3 location of hillshade
     */
     'hillshadeLocation': string;
     /**
-    * Location of coverage extent of L3 product
+    * Location of the raster bathymetry
     */
-    'l3CoverageLocation': string;
+    'bathymetryLocation': string;
+    /**
+    * Location of BAG format bathymetry
+    */
+    'bathymetryBagLocation': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "bathymetryBagLocation",
-            "baseName": "bathymetryBagLocation",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "bathymetryLocation",
-            "baseName": "bathymetryLocation",
+            "name": "l3CoverageLocation",
+            "baseName": "l3CoverageLocation",
             "type": "string",
             "format": ""
         },
@@ -52,8 +46,14 @@ export class ProductL3DistDto {
             "format": ""
         },
         {
-            "name": "l3CoverageLocation",
-            "baseName": "l3CoverageLocation",
+            "name": "bathymetryLocation",
+            "baseName": "bathymetryLocation",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "bathymetryBagLocation",
+            "baseName": "bathymetryBagLocation",
             "type": "string",
             "format": ""
         }    ];

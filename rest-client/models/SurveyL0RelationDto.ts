@@ -14,26 +14,26 @@ import { HttpFile } from '../http/http';
 
 export class SurveyL0RelationDto {
     /**
-    * Identifier of the product produced as part of the survey
-    */
-    'productL0Src': number;
-    /**
     * Identifier of the survey that produced the products
     */
     'survey': number;
+    /**
+    * Identifier of the product produced as part of the survey
+    */
+    'productL0Src': number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "productL0Src",
-            "baseName": "productL0Src",
+            "name": "survey",
+            "baseName": "survey",
             "type": "number",
             "format": ""
         },
         {
-            "name": "survey",
-            "baseName": "survey",
+            "name": "productL0Src",
+            "baseName": "productL0Src",
             "type": "number",
             "format": ""
         }    ];

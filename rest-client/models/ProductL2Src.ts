@@ -14,14 +14,14 @@ import { HttpFile } from '../http/http';
 
 export class ProductL2Src {
     'id': number;
-    'metadataPersistentId': string;
-    'name': string;
-    'productGsfLocation': string;
-    'productPosmvLocation': string;
-    'srs': string;
     'uuid': string;
+    'name': string;
+    'srs': string;
     'verticalDatum': ProductL2SrcVerticalDatumEnum;
+    'metadataPersistentId': string;
+    'productGsfLocation': string;
     'vesselFileLocation': string;
+    'productPosmvLocation': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -33,8 +33,8 @@ export class ProductL2Src {
             "format": ""
         },
         {
-            "name": "metadataPersistentId",
-            "baseName": "metadataPersistentId",
+            "name": "uuid",
+            "baseName": "uuid",
             "type": "string",
             "format": ""
         },
@@ -45,26 +45,8 @@ export class ProductL2Src {
             "format": ""
         },
         {
-            "name": "productGsfLocation",
-            "baseName": "productGsfLocation",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "productPosmvLocation",
-            "baseName": "productPosmvLocation",
-            "type": "string",
-            "format": ""
-        },
-        {
             "name": "srs",
             "baseName": "srs",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "uuid",
-            "baseName": "uuid",
             "type": "string",
             "format": ""
         },
@@ -75,8 +57,26 @@ export class ProductL2Src {
             "format": ""
         },
         {
+            "name": "metadataPersistentId",
+            "baseName": "metadataPersistentId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "productGsfLocation",
+            "baseName": "productGsfLocation",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "vesselFileLocation",
             "baseName": "vesselFileLocation",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "productPosmvLocation",
+            "baseName": "productPosmvLocation",
             "type": "string",
             "format": ""
         }    ];

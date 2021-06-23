@@ -22,6 +22,7 @@ import { ProductL3DistDto } from '../models/ProductL3DistDto';
 import { ProductL3Src } from '../models/ProductL3Src';
 import { ProductL3SrcDto } from '../models/ProductL3SrcDto';
 import { RelationSummaryDto } from '../models/RelationSummaryDto';
+import { Style } from '../models/Style';
 import { Survey } from '../models/Survey';
 import { SurveyDto } from '../models/SurveyDto';
 import { SurveyL0Relation } from '../models/SurveyL0Relation';
@@ -1495,6 +1496,49 @@ export class ObservableProductsL3SrcApi {
 	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
 	    		}
 	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.productsL3SrcControllerUpdate(rsp)));
+	    	}));
+    }
+	
+
+}
+
+
+
+
+import { StylesApiRequestFactory, StylesApiResponseProcessor} from "../apis/StylesApi";
+export class ObservableStylesApi {
+    private requestFactory: StylesApiRequestFactory;
+    private responseProcessor: StylesApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: StylesApiRequestFactory,
+        responseProcessor?: StylesApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new StylesApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new StylesApiResponseProcessor();
+    }
+
+    /**
+     */
+    public stylesControllerFindAll(options?: Configuration): Observable<Array<Style>> {
+    	const requestContextPromise = this.requestFactory.stylesControllerFindAll(options);
+
+		// build promise chain
+    let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+    	for (let middleware of this.configuration.middleware) {
+    		middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+    	}
+
+    	return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+	    	pipe(mergeMap((response: ResponseContext) => {
+	    		let middlewarePostObservable = of(response);
+	    		for (let middleware of this.configuration.middleware) {
+	    			middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+	    		}
+	    		return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.stylesControllerFindAll(rsp)));
 	    	}));
     }
 	

@@ -1,6 +1,6 @@
 {
   "name": "@ausseabed/product-catalogue-rest-client",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "OpenAPI client for @ausseabed/product-catalogue-rest-client",
   "author": "OpenAPI-Generator Contributors",
   "keywords": [
@@ -29,7 +29,7 @@
     "url": "ssh://github.com/ausseabed/product-catalogue.git",
     "directory": "rest-client"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+  "publishConfig":{
+    "registry":"https://npm.pkg.github.com/"
   }
 }

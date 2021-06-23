@@ -14,19 +14,31 @@ import { ProductL3Src } from './ProductL3Src';
 import { HttpFile } from '../http/http';
 
 export class ProductL3Dist {
-    'bathymetryBagLocation': string;
-    'bathymetryLocation': string;
-    'hillshadeLocation': string;
     'id': number;
-    'l3CoverageLocation': string;
     'sourceProduct': ProductL3Src;
+    'l3CoverageLocation': string;
+    'bathymetryLocation': string;
+    'bathymetryBagLocation': string;
+    'hillshadeLocation': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "bathymetryBagLocation",
-            "baseName": "bathymetryBagLocation",
+            "name": "id",
+            "baseName": "id",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "sourceProduct",
+            "baseName": "sourceProduct",
+            "type": "ProductL3Src",
+            "format": ""
+        },
+        {
+            "name": "l3CoverageLocation",
+            "baseName": "l3CoverageLocation",
             "type": "string",
             "format": ""
         },
@@ -37,27 +49,15 @@ export class ProductL3Dist {
             "format": ""
         },
         {
+            "name": "bathymetryBagLocation",
+            "baseName": "bathymetryBagLocation",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "hillshadeLocation",
             "baseName": "hillshadeLocation",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "l3CoverageLocation",
-            "baseName": "l3CoverageLocation",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "sourceProduct",
-            "baseName": "sourceProduct",
-            "type": "ProductL3Src",
             "format": ""
         }    ];
 

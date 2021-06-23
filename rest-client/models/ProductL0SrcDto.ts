@@ -14,13 +14,9 @@ import { HttpFile } from '../http/http';
 
 export class ProductL0SrcDto {
     /**
-    * Location of instrument files
+    * Unique identifier for reference purposes
     */
-    'l0InstrumentLocation': string;
-    /**
-    * Persistent Id of final product
-    */
-    'metadataPersistentId': string;
+    'uuid': string;
     /**
     * Name of product for display purposes - from gazeteer
     */
@@ -30,9 +26,13 @@ export class ProductL0SrcDto {
     */
     'srs': string;
     /**
-    * Unique identifier for reference purposes
+    * Persistent Id of final product
     */
-    'uuid': string;
+    'metadataPersistentId': string;
+    /**
+    * Location of instrument files
+    */
+    'l0InstrumentLocation': string;
     /**
     * Vertical datum of bathymetry * `LAT` - Lowest Astronomical Tide * `AHD` - Australian Height Datum * `LMSL` - LMSL - Local Mean Sea Level (or just Mean Sea Level) * `WGS84` - WGS84 'Ellipsoid'
     */
@@ -42,14 +42,8 @@ export class ProductL0SrcDto {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "l0InstrumentLocation",
-            "baseName": "l0InstrumentLocation",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "metadataPersistentId",
-            "baseName": "metadataPersistentId",
+            "name": "uuid",
+            "baseName": "uuid",
             "type": "string",
             "format": ""
         },
@@ -66,8 +60,14 @@ export class ProductL0SrcDto {
             "format": ""
         },
         {
-            "name": "uuid",
-            "baseName": "uuid",
+            "name": "metadataPersistentId",
+            "baseName": "metadataPersistentId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "l0InstrumentLocation",
+            "baseName": "l0InstrumentLocation",
             "type": "string",
             "format": ""
         },

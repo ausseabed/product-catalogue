@@ -16,6 +16,7 @@ export * from './ProductL3DistDto';
 export * from './ProductL3Src';
 export * from './ProductL3SrcDto';
 export * from './RelationSummaryDto';
+export * from './Style';
 export * from './Survey';
 export * from './SurveyDto';
 export * from './SurveyL0Relation';
@@ -34,15 +35,16 @@ import { ProductL0Dist } from './ProductL0Dist';
 import { ProductL0DistDto } from './ProductL0DistDto';
 import { ProductL0InstrumentFile } from './ProductL0InstrumentFile';
 import { ProductL0InstrumentFileDto } from './ProductL0InstrumentFileDto';
-import { ProductL0Src      , ProductL0SrcVerticalDatumEnum   } from './ProductL0Src';
+import { ProductL0Src     , ProductL0SrcVerticalDatumEnum    } from './ProductL0Src';
 import { ProductL0SrcDto     , ProductL0SrcDtoVerticalDatumEnum   } from './ProductL0SrcDto';
-import { ProductL2Src       , ProductL2SrcVerticalDatumEnum    } from './ProductL2Src';
-import { ProductL2SrcDto      , ProductL2SrcDtoVerticalDatumEnum    } from './ProductL2SrcDto';
+import { ProductL2Src    , ProductL2SrcVerticalDatumEnum       } from './ProductL2Src';
+import { ProductL2SrcDto       , ProductL2SrcDtoVerticalDatumEnum   } from './ProductL2SrcDto';
 import { ProductL3Dist } from './ProductL3Dist';
 import { ProductL3DistDto } from './ProductL3DistDto';
-import { ProductL3Src        , ProductL3SrcVerticalDatumEnum   } from './ProductL3Src';
-import { ProductL3SrcDto       , ProductL3SrcDtoVerticalDatumEnum   } from './ProductL3SrcDto';
+import { ProductL3Src      , ProductL3SrcVerticalDatumEnum       } from './ProductL3Src';
+import { ProductL3SrcDto       , ProductL3SrcDtoVerticalDatumEnum     } from './ProductL3SrcDto';
 import { RelationSummaryDto } from './RelationSummaryDto';
+import { Style } from './Style';
 import { Survey } from './Survey';
 import { SurveyDto } from './SurveyDto';
 import { SurveyL0Relation } from './SurveyL0Relation';
@@ -98,6 +100,7 @@ let typeMap: {[index: string]: any} = {
     "ProductL3Src": ProductL3Src,
     "ProductL3SrcDto": ProductL3SrcDto,
     "RelationSummaryDto": RelationSummaryDto,
+    "Style": Style,
     "Survey": Survey,
     "SurveyDto": SurveyDto,
     "SurveyL0Relation": SurveyL0Relation,

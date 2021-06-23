@@ -20,6 +20,7 @@ import { ProductL3DistDto } from '../models/ProductL3DistDto';
 import { ProductL3Src } from '../models/ProductL3Src';
 import { ProductL3SrcDto } from '../models/ProductL3SrcDto';
 import { RelationSummaryDto } from '../models/RelationSummaryDto';
+import { Style } from '../models/Style';
 import { Survey } from '../models/Survey';
 import { SurveyDto } from '../models/SurveyDto';
 import { SurveyL0Relation } from '../models/SurveyL0Relation';
@@ -653,6 +654,33 @@ export class PromiseProductsL3SrcApi {
      */
     public productsL3SrcControllerUpdate(productId: number, productL3SrcDto: ProductL3SrcDto, options?: Configuration): Promise<void> {
     	const result = this.api.productsL3SrcControllerUpdate(productId, productL3SrcDto, options);
+        return result.toPromise();
+    }
+	
+
+}
+
+
+
+import { ObservableStylesApi } from './ObservableAPI';
+
+
+import { StylesApiRequestFactory, StylesApiResponseProcessor} from "../apis/StylesApi";
+export class PromiseStylesApi {
+    private api: ObservableStylesApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: StylesApiRequestFactory,
+        responseProcessor?: StylesApiResponseProcessor
+    ) {
+        this.api = new ObservableStylesApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     */
+    public stylesControllerFindAll(options?: Configuration): Promise<Array<Style>> {
+    	const result = this.api.stylesControllerFindAll(options);
         return result.toPromise();
     }
 	
