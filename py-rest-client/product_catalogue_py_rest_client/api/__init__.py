@@ -10,4 +10,5 @@ from product_catalogue_py_rest_client.api.products_l0_src_api import ProductsL0S
 from product_catalogue_py_rest_client.api.products_l2_src_api import ProductsL2SrcApi
 from product_catalogue_py_rest_client.api.products_l3_dist_api import ProductsL3DistApi
 from product_catalogue_py_rest_client.api.products_l3_src_api import ProductsL3SrcApi
+from product_catalogue_py_rest_client.api.styles_api import StylesApi
 from product_catalogue_py_rest_client.api.surveys_api import SurveysApi

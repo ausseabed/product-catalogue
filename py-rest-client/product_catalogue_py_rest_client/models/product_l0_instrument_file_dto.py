@@ -34,52 +34,27 @@ class ProductL0InstrumentFileDto(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'coverage_file': 'str',
-        'instrument_file': 'str'
+        'instrument_file': 'str',
+        'coverage_file': 'str'
     }
 
     attribute_map = {
-        'coverage_file': 'coverageFile',
-        'instrument_file': 'instrumentFile'
+        'instrument_file': 'instrumentFile',
+        'coverage_file': 'coverageFile'
     }
 
-    def __init__(self, coverage_file=None, instrument_file=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, instrument_file=None, coverage_file=None, local_vars_configuration=None):  # noqa: E501
         """ProductL0InstrumentFileDto - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
-        self._coverage_file = None
         self._instrument_file = None
+        self._coverage_file = None
         self.discriminator = None
 
-        self.coverage_file = coverage_file
         self.instrument_file = instrument_file
-
-    @property
-    def coverage_file(self):
-        """Gets the coverage_file of this ProductL0InstrumentFileDto.  # noqa: E501
-
-        Location of shapefile describing instrument file extent  # noqa: E501
-
-        :return: The coverage_file of this ProductL0InstrumentFileDto.  # noqa: E501
-        :rtype: str
-        """
-        return self._coverage_file
-
-    @coverage_file.setter
-    def coverage_file(self, coverage_file):
-        """Sets the coverage_file of this ProductL0InstrumentFileDto.
-
-        Location of shapefile describing instrument file extent  # noqa: E501
-
-        :param coverage_file: The coverage_file of this ProductL0InstrumentFileDto.  # noqa: E501
-        :type coverage_file: str
-        """
-        if self.local_vars_configuration.client_side_validation and coverage_file is None:  # noqa: E501
-            raise ValueError("Invalid value for `coverage_file`, must not be `None`")  # noqa: E501
-
-        self._coverage_file = coverage_file
+        self.coverage_file = coverage_file
 
     @property
     def instrument_file(self):
@@ -105,6 +80,31 @@ class ProductL0InstrumentFileDto(object):
             raise ValueError("Invalid value for `instrument_file`, must not be `None`")  # noqa: E501
 
         self._instrument_file = instrument_file
+
+    @property
+    def coverage_file(self):
+        """Gets the coverage_file of this ProductL0InstrumentFileDto.  # noqa: E501
+
+        Location of shapefile describing instrument file extent  # noqa: E501
+
+        :return: The coverage_file of this ProductL0InstrumentFileDto.  # noqa: E501
+        :rtype: str
+        """
+        return self._coverage_file
+
+    @coverage_file.setter
+    def coverage_file(self, coverage_file):
+        """Sets the coverage_file of this ProductL0InstrumentFileDto.
+
+        Location of shapefile describing instrument file extent  # noqa: E501
+
+        :param coverage_file: The coverage_file of this ProductL0InstrumentFileDto.  # noqa: E501
+        :type coverage_file: str
+        """
+        if self.local_vars_configuration.client_side_validation and coverage_file is None:  # noqa: E501
+            raise ValueError("Invalid value for `coverage_file`, must not be `None`")  # noqa: E501
+
+        self._coverage_file = coverage_file
 
     def to_dict(self):
         """Returns the model properties as a dict"""

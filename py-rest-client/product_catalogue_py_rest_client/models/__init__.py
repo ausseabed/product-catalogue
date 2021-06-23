@@ -33,6 +33,7 @@ from product_catalogue_py_rest_client.models.product_l3_dist_dto import ProductL
 from product_catalogue_py_rest_client.models.product_l3_src import ProductL3Src
 from product_catalogue_py_rest_client.models.product_l3_src_dto import ProductL3SrcDto
 from product_catalogue_py_rest_client.models.relation_summary_dto import RelationSummaryDto
+from product_catalogue_py_rest_client.models.style import Style
 from product_catalogue_py_rest_client.models.survey import Survey
 from product_catalogue_py_rest_client.models.survey_dto import SurveyDto
 from product_catalogue_py_rest_client.models.survey_l0_relation import SurveyL0Relation

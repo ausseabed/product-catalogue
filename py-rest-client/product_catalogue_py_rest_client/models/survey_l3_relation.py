@@ -35,30 +35,30 @@ class SurveyL3Relation(object):
     """
     openapi_types = {
         'id': 'int',
-        'product_l3_src': 'ProductL3Src',
-        'survey': 'Survey'
+        'survey': 'Survey',
+        'product_l3_src': 'ProductL3Src'
     }
 
     attribute_map = {
         'id': 'id',
-        'product_l3_src': 'productL3Src',
-        'survey': 'survey'
+        'survey': 'survey',
+        'product_l3_src': 'productL3Src'
     }
 
-    def __init__(self, id=None, product_l3_src=None, survey=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, survey=None, product_l3_src=None, local_vars_configuration=None):  # noqa: E501
         """SurveyL3Relation - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
         self._id = None
-        self._product_l3_src = None
         self._survey = None
+        self._product_l3_src = None
         self.discriminator = None
 
         self.id = id
-        self.product_l3_src = product_l3_src
         self.survey = survey
+        self.product_l3_src = product_l3_src
 
     @property
     def id(self):
@@ -84,29 +84,6 @@ class SurveyL3Relation(object):
         self._id = id
 
     @property
-    def product_l3_src(self):
-        """Gets the product_l3_src of this SurveyL3Relation.  # noqa: E501
-
-
-        :return: The product_l3_src of this SurveyL3Relation.  # noqa: E501
-        :rtype: ProductL3Src
-        """
-        return self._product_l3_src
-
-    @product_l3_src.setter
-    def product_l3_src(self, product_l3_src):
-        """Sets the product_l3_src of this SurveyL3Relation.
-
-
-        :param product_l3_src: The product_l3_src of this SurveyL3Relation.  # noqa: E501
-        :type product_l3_src: ProductL3Src
-        """
-        if self.local_vars_configuration.client_side_validation and product_l3_src is None:  # noqa: E501
-            raise ValueError("Invalid value for `product_l3_src`, must not be `None`")  # noqa: E501
-
-        self._product_l3_src = product_l3_src
-
-    @property
     def survey(self):
         """Gets the survey of this SurveyL3Relation.  # noqa: E501
 
@@ -128,6 +105,29 @@ class SurveyL3Relation(object):
             raise ValueError("Invalid value for `survey`, must not be `None`")  # noqa: E501
 
         self._survey = survey
+
+    @property
+    def product_l3_src(self):
+        """Gets the product_l3_src of this SurveyL3Relation.  # noqa: E501
+
+
+        :return: The product_l3_src of this SurveyL3Relation.  # noqa: E501
+        :rtype: ProductL3Src
+        """
+        return self._product_l3_src
+
+    @product_l3_src.setter
+    def product_l3_src(self, product_l3_src):
+        """Sets the product_l3_src of this SurveyL3Relation.
+
+
+        :param product_l3_src: The product_l3_src of this SurveyL3Relation.  # noqa: E501
+        :type product_l3_src: ProductL3Src
+        """
+        if self.local_vars_configuration.client_side_validation and product_l3_src is None:  # noqa: E501
+            raise ValueError("Invalid value for `product_l3_src`, must not be `None`")  # noqa: E501
+
+        self._product_l3_src = product_l3_src
 
     def to_dict(self):
         """Returns the model properties as a dict"""

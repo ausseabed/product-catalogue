@@ -36,24 +36,24 @@ class ProductL0Src(object):
     openapi_types = {
         'id': 'int',
         'l0_instrument_location': 'str',
-        'metadata_persistent_id': 'str',
+        'uuid': 'str',
         'name': 'str',
         'srs': 'str',
-        'uuid': 'str',
-        'vertical_datum': 'str'
+        'vertical_datum': 'str',
+        'metadata_persistent_id': 'str'
     }
 
     attribute_map = {
         'id': 'id',
         'l0_instrument_location': 'l0InstrumentLocation',
-        'metadata_persistent_id': 'metadataPersistentId',
+        'uuid': 'uuid',
         'name': 'name',
         'srs': 'srs',
-        'uuid': 'uuid',
-        'vertical_datum': 'verticalDatum'
+        'vertical_datum': 'verticalDatum',
+        'metadata_persistent_id': 'metadataPersistentId'
     }
 
-    def __init__(self, id=None, l0_instrument_location=None, metadata_persistent_id=None, name=None, srs=None, uuid=None, vertical_datum=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, l0_instrument_location=None, uuid=None, name=None, srs=None, vertical_datum=None, metadata_persistent_id=None, local_vars_configuration=None):  # noqa: E501
         """ProductL0Src - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -61,20 +61,20 @@ class ProductL0Src(object):
 
         self._id = None
         self._l0_instrument_location = None
-        self._metadata_persistent_id = None
+        self._uuid = None
         self._name = None
         self._srs = None
-        self._uuid = None
         self._vertical_datum = None
+        self._metadata_persistent_id = None
         self.discriminator = None
 
         self.id = id
         self.l0_instrument_location = l0_instrument_location
-        self.metadata_persistent_id = metadata_persistent_id
+        self.uuid = uuid
         self.name = name
         self.srs = srs
-        self.uuid = uuid
         self.vertical_datum = vertical_datum
+        self.metadata_persistent_id = metadata_persistent_id
 
     @property
     def id(self):
@@ -125,27 +125,27 @@ class ProductL0Src(object):
         self._l0_instrument_location = l0_instrument_location
 
     @property
-    def metadata_persistent_id(self):
-        """Gets the metadata_persistent_id of this ProductL0Src.  # noqa: E501
+    def uuid(self):
+        """Gets the uuid of this ProductL0Src.  # noqa: E501
 
 
-        :return: The metadata_persistent_id of this ProductL0Src.  # noqa: E501
+        :return: The uuid of this ProductL0Src.  # noqa: E501
         :rtype: str
         """
-        return self._metadata_persistent_id
+        return self._uuid
 
-    @metadata_persistent_id.setter
-    def metadata_persistent_id(self, metadata_persistent_id):
-        """Sets the metadata_persistent_id of this ProductL0Src.
+    @uuid.setter
+    def uuid(self, uuid):
+        """Sets the uuid of this ProductL0Src.
 
 
-        :param metadata_persistent_id: The metadata_persistent_id of this ProductL0Src.  # noqa: E501
-        :type metadata_persistent_id: str
+        :param uuid: The uuid of this ProductL0Src.  # noqa: E501
+        :type uuid: str
         """
-        if self.local_vars_configuration.client_side_validation and metadata_persistent_id is None:  # noqa: E501
-            raise ValueError("Invalid value for `metadata_persistent_id`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and uuid is None:  # noqa: E501
+            raise ValueError("Invalid value for `uuid`, must not be `None`")  # noqa: E501
 
-        self._metadata_persistent_id = metadata_persistent_id
+        self._uuid = uuid
 
     @property
     def name(self):
@@ -194,29 +194,6 @@ class ProductL0Src(object):
         self._srs = srs
 
     @property
-    def uuid(self):
-        """Gets the uuid of this ProductL0Src.  # noqa: E501
-
-
-        :return: The uuid of this ProductL0Src.  # noqa: E501
-        :rtype: str
-        """
-        return self._uuid
-
-    @uuid.setter
-    def uuid(self, uuid):
-        """Sets the uuid of this ProductL0Src.
-
-
-        :param uuid: The uuid of this ProductL0Src.  # noqa: E501
-        :type uuid: str
-        """
-        if self.local_vars_configuration.client_side_validation and uuid is None:  # noqa: E501
-            raise ValueError("Invalid value for `uuid`, must not be `None`")  # noqa: E501
-
-        self._uuid = uuid
-
-    @property
     def vertical_datum(self):
         """Gets the vertical_datum of this ProductL0Src.  # noqa: E501
 
@@ -244,6 +221,29 @@ class ProductL0Src(object):
             )
 
         self._vertical_datum = vertical_datum
+
+    @property
+    def metadata_persistent_id(self):
+        """Gets the metadata_persistent_id of this ProductL0Src.  # noqa: E501
+
+
+        :return: The metadata_persistent_id of this ProductL0Src.  # noqa: E501
+        :rtype: str
+        """
+        return self._metadata_persistent_id
+
+    @metadata_persistent_id.setter
+    def metadata_persistent_id(self, metadata_persistent_id):
+        """Sets the metadata_persistent_id of this ProductL0Src.
+
+
+        :param metadata_persistent_id: The metadata_persistent_id of this ProductL0Src.  # noqa: E501
+        :type metadata_persistent_id: str
+        """
+        if self.local_vars_configuration.client_side_validation and metadata_persistent_id is None:  # noqa: E501
+            raise ValueError("Invalid value for `metadata_persistent_id`, must not be `None`")  # noqa: E501
+
+        self._metadata_persistent_id = metadata_persistent_id
 
     def to_dict(self):
         """Returns the model properties as a dict"""

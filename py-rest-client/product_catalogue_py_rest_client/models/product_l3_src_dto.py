@@ -34,76 +34,86 @@ class ProductL3SrcDto(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'metadata_persistent_id': 'str',
-        'name': 'str',
-        'product_bag_location': 'str',
-        'product_tif_location': 'str',
-        'resolution': 'str',
-        'srs': 'str',
         'uuid': 'str',
-        'vertical_datum': 'str'
+        'name': 'str',
+        'srs': 'str',
+        'metadata_persistent_id': 'str',
+        'resolution': 'str',
+        'product_tif_location': 'str',
+        'product_bag_location': 'str',
+        'vertical_datum': 'str',
+        'default_style': 'Style',
+        'available_styles': 'list[Style]'
     }
 
     attribute_map = {
-        'metadata_persistent_id': 'metadataPersistentId',
-        'name': 'name',
-        'product_bag_location': 'productBagLocation',
-        'product_tif_location': 'productTifLocation',
-        'resolution': 'resolution',
-        'srs': 'srs',
         'uuid': 'uuid',
-        'vertical_datum': 'verticalDatum'
+        'name': 'name',
+        'srs': 'srs',
+        'metadata_persistent_id': 'metadataPersistentId',
+        'resolution': 'resolution',
+        'product_tif_location': 'productTifLocation',
+        'product_bag_location': 'productBagLocation',
+        'vertical_datum': 'verticalDatum',
+        'default_style': 'defaultStyle',
+        'available_styles': 'availableStyles'
     }
 
-    def __init__(self, metadata_persistent_id=None, name=None, product_bag_location=None, product_tif_location=None, resolution=None, srs=None, uuid=None, vertical_datum=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, uuid=None, name=None, srs=None, metadata_persistent_id=None, resolution=None, product_tif_location=None, product_bag_location=None, vertical_datum=None, default_style=None, available_styles=None, local_vars_configuration=None):  # noqa: E501
         """ProductL3SrcDto - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
-        self._metadata_persistent_id = None
-        self._name = None
-        self._product_bag_location = None
-        self._product_tif_location = None
-        self._resolution = None
-        self._srs = None
         self._uuid = None
+        self._name = None
+        self._srs = None
+        self._metadata_persistent_id = None
+        self._resolution = None
+        self._product_tif_location = None
+        self._product_bag_location = None
         self._vertical_datum = None
+        self._default_style = None
+        self._available_styles = None
         self.discriminator = None
 
-        self.metadata_persistent_id = metadata_persistent_id
-        self.name = name
-        self.product_bag_location = product_bag_location
-        self.product_tif_location = product_tif_location
-        self.resolution = resolution
-        self.srs = srs
         self.uuid = uuid
+        self.name = name
+        self.srs = srs
+        self.metadata_persistent_id = metadata_persistent_id
+        self.resolution = resolution
+        self.product_tif_location = product_tif_location
+        self.product_bag_location = product_bag_location
         self.vertical_datum = vertical_datum
+        if default_style is not None:
+            self.default_style = default_style
+        if available_styles is not None:
+            self.available_styles = available_styles
 
     @property
-    def metadata_persistent_id(self):
-        """Gets the metadata_persistent_id of this ProductL3SrcDto.  # noqa: E501
+    def uuid(self):
+        """Gets the uuid of this ProductL3SrcDto.  # noqa: E501
 
-        Persistent Id of final product  # noqa: E501
+        Unique identifier for reference purposes  # noqa: E501
 
-        :return: The metadata_persistent_id of this ProductL3SrcDto.  # noqa: E501
+        :return: The uuid of this ProductL3SrcDto.  # noqa: E501
         :rtype: str
         """
-        return self._metadata_persistent_id
+        return self._uuid
 
-    @metadata_persistent_id.setter
-    def metadata_persistent_id(self, metadata_persistent_id):
-        """Sets the metadata_persistent_id of this ProductL3SrcDto.
+    @uuid.setter
+    def uuid(self, uuid):
+        """Sets the uuid of this ProductL3SrcDto.
 
-        Persistent Id of final product  # noqa: E501
+        Unique identifier for reference purposes  # noqa: E501
 
-        :param metadata_persistent_id: The metadata_persistent_id of this ProductL3SrcDto.  # noqa: E501
-        :type metadata_persistent_id: str
+        :param uuid: The uuid of this ProductL3SrcDto.  # noqa: E501
+        :type uuid: str
         """
-        if self.local_vars_configuration.client_side_validation and metadata_persistent_id is None:  # noqa: E501
-            raise ValueError("Invalid value for `metadata_persistent_id`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and uuid is None:  # noqa: E501
+            raise ValueError("Invalid value for `uuid`, must not be `None`")  # noqa: E501
 
-        self._metadata_persistent_id = metadata_persistent_id
+        self._uuid = uuid
 
     @property
     def name(self):
@@ -131,54 +141,54 @@ class ProductL3SrcDto(object):
         self._name = name
 
     @property
-    def product_bag_location(self):
-        """Gets the product_bag_location of this ProductL3SrcDto.  # noqa: E501
+    def srs(self):
+        """Gets the srs of this ProductL3SrcDto.  # noqa: E501
 
-        Location of final bag product   # noqa: E501
+        Spatial Reference of product  # noqa: E501
 
-        :return: The product_bag_location of this ProductL3SrcDto.  # noqa: E501
+        :return: The srs of this ProductL3SrcDto.  # noqa: E501
         :rtype: str
         """
-        return self._product_bag_location
+        return self._srs
 
-    @product_bag_location.setter
-    def product_bag_location(self, product_bag_location):
-        """Sets the product_bag_location of this ProductL3SrcDto.
+    @srs.setter
+    def srs(self, srs):
+        """Sets the srs of this ProductL3SrcDto.
 
-        Location of final bag product   # noqa: E501
+        Spatial Reference of product  # noqa: E501
 
-        :param product_bag_location: The product_bag_location of this ProductL3SrcDto.  # noqa: E501
-        :type product_bag_location: str
+        :param srs: The srs of this ProductL3SrcDto.  # noqa: E501
+        :type srs: str
         """
-        if self.local_vars_configuration.client_side_validation and product_bag_location is None:  # noqa: E501
-            raise ValueError("Invalid value for `product_bag_location`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and srs is None:  # noqa: E501
+            raise ValueError("Invalid value for `srs`, must not be `None`")  # noqa: E501
 
-        self._product_bag_location = product_bag_location
+        self._srs = srs
 
     @property
-    def product_tif_location(self):
-        """Gets the product_tif_location of this ProductL3SrcDto.  # noqa: E501
+    def metadata_persistent_id(self):
+        """Gets the metadata_persistent_id of this ProductL3SrcDto.  # noqa: E501
 
-        Location of final tif product   # noqa: E501
+        Persistent Id of final product  # noqa: E501
 
-        :return: The product_tif_location of this ProductL3SrcDto.  # noqa: E501
+        :return: The metadata_persistent_id of this ProductL3SrcDto.  # noqa: E501
         :rtype: str
         """
-        return self._product_tif_location
+        return self._metadata_persistent_id
 
-    @product_tif_location.setter
-    def product_tif_location(self, product_tif_location):
-        """Sets the product_tif_location of this ProductL3SrcDto.
+    @metadata_persistent_id.setter
+    def metadata_persistent_id(self, metadata_persistent_id):
+        """Sets the metadata_persistent_id of this ProductL3SrcDto.
 
-        Location of final tif product   # noqa: E501
+        Persistent Id of final product  # noqa: E501
 
-        :param product_tif_location: The product_tif_location of this ProductL3SrcDto.  # noqa: E501
-        :type product_tif_location: str
+        :param metadata_persistent_id: The metadata_persistent_id of this ProductL3SrcDto.  # noqa: E501
+        :type metadata_persistent_id: str
         """
-        if self.local_vars_configuration.client_side_validation and product_tif_location is None:  # noqa: E501
-            raise ValueError("Invalid value for `product_tif_location`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and metadata_persistent_id is None:  # noqa: E501
+            raise ValueError("Invalid value for `metadata_persistent_id`, must not be `None`")  # noqa: E501
 
-        self._product_tif_location = product_tif_location
+        self._metadata_persistent_id = metadata_persistent_id
 
     @property
     def resolution(self):
@@ -206,54 +216,54 @@ class ProductL3SrcDto(object):
         self._resolution = resolution
 
     @property
-    def srs(self):
-        """Gets the srs of this ProductL3SrcDto.  # noqa: E501
+    def product_tif_location(self):
+        """Gets the product_tif_location of this ProductL3SrcDto.  # noqa: E501
 
-        Spatial Reference of product  # noqa: E501
+        Location of final tif product   # noqa: E501
 
-        :return: The srs of this ProductL3SrcDto.  # noqa: E501
+        :return: The product_tif_location of this ProductL3SrcDto.  # noqa: E501
         :rtype: str
         """
-        return self._srs
+        return self._product_tif_location
 
-    @srs.setter
-    def srs(self, srs):
-        """Sets the srs of this ProductL3SrcDto.
+    @product_tif_location.setter
+    def product_tif_location(self, product_tif_location):
+        """Sets the product_tif_location of this ProductL3SrcDto.
 
-        Spatial Reference of product  # noqa: E501
+        Location of final tif product   # noqa: E501
 
-        :param srs: The srs of this ProductL3SrcDto.  # noqa: E501
-        :type srs: str
+        :param product_tif_location: The product_tif_location of this ProductL3SrcDto.  # noqa: E501
+        :type product_tif_location: str
         """
-        if self.local_vars_configuration.client_side_validation and srs is None:  # noqa: E501
-            raise ValueError("Invalid value for `srs`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and product_tif_location is None:  # noqa: E501
+            raise ValueError("Invalid value for `product_tif_location`, must not be `None`")  # noqa: E501
 
-        self._srs = srs
+        self._product_tif_location = product_tif_location
 
     @property
-    def uuid(self):
-        """Gets the uuid of this ProductL3SrcDto.  # noqa: E501
+    def product_bag_location(self):
+        """Gets the product_bag_location of this ProductL3SrcDto.  # noqa: E501
 
-        Unique identifier for reference purposes  # noqa: E501
+        Location of final bag product   # noqa: E501
 
-        :return: The uuid of this ProductL3SrcDto.  # noqa: E501
+        :return: The product_bag_location of this ProductL3SrcDto.  # noqa: E501
         :rtype: str
         """
-        return self._uuid
+        return self._product_bag_location
 
-    @uuid.setter
-    def uuid(self, uuid):
-        """Sets the uuid of this ProductL3SrcDto.
+    @product_bag_location.setter
+    def product_bag_location(self, product_bag_location):
+        """Sets the product_bag_location of this ProductL3SrcDto.
 
-        Unique identifier for reference purposes  # noqa: E501
+        Location of final bag product   # noqa: E501
 
-        :param uuid: The uuid of this ProductL3SrcDto.  # noqa: E501
-        :type uuid: str
+        :param product_bag_location: The product_bag_location of this ProductL3SrcDto.  # noqa: E501
+        :type product_bag_location: str
         """
-        if self.local_vars_configuration.client_side_validation and uuid is None:  # noqa: E501
-            raise ValueError("Invalid value for `uuid`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and product_bag_location is None:  # noqa: E501
+            raise ValueError("Invalid value for `product_bag_location`, must not be `None`")  # noqa: E501
 
-        self._uuid = uuid
+        self._product_bag_location = product_bag_location
 
     @property
     def vertical_datum(self):
@@ -285,6 +295,50 @@ class ProductL3SrcDto(object):
             )
 
         self._vertical_datum = vertical_datum
+
+    @property
+    def default_style(self):
+        """Gets the default_style of this ProductL3SrcDto.  # noqa: E501
+
+
+        :return: The default_style of this ProductL3SrcDto.  # noqa: E501
+        :rtype: Style
+        """
+        return self._default_style
+
+    @default_style.setter
+    def default_style(self, default_style):
+        """Sets the default_style of this ProductL3SrcDto.
+
+
+        :param default_style: The default_style of this ProductL3SrcDto.  # noqa: E501
+        :type default_style: Style
+        """
+
+        self._default_style = default_style
+
+    @property
+    def available_styles(self):
+        """Gets the available_styles of this ProductL3SrcDto.  # noqa: E501
+
+        Available styles in web map service  # noqa: E501
+
+        :return: The available_styles of this ProductL3SrcDto.  # noqa: E501
+        :rtype: list[Style]
+        """
+        return self._available_styles
+
+    @available_styles.setter
+    def available_styles(self, available_styles):
+        """Sets the available_styles of this ProductL3SrcDto.
+
+        Available styles in web map service  # noqa: E501
+
+        :param available_styles: The available_styles of this ProductL3SrcDto.  # noqa: E501
+        :type available_styles: list[Style]
+        """
+
+        self._available_styles = available_styles
 
     def to_dict(self):
         """Returns the model properties as a dict"""

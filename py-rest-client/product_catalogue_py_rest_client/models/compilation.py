@@ -35,33 +35,33 @@ class Compilation(object):
     """
     openapi_types = {
         'id': 'int',
-        'name': 'str',
         'uuid': 'str',
+        'name': 'str',
         'year': 'str'
     }
 
     attribute_map = {
         'id': 'id',
-        'name': 'name',
         'uuid': 'uuid',
+        'name': 'name',
         'year': 'year'
     }
 
-    def __init__(self, id=None, name=None, uuid=None, year=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, uuid=None, name=None, year=None, local_vars_configuration=None):  # noqa: E501
         """Compilation - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
         self._id = None
-        self._name = None
         self._uuid = None
+        self._name = None
         self._year = None
         self.discriminator = None
 
         self.id = id
-        self.name = name
         self.uuid = uuid
+        self.name = name
         self.year = year
 
     @property
@@ -88,29 +88,6 @@ class Compilation(object):
         self._id = id
 
     @property
-    def name(self):
-        """Gets the name of this Compilation.  # noqa: E501
-
-
-        :return: The name of this Compilation.  # noqa: E501
-        :rtype: str
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """Sets the name of this Compilation.
-
-
-        :param name: The name of this Compilation.  # noqa: E501
-        :type name: str
-        """
-        if self.local_vars_configuration.client_side_validation and name is None:  # noqa: E501
-            raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
-
-        self._name = name
-
-    @property
     def uuid(self):
         """Gets the uuid of this Compilation.  # noqa: E501
 
@@ -132,6 +109,29 @@ class Compilation(object):
             raise ValueError("Invalid value for `uuid`, must not be `None`")  # noqa: E501
 
         self._uuid = uuid
+
+    @property
+    def name(self):
+        """Gets the name of this Compilation.  # noqa: E501
+
+
+        :return: The name of this Compilation.  # noqa: E501
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """Sets the name of this Compilation.
+
+
+        :param name: The name of this Compilation.  # noqa: E501
+        :type name: str
+        """
+        if self.local_vars_configuration.client_side_validation and name is None:  # noqa: E501
+            raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
+
+        self._name = name
 
     @property
     def year(self):

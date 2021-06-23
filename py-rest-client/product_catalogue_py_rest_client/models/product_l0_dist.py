@@ -35,34 +35,34 @@ class ProductL0Dist(object):
     """
     openapi_types = {
         'id': 'int',
-        'l0_coverage_location': 'str',
+        'source_product': 'ProductL0Src',
         'l0_instrument_files': 'list[ProductL0InstrumentFile]',
-        'source_product': 'ProductL0Src'
+        'l0_coverage_location': 'str'
     }
 
     attribute_map = {
         'id': 'id',
-        'l0_coverage_location': 'l0CoverageLocation',
+        'source_product': 'sourceProduct',
         'l0_instrument_files': 'l0InstrumentFiles',
-        'source_product': 'sourceProduct'
+        'l0_coverage_location': 'l0CoverageLocation'
     }
 
-    def __init__(self, id=None, l0_coverage_location=None, l0_instrument_files=None, source_product=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, source_product=None, l0_instrument_files=None, l0_coverage_location=None, local_vars_configuration=None):  # noqa: E501
         """ProductL0Dist - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
         self._id = None
-        self._l0_coverage_location = None
-        self._l0_instrument_files = None
         self._source_product = None
+        self._l0_instrument_files = None
+        self._l0_coverage_location = None
         self.discriminator = None
 
         self.id = id
-        self.l0_coverage_location = l0_coverage_location
-        self.l0_instrument_files = l0_instrument_files
         self.source_product = source_product
+        self.l0_instrument_files = l0_instrument_files
+        self.l0_coverage_location = l0_coverage_location
 
     @property
     def id(self):
@@ -88,27 +88,27 @@ class ProductL0Dist(object):
         self._id = id
 
     @property
-    def l0_coverage_location(self):
-        """Gets the l0_coverage_location of this ProductL0Dist.  # noqa: E501
+    def source_product(self):
+        """Gets the source_product of this ProductL0Dist.  # noqa: E501
 
 
-        :return: The l0_coverage_location of this ProductL0Dist.  # noqa: E501
-        :rtype: str
+        :return: The source_product of this ProductL0Dist.  # noqa: E501
+        :rtype: ProductL0Src
         """
-        return self._l0_coverage_location
+        return self._source_product
 
-    @l0_coverage_location.setter
-    def l0_coverage_location(self, l0_coverage_location):
-        """Sets the l0_coverage_location of this ProductL0Dist.
+    @source_product.setter
+    def source_product(self, source_product):
+        """Sets the source_product of this ProductL0Dist.
 
 
-        :param l0_coverage_location: The l0_coverage_location of this ProductL0Dist.  # noqa: E501
-        :type l0_coverage_location: str
+        :param source_product: The source_product of this ProductL0Dist.  # noqa: E501
+        :type source_product: ProductL0Src
         """
-        if self.local_vars_configuration.client_side_validation and l0_coverage_location is None:  # noqa: E501
-            raise ValueError("Invalid value for `l0_coverage_location`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and source_product is None:  # noqa: E501
+            raise ValueError("Invalid value for `source_product`, must not be `None`")  # noqa: E501
 
-        self._l0_coverage_location = l0_coverage_location
+        self._source_product = source_product
 
     @property
     def l0_instrument_files(self):
@@ -134,27 +134,27 @@ class ProductL0Dist(object):
         self._l0_instrument_files = l0_instrument_files
 
     @property
-    def source_product(self):
-        """Gets the source_product of this ProductL0Dist.  # noqa: E501
+    def l0_coverage_location(self):
+        """Gets the l0_coverage_location of this ProductL0Dist.  # noqa: E501
 
 
-        :return: The source_product of this ProductL0Dist.  # noqa: E501
-        :rtype: ProductL0Src
+        :return: The l0_coverage_location of this ProductL0Dist.  # noqa: E501
+        :rtype: str
         """
-        return self._source_product
+        return self._l0_coverage_location
 
-    @source_product.setter
-    def source_product(self, source_product):
-        """Sets the source_product of this ProductL0Dist.
+    @l0_coverage_location.setter
+    def l0_coverage_location(self, l0_coverage_location):
+        """Sets the l0_coverage_location of this ProductL0Dist.
 
 
-        :param source_product: The source_product of this ProductL0Dist.  # noqa: E501
-        :type source_product: ProductL0Src
+        :param l0_coverage_location: The l0_coverage_location of this ProductL0Dist.  # noqa: E501
+        :type l0_coverage_location: str
         """
-        if self.local_vars_configuration.client_side_validation and source_product is None:  # noqa: E501
-            raise ValueError("Invalid value for `source_product`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and l0_coverage_location is None:  # noqa: E501
+            raise ValueError("Invalid value for `l0_coverage_location`, must not be `None`")  # noqa: E501
 
-        self._source_product = source_product
+        self._l0_coverage_location = l0_coverage_location
 
     def to_dict(self):
         """Returns the model properties as a dict"""

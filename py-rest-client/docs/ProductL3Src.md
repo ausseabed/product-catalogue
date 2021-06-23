@@ -4,14 +4,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**metadata_persistent_id** | **str** |  | 
-**name** | **str** |  | 
-**product_bag_location** | **str** |  | 
-**product_tif_location** | **str** |  | 
-**resolution** | **str** |  | 
-**srs** | **str** |  | 
+**default_style** | [**Style**](Style.md) |  | [optional] 
+**available_styles** | [**list[Style]**](Style.md) |  | [optional] 
 **uuid** | **str** |  | 
+**name** | **str** |  | 
+**srs** | **str** |  | 
 **vertical_datum** | **str** |  | 
+**metadata_persistent_id** | **str** |  | 
+**resolution** | **str** |  | 
+**product_tif_location** | **str** |  | 
+**product_bag_location** | **str** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

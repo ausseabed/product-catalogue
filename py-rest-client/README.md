@@ -149,6 +149,7 @@ Class | Method | HTTP request | Description
 *ProductsL3SrcApi* | [**products_l3_src_controller_find_all**](docs/ProductsL3SrcApi.md#products_l3_src_controller_find_all) | **GET** /products/l3-src | 
 *ProductsL3SrcApi* | [**products_l3_src_controller_find_one**](docs/ProductsL3SrcApi.md#products_l3_src_controller_find_one) | **GET** /products/l3-src/{productId} | 
 *ProductsL3SrcApi* | [**products_l3_src_controller_update**](docs/ProductsL3SrcApi.md#products_l3_src_controller_update) | **PUT** /products/l3-src/{productId} | 
+*StylesApi* | [**styles_controller_find_all**](docs/StylesApi.md#styles_controller_find_all) | **GET** /styles | 
 *SurveysApi* | [**surveys_controller_create**](docs/SurveysApi.md#surveys_controller_create) | **POST** /surveys | 
 *SurveysApi* | [**surveys_controller_find_all**](docs/SurveysApi.md#surveys_controller_find_all) | **GET** /surveys | 
 *SurveysApi* | [**surveys_controller_find_one**](docs/SurveysApi.md#surveys_controller_find_one) | **GET** /surveys/{surveyId} | 
@@ -176,6 +177,7 @@ Class | Method | HTTP request | Description
  - [ProductL3Src](docs/ProductL3Src.md)
  - [ProductL3SrcDto](docs/ProductL3SrcDto.md)
  - [RelationSummaryDto](docs/RelationSummaryDto.md)
+ - [Style](docs/Style.md)
  - [Survey](docs/Survey.md)
  - [SurveyDto](docs/SurveyDto.md)
  - [SurveyL0Relation](docs/SurveyL0Relation.md)

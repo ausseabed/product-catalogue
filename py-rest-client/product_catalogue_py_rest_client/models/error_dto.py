@@ -34,79 +34,33 @@ class ErrorDto(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'error': 'str',
+        'status_code': 'float',
         'message': 'str',
-        'status_code': 'float'
+        'error': 'str'
     }
 
     attribute_map = {
-        'error': 'error',
+        'status_code': 'statusCode',
         'message': 'message',
-        'status_code': 'statusCode'
+        'error': 'error'
     }
 
-    def __init__(self, error=None, message=None, status_code=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, status_code=None, message=None, error=None, local_vars_configuration=None):  # noqa: E501
         """ErrorDto - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
-        self._error = None
-        self._message = None
         self._status_code = None
+        self._message = None
+        self._error = None
         self.discriminator = None
 
-        if error is not None:
-            self.error = error
+        self.status_code = status_code
         if message is not None:
             self.message = message
-        self.status_code = status_code
-
-    @property
-    def error(self):
-        """Gets the error of this ErrorDto.  # noqa: E501
-
-        Error string  # noqa: E501
-
-        :return: The error of this ErrorDto.  # noqa: E501
-        :rtype: str
-        """
-        return self._error
-
-    @error.setter
-    def error(self, error):
-        """Sets the error of this ErrorDto.
-
-        Error string  # noqa: E501
-
-        :param error: The error of this ErrorDto.  # noqa: E501
-        :type error: str
-        """
-
-        self._error = error
-
-    @property
-    def message(self):
-        """Gets the message of this ErrorDto.  # noqa: E501
-
-        Message  # noqa: E501
-
-        :return: The message of this ErrorDto.  # noqa: E501
-        :rtype: str
-        """
-        return self._message
-
-    @message.setter
-    def message(self, message):
-        """Sets the message of this ErrorDto.
-
-        Message  # noqa: E501
-
-        :param message: The message of this ErrorDto.  # noqa: E501
-        :type message: str
-        """
-
-        self._message = message
+        if error is not None:
+            self.error = error
 
     @property
     def status_code(self):
@@ -132,6 +86,52 @@ class ErrorDto(object):
             raise ValueError("Invalid value for `status_code`, must not be `None`")  # noqa: E501
 
         self._status_code = status_code
+
+    @property
+    def message(self):
+        """Gets the message of this ErrorDto.  # noqa: E501
+
+        Message  # noqa: E501
+
+        :return: The message of this ErrorDto.  # noqa: E501
+        :rtype: str
+        """
+        return self._message
+
+    @message.setter
+    def message(self, message):
+        """Sets the message of this ErrorDto.
+
+        Message  # noqa: E501
+
+        :param message: The message of this ErrorDto.  # noqa: E501
+        :type message: str
+        """
+
+        self._message = message
+
+    @property
+    def error(self):
+        """Gets the error of this ErrorDto.  # noqa: E501
+
+        Error string  # noqa: E501
+
+        :return: The error of this ErrorDto.  # noqa: E501
+        :rtype: str
+        """
+        return self._error
+
+    @error.setter
+    def error(self, error):
+        """Sets the error of this ErrorDto.
+
+        Error string  # noqa: E501
+
+        :param error: The error of this ErrorDto.  # noqa: E501
+        :type error: str
+        """
+
+        self._error = error
 
     def to_dict(self):
         """Returns the model properties as a dict"""

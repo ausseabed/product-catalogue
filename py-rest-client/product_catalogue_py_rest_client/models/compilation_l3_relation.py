@@ -34,54 +34,31 @@ class CompilationL3Relation(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'compilation': 'Compilation',
         'id': 'int',
+        'compilation': 'Compilation',
         'product_l3_src': 'ProductL3Src'
     }
 
     attribute_map = {
-        'compilation': 'compilation',
         'id': 'id',
+        'compilation': 'compilation',
         'product_l3_src': 'productL3Src'
     }
 
-    def __init__(self, compilation=None, id=None, product_l3_src=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, compilation=None, product_l3_src=None, local_vars_configuration=None):  # noqa: E501
         """CompilationL3Relation - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
-        self._compilation = None
         self._id = None
+        self._compilation = None
         self._product_l3_src = None
         self.discriminator = None
 
-        self.compilation = compilation
         self.id = id
+        self.compilation = compilation
         self.product_l3_src = product_l3_src
-
-    @property
-    def compilation(self):
-        """Gets the compilation of this CompilationL3Relation.  # noqa: E501
-
-
-        :return: The compilation of this CompilationL3Relation.  # noqa: E501
-        :rtype: Compilation
-        """
-        return self._compilation
-
-    @compilation.setter
-    def compilation(self, compilation):
-        """Sets the compilation of this CompilationL3Relation.
-
-
-        :param compilation: The compilation of this CompilationL3Relation.  # noqa: E501
-        :type compilation: Compilation
-        """
-        if self.local_vars_configuration.client_side_validation and compilation is None:  # noqa: E501
-            raise ValueError("Invalid value for `compilation`, must not be `None`")  # noqa: E501
-
-        self._compilation = compilation
 
     @property
     def id(self):
@@ -105,6 +82,29 @@ class CompilationL3Relation(object):
             raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501
 
         self._id = id
+
+    @property
+    def compilation(self):
+        """Gets the compilation of this CompilationL3Relation.  # noqa: E501
+
+
+        :return: The compilation of this CompilationL3Relation.  # noqa: E501
+        :rtype: Compilation
+        """
+        return self._compilation
+
+    @compilation.setter
+    def compilation(self, compilation):
+        """Sets the compilation of this CompilationL3Relation.
+
+
+        :param compilation: The compilation of this CompilationL3Relation.  # noqa: E501
+        :type compilation: Compilation
+        """
+        if self.local_vars_configuration.client_side_validation and compilation is None:  # noqa: E501
+            raise ValueError("Invalid value for `compilation`, must not be `None`")  # noqa: E501
+
+        self._compilation = compilation
 
     @property
     def product_l3_src(self):

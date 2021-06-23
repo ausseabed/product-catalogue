@@ -35,54 +35,54 @@ class ProductL2Src(object):
     """
     openapi_types = {
         'id': 'int',
-        'metadata_persistent_id': 'str',
-        'name': 'str',
-        'product_gsf_location': 'str',
-        'product_posmv_location': 'str',
-        'srs': 'str',
         'uuid': 'str',
+        'name': 'str',
+        'srs': 'str',
         'vertical_datum': 'str',
-        'vessel_file_location': 'str'
+        'metadata_persistent_id': 'str',
+        'product_gsf_location': 'str',
+        'vessel_file_location': 'str',
+        'product_posmv_location': 'str'
     }
 
     attribute_map = {
         'id': 'id',
-        'metadata_persistent_id': 'metadataPersistentId',
-        'name': 'name',
-        'product_gsf_location': 'productGsfLocation',
-        'product_posmv_location': 'productPosmvLocation',
-        'srs': 'srs',
         'uuid': 'uuid',
+        'name': 'name',
+        'srs': 'srs',
         'vertical_datum': 'verticalDatum',
-        'vessel_file_location': 'vesselFileLocation'
+        'metadata_persistent_id': 'metadataPersistentId',
+        'product_gsf_location': 'productGsfLocation',
+        'vessel_file_location': 'vesselFileLocation',
+        'product_posmv_location': 'productPosmvLocation'
     }
 
-    def __init__(self, id=None, metadata_persistent_id=None, name=None, product_gsf_location=None, product_posmv_location=None, srs=None, uuid=None, vertical_datum=None, vessel_file_location=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, uuid=None, name=None, srs=None, vertical_datum=None, metadata_persistent_id=None, product_gsf_location=None, vessel_file_location=None, product_posmv_location=None, local_vars_configuration=None):  # noqa: E501
         """ProductL2Src - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
         self._id = None
-        self._metadata_persistent_id = None
-        self._name = None
-        self._product_gsf_location = None
-        self._product_posmv_location = None
-        self._srs = None
         self._uuid = None
+        self._name = None
+        self._srs = None
         self._vertical_datum = None
+        self._metadata_persistent_id = None
+        self._product_gsf_location = None
         self._vessel_file_location = None
+        self._product_posmv_location = None
         self.discriminator = None
 
         self.id = id
-        self.metadata_persistent_id = metadata_persistent_id
-        self.name = name
-        self.product_gsf_location = product_gsf_location
-        self.product_posmv_location = product_posmv_location
-        self.srs = srs
         self.uuid = uuid
+        self.name = name
+        self.srs = srs
         self.vertical_datum = vertical_datum
+        self.metadata_persistent_id = metadata_persistent_id
+        self.product_gsf_location = product_gsf_location
         self.vessel_file_location = vessel_file_location
+        self.product_posmv_location = product_posmv_location
 
     @property
     def id(self):
@@ -108,27 +108,27 @@ class ProductL2Src(object):
         self._id = id
 
     @property
-    def metadata_persistent_id(self):
-        """Gets the metadata_persistent_id of this ProductL2Src.  # noqa: E501
+    def uuid(self):
+        """Gets the uuid of this ProductL2Src.  # noqa: E501
 
 
-        :return: The metadata_persistent_id of this ProductL2Src.  # noqa: E501
+        :return: The uuid of this ProductL2Src.  # noqa: E501
         :rtype: str
         """
-        return self._metadata_persistent_id
+        return self._uuid
 
-    @metadata_persistent_id.setter
-    def metadata_persistent_id(self, metadata_persistent_id):
-        """Sets the metadata_persistent_id of this ProductL2Src.
+    @uuid.setter
+    def uuid(self, uuid):
+        """Sets the uuid of this ProductL2Src.
 
 
-        :param metadata_persistent_id: The metadata_persistent_id of this ProductL2Src.  # noqa: E501
-        :type metadata_persistent_id: str
+        :param uuid: The uuid of this ProductL2Src.  # noqa: E501
+        :type uuid: str
         """
-        if self.local_vars_configuration.client_side_validation and metadata_persistent_id is None:  # noqa: E501
-            raise ValueError("Invalid value for `metadata_persistent_id`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and uuid is None:  # noqa: E501
+            raise ValueError("Invalid value for `uuid`, must not be `None`")  # noqa: E501
 
-        self._metadata_persistent_id = metadata_persistent_id
+        self._uuid = uuid
 
     @property
     def name(self):
@@ -154,52 +154,6 @@ class ProductL2Src(object):
         self._name = name
 
     @property
-    def product_gsf_location(self):
-        """Gets the product_gsf_location of this ProductL2Src.  # noqa: E501
-
-
-        :return: The product_gsf_location of this ProductL2Src.  # noqa: E501
-        :rtype: str
-        """
-        return self._product_gsf_location
-
-    @product_gsf_location.setter
-    def product_gsf_location(self, product_gsf_location):
-        """Sets the product_gsf_location of this ProductL2Src.
-
-
-        :param product_gsf_location: The product_gsf_location of this ProductL2Src.  # noqa: E501
-        :type product_gsf_location: str
-        """
-        if self.local_vars_configuration.client_side_validation and product_gsf_location is None:  # noqa: E501
-            raise ValueError("Invalid value for `product_gsf_location`, must not be `None`")  # noqa: E501
-
-        self._product_gsf_location = product_gsf_location
-
-    @property
-    def product_posmv_location(self):
-        """Gets the product_posmv_location of this ProductL2Src.  # noqa: E501
-
-
-        :return: The product_posmv_location of this ProductL2Src.  # noqa: E501
-        :rtype: str
-        """
-        return self._product_posmv_location
-
-    @product_posmv_location.setter
-    def product_posmv_location(self, product_posmv_location):
-        """Sets the product_posmv_location of this ProductL2Src.
-
-
-        :param product_posmv_location: The product_posmv_location of this ProductL2Src.  # noqa: E501
-        :type product_posmv_location: str
-        """
-        if self.local_vars_configuration.client_side_validation and product_posmv_location is None:  # noqa: E501
-            raise ValueError("Invalid value for `product_posmv_location`, must not be `None`")  # noqa: E501
-
-        self._product_posmv_location = product_posmv_location
-
-    @property
     def srs(self):
         """Gets the srs of this ProductL2Src.  # noqa: E501
 
@@ -221,29 +175,6 @@ class ProductL2Src(object):
             raise ValueError("Invalid value for `srs`, must not be `None`")  # noqa: E501
 
         self._srs = srs
-
-    @property
-    def uuid(self):
-        """Gets the uuid of this ProductL2Src.  # noqa: E501
-
-
-        :return: The uuid of this ProductL2Src.  # noqa: E501
-        :rtype: str
-        """
-        return self._uuid
-
-    @uuid.setter
-    def uuid(self, uuid):
-        """Sets the uuid of this ProductL2Src.
-
-
-        :param uuid: The uuid of this ProductL2Src.  # noqa: E501
-        :type uuid: str
-        """
-        if self.local_vars_configuration.client_side_validation and uuid is None:  # noqa: E501
-            raise ValueError("Invalid value for `uuid`, must not be `None`")  # noqa: E501
-
-        self._uuid = uuid
 
     @property
     def vertical_datum(self):
@@ -275,6 +206,52 @@ class ProductL2Src(object):
         self._vertical_datum = vertical_datum
 
     @property
+    def metadata_persistent_id(self):
+        """Gets the metadata_persistent_id of this ProductL2Src.  # noqa: E501
+
+
+        :return: The metadata_persistent_id of this ProductL2Src.  # noqa: E501
+        :rtype: str
+        """
+        return self._metadata_persistent_id
+
+    @metadata_persistent_id.setter
+    def metadata_persistent_id(self, metadata_persistent_id):
+        """Sets the metadata_persistent_id of this ProductL2Src.
+
+
+        :param metadata_persistent_id: The metadata_persistent_id of this ProductL2Src.  # noqa: E501
+        :type metadata_persistent_id: str
+        """
+        if self.local_vars_configuration.client_side_validation and metadata_persistent_id is None:  # noqa: E501
+            raise ValueError("Invalid value for `metadata_persistent_id`, must not be `None`")  # noqa: E501
+
+        self._metadata_persistent_id = metadata_persistent_id
+
+    @property
+    def product_gsf_location(self):
+        """Gets the product_gsf_location of this ProductL2Src.  # noqa: E501
+
+
+        :return: The product_gsf_location of this ProductL2Src.  # noqa: E501
+        :rtype: str
+        """
+        return self._product_gsf_location
+
+    @product_gsf_location.setter
+    def product_gsf_location(self, product_gsf_location):
+        """Sets the product_gsf_location of this ProductL2Src.
+
+
+        :param product_gsf_location: The product_gsf_location of this ProductL2Src.  # noqa: E501
+        :type product_gsf_location: str
+        """
+        if self.local_vars_configuration.client_side_validation and product_gsf_location is None:  # noqa: E501
+            raise ValueError("Invalid value for `product_gsf_location`, must not be `None`")  # noqa: E501
+
+        self._product_gsf_location = product_gsf_location
+
+    @property
     def vessel_file_location(self):
         """Gets the vessel_file_location of this ProductL2Src.  # noqa: E501
 
@@ -296,6 +273,29 @@ class ProductL2Src(object):
             raise ValueError("Invalid value for `vessel_file_location`, must not be `None`")  # noqa: E501
 
         self._vessel_file_location = vessel_file_location
+
+    @property
+    def product_posmv_location(self):
+        """Gets the product_posmv_location of this ProductL2Src.  # noqa: E501
+
+
+        :return: The product_posmv_location of this ProductL2Src.  # noqa: E501
+        :rtype: str
+        """
+        return self._product_posmv_location
+
+    @product_posmv_location.setter
+    def product_posmv_location(self, product_posmv_location):
+        """Sets the product_posmv_location of this ProductL2Src.
+
+
+        :param product_posmv_location: The product_posmv_location of this ProductL2Src.  # noqa: E501
+        :type product_posmv_location: str
+        """
+        if self.local_vars_configuration.client_side_validation and product_posmv_location is None:  # noqa: E501
+            raise ValueError("Invalid value for `product_posmv_location`, must not be `None`")  # noqa: E501
+
+        self._product_posmv_location = product_posmv_location
 
     def to_dict(self):
         """Returns the model properties as a dict"""

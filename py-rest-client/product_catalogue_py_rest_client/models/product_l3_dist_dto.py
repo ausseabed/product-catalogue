@@ -34,85 +34,60 @@ class ProductL3DistDto(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'bathymetry_bag_location': 'str',
-        'bathymetry_location': 'str',
+        'l3_coverage_location': 'str',
         'hillshade_location': 'str',
-        'l3_coverage_location': 'str'
+        'bathymetry_location': 'str',
+        'bathymetry_bag_location': 'str'
     }
 
     attribute_map = {
-        'bathymetry_bag_location': 'bathymetryBagLocation',
-        'bathymetry_location': 'bathymetryLocation',
+        'l3_coverage_location': 'l3CoverageLocation',
         'hillshade_location': 'hillshadeLocation',
-        'l3_coverage_location': 'l3CoverageLocation'
+        'bathymetry_location': 'bathymetryLocation',
+        'bathymetry_bag_location': 'bathymetryBagLocation'
     }
 
-    def __init__(self, bathymetry_bag_location=None, bathymetry_location=None, hillshade_location=None, l3_coverage_location=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, l3_coverage_location=None, hillshade_location=None, bathymetry_location=None, bathymetry_bag_location=None, local_vars_configuration=None):  # noqa: E501
         """ProductL3DistDto - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
-        self._bathymetry_bag_location = None
-        self._bathymetry_location = None
-        self._hillshade_location = None
         self._l3_coverage_location = None
+        self._hillshade_location = None
+        self._bathymetry_location = None
+        self._bathymetry_bag_location = None
         self.discriminator = None
 
-        self.bathymetry_bag_location = bathymetry_bag_location
-        self.bathymetry_location = bathymetry_location
-        self.hillshade_location = hillshade_location
         self.l3_coverage_location = l3_coverage_location
+        self.hillshade_location = hillshade_location
+        self.bathymetry_location = bathymetry_location
+        self.bathymetry_bag_location = bathymetry_bag_location
 
     @property
-    def bathymetry_bag_location(self):
-        """Gets the bathymetry_bag_location of this ProductL3DistDto.  # noqa: E501
+    def l3_coverage_location(self):
+        """Gets the l3_coverage_location of this ProductL3DistDto.  # noqa: E501
 
-        Location of BAG format bathymetry  # noqa: E501
+        Location of coverage extent of L3 product  # noqa: E501
 
-        :return: The bathymetry_bag_location of this ProductL3DistDto.  # noqa: E501
+        :return: The l3_coverage_location of this ProductL3DistDto.  # noqa: E501
         :rtype: str
         """
-        return self._bathymetry_bag_location
+        return self._l3_coverage_location
 
-    @bathymetry_bag_location.setter
-    def bathymetry_bag_location(self, bathymetry_bag_location):
-        """Sets the bathymetry_bag_location of this ProductL3DistDto.
+    @l3_coverage_location.setter
+    def l3_coverage_location(self, l3_coverage_location):
+        """Sets the l3_coverage_location of this ProductL3DistDto.
 
-        Location of BAG format bathymetry  # noqa: E501
+        Location of coverage extent of L3 product  # noqa: E501
 
-        :param bathymetry_bag_location: The bathymetry_bag_location of this ProductL3DistDto.  # noqa: E501
-        :type bathymetry_bag_location: str
+        :param l3_coverage_location: The l3_coverage_location of this ProductL3DistDto.  # noqa: E501
+        :type l3_coverage_location: str
         """
-        if self.local_vars_configuration.client_side_validation and bathymetry_bag_location is None:  # noqa: E501
-            raise ValueError("Invalid value for `bathymetry_bag_location`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and l3_coverage_location is None:  # noqa: E501
+            raise ValueError("Invalid value for `l3_coverage_location`, must not be `None`")  # noqa: E501
 
-        self._bathymetry_bag_location = bathymetry_bag_location
-
-    @property
-    def bathymetry_location(self):
-        """Gets the bathymetry_location of this ProductL3DistDto.  # noqa: E501
-
-        Location of the raster bathymetry  # noqa: E501
-
-        :return: The bathymetry_location of this ProductL3DistDto.  # noqa: E501
-        :rtype: str
-        """
-        return self._bathymetry_location
-
-    @bathymetry_location.setter
-    def bathymetry_location(self, bathymetry_location):
-        """Sets the bathymetry_location of this ProductL3DistDto.
-
-        Location of the raster bathymetry  # noqa: E501
-
-        :param bathymetry_location: The bathymetry_location of this ProductL3DistDto.  # noqa: E501
-        :type bathymetry_location: str
-        """
-        if self.local_vars_configuration.client_side_validation and bathymetry_location is None:  # noqa: E501
-            raise ValueError("Invalid value for `bathymetry_location`, must not be `None`")  # noqa: E501
-
-        self._bathymetry_location = bathymetry_location
+        self._l3_coverage_location = l3_coverage_location
 
     @property
     def hillshade_location(self):
@@ -140,29 +115,54 @@ class ProductL3DistDto(object):
         self._hillshade_location = hillshade_location
 
     @property
-    def l3_coverage_location(self):
-        """Gets the l3_coverage_location of this ProductL3DistDto.  # noqa: E501
+    def bathymetry_location(self):
+        """Gets the bathymetry_location of this ProductL3DistDto.  # noqa: E501
 
-        Location of coverage extent of L3 product  # noqa: E501
+        Location of the raster bathymetry  # noqa: E501
 
-        :return: The l3_coverage_location of this ProductL3DistDto.  # noqa: E501
+        :return: The bathymetry_location of this ProductL3DistDto.  # noqa: E501
         :rtype: str
         """
-        return self._l3_coverage_location
+        return self._bathymetry_location
 
-    @l3_coverage_location.setter
-    def l3_coverage_location(self, l3_coverage_location):
-        """Sets the l3_coverage_location of this ProductL3DistDto.
+    @bathymetry_location.setter
+    def bathymetry_location(self, bathymetry_location):
+        """Sets the bathymetry_location of this ProductL3DistDto.
 
-        Location of coverage extent of L3 product  # noqa: E501
+        Location of the raster bathymetry  # noqa: E501
 
-        :param l3_coverage_location: The l3_coverage_location of this ProductL3DistDto.  # noqa: E501
-        :type l3_coverage_location: str
+        :param bathymetry_location: The bathymetry_location of this ProductL3DistDto.  # noqa: E501
+        :type bathymetry_location: str
         """
-        if self.local_vars_configuration.client_side_validation and l3_coverage_location is None:  # noqa: E501
-            raise ValueError("Invalid value for `l3_coverage_location`, must not be `None`")  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and bathymetry_location is None:  # noqa: E501
+            raise ValueError("Invalid value for `bathymetry_location`, must not be `None`")  # noqa: E501
 
-        self._l3_coverage_location = l3_coverage_location
+        self._bathymetry_location = bathymetry_location
+
+    @property
+    def bathymetry_bag_location(self):
+        """Gets the bathymetry_bag_location of this ProductL3DistDto.  # noqa: E501
+
+        Location of BAG format bathymetry  # noqa: E501
+
+        :return: The bathymetry_bag_location of this ProductL3DistDto.  # noqa: E501
+        :rtype: str
+        """
+        return self._bathymetry_bag_location
+
+    @bathymetry_bag_location.setter
+    def bathymetry_bag_location(self, bathymetry_bag_location):
+        """Sets the bathymetry_bag_location of this ProductL3DistDto.
+
+        Location of BAG format bathymetry  # noqa: E501
+
+        :param bathymetry_bag_location: The bathymetry_bag_location of this ProductL3DistDto.  # noqa: E501
+        :type bathymetry_bag_location: str
+        """
+        if self.local_vars_configuration.client_side_validation and bathymetry_bag_location is None:  # noqa: E501
+            raise ValueError("Invalid value for `bathymetry_bag_location`, must not be `None`")  # noqa: E501
+
+        self._bathymetry_bag_location = bathymetry_bag_location
 
     def to_dict(self):
         """Returns the model properties as a dict"""
