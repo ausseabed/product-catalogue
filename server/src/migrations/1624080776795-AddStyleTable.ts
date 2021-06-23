@@ -21,6 +21,7 @@ export class AddStyleTable1624080776795 implements MigrationInterface {
         await queryRunner.query(`INSERT INTO "style" ("id", "name", "geoserverStyleName", "description", "deletedDate") values ('BATHYMETRY_SHALLOW', 'BathymetryShallow', 'BathymetryShallow', 'Default shallow bathymetry', null)`);
         await queryRunner.query(`INSERT INTO "style" ("id", "name", "geoserverStyleName", "description", "deletedDate") values ('MH370_PHASE2', 'MH370 Phase 2', 'MH370Phase2', ' ', null)`);
         await queryRunner.query(`INSERT INTO "style" ("id", "name", "geoserverStyleName", "description", "deletedDate") values ('MH370_PHASE2_INVERSE', 'MH370 Phase 2 Inverse', 'MH370Phase2Inverse', ' ', null)`);
+        await queryRunner.query(`INSERT INTO "style" ("id", "name", "geoserverStyleName", "description", "deletedDate") values ('BACKSCATTER', 'MH370 Backscatter', 'Backscatter', ' ', null)`);
 
         await queryRunner.query(`UPDATE "product_l3_src" SET "defaultStyleId" = 'BATHYMETRY'`);
         await queryRunner.query(`INSERT INTO "product_l3_src_available_styles_style" SELECT id, 'BATHYMETRY' FROM "product_l3_src"`);
