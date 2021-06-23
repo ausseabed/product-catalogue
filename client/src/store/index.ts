@@ -7,12 +7,14 @@ import surveyl3relation from './survey-l3-relation'
 import surveyl2relation from './survey-l2-relation'
 import productl3dist from './product-l3-dist'
 import reports from './reports'
+import styles from './styles'
 import { SurveyStateInterface } from './surveys/state'
 import { SurveyL3RelationStateInterface } from './survey-l3-relation/state'
 import { SurveyL2RelationStateInterface } from './survey-l2-relation/state'
 import { AuthStateInterface } from './auth/state'
 import { ProductL3DistStateInterface } from './product-l3-dist/state'
 import { ReportsStateInterface } from './reports/state'
+import { StylesStateInterface } from 'src/store/styles/state'
 /*
  * If not building with SSR mode, you can
  * directly export the Store instantiation
@@ -26,6 +28,7 @@ export interface StoreInterface {
   authStore: AuthStateInterface;
   productL3DistStore: ProductL3DistStateInterface;
   reportsStore: ReportsStateInterface;
+  stylesStore: StylesStateInterface;
 }
 
 export default store(function ({ Vue }) {
@@ -38,7 +41,8 @@ export default store(function ({ Vue }) {
       surveys,
       surveyl2relation,
       surveyl3relation,
-      productl3dist
+      productl3dist,
+      styles
     },
 
     // enable strict mode (adds overhead!)

@@ -18,12 +18,16 @@ import { ProductL0SrcHistoryView } from './product-l0-src-history-view.entity';
 import { ProductL3SrcHistoryView } from './product-l3-src-history-view.entity';
 import { ProductL2SrcHistoryView } from './product-l2-src-history-view.entity';
 import { ProductL0InstrumentFileHistoryView } from './product-l0-instrument-file-history-view.entity';
+import { StylesService } from './styles.service';
+import { Style } from './style.entity';
+import { StylesController } from './styles.controller';
+
 @Module({
   imports: [TypeOrmModule.forFeature([ProductL3Dist, ProductL0Dist, ProductL0Src,
     ProductL2Src, ProductL2SrcHistoryView,
     ProductL3Src, ProductL0InstrumentFile, ProductL3DistHistoryView, ProductL0DistHistoryView, ProductL0SrcHistoryView,
-    ProductL3SrcHistoryView, ProductL0InstrumentFileHistoryView ])],
-  controllers: [ProductsL0SrcController, ProductsL2SrcController, ProductsL3SrcController, ProductsL0DistController, ProductsL3DistController],
-  providers: [ProductsService],
+    ProductL3SrcHistoryView, ProductL0InstrumentFileHistoryView, Style])],
+  controllers: [ProductsL0SrcController, ProductsL2SrcController, ProductsL3SrcController, ProductsL0DistController, ProductsL3DistController, StylesController],
+  providers: [ProductsService, StylesService],
 })
 export class ProductsModule { }

@@ -8,6 +8,7 @@ import { ProductsService } from './products.service';
 import { Request } from 'express';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { ProductL3SrcHistoryView } from './product-l3-src-history-view.entity';
+import { StylesService } from './styles.service';
 
 @ApiTags('products/l3-src')
 @Controller('products/l3-src')
@@ -17,8 +18,9 @@ import { ProductL3SrcHistoryView } from './product-l3-src-history-view.entity';
 export class ProductsL3SrcController extends ProductsController<ProductL3Src, ProductL3SrcHistoryView ,ProductL3SrcDto>{
   constructor(
     productsService: ProductsService,
+    stylesService: StylesService
   ) {
-    super(ProductL3Src, ProductL3SrcHistoryView, productsService)
+    super(ProductL3Src, ProductL3SrcHistoryView, productsService, stylesService)
   }
 
   @Get()
@@ -30,7 +32,16 @@ export class ProductsL3SrcController extends ProductsController<ProductL3Src, Pr
   async findAll (@Query('snapshotDateTime') snapshotDateTime: Date| unknown): Promise<ProductL3Src[]> {
     if (snapshotDateTime)
     {
-      const prod = this.productsService.findAll<ProductL3SrcHistoryView>(this.productHistoryType, snapshotDateTime)
+      const prod = await this.productsService.findAll<ProductL3SrcHistoryView>(this.productHistoryType, snapshotDateTime)
+
+      for (const productDist of prod) {
+        productDist.availableStyles = await this.productsService.findAvailableStyles(ProductL3Src, productDist.id);
+
+        if (productDist.defaultStyleId) {
+          productDist.defaultStyle = await this.stylesService.findOne(productDist.defaultStyleId);
+        }
+      }
+
       return prod as unknown as Promise<ProductL3Src[]>;
     }
     else
@@ -50,6 +61,7 @@ export class ProductsL3SrcController extends ProductsController<ProductL3Src, Pr
   create (@Body(new ClassValidationPipe()) product: ProductL3SrcDto) {
     return this.productsService.create<ProductL3Src, ProductL3SrcDto>(this.productType, product);
   }
+
   @Put(':productId')
   @ApiBadRequestResponse({ description: 'Could not find the survey' })
   update (@Param('productId', new ParseIntPipe()) productId: number, @Body(new ClassValidationPipe()) updateProductDto: ProductL3SrcDto) {

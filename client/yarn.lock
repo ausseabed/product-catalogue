@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@ausseabed/product-catalogue-rest-client@^0.2.2":
-  version "0.2.2"
-  resolved "https://npm.pkg.github.com/download/@ausseabed/product-catalogue-rest-client/0.2.2/b8e948c776bd69240806766ff3dd98ed787d58aa6d3bb4d9e526e8f0571a35f1#5c72adf4ae6cc0a50f243f3cafc8b4ecb0d61601"
-  integrity sha512-wOboBgqFrxZypL0CE0EENAycf5ZHzabdjUJS81qqX/A/xrikyGLgy1aEt+Y664Hm5wUK0bpq5hi+22okojWK4w==
+"@ausseabed/product-catalogue-rest-client@^0.2.3":
+  version "0.2.3"
+  resolved "https://npm.pkg.github.com/download/@ausseabed/product-catalogue-rest-client/0.2.3/4b70b7aae315d624b2421f393fafd272bb18e1aaaa8dc41c055230009a695790#7ca729a0e83e58e1dd97c1cef31b6b02bf6605db"
+  integrity sha512-fuhrEgXuqzyerG+cRELwqHnHXhsva92tu6s7HbDqsjCgtWhqbAylW7udupRJrapIKnahjDUdS4NGsw9Wo0S83g==
   dependencies:
     es6-promise "^4.2.4"
     url-parse "^1.4.3"

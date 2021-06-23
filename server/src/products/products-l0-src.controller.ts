@@ -8,6 +8,7 @@ import { ProductsService } from './products.service';
 import { Request } from 'express';
 import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { ProductL0SrcHistoryView } from './product-l0-src-history-view.entity';
+import { StylesService } from './styles.service';
 
 @ApiTags('products/l0-src')
 @Controller('products/l0-src')
@@ -17,8 +18,9 @@ import { ProductL0SrcHistoryView } from './product-l0-src-history-view.entity';
 export class ProductsL0SrcController extends ProductsController<ProductL0Src, ProductL0SrcHistoryView, ProductL0SrcDto>{
   constructor(
     productsService: ProductsService,
+    stylesService: StylesService
   ) {
-    super(ProductL0Src, ProductL0SrcHistoryView, productsService)
+    super(ProductL0Src, ProductL0SrcHistoryView, productsService, stylesService)
   }
 
   @Get()

@@ -1,9 +1,10 @@
-import "reflect-metadata";
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import 'reflect-metadata';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Product, VerticalDatum } from './product.entity';
-import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
-import { Exclude } from "class-transformer";
-import "crypto";
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
+import 'crypto';
+import { Style } from './style.entity';
 
 
 @Entity()
@@ -92,6 +93,20 @@ export class ProductL3Src implements Product {
    */
   @Column()
   productBagLocation: string;
+
+  @ManyToOne(() => Style, {
+    eager: true
+  })
+  @JoinColumn()
+  @ApiProperty({ required: false, type: Style })
+  defaultStyle: Style;
+
+  @ManyToMany(() => Style, {
+    eager: true
+  })
+  @JoinTable()
+  @ApiProperty({ required: false, type: [Style] })
+  availableStyles: Style[];
 
   @ApiHideProperty()
   @Exclude()

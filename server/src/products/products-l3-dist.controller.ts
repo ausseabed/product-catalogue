@@ -10,6 +10,7 @@ import { ClassValidationPipe } from 'src/validation/class-validation.pipe';
 import { ProductL3Src } from './product-l3-src.entity';
 import { ProductL3DistHistoryView } from './product-l3-dist-history-view.entity';
 import { ProductL3SrcHistoryView } from './product-l3-src-history-view.entity';
+import { StylesService } from './styles.service';
 
 @ApiTags('products/l3-dist')
 @Controller('products/l3-dist')
@@ -19,8 +20,9 @@ import { ProductL3SrcHistoryView } from './product-l3-src-history-view.entity';
 export class ProductsL3DistController extends ProductsController<ProductL3Dist, ProductL3DistHistoryView, ProductL3DistDto>{
   constructor(
     productsService: ProductsService,
+    stylesService: StylesService
   ) {
-    super(ProductL3Dist, ProductL3DistHistoryView, productsService)
+    super(ProductL3Dist, ProductL3DistHistoryView, productsService, stylesService)
   }
 
   @Get()
@@ -39,7 +41,16 @@ export class ProductsL3DistController extends ProductsController<ProductL3Dist, 
     {
       const prod = await this.productsService.findAll<ProductL3DistHistoryView>(this.productHistoryType, snapshotDateTime, filterByProductSrcId );
       const eagerL3SrcCandidates = await this.productsService.findAll<ProductL3SrcHistoryView>(ProductL3SrcHistoryView, snapshotDateTime );
-      prod.forEach(productDist => productDist.sourceProduct = eagerL3SrcCandidates.find(productSrc => productSrc.id===productDist.sourceProduct))
+      for (const productDist of prod) {
+        const sourceProduct = eagerL3SrcCandidates.find(productSrc => productSrc.id===productDist.sourceProduct)
+        sourceProduct.availableStyles = await this.productsService.findAvailableStyles(ProductL3Src, sourceProduct.id);
+
+        if (sourceProduct.defaultStyleId) {
+          sourceProduct.defaultStyle = await this.stylesService.findOne(sourceProduct.defaultStyleId);
+        }
+
+        productDist.sourceProduct = sourceProduct
+      }
       return prod as unknown as ProductL3Dist[];
     }
     else

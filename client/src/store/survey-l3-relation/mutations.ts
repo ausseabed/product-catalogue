@@ -12,8 +12,13 @@ const mutation: MutationTree<SurveyL3RelationStateInterface> = {
   createGuid (state: SurveyL3RelationStateInterface) {
     state.surveyL3RelationSelected.productL3Src.uuid = uuidv4()
   },
-  updateProduct (state: SurveyL3RelationStateInterface, elementValuePair: { element: UpdateProductKnownTypes; value: string }) {
-    state.surveyL3RelationSelected.productL3Src[elementValuePair.element] = elementValuePair.value.trim()
+  updateProduct (state: SurveyL3RelationStateInterface, elementValuePair: { element: UpdateProductKnownTypes; value: string | any }) {
+    if (typeof elementValuePair.value === 'string') {
+      state.surveyL3RelationSelected.productL3Src[elementValuePair.element] = elementValuePair.value.trim()
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      state.surveyL3RelationSelected.productL3Src[elementValuePair.element] = elementValuePair.value
+    }
   },
   clearErrorMessagesMutation (state: SurveyL3RelationStateInterface) {
     while (state.errorMessages.length) { state.errorMessages.pop() }

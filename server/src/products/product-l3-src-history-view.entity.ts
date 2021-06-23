@@ -1,5 +1,7 @@
-import { ViewEntity, ViewColumn } from "typeorm";
-import { VerticalDatum } from "./product.entity";
+import { ViewColumn, ViewEntity } from 'typeorm';
+import { VerticalDatum } from './product.entity';
+import { Style } from './style.entity';
+import { Exclude } from 'class-transformer';
 
 @ViewEntity({name: "product_l3_src_with_history", expression: `SELECT * FROM "product_l3_src" UNION ALL SELECT * FROM "product_l3_src_history"`})
 export class ProductL3SrcHistoryView {
@@ -29,6 +31,14 @@ export class ProductL3SrcHistoryView {
 
   @ViewColumn({ name: "productBagLocation" })
   productBagLocation: string;
+
+  @ViewColumn({ name: "defaultStyleId" })
+  @Exclude()
+  defaultStyleId?: string;
+
+  defaultStyle: Style;
+
+  availableStyles: Style[];
 
   @ViewColumn( { name: "sysPeriod" })
   sysPeriod: any;

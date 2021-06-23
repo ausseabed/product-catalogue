@@ -2,6 +2,7 @@ import { ProductDto } from "./product.dto";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsEnum } from "class-validator";
 import { VerticalDatum } from "../product.entity";
+import { Style } from '../style.entity';
 
 export class ProductL3SrcDto extends ProductDto {
   @IsString()
@@ -31,5 +32,18 @@ export class ProductL3SrcDto extends ProductDto {
 * \`WGS84\` - WGS84 'Ellipsoid'`
   })
   verticalDatum: VerticalDatum;
-  
+
+  @ApiProperty({
+    description: 'Default style in web map service',
+    required: false,
+    type: Style
+  })
+  defaultStyle: Style;
+
+  @ApiProperty({
+    description: 'Available styles in web map service',
+    required: false,
+    type: [Style]
+  })
+  availableStyles: Style[];
 }

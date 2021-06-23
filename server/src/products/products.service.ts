@@ -5,6 +5,8 @@ import { EntityManager, Raw } from 'typeorm';
 import { plainToClassFromExist, plainToClass } from "class-transformer";
 import { ProductL0InstrumentFile } from './product-l0-instrument-file.entity';
 import { ProductL0Dist } from './product-l0-dist.entity';
+import { Style } from './style.entity';
+
 @Injectable()
 export class ProductsService {
   constructor(
@@ -71,6 +73,13 @@ export class ProductsService {
           id: instrumentId
         }
       });
+  }
+
+  async findAvailableStyles<T>(productType: new () => T, productId: number): Promise<Style[]> {
+    return this.productsEntityManager.createQueryBuilder()
+        .relation(productType, 'availableStyles')
+        .of(productId)
+        .loadMany();
   }
 
   async findOne<T> (productType: new () => T, id: number): Promise<T> {

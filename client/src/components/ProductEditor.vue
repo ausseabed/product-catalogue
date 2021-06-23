@@ -160,7 +160,6 @@
         </div>
 
         <div class="row items-center">
-
           <q-input
             v-if="productTifLocationUrlType==='s3'"
             class="q-ma-md col col-grow"
@@ -196,6 +195,33 @@
         ]"
           />
         </div>
+
+        <div class="row">
+          <div class="col">
+            <q-select
+              class="q-ma-md"
+              :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.defaultStyle"
+              :options="styles.styles"
+              option-value="id"
+              option-label="name"
+              @input="value=>updateProduct( {element:'defaultStyle',value: value})"
+              label="Default Style"
+            />
+          </div>
+          <div class="col">
+            <q-select
+              class="q-ma-md"
+              multiple
+              :value="surveyL3Relation.surveyL3RelationSelected.productL3Src.availableStyles"
+              :options="styles.styles"
+              option-value="id"
+              option-label="name"
+              @input="value=>updateProduct( {element:'availableStyles',value: value})"
+              label="Additional Styles"
+            />
+          </div>
+        </div>
+
         <div class="col col-md-auto">
           <q-btn
             class="q-ma-md"
@@ -233,6 +259,7 @@ import { matInfo } from '@quasar/extras/material-icons'
 import { UpdateProductKnownTypes } from '../store/survey-l3-relation/mutations'
 
 import { ProductL3DistStateInterface } from '../store/product-l3-dist/state'
+import { StylesStateInterface } from 'src/store/styles/state'
 
 const namespace = 'surveyl3relation'
 
@@ -270,6 +297,10 @@ export default class ProductEditor extends Vue {
   @Getter('productPresentationString', { namespace }) productPresentationString!: string
 
   @Getter('surveyPresentationString', { namespace }) surveyPresentationString!: string
+
+  @Action('fetchData', { namespace: 'styles' }) fetchStyleData!: () => Promise<void>
+
+  @State('styles') styles!: StylesStateInterface
 
   updateSrs (code: string) {
     this.updateProduct({ element: 'srs', value: code })
@@ -342,7 +373,11 @@ export default class ProductEditor extends Vue {
   }
 
   async mounted () {
-    await this.fetchData(this.$props.relationId)
+    await Promise.all([
+      this.fetchStyleData(),
+      this.fetchData(this.$props.relationId)
+    ])
+
     if (this.surveyL3Relation && this.surveyL3Relation.surveyL3RelationSelected &&
       this.surveyL3Relation.surveyL3RelationSelected.productL3Src) {
       await this.fetchDataL3Dist(this.surveyL3Relation.surveyL3RelationSelected.productL3Src.id)
@@ -410,7 +445,6 @@ export default class ProductEditor extends Vue {
           value: 'Unknown',
           description: 'Unknown'
         }
-
       ]
     }
   }

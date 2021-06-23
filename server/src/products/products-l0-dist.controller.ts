@@ -12,6 +12,7 @@ import { ProductL0InstrumentFileDto } from './dto/product-l0-instrument-file.dto
 import { ProductL0Src } from './product-l0-src.entity';
 import { ProductL0DistHistoryView } from './product-l0-dist-history-view.entity';
 import { ProductL0InstrumentFileHistoryView } from './product-l0-instrument-file-history-view.entity';
+import { StylesService } from './styles.service';
 
 @ApiTags('products/l0-dist')
 @Controller('products/l0-dist')
@@ -21,8 +22,9 @@ import { ProductL0InstrumentFileHistoryView } from './product-l0-instrument-file
 export class ProductsL0DistController extends ProductsController<ProductL0Dist, ProductL0DistHistoryView, ProductL0DistDto>{
   constructor(
     productsService: ProductsService,
+    stylesService: StylesService,
   ) {
-    super(ProductL0Dist, ProductL0DistHistoryView, productsService)
+    super(ProductL0Dist, ProductL0DistHistoryView, productsService, stylesService)
   }
 
   @Get()

@@ -4,7 +4,6 @@ import { ProductL3Dist } from '@ausseabed/product-catalogue-rest-client'
 
 const mutation: MutationTree<ProductL3DistStateInterface> = {
   assignProductL3Dist (state: ProductL3DistStateInterface, productL3Dist: ProductL3Dist) {
-    console.log('times are changing')
     state.productL3Dist = productL3Dist
   },
   clearL3Dist (state: ProductL3DistStateInterface) {
