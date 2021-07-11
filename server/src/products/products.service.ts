@@ -76,10 +76,14 @@ export class ProductsService {
   }
 
   async findAvailableStyles<T>(productType: new () => T, productId: number): Promise<Style[]> {
-    return this.productsEntityManager.createQueryBuilder()
+    const styles: Style[] = await this.productsEntityManager.createQueryBuilder()
         .relation(productType, 'availableStyles')
         .of(productId)
         .loadMany();
+
+    styles.sort((a, b) => a.id.localeCompare(b.id));
+
+    return styles;
   }
 
   async findOne<T> (productType: new () => T, id: number): Promise<T> {
