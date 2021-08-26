@@ -39,15 +39,15 @@ class TestStyle(unittest.TestCase):
             return Style(
                 id = '0', 
                 name = '0', 
-                description = '0', 
-                geoserver_style_name = '0'
+                geoserver_style_name = '0', 
+                description = '0'
             )
         else :
             return Style(
                 id = '0',
                 name = '0',
-                description = '0',
                 geoserver_style_name = '0',
+                description = '0',
         )
 
     def testStyle(self):

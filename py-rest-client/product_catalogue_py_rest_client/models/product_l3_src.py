@@ -44,7 +44,8 @@ class ProductL3Src(object):
         'metadata_persistent_id': 'str',
         'resolution': 'str',
         'product_tif_location': 'str',
-        'product_bag_location': 'str'
+        'product_bag_location': 'str',
+        'sort_order': 'float'
     }
 
     attribute_map = {
@@ -58,10 +59,11 @@ class ProductL3Src(object):
         'metadata_persistent_id': 'metadataPersistentId',
         'resolution': 'resolution',
         'product_tif_location': 'productTifLocation',
-        'product_bag_location': 'productBagLocation'
+        'product_bag_location': 'productBagLocation',
+        'sort_order': 'sortOrder'
     }
 
-    def __init__(self, id=None, default_style=None, available_styles=None, uuid=None, name=None, srs=None, vertical_datum=None, metadata_persistent_id=None, resolution=None, product_tif_location=None, product_bag_location=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, default_style=None, available_styles=None, uuid=None, name=None, srs=None, vertical_datum=None, metadata_persistent_id=None, resolution=None, product_tif_location=None, product_bag_location=None, sort_order=None, local_vars_configuration=None):  # noqa: E501
         """ProductL3Src - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -78,6 +80,7 @@ class ProductL3Src(object):
         self._resolution = None
         self._product_tif_location = None
         self._product_bag_location = None
+        self._sort_order = None
         self.discriminator = None
 
         self.id = id
@@ -93,6 +96,7 @@ class ProductL3Src(object):
         self.resolution = resolution
         self.product_tif_location = product_tif_location
         self.product_bag_location = product_bag_location
+        self.sort_order = sort_order
 
     @property
     def id(self):
@@ -348,6 +352,29 @@ class ProductL3Src(object):
             raise ValueError("Invalid value for `product_bag_location`, must not be `None`")  # noqa: E501
 
         self._product_bag_location = product_bag_location
+
+    @property
+    def sort_order(self):
+        """Gets the sort_order of this ProductL3Src.  # noqa: E501
+
+
+        :return: The sort_order of this ProductL3Src.  # noqa: E501
+        :rtype: float
+        """
+        return self._sort_order
+
+    @sort_order.setter
+    def sort_order(self, sort_order):
+        """Sets the sort_order of this ProductL3Src.
+
+
+        :param sort_order: The sort_order of this ProductL3Src.  # noqa: E501
+        :type sort_order: float
+        """
+        if self.local_vars_configuration.client_side_validation and sort_order is None:  # noqa: E501
+            raise ValueError("Invalid value for `sort_order`, must not be `None`")  # noqa: E501
+
+        self._sort_order = sort_order
 
     def to_dict(self):
         """Returns the model properties as a dict"""

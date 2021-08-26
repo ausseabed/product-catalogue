@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **resolution** | **str** |  | 
 **product_tif_location** | **str** |  | 
 **product_bag_location** | **str** |  | 
+**sort_order** | **float** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

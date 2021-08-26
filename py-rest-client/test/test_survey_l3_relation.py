@@ -38,40 +38,66 @@ class TestSurveyL3Relation(unittest.TestCase):
         if include_optional :
             return SurveyL3Relation(
                 id = 56, 
-                product_l3_src = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
-                    id = 56, 
-                    metadata_persistent_id = '0', 
-                    name = '0', 
-                    product_bag_location = '0', 
-                    product_tif_location = '0', 
-                    resolution = '0', 
-                    srs = '0', 
-                    uuid = '0', 
-                    vertical_datum = 'Unknown', ), 
                 survey = product_catalogue_py_rest_client.models.survey.Survey(
                     id = 56, 
-                    name = '0', 
                     uuid = '0', 
-                    year = '0', )
+                    name = '0', 
+                    year = '0', ), 
+                product_l3_src = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
+                    id = 56, 
+                    default_style = product_catalogue_py_rest_client.models.style.Style(
+                        id = '0', 
+                        name = '0', 
+                        geoserver_style_name = '0', 
+                        description = '0', ), 
+                    available_styles = [
+                        product_catalogue_py_rest_client.models.style.Style(
+                            id = '0', 
+                            name = '0', 
+                            geoserver_style_name = '0', 
+                            description = '0', )
+                        ], 
+                    uuid = '0', 
+                    name = '0', 
+                    srs = '0', 
+                    vertical_datum = 'Unknown', 
+                    metadata_persistent_id = '0', 
+                    resolution = '0', 
+                    product_tif_location = '0', 
+                    product_bag_location = '0', 
+                    sort_order = 1.337, )
             )
         else :
             return SurveyL3Relation(
                 id = 56,
-                product_l3_src = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
-                    id = 56, 
-                    metadata_persistent_id = '0', 
-                    name = '0', 
-                    product_bag_location = '0', 
-                    product_tif_location = '0', 
-                    resolution = '0', 
-                    srs = '0', 
-                    uuid = '0', 
-                    vertical_datum = 'Unknown', ),
                 survey = product_catalogue_py_rest_client.models.survey.Survey(
                     id = 56, 
-                    name = '0', 
                     uuid = '0', 
+                    name = '0', 
                     year = '0', ),
+                product_l3_src = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
+                    id = 56, 
+                    default_style = product_catalogue_py_rest_client.models.style.Style(
+                        id = '0', 
+                        name = '0', 
+                        geoserver_style_name = '0', 
+                        description = '0', ), 
+                    available_styles = [
+                        product_catalogue_py_rest_client.models.style.Style(
+                            id = '0', 
+                            name = '0', 
+                            geoserver_style_name = '0', 
+                            description = '0', )
+                        ], 
+                    uuid = '0', 
+                    name = '0', 
+                    srs = '0', 
+                    vertical_datum = 'Unknown', 
+                    metadata_persistent_id = '0', 
+                    resolution = '0', 
+                    product_tif_location = '0', 
+                    product_bag_location = '0', 
+                    sort_order = 1.337, ),
         )
 
     def testSurveyL3Relation(self):

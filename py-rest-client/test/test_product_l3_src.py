@@ -38,26 +38,40 @@ class TestProductL3Src(unittest.TestCase):
         if include_optional :
             return ProductL3Src(
                 id = 56, 
-                metadata_persistent_id = '0', 
-                name = '0', 
-                product_bag_location = '0', 
-                product_tif_location = '0', 
-                resolution = '0', 
-                srs = '0', 
+                default_style = product_catalogue_py_rest_client.models.style.Style(
+                    id = '0', 
+                    name = '0', 
+                    geoserver_style_name = '0', 
+                    description = '0', ), 
+                available_styles = [
+                    product_catalogue_py_rest_client.models.style.Style(
+                        id = '0', 
+                        name = '0', 
+                        geoserver_style_name = '0', 
+                        description = '0', )
+                    ], 
                 uuid = '0', 
-                vertical_datum = 'Unknown'
+                name = '0', 
+                srs = '0', 
+                vertical_datum = 'Unknown', 
+                metadata_persistent_id = '0', 
+                resolution = '0', 
+                product_tif_location = '0', 
+                product_bag_location = '0', 
+                sort_order = 1.337
             )
         else :
             return ProductL3Src(
                 id = 56,
-                metadata_persistent_id = '0',
-                name = '0',
-                product_bag_location = '0',
-                product_tif_location = '0',
-                resolution = '0',
-                srs = '0',
                 uuid = '0',
+                name = '0',
+                srs = '0',
                 vertical_datum = 'Unknown',
+                metadata_persistent_id = '0',
+                resolution = '0',
+                product_tif_location = '0',
+                product_bag_location = '0',
+                sort_order = 1.337,
         )
 
     def testProductL3Src(self):

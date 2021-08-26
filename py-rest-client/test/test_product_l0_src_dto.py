@@ -37,20 +37,20 @@ class TestProductL0SrcDto(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.product_l0_src_dto.ProductL0SrcDto()  # noqa: E501
         if include_optional :
             return ProductL0SrcDto(
-                l0_instrument_location = '0', 
-                metadata_persistent_id = '0', 
+                uuid = '0', 
                 name = '0', 
                 srs = '0', 
-                uuid = '0', 
+                metadata_persistent_id = '0', 
+                l0_instrument_location = '0', 
                 vertical_datum = 'Unknown'
             )
         else :
             return ProductL0SrcDto(
-                l0_instrument_location = '0',
-                metadata_persistent_id = '0',
+                uuid = '0',
                 name = '0',
                 srs = '0',
-                uuid = '0',
+                metadata_persistent_id = '0',
+                l0_instrument_location = '0',
                 vertical_datum = 'Unknown',
         )
 

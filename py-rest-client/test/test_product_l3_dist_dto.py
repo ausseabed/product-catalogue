@@ -37,17 +37,17 @@ class TestProductL3DistDto(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.product_l3_dist_dto.ProductL3DistDto()  # noqa: E501
         if include_optional :
             return ProductL3DistDto(
-                bathymetry_bag_location = '0', 
-                bathymetry_location = '0', 
+                l3_coverage_location = '0', 
                 hillshade_location = '0', 
-                l3_coverage_location = '0'
+                bathymetry_location = '0', 
+                bathymetry_bag_location = '0'
             )
         else :
             return ProductL3DistDto(
-                bathymetry_bag_location = '0',
-                bathymetry_location = '0',
-                hillshade_location = '0',
                 l3_coverage_location = '0',
+                hillshade_location = '0',
+                bathymetry_location = '0',
+                bathymetry_bag_location = '0',
         )
 
     def testProductL3DistDto(self):

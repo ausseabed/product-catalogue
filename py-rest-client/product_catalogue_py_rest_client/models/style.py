@@ -36,18 +36,18 @@ class Style(object):
     openapi_types = {
         'id': 'str',
         'name': 'str',
-        'description': 'str',
-        'geoserver_style_name': 'str'
+        'geoserver_style_name': 'str',
+        'description': 'str'
     }
 
     attribute_map = {
         'id': 'id',
         'name': 'name',
-        'description': 'description',
-        'geoserver_style_name': 'geoserverStyleName'
+        'geoserver_style_name': 'geoserverStyleName',
+        'description': 'description'
     }
 
-    def __init__(self, id=None, name=None, description=None, geoserver_style_name=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, name=None, geoserver_style_name=None, description=None, local_vars_configuration=None):  # noqa: E501
         """Style - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -55,14 +55,14 @@ class Style(object):
 
         self._id = None
         self._name = None
-        self._description = None
         self._geoserver_style_name = None
+        self._description = None
         self.discriminator = None
 
         self.id = id
         self.name = name
-        self.description = description
         self.geoserver_style_name = geoserver_style_name
+        self.description = description
 
     @property
     def id(self):
@@ -111,29 +111,6 @@ class Style(object):
         self._name = name
 
     @property
-    def description(self):
-        """Gets the description of this Style.  # noqa: E501
-
-
-        :return: The description of this Style.  # noqa: E501
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """Sets the description of this Style.
-
-
-        :param description: The description of this Style.  # noqa: E501
-        :type description: str
-        """
-        if self.local_vars_configuration.client_side_validation and description is None:  # noqa: E501
-            raise ValueError("Invalid value for `description`, must not be `None`")  # noqa: E501
-
-        self._description = description
-
-    @property
     def geoserver_style_name(self):
         """Gets the geoserver_style_name of this Style.  # noqa: E501
 
@@ -155,6 +132,29 @@ class Style(object):
             raise ValueError("Invalid value for `geoserver_style_name`, must not be `None`")  # noqa: E501
 
         self._geoserver_style_name = geoserver_style_name
+
+    @property
+    def description(self):
+        """Gets the description of this Style.  # noqa: E501
+
+
+        :return: The description of this Style.  # noqa: E501
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """Sets the description of this Style.
+
+
+        :param description: The description of this Style.  # noqa: E501
+        :type description: str
+        """
+        if self.local_vars_configuration.client_side_validation and description is None:  # noqa: E501
+            raise ValueError("Invalid value for `description`, must not be `None`")  # noqa: E501
+
+        self._description = description
 
     def to_dict(self):
         """Returns the model properties as a dict"""

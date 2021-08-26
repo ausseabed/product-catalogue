@@ -38,38 +38,38 @@ class TestProductL0Dist(unittest.TestCase):
         if include_optional :
             return ProductL0Dist(
                 id = 56, 
-                l0_coverage_location = '0', 
+                source_product = product_catalogue_py_rest_client.models.product_l0_src.ProductL0Src(
+                    id = 56, 
+                    l0_instrument_location = '0', 
+                    uuid = '0', 
+                    name = '0', 
+                    srs = '0', 
+                    vertical_datum = 'Unknown', 
+                    metadata_persistent_id = '0', ), 
                 l0_instrument_files = [
                     product_catalogue_py_rest_client.models.product_l0_instrument_file.ProductL0InstrumentFile(
                         id = 56, 
                         l0_instrument_file = '0', )
                     ], 
-                source_product = product_catalogue_py_rest_client.models.product_l0_src.ProductL0Src(
-                    id = 56, 
-                    l0_instrument_location = '0', 
-                    metadata_persistent_id = '0', 
-                    name = '0', 
-                    srs = '0', 
-                    uuid = '0', 
-                    vertical_datum = 'Unknown', )
+                l0_coverage_location = '0'
             )
         else :
             return ProductL0Dist(
                 id = 56,
-                l0_coverage_location = '0',
+                source_product = product_catalogue_py_rest_client.models.product_l0_src.ProductL0Src(
+                    id = 56, 
+                    l0_instrument_location = '0', 
+                    uuid = '0', 
+                    name = '0', 
+                    srs = '0', 
+                    vertical_datum = 'Unknown', 
+                    metadata_persistent_id = '0', ),
                 l0_instrument_files = [
                     product_catalogue_py_rest_client.models.product_l0_instrument_file.ProductL0InstrumentFile(
                         id = 56, 
                         l0_instrument_file = '0', )
                     ],
-                source_product = product_catalogue_py_rest_client.models.product_l0_src.ProductL0Src(
-                    id = 56, 
-                    l0_instrument_location = '0', 
-                    metadata_persistent_id = '0', 
-                    name = '0', 
-                    srs = '0', 
-                    uuid = '0', 
-                    vertical_datum = 'Unknown', ),
+                l0_coverage_location = '0',
         )
 
     def testProductL0Dist(self):

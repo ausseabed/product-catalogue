@@ -37,24 +37,32 @@ class TestProductL3SrcDto(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.product_l3_src_dto.ProductL3SrcDto()  # noqa: E501
         if include_optional :
             return ProductL3SrcDto(
-                metadata_persistent_id = '0', 
-                name = '0', 
-                product_bag_location = '0', 
-                product_tif_location = '0', 
-                resolution = '0', 
-                srs = '0', 
                 uuid = '0', 
-                vertical_datum = 'Unknown'
+                name = '0', 
+                srs = '0', 
+                metadata_persistent_id = '0', 
+                resolution = '0', 
+                product_tif_location = '0', 
+                product_bag_location = '0', 
+                vertical_datum = 'Unknown', 
+                default_style = null, 
+                available_styles = [
+                    product_catalogue_py_rest_client.models.style.Style(
+                        id = '0', 
+                        name = '0', 
+                        geoserver_style_name = '0', 
+                        description = '0', )
+                    ]
             )
         else :
             return ProductL3SrcDto(
-                metadata_persistent_id = '0',
-                name = '0',
-                product_bag_location = '0',
-                product_tif_location = '0',
-                resolution = '0',
-                srs = '0',
                 uuid = '0',
+                name = '0',
+                srs = '0',
+                metadata_persistent_id = '0',
+                resolution = '0',
+                product_tif_location = '0',
+                product_bag_location = '0',
                 vertical_datum = 'Unknown',
         )
 

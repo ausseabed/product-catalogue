@@ -37,9 +37,9 @@ class TestErrorDto(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.error_dto.ErrorDto()  # noqa: E501
         if include_optional :
             return ErrorDto(
-                error = '0', 
+                status_code = 1.337, 
                 message = '0', 
-                status_code = 1.337
+                error = '0'
             )
         else :
             return ErrorDto(

@@ -37,13 +37,13 @@ class TestProductL0InstrumentFileDto(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.product_l0_instrument_file_dto.ProductL0InstrumentFileDto()  # noqa: E501
         if include_optional :
             return ProductL0InstrumentFileDto(
-                coverage_file = '0', 
-                instrument_file = '0'
+                instrument_file = '0', 
+                coverage_file = '0'
             )
         else :
             return ProductL0InstrumentFileDto(
-                coverage_file = '0',
                 instrument_file = '0',
+                coverage_file = '0',
         )
 
     def testProductL0InstrumentFileDto(self):

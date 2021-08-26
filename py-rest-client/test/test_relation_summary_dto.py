@@ -37,17 +37,17 @@ class TestRelationSummaryDto(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.relation_summary_dto.RelationSummaryDto()  # noqa: E501
         if include_optional :
             return RelationSummaryDto(
-                product_id = None, 
-                product_name = None, 
                 relation_id = None, 
-                survey_id = None
+                survey_id = None, 
+                product_id = None, 
+                product_name = None
             )
         else :
             return RelationSummaryDto(
-                product_id = None,
-                product_name = None,
                 relation_id = None,
                 survey_id = None,
+                product_id = None,
+                product_name = None,
         )
 
     def testRelationSummaryDto(self):

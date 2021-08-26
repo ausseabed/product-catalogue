@@ -37,13 +37,13 @@ class TestSurveyL2RelationDto(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.survey_l2_relation_dto.SurveyL2RelationDto()  # noqa: E501
         if include_optional :
             return SurveyL2RelationDto(
-                product_l2_src = 1.337, 
-                survey = 1.337
+                survey = 1.337, 
+                product_l2_src = 1.337
             )
         else :
             return SurveyL2RelationDto(
-                product_l2_src = 1.337,
                 survey = 1.337,
+                product_l2_src = 1.337,
         )
 
     def testSurveyL2RelationDto(self):

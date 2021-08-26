@@ -37,39 +37,65 @@ class TestProductL3Dist(unittest.TestCase):
         # model = product_catalogue_py_rest_client.models.product_l3_dist.ProductL3Dist()  # noqa: E501
         if include_optional :
             return ProductL3Dist(
-                bathymetry_bag_location = '0', 
-                bathymetry_location = '0', 
-                hillshade_location = '0', 
                 id = 56, 
-                l3_coverage_location = '0', 
                 source_product = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
                     id = 56, 
-                    metadata_persistent_id = '0', 
-                    name = '0', 
-                    product_bag_location = '0', 
-                    product_tif_location = '0', 
-                    resolution = '0', 
-                    srs = '0', 
+                    default_style = product_catalogue_py_rest_client.models.style.Style(
+                        id = '0', 
+                        name = '0', 
+                        geoserver_style_name = '0', 
+                        description = '0', ), 
+                    available_styles = [
+                        product_catalogue_py_rest_client.models.style.Style(
+                            id = '0', 
+                            name = '0', 
+                            geoserver_style_name = '0', 
+                            description = '0', )
+                        ], 
                     uuid = '0', 
-                    vertical_datum = 'Unknown', )
+                    name = '0', 
+                    srs = '0', 
+                    vertical_datum = 'Unknown', 
+                    metadata_persistent_id = '0', 
+                    resolution = '0', 
+                    product_tif_location = '0', 
+                    product_bag_location = '0', 
+                    sort_order = 1.337, ), 
+                l3_coverage_location = '0', 
+                bathymetry_location = '0', 
+                bathymetry_bag_location = '0', 
+                hillshade_location = '0'
             )
         else :
             return ProductL3Dist(
-                bathymetry_bag_location = '0',
-                bathymetry_location = '0',
-                hillshade_location = '0',
                 id = 56,
-                l3_coverage_location = '0',
                 source_product = product_catalogue_py_rest_client.models.product_l3_src.ProductL3Src(
                     id = 56, 
-                    metadata_persistent_id = '0', 
-                    name = '0', 
-                    product_bag_location = '0', 
-                    product_tif_location = '0', 
-                    resolution = '0', 
-                    srs = '0', 
+                    default_style = product_catalogue_py_rest_client.models.style.Style(
+                        id = '0', 
+                        name = '0', 
+                        geoserver_style_name = '0', 
+                        description = '0', ), 
+                    available_styles = [
+                        product_catalogue_py_rest_client.models.style.Style(
+                            id = '0', 
+                            name = '0', 
+                            geoserver_style_name = '0', 
+                            description = '0', )
+                        ], 
                     uuid = '0', 
-                    vertical_datum = 'Unknown', ),
+                    name = '0', 
+                    srs = '0', 
+                    vertical_datum = 'Unknown', 
+                    metadata_persistent_id = '0', 
+                    resolution = '0', 
+                    product_tif_location = '0', 
+                    product_bag_location = '0', 
+                    sort_order = 1.337, ),
+                l3_coverage_location = '0',
+                bathymetry_location = '0',
+                bathymetry_bag_location = '0',
+                hillshade_location = '0',
         )
 
     def testProductL3Dist(self):

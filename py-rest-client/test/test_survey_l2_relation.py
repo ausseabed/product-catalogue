@@ -38,40 +38,40 @@ class TestSurveyL2Relation(unittest.TestCase):
         if include_optional :
             return SurveyL2Relation(
                 id = 56, 
-                product_l2_src = product_catalogue_py_rest_client.models.product_l2_src.ProductL2Src(
-                    id = 56, 
-                    metadata_persistent_id = '0', 
-                    name = '0', 
-                    product_gsf_location = '0', 
-                    product_posmv_location = '0', 
-                    srs = '0', 
-                    uuid = '0', 
-                    vertical_datum = 'Unknown', 
-                    vessel_file_location = '0', ), 
                 survey = product_catalogue_py_rest_client.models.survey.Survey(
                     id = 56, 
-                    name = '0', 
                     uuid = '0', 
-                    year = '0', )
+                    name = '0', 
+                    year = '0', ), 
+                product_l2_src = product_catalogue_py_rest_client.models.product_l2_src.ProductL2Src(
+                    id = 56, 
+                    uuid = '0', 
+                    name = '0', 
+                    srs = '0', 
+                    vertical_datum = 'Unknown', 
+                    metadata_persistent_id = '0', 
+                    product_gsf_location = '0', 
+                    vessel_file_location = '0', 
+                    product_posmv_location = '0', )
             )
         else :
             return SurveyL2Relation(
                 id = 56,
-                product_l2_src = product_catalogue_py_rest_client.models.product_l2_src.ProductL2Src(
-                    id = 56, 
-                    metadata_persistent_id = '0', 
-                    name = '0', 
-                    product_gsf_location = '0', 
-                    product_posmv_location = '0', 
-                    srs = '0', 
-                    uuid = '0', 
-                    vertical_datum = 'Unknown', 
-                    vessel_file_location = '0', ),
                 survey = product_catalogue_py_rest_client.models.survey.Survey(
                     id = 56, 
-                    name = '0', 
                     uuid = '0', 
+                    name = '0', 
                     year = '0', ),
+                product_l2_src = product_catalogue_py_rest_client.models.product_l2_src.ProductL2Src(
+                    id = 56, 
+                    uuid = '0', 
+                    name = '0', 
+                    srs = '0', 
+                    vertical_datum = 'Unknown', 
+                    metadata_persistent_id = '0', 
+                    product_gsf_location = '0', 
+                    vessel_file_location = '0', 
+                    product_posmv_location = '0', ),
         )
 
     def testSurveyL2Relation(self):

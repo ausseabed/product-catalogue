@@ -38,26 +38,26 @@ class TestProductL2Src(unittest.TestCase):
         if include_optional :
             return ProductL2Src(
                 id = 56, 
-                metadata_persistent_id = '0', 
-                name = '0', 
-                product_gsf_location = '0', 
-                product_posmv_location = '0', 
-                srs = '0', 
                 uuid = '0', 
+                name = '0', 
+                srs = '0', 
                 vertical_datum = 'Unknown', 
-                vessel_file_location = '0'
+                metadata_persistent_id = '0', 
+                product_gsf_location = '0', 
+                vessel_file_location = '0', 
+                product_posmv_location = '0'
             )
         else :
             return ProductL2Src(
                 id = 56,
-                metadata_persistent_id = '0',
-                name = '0',
-                product_gsf_location = '0',
-                product_posmv_location = '0',
-                srs = '0',
                 uuid = '0',
+                name = '0',
+                srs = '0',
                 vertical_datum = 'Unknown',
+                metadata_persistent_id = '0',
+                product_gsf_location = '0',
                 vessel_file_location = '0',
+                product_posmv_location = '0',
         )
 
     def testProductL2Src(self):

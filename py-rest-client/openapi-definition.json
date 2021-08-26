@@ -371,18 +371,18 @@
                     "name": {
                         "type": "string"
                     },
-                    "description": {
+                    "geoserverStyleName": {
                         "type": "string"
                     },
-                    "geoserverStyleName": {
+                    "description": {
                         "type": "string"
                     }
                 },
                 "required": [
                     "id",
                     "name",
-                    "description",
-                    "geoserverStyleName"
+                    "geoserverStyleName",
+                    "description"
                 ]
             },
             "ProductL3Src": {
@@ -448,6 +448,9 @@
                     },
                     "productBagLocation": {
                         "type": "string"
+                    },
+                    "sortOrder": {
+                        "type": "number"
                     }
                 },
                 "required": [
@@ -459,7 +462,8 @@
                     "metadataPersistentId",
                     "resolution",
                     "productTifLocation",
-                    "productBagLocation"
+                    "productBagLocation",
+                    "sortOrder"
                 ]
             },
             "ProductL3SrcDto": {

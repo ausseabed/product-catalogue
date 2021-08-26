@@ -39,21 +39,21 @@ class TestProductL0Src(unittest.TestCase):
             return ProductL0Src(
                 id = 56, 
                 l0_instrument_location = '0', 
-                metadata_persistent_id = '0', 
+                uuid = '0', 
                 name = '0', 
                 srs = '0', 
-                uuid = '0', 
-                vertical_datum = 'Unknown'
+                vertical_datum = 'Unknown', 
+                metadata_persistent_id = '0'
             )
         else :
             return ProductL0Src(
                 id = 56,
                 l0_instrument_location = '0',
-                metadata_persistent_id = '0',
+                uuid = '0',
                 name = '0',
                 srs = '0',
-                uuid = '0',
                 vertical_datum = 'Unknown',
+                metadata_persistent_id = '0',
         )
 
     def testProductL0Src(self):
