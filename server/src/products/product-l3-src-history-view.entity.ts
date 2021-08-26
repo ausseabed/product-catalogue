@@ -40,6 +40,9 @@ export class ProductL3SrcHistoryView {
 
   availableStyles: Style[];
 
+  @ViewColumn( { name: "sortOrder" })
+  sortOrder: number;
+
   @ViewColumn( { name: "sysPeriod" })
   sysPeriod: any;
 }

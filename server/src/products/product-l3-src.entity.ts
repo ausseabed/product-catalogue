@@ -108,6 +108,12 @@ export class ProductL3Src implements Product {
   @ApiProperty({ required: false, type: [Style] })
   availableStyles: Style[];
 
+  /**
+   * Optional sort order for use in layer groups
+   */
+  @Column('integer', { default: 0 })
+  sortOrder: number;
+
   @ApiHideProperty()
   @Exclude()
   @Column("tstzrange", {
