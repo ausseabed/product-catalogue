@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@6.9.1
-  aws-cli: circleci/aws-cli@0.1.13
+  aws-ecr: circleci/aws-ecr@7.0.0
+  aws-cli: circleci/aws-cli@2.0.2
 
 commands:
   ecr-get-tag:
@@ -142,8 +142,8 @@ jobs:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - aws-cli/install
-      - aws-cli/configure:
+      - aws-cli/setup:
+          override-installed: true
           aws-region: AWS_REGION_ENV_VAR_NAME
       - aws-ecr/ecr-login:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
@@ -181,8 +181,8 @@ jobs:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
           repo: ausseabed-product-catalogue-client
           docker_tag: DOCKER_TAG
-      - aws-cli/install
-      - aws-cli/configure:
+      - aws-cli/setup:
+          override-installed: true
           aws-region: AWS_REGION_ENV_VAR_NAME
       - aws-ecr/ecr-login:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
