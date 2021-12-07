@@ -150,8 +150,8 @@ jobs:
           region: AWS_REGION_ENV_VAR_NAME
       - aws-ecr/build-image:
           account-url: AWS_ECR_ACCOUNT_URL_ENV_VAR_NAME
-          dockerfile: ./Dockerfile
-          path: ./server
+          dockerfile: ./server/Dockerfile
+          path: ./
           repo: ausseabed-product-catalogue-server
           tag: circleci-build,latest
       - ecr-tag-and-push:

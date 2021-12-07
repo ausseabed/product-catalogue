@@ -38,7 +38,7 @@ resource "aws_ecs_task_definition" "ga_sb_pc_serverclient" {
         "name": "AUTH_CLIENT_ID",
         "value": "${var.product_catalogue_environment_vars.pc_client_id}"
       },
-            {
+      {
         "name": "POSTGRES_PASSWORD",
         "value": "${var.product_catalogue_environment_vars.postgres_password}"
       },
@@ -46,14 +46,15 @@ resource "aws_ecs_task_definition" "ga_sb_pc_serverclient" {
         "name": "POSTGRES_PORT",
         "value": "${var.product_catalogue_environment_vars.postgres_port}"
       },
-            {
+      {
         "name": "POSTGRES_USER",
         "value": "${var.product_catalogue_environment_vars.postgres_user}"
       },
       {
         "name": "POSTGRES_DATABASE",
         "value": "${var.product_catalogue_environment_vars.postgres_database}"
-      },{
+      },
+      {
         "name": "POSTGRES_HOSTNAME",
         "value": "${var.product_catalogue_environment_vars.postgres_hostname}"
       }
@@ -61,10 +62,13 @@ resource "aws_ecs_task_definition" "ga_sb_pc_serverclient" {
     "portMappings": [
       {
         "containerPort": 3000
+      },
+      {
+        "containerPort": 3002
       }
     ]
   },
-    {
+  {
     "logConfiguration": {
       "logDriver": "awslogs",
       "secretOptions": null,

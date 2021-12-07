@@ -1,0 +1,13 @@
+To perform bulk downloads of the data using file links, we recommend downloading from the National Computational
+Infrastructure using a program like wget. Linux command line examples would be:
+
+wget -x <URL>.
+
+or
+
+wget -x -i <URL List File>.
+
+For Windows users, we recommend using a Linux emulator (e.g. Cygwin - http://www.cygwin.com) to perform these tasks,
+or wget for Windows (http://gnuwin32.sourceforge.net/packages/wget.htm).
+
+For further assistance, please contact marine@ga.gov.au.

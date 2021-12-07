@@ -1,0 +1,25 @@
+{
+    "apps": [
+        {
+            "name": "product-catalogue-server",
+            "instances": 1,
+            "exec_mode" : "fork",
+            "watch": false,
+            "script": "./dist/main.js",
+            "env": {
+                "PORT": 3000
+            }
+        },
+        {
+            "name": "marine-api",
+            "instances": 1,
+            "exec_mode" : "fork",
+            "watch": false,
+            "max_memory_restart": "128M",
+            "script": "../marine-api/src/app.js",
+            "env": {
+                "PORT": 3002
+            }
+        }
+    ]
+}
