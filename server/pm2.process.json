@@ -5,7 +5,8 @@
             "instances": 1,
             "exec_mode" : "fork",
             "watch": false,
-            "script": "./dist/main.js",
+            "script": "npm",
+            "args": "run start:migrate:prod",
             "env": {
                 "PORT": 3000
             }

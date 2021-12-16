@@ -65,7 +65,6 @@ EXPOSE 3002
 
 ADD server/pm2.process.json $CATALOGUE_DIR/
 RUN yarn global add pm2
-RUN yarn run typeorm:prod migration:run
 
 # Run all configured processes.
 CMD ["pm2-runtime", "pm2.process.json"]
