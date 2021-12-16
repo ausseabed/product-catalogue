@@ -63,7 +63,7 @@ EXPOSE 3000
 # Port for marine API.
 EXPOSE 3002
 
-ADD pm2.process.json $CATALOGUE_DIR/
+ADD server/pm2.process.json $CATALOGUE_DIR/
 RUN yarn global add pm2
 RUN yarn run typeorm:prod migration:run
 
