@@ -34,6 +34,8 @@ RUN yarn install && yarn build
 FROM node:12-alpine as production
 USER node
 
+
+ENV PATH="/home/node/.yarn/bin:${PATH}"
 ENV CATALOGUE_DIR=/home/node/product-catalogue
 ENV MARINE_DIR=/home/node/marine-api
 
@@ -66,5 +68,8 @@ EXPOSE 3002
 ADD server/pm2.process.json $CATALOGUE_DIR/
 RUN yarn global add pm2
 
+# Don't use node as the entrypoint.
+ENTRYPOINT []
+
 # Run all configured processes.
-CMD ["pm2-runtime", "pm2.process.json"]
+CMD ["/bin/sh", "-c", "pm2-runtime pm2.process.json"]
