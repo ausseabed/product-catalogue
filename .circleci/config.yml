@@ -221,7 +221,7 @@ jobs:
           command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terragrunt init -input=false
       - run:
           name: terraform plan
-          working_directory: ./ausseabed-aws-foundation/infra
+          working_directory: ./ausseabed-aws-foundation/pcat-infra
           command: terragrunt plan -out=infra-terraform.plan -input=false
       - run: mv ./ausseabed-aws-foundation/pcat-infra/infra-terraform.plan workspace
       - persist_to_workspace:
@@ -250,7 +250,7 @@ jobs:
             terragrunt apply -input=false --auto-approve /tmp/cci-extras/workspace/infra-terraform.plan
       - run:
           name: Print Current Versions
-          working_directory: ./ausseabed-aws-foundation/infra
+          working_directory: ./ausseabed-aws-foundation/pcat-infra
           command: grep "ausseabed-product-catalogue-[a-z]*:" terragrunt.hcl
 
   prepare_deploy_product_catalogue_app:
