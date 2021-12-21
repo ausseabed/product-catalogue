@@ -206,7 +206,54 @@ jobs:
       - checkout
       - validate_master_branch
 
-  prepare_deploy_product_catalogue:
+  prepare_deploy_product_catalogue_infra:
+    docker:
+      - image: circleci/python:3.7-stretch
+    steps:
+      - run: mkdir -p workspace
+      - prepare-terraform
+      - run:
+          name: Checkout Foundation repository
+          command: git clone git@github.com:ausseabed/ausseabed-aws-foundation.git
+      - run:
+          name: terragrunt init
+          working_directory: ./ausseabed-aws-foundation/pcat-infra
+          command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terragrunt init -input=false
+      - run:
+          name: terraform plan
+          working_directory: ./ausseabed-aws-foundation/infra
+          command: terragrunt plan -out=infra-terraform.plan -input=false
+      - run: mv ./ausseabed-aws-foundation/pcat-infra/infra-terraform.plan workspace
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - infra-terraform.plan
+
+  do_deploy_product_catalogue_infra:
+    docker:
+      - image: circleci/python:3.7-stretch
+    steps:
+      - attach_workspace:
+          at: /tmp/cci-extras/workspace
+      - prepare-terraform
+      - run:
+          name: Checkout Foundation repository
+          command: git clone git@github.com:ausseabed/ausseabed-aws-foundation.git
+      - run:
+          name: terragrunt init
+          working_directory: ./ausseabed-aws-foundation/pcat-infra
+          command: pwd && echo $CIRCLE_WORKING_DIRECTORY && terragrunt init -input=false
+      - run:
+          name: terragrunt apply
+          working_directory: ./ausseabed-aws-foundation/pcat-infra
+          command: |
+            terragrunt apply -input=false --auto-approve /tmp/cci-extras/workspace/infra-terraform.plan
+      - run:
+          name: Print Current Versions
+          working_directory: ./ausseabed-aws-foundation/infra
+          command: grep "ausseabed-product-catalogue-[a-z]*:" terragrunt.hcl
+
+  prepare_deploy_product_catalogue_app:
     docker:
       - image: circleci/python:3.7-stretch
     steps:
@@ -222,14 +269,14 @@ jobs:
       - run:
           name: terraform plan
           working_directory: ./ausseabed-aws-foundation/pcat-app-deployment
-          command: terragrunt plan -out=terraform.plan -input=false
-      - run: mv ./ausseabed-aws-foundation/pcat-app-deployment/terraform.plan workspace
+          command: terragrunt plan -out=app-terraform.plan -input=false
+      - run: mv ./ausseabed-aws-foundation/pcat-app-deployment/app-terraform.plan workspace
       - persist_to_workspace:
           root: workspace
           paths:
-            - terraform.plan
+            - app-terraform.plan
 
-  do_deploy_product_catalogue:
+  do_deploy_product_catalogue_app:
     docker:
       - image: circleci/python:3.7-stretch
     steps:
@@ -247,7 +294,7 @@ jobs:
           name: terragrunt apply
           working_directory: ./ausseabed-aws-foundation/pcat-app-deployment
           command: |
-            terragrunt apply -input=false --auto-approve /tmp/cci-extras/workspace/terraform.plan
+            terragrunt apply -input=false --auto-approve /tmp/cci-extras/workspace/app-terraform.plan
       - run:
           name: Print Current Versions
           working_directory: ./ausseabed-aws-foundation/pcat-app-deployment
@@ -293,15 +340,25 @@ workflows:
           <<: *master_branch_only
           requires:
             - dev_docker_tag
-      - prepare_deploy_product_catalogue:
+      - prepare_deploy_product_catalogue_infra:
           <<: *master_branch_only
           requires:
             - build_product_catalogue_server
             - build_product_catalogue_client
-      - do_deploy_product_catalogue:
+      - do_deploy_product_catalogue_infra:
           <<: *master_branch_only
           requires:
-            - prepare_deploy_product_catalogue
+            - prepare_deploy_product_catalogue_infra
+      - prepare_deploy_product_catalogue_app:
+          <<: *master_branch_only
+          requires:
+            - build_product_catalogue_server
+            - build_product_catalogue_client
+            - do_deploy_product_catalogue_infra
+      - do_deploy_product_catalogue_app:
+          <<: *master_branch_only
+          requires:
+            - prepare_deploy_product_catalogue_app
 
   publish_production_images:
     jobs:
@@ -322,18 +379,34 @@ workflows:
     jobs:
       - validate_prod_deployment:
           <<: *prod_deploy_tag_only
-      - prepare_deploy_product_catalogue:
+      - prepare_deploy_product_catalogue_infra:
           <<: *prod_deploy_tag_only
           requires:
             - validate_prod_deployment
           context: ga_sb_ecs_prod_deployment
-      - approve_deploy_product_catalogue:
+      - approve_deploy_product_catalogue_infra:
           <<: *prod_deploy_tag_only
           type: approval
           requires:
-            - prepare_deploy_product_catalogue
-      - do_deploy_product_catalogue:
+            - prepare_deploy_product_catalogue_infra
+      - do_deploy_product_catalogue_infra:
           <<: *prod_deploy_tag_only
           requires:
-            - approve_deploy_product_catalogue
+            - approve_deploy_product_catalogue_infra
+          context: ga_sb_ecs_prod_deployment
+      - prepare_deploy_product_catalogue_app:
+          <<: *prod_deploy_tag_only
+          requires:
+            - validate_prod_deployment
+            - do_deploy_product_catalogue_infra
+          context: ga_sb_ecs_prod_deployment
+      - approve_deploy_product_catalogue_app:
+          <<: *prod_deploy_tag_only
+          type: approval
+          requires:
+            - prepare_deploy_product_catalogue_app
+      - do_deploy_product_catalogue_app:
+          <<: *prod_deploy_tag_only
+          requires:
+            - approve_deploy_product_catalogue_app
           context: ga_sb_ecs_prod_deployment
