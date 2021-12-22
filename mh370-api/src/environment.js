@@ -2,23 +2,23 @@ const utils = require('./utils');
 
 module.exports = {
     getTempFolder: function (timestamp) {
-        let pattern = '/tmp/marine/{timestamp}';
+        let pattern = '/tmp/mh370-api/{timestamp}';
         return pattern.replace('{timestamp}', timestamp);
     },
     getUrlListFile: function (timestamp) {
-        let pattern = '/tmp/marine/{timestamp}/files/url-list.txt';
+        let pattern = '/tmp/mh370-api/{timestamp}/files/url-list.txt';
         return pattern.replace('{timestamp}', timestamp);
     },
     getReadMePath: function (timestamp) {
-        let pattern = '/tmp/marine/{timestamp}/files/README.txt';
+        let pattern = '/tmp/mh370-api/{timestamp}/files/README.txt';
         return pattern.replace('{timestamp}', timestamp);
     },
     getUrlListZip: function (timestamp) {
-        let pattern = '/tmp/marine/{timestamp}/url-list.zip';
+        let pattern = '/tmp/mh370-api/{timestamp}/url-list.zip';
         return pattern.replace('{timestamp}', timestamp);
     },
     getDownloadFolder: function (timestamp) {
-        let pattern = '/tmp/marine/{timestamp}/files';
+        let pattern = '/tmp/mh370-api/{timestamp}/files';
         return pattern.replace('{timestamp}', timestamp);
     },
     products: [

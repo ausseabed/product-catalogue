@@ -2,7 +2,7 @@ const winston = require('winston');
 const DailyRotateFile = require('winston-daily-rotate');
 const dateformat = require('dateformat');
 
-const APPLICATION_PREFIX = '[marine-api]';
+const APPLICATION_PREFIX = '[mh370-api]';
 
 const getLogger = function(fileName) {
     return new (winston.Logger)({
@@ -40,5 +40,5 @@ const getLogger = function(fileName) {
 }
 
 module.exports = {
-    logger: getLogger('./marine-api.log')
+    logger: getLogger('./mh370-api.log')
 };

@@ -37,20 +37,20 @@ USER node
 
 ENV PATH="/home/node/.yarn/bin:${PATH}"
 ENV CATALOGUE_DIR=/home/node/product-catalogue
-ENV MARINE_DIR=/home/node/marine-api
+ENV MH370_DIR=/home/node/mh370-api
 
 RUN mkdir -p $CATALOGUE_DIR
 RUN chown -R node:node $CATALOGUE_DIR
-RUN mkdir -p $MARINE_DIR
-RUN chown -R node:node $MARINE_DIR
+RUN mkdir -p $MH370_DIR
+RUN chown -R node:node $MH370_DIR
 
 ENV NODE_ENV=production
 # Disable colourisation in logging messages.
 ENV NO_COLOR=true
 
-# Install marine API.
-WORKDIR $MARINE_DIR
-COPY --chown=node:node ./marine-api/. ./
+# Install MH370 API.
+WORKDIR $MH370_DIR
+COPY --chown=node:node ./mh370-api/. ./
 RUN yarn install
 
 # Install product catalogue
@@ -64,7 +64,7 @@ RUN yarn install
 
 # Port for product catalogue.
 EXPOSE 3000
-# Port for marine API.
+# Port for MH370 API.
 EXPOSE 3002
 
 ADD server/pm2.process.json $CATALOGUE_DIR/

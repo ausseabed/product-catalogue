@@ -12,12 +12,12 @@
             }
         },
         {
-            "name": "marine-api",
+            "name": "mh370-api",
             "instances": 1,
             "exec_mode" : "fork",
             "watch": false,
             "max_memory_restart": "128M",
-            "script": "../marine-api/src/app.js",
+            "script": "../mh370-api/src/app.js",
             "env": {
                 "PORT": 3002
             }

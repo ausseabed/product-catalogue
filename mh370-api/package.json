@@ -1,7 +1,7 @@
 {
-  "name": "marine-api",
+  "name": "mh370-api",
   "version": "2.0.0",
-  "description": "Marine Data Discovery API",
+  "description": "Marine MH370 Data Discovery API",
   "main": "src/app.js",
   "license": "MIT",
   "engines": {
