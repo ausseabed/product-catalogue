@@ -31,7 +31,7 @@ router.get('/products/:id/download-url-list', handlers.downloadUrlList);
 
 router.get('/products/:id/features', handlers.getFeatures);
 
-app.use('/api', router);
+app.use('/', router);
 app.listen(3002);
 
 logger.info('MH370 API listening on port 3002...');
