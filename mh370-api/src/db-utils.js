@@ -60,5 +60,5 @@ connectToRDS = function () {
 };
 
 module.exports = {
-    connectToRDS: connectToRDS
+    connectToRDS
 };

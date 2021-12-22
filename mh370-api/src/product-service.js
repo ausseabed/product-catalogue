@@ -14,16 +14,16 @@ buildWhereClause = function (queryFilter) {
             if (key !== 'pageSize' && key !== 'currentPage' && key !== 'includeEmptyValues' && queryFilter[key] !== '') {
                 paramValues.push(queryFilter[key]);
                 if (key === 'bundle') {
-                    whereClause += (' and t.bundle like $' + index);
+                    whereClause += (' AND t.bundle LIKE $' + index);
                 } else if (key === 'geom') {
                     hasGeomParam = true;
-                    whereClause += (' and (ST_Intersects(g.geom, ST_GeometryFromText($' + index + ', 4326)))');
+                    whereClause += (' AND (ST_Intersects(g.geom, ST_GeometryFromText($' + index + ', 4326)))');
                 } else if (key === 'time_start') {
-                    whereClause += (' and (t.time_start >= $' + index + (includeEmptyValues ? ' or t.time_start is null)' : ')'));
+                    whereClause += (' AND (t.time_start >= $' + index + (includeEmptyValues ? ' OR t.time_start IS NULL)' : ')'));
                 } else if (key === 'time_end') {
-                    whereClause += (' and (t.time_end <= $' + index + (includeEmptyValues ? ' or t.time_end is null)' : ')'));
+                    whereClause += (' AND (t.time_end <= $' + index + (includeEmptyValues ? ' OR t.time_end IS NULL)' : ')'));
                 } else {
-                    whereClause += (' and (t.' + key + ' = $' + index + (includeEmptyValues ? ' or t.' + key + ' is null)' : ')'));
+                    whereClause += (' AND (t.' + key + ' = $' + index + (includeEmptyValues ? ' OR t.' + key + ' IS NULL)' : ')'));
                 }
                 index++;
             }
@@ -49,16 +49,16 @@ buildCountQuery = function (bundleTable, geometryTable, queryFilter) {
     let sql;
 
     if (typeof geometryTable === 'undefined') {
-        sql = 'SELECT count(t.*), sum(t.file_size), 0 from ' + bundleTable + ' as t'
+        sql = `SELECT COUNT(t.*), SUM(t.file_size), 0
+            FROM ${bundleTable} AS t`;
     } else {
-        sql = 'SELECT count(t.*), sum(t.file_size), count(distinct t.geom_id) from ' + bundleTable + ' as t left join '
-            + geometryTable + ' as g on (t.geom_id = g.id)'
+        sql = `SELECT COUNT(t.*), SUM(t.file_size), COUNT(DISTINCT t.geom_id)
+            FROM ${bundleTable} AS t
+            LEFT JOIN ${geometryTable} AS g ON (t.geom_id = g.id)`;
     }
 
-    sql += ' WHERE 1 = 1';
-
     if (paramValues.length > 0) {
-        sql += whereClause
+        sql += ' WHERE 1 = 1 ' + whereClause;
     }
 
     logger.debug('buildCountQuery - sql:', sql);
@@ -67,7 +67,7 @@ buildCountQuery = function (bundleTable, geometryTable, queryFilter) {
         text: sql,
         values: paramValues,
         rowMode: 'array'
-    }
+    };
 };
 
 buildCountFilesQuery = function (bundleTable, geometryTable, queryFilter) {
@@ -82,18 +82,18 @@ buildCountFilesQuery = function (bundleTable, geometryTable, queryFilter) {
     let tableName = bundleTable.replace('_bundle', '');
 
     if (hasGeomParam) {
-        sql = 'SELECT count(distinct f.*) from ' + tableName + ' as f join '
-            + bundleTable + ' as t on (f.bundle = t.bundle) join '
-            + geometryTable + ' as g on (t.geom_id = g.id)';
+        sql = `SELECT COUNT(DISTINCT f.*)
+            FROM ${tableName} AS f
+            JOIN ${bundleTable} AS t ON (f.bundle = t.bundle)
+            JOIN ${geometryTable} AS g ON (t.geom_id = g.id)`;
     } else {
-        sql = 'SELECT count(distinct f.*) from ' + tableName + ' as f join '
-            + bundleTable + ' as t on (f.bundle = t.bundle)';
+        sql = `SELECT COUNT(DISTINCT f.*)
+            FROM ${tableName} AS f
+            JOIN ${bundleTable} AS t ON (f.bundle = t.bundle)`;
     }
 
-    sql += ' WHERE 1 = 1';
-
     if (paramValues.length > 0) {
-        sql += whereClause
+        sql += ' WHERE 1 = 1 ' + whereClause;
     }
 
     logger.debug('buildCountFilesQuery - sql:', sql);
@@ -102,7 +102,7 @@ buildCountFilesQuery = function (bundleTable, geometryTable, queryFilter) {
         text: sql,
         values: paramValues,
         rowMode: 'array'
-    }
+    };
 };
 
 buildQuery = function (bundleTable, geometryTable, queryFilter, pagination, includeGeometry) {
@@ -116,23 +116,23 @@ buildQuery = function (bundleTable, geometryTable, queryFilter, pagination, incl
     // Create sql statement
     let sql;
     if (includeGeometry) {
-        sql = "SELECT distinct g.id, ST_AsGeoJSON(g.geom) as geometry FROM " + bundleTable + " t";
+        sql = `SELECT DISTINCT g.id, ST_AsGeoJSON(g.geom) AS geometry
+            FROM ${bundleTable} t`;
 
     } else {
-        sql = "SELECT distinct t.bundle, t.file_size FROM " + bundleTable + " t";
+        sql = `SELECT DISTINCT t.bundle, t.file_size
+            FROM ${bundleTable} t`;
     }
 
     if (includeGeometry || (hasGeomParam)) {
-        sql += ' join ' + geometryTable + ' as g on (t.geom_id = g.id)'
+        sql += ` JOIN ${geometryTable} AS g ON (t.geom_id = g.id)`;
     }
-
-    sql += ' WHERE 1 = 1';
 
     if (paramValues.length > 0) {
-        sql += whereClause
+        sql += ' WHERE 1 = 1 ' + whereClause;
     }
 
-    sql += ' ORDER BY 1 LIMIT $' + index++ + ' OFFSET $' + index;
+    sql += ` ORDER BY 1 LIMIT $${index++} OFFSET $${index}`;
 
     // Add values for LIMIT and OFFSET
     let offset = (pagination.currentPage - 1) * pagination.pageSize;
@@ -144,7 +144,7 @@ buildQuery = function (bundleTable, geometryTable, queryFilter, pagination, incl
     return {
         text: sql,
         values: paramValues
-    }
+    };
 };
 
 buildFilesQuery = function (bundleTable, geometryTable, queryFilter, pagination) {
@@ -157,20 +157,19 @@ buildFilesQuery = function (bundleTable, geometryTable, queryFilter, pagination)
     let tableName = bundleTable.replace('_bundle', '');
 
     // Create sql statement
-    let sql = "SELECT distinct f.name, f.uri, f.file_size FROM "
-        + tableName + " f join " + bundleTable + " as t on (f.bundle = t.bundle)";
+    let sql = `SELECT DISTINCT f.name, f.uri, f.file_size
+        FROM ${tableName} f
+        JOIN ${bundleTable} AS t ON (f.bundle = t.bundle)`;
 
     if (hasGeomParam) {
-        sql += ' join ' + geometryTable + ' as g on (t.geom_id = g.id)'
+        sql += ` JOIN ${geometryTable} AS g ON (t.geom_id = g.id)`;
     }
-
-    sql += ' WHERE 1 = 1';
 
     if (paramValues.length > 0) {
-        sql += whereClause
+        sql += ' WHERE 1 = 1 ' + whereClause;
     }
 
-    sql += ' ORDER BY 1 LIMIT $' + index++ + ' OFFSET $' + index;
+    sql += ` ORDER BY 1 LIMIT $${index++} OFFSET $${index}`;
 
     // Add values for LIMIT and OFFSET
     let offset = (pagination.currentPage - 1) * pagination.pageSize;
@@ -182,7 +181,7 @@ buildFilesQuery = function (bundleTable, geometryTable, queryFilter, pagination)
     return {
         text: sql,
         values: paramValues
-    }
+    };
 };
 
 getAll = function () {
@@ -288,11 +287,11 @@ getReferenceData = function (bundleTable) {
         dbUtils.connectToRDS().then(function (client) {
             Promise.all([
                 client.query({
-                    text: 'SELECT DISTINCT vessel FROM ' + bundleTable + ' WHERE vessel IS NOT NULL ORDER BY vessel',
+                    text: `SELECT DISTINCT vessel FROM ${bundleTable} WHERE vessel IS NOT NULL ORDER BY vessel`,
                     rowMode: 'array'
                 }),
                 client.query({
-                    text: 'SELECT DISTINCT bext FROM ' + bundleTable + ' WHERE bext IS NOT NULL ORDER BY bext',
+                    text: `SELECT DISTINCT bext FROM ${bundleTable} WHERE bext IS NOT NULL ORDER BY bext`,
                     rowMode: 'array'
                 })
             ]).then(function (values) {

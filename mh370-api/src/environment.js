@@ -1,5 +1,7 @@
 const utils = require('./utils');
 
+const DATABASE_SCHEMA = 'marine_mh370';
+
 module.exports = {
     getTempFolder: function (timestamp) {
         let pattern = '/tmp/mh370-api/{timestamp}';
@@ -21,12 +23,13 @@ module.exports = {
         let pattern = '/tmp/mh370-api/{timestamp}/files';
         return pattern.replace('{timestamp}', timestamp);
     },
+    databaseSchema: DATABASE_SCHEMA,
     products: [
         {
             name: 'Bathymetry',
-            tableName: 'bathymetry',
-            bundleTable: 'bathymetry_bundle',
-            geometryTable: 'bathymetry_geoms',
+            tableName: DATABASE_SCHEMA + '.bathymetry',
+            bundleTable: DATABASE_SCHEMA + '.bathymetry_bundle',
+            geometryTable: DATABASE_SCHEMA + '.bathymetry_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -39,9 +42,9 @@ module.exports = {
         },
         {
             name: 'Backscatter',
-            tableName: 'backscatter',
-            bundleTable: 'backscatter_bundle',
-            geometryTable: 'backscatter_geoms',
+            tableName: DATABASE_SCHEMA + '.backscatter',
+            bundleTable: DATABASE_SCHEMA + '.backscatter_bundle',
+            geometryTable: DATABASE_SCHEMA + '.backscatter_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -54,9 +57,9 @@ module.exports = {
         },
         {
             name: 'Hillshade',
-            tableName: 'hillshade',
-            bundleTable: 'hillshade_bundle',
-            geometryTable: 'hillshade_geoms',
+            tableName: DATABASE_SCHEMA + '.hillshade',
+            bundleTable: DATABASE_SCHEMA + '.hillshade_bundle',
+            geometryTable: DATABASE_SCHEMA + '.hillshade_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -69,9 +72,9 @@ module.exports = {
         },
         {
             name: 'Sidescan',
-            tableName: 'sidescan',
-            bundleTable: 'sidescan_bundle',
-            geometryTable: 'sidescan_geoms',
+            tableName: DATABASE_SCHEMA + '.sidescan',
+            bundleTable: DATABASE_SCHEMA + '.sidescan_bundle',
+            geometryTable: DATABASE_SCHEMA + '.sidescan_geoms',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
                 {name: "bundle", title: "File Name", type: "text"},
@@ -83,9 +86,9 @@ module.exports = {
         },
         {
             name: 'Sub-bottom Profile',
-            tableName: 'sbp',
-            bundleTable: 'sbp_bundle',
-            geometryTable: 'sbp_geoms',
+            tableName: DATABASE_SCHEMA + '.sbp',
+            bundleTable: DATABASE_SCHEMA + '.sbp_bundle',
+            geometryTable: DATABASE_SCHEMA + '.sbp_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -98,7 +101,7 @@ module.exports = {
         },
         {
             name: 'Tides',
-            bundleTable: 'tides',
+            bundleTable: DATABASE_SCHEMA + '.tides',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -111,9 +114,9 @@ module.exports = {
         },
         {
             name: 'Water Column',
-            tableName: 'wc',
-            bundleTable: 'wc_bundle',
-            geometryTable: 'wc_geoms',
+            tableName: DATABASE_SCHEMA + '.wc',
+            bundleTable: DATABASE_SCHEMA + '.wc_bundle',
+            geometryTable: DATABASE_SCHEMA + '.wc_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -126,9 +129,9 @@ module.exports = {
         },
         {
             name: 'Camera',
-            tableName: 'camera',
-            bundleTable: 'camera_bundle',
-            geometryTable: 'camera_geoms',
+            tableName: DATABASE_SCHEMA + '.camera',
+            bundleTable: DATABASE_SCHEMA + '.camera_bundle',
+            geometryTable: DATABASE_SCHEMA + '.camera_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -141,9 +144,9 @@ module.exports = {
         },
         {
             name: 'Sound Velocity Profile',
-            tableName: 'svp',
-            bundleTable: 'svp_bundle',
-            geometryTable: 'svp_geoms',
+            tableName: DATABASE_SCHEMA + '.svp',
+            bundleTable: DATABASE_SCHEMA + '.svp_bundle',
+            geometryTable: DATABASE_SCHEMA + '.svp_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -156,9 +159,9 @@ module.exports = {
         },
         {
             name: 'Unprocessed Multibeam',
-            tableName: 'mbes_raw',
-            bundleTable: 'mbes_raw_bundle',
-            geometryTable: 'mbes_raw_geoms',
+            tableName: DATABASE_SCHEMA + '.mbes_raw',
+            bundleTable: DATABASE_SCHEMA + '.mbes_raw_bundle',
+            geometryTable: DATABASE_SCHEMA + '.mbes_raw_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -171,9 +174,9 @@ module.exports = {
         },
         {
             name: 'Unprocessed Sidescan',
-            tableName: 'sidescan_raw',
-            bundleTable: 'sidescan_raw_bundle',
-            geometryTable: 'sidescan_raw_geoms',
+            tableName: DATABASE_SCHEMA + '.sidescan_raw',
+            bundleTable: DATABASE_SCHEMA + '.sidescan_raw_bundle',
+            geometryTable: DATABASE_SCHEMA + '.sidescan_raw_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -186,9 +189,9 @@ module.exports = {
         },
         {
             name: 'Phase 1 Data',
-            tableName: 'phase1',
-            bundleTable: 'phase1_bundle',
-            geometryTable: 'phase1_geoms',
+            tableName: DATABASE_SCHEMA + '.phase1',
+            bundleTable: DATABASE_SCHEMA + '.phase1_bundle',
+            geometryTable: DATABASE_SCHEMA + '.phase1_geoms',
             pathStart: 'pw31/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -201,9 +204,9 @@ module.exports = {
         },
         {
             name: 'Navigation',
-            tableName: 'nav',
-            bundleTable: 'nav_bundle',
-            geometryTable: 'nav_geoms',
+            tableName: DATABASE_SCHEMA + '.nav',
+            bundleTable: DATABASE_SCHEMA + '.nav_bundle',
+            geometryTable: DATABASE_SCHEMA + '.nav_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -216,7 +219,7 @@ module.exports = {
         },
         {
             name: 'Platform Raw',
-            bundleTable: 'platform_raw',
+            bundleTable: DATABASE_SCHEMA + '.platform_raw',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -229,9 +232,9 @@ module.exports = {
         },
         {
             name: 'Heave',
-            tableName: 'heave',
-            bundleTable: 'heave_bundle',
-            geometryTable: 'heave_geoms',
+            tableName: DATABASE_SCHEMA + '.heave',
+            bundleTable: DATABASE_SCHEMA + '.heave_bundle',
+            geometryTable: DATABASE_SCHEMA + '.heave_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -244,9 +247,9 @@ module.exports = {
         },
         {
             name: 'Weather',
-            tableName: 'weather',
-            bundleTable: 'weather_bundle',
-            geometryTable: 'weather_geoms',
+            tableName: DATABASE_SCHEMA + '.weather',
+            bundleTable: DATABASE_SCHEMA + '.weather_bundle',
+            geometryTable: DATABASE_SCHEMA + '.weather_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -259,9 +262,9 @@ module.exports = {
         },
         {
             name: 'Sniffer',
-            tableName: 'sniffer',
-            bundleTable: 'sniffer_bundle',
-            geometryTable: 'sniffer_geoms',
+            tableName: DATABASE_SCHEMA + '.sniffer',
+            bundleTable: DATABASE_SCHEMA + '.sniffer_bundle',
+            geometryTable: DATABASE_SCHEMA + '.sniffer_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
@@ -274,9 +277,9 @@ module.exports = {
         },
         {
             name: 'Visualisation and Coverage Summaries',
-            tableName: 'vis_summary',
-            bundleTable: 'vis_summary_bundle',
-            geometryTable: 'vis_summary_geoms',
+            tableName: DATABASE_SCHEMA + '.vis_summary',
+            bundleTable: DATABASE_SCHEMA + '.vis_summary_bundle',
+            geometryTable: DATABASE_SCHEMA + '.vis_summary_geoms',
             pathStart: 'iy57/',
             columns: [
                 {name: "bext", title: "File Format", type: "list"},
