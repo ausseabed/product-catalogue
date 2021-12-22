@@ -1,6 +1,7 @@
 const productService = require('./product-service');
 const errorHandler = require('./error-handler');
 const fsExtra = require('fs-extra');
+const path = require('path');
 const fileUtils = require('./file-utils');
 const environment = require('./environment');
 const { logger } = require('./logger');
@@ -156,7 +157,7 @@ let downloadUrlList = function (req, res) {
                 fileUtils.createTextFile(environment.getUrlListFile(timestamp), urlList);
                 logger.info('downloadUrlList - created file with URLs');
 
-                fileUtils.copyFile('./resources/download-instructions.txt', environment.getReadMePath(timestamp));
+                fileUtils.copyFile(path.join(__dirname, 'resources', 'download-instructions.txt'), environment.getReadMePath(timestamp));
                 logger.info('downloadUrlList - added readme file');
 
                 fileUtils.zipFolder(environment.getDownloadFolder(timestamp), environment.getUrlListZip(timestamp)).then(function (status) {

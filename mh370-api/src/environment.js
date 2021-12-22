@@ -1,5 +1,3 @@
-const utils = require('./utils');
-
 const DATABASE_SCHEMA = 'marine_mh370';
 
 module.exports = {
