@@ -7,11 +7,13 @@ const { logger } = require('./logger');
 const utils = require('./utils');
 
 let listProducts = function (req, res) {
+    logger.info('Executing listProducts...');
     let response = [];
     let products = productService.getAll();
     for (let i = 0; i < products.length; i++) {
         response.push({name: products[i].name});
     }
+    logger.info('listProducts completed.');
     res.send(response);
 };
 
@@ -33,6 +35,7 @@ let getProductDetails = function (req, res) {
             productService.getMinMaxDates(product.periodSqlQuery).then(function (response) {
                 data['minDate'] = response.min_date;
                 data['maxDate'] = response.max_date;
+                logger.info('getProductDetails completed.');
                 res.send(data);
             });
         }).catch(function (error) {
@@ -83,6 +86,7 @@ let queryProduct = function (req, res) {
                             rows: queryData.rows
                         };
 
+                        logger.info('queryProduct completed.');
                         res.send(queryResponse);
                     });
 
@@ -94,6 +98,7 @@ let queryProduct = function (req, res) {
             });
         } else {
             productService.query(product.bundleTable, product.geometryTable, formFields, pagination, false).then(function (data) {
+                logger.info('queryProduct completed.');
                 res.send({
                     status: 'ok',
                     rows: data.rows
@@ -155,6 +160,7 @@ let downloadUrlList = function (req, res) {
                 logger.info('downloadUrlList - added readme file');
 
                 fileUtils.zipFolder(environment.getDownloadFolder(timestamp), environment.getUrlListZip(timestamp)).then(function (status) {
+                    logger.info('downloadUrlList completed.');
                     res.download(environment.getUrlListZip(timestamp), 'products-url-list.zip', function (error) {
                         fsExtra.removeSync(environment.getTempFolder(timestamp));
                     });
@@ -199,6 +205,7 @@ let getFeatures = function (req, res) {
                         rows.push(responses[i].rows[j]);
                     }
                 }
+                logger.info('getFeatures completed.');
                 res.send({
                     status: 'ok',
                     rows: rows
