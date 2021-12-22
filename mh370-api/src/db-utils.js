@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 const { logger } = require('./logger');
+const { getSecret } = require("./aws-utils");
 
 let dbProperties;
 let pool;
@@ -9,16 +10,23 @@ getDBProperties = function () {
         if (dbProperties) {
             resolve(dbProperties);
         } else {
-            dbProperties = {
-                host: process.env.POSTGRES_HOSTNAME,
-                database: process.env.POSTGRES_DATABASE,
-                user: process.env.POSTGRES_USER,
-                password: JSON.parse(process.env.POSTGRES_PASSWORD)["TF_VAR_postgres_admin_password"],
-                port: parseInt(process.env.POSTGRES_PORT),
-                max: 3,
-                min: 1
-            };
-            resolve(dbProperties);
+            logger.info('Retrieving database credentials from secrets manager...');
+            getSecret('POSTGRES_MARINE_MH370_API_CREDENTIALS').then(secret => {
+                dbProperties = {
+                    host: secret.host,
+                    database: secret.dbname,
+                    user: secret.username,
+                    password: secret.password,
+                    port: secret.port,
+                    max: 3,
+                    min: 1
+                };
+                resolve(dbProperties);
+            }).catch((error) => {
+                logger.error('Failed to retrieve database credentials from secrets manager.');
+                logger.error(error);
+                reject(error);
+            });
         }
     });
 };

@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const handlers = require('./handlers');
 const { logger } = require('./logger');
+const { getSecret } = require('./aws-utils');
 
 logger.info('Starting MH370 API...');
 

@@ -10,26 +10,12 @@ The public facing URLs that point to this service are:
 * nonprod: https://mh370-api.dev.ausseabed.gov.au
 * production: https://mh370-api.ausseabed.gov.au
 
-## Environment Variables
-
-Environment variables required for this service to run are:
-
-POSTGRES_HOSTNAME
-POSTGRES_DATABASE
-POSTGRES_USER
-POSTGRES_PASSWORD - A JSON string from AWS Secrets Manager secret TF_VAR_postgres_admin_password
-POSTGRES_PORT
-
 ## Local development
 
-When running/testing locally you will need to set the following environment variables appropriately:
+When running/testing locally you will need an IAM user with read access to secrets manager, then set the environment variables appropriately:
 
 * AWS_DEFAULT_REGION
 * AWS_PROFILE
-* POSTGRES_HOSTNAME
-* POSTGRES_DATABASE
-* POSTGRES_USER
-* POSTGRES_PORT
 
 ### Installing Dependencies
 
