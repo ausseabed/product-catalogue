@@ -8,6 +8,10 @@
     "node": "^12.0.0"
   },
   "private": true,
+  "scripts": {
+    "local": "node src/app.js",
+    "test": "npx jasmine --config=jasmine.json"
+  },
   "dependencies": {
     "archiver": "^3.1.1",
     "body-parser": "^1.19.1",
@@ -19,6 +23,7 @@
     "winston-daily-rotate": "^0.0.1"
   },
   "devDependencies": {
-    "@types/node": "^12.0.0"
+    "@types/node": "^12.0.0",
+    "jasmine": "^3.10.0"
   }
 }
