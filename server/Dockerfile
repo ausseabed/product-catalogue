@@ -44,9 +44,11 @@ RUN chown -R node:node $CATALOGUE_DIR
 RUN mkdir -p $MARINE_DIR
 RUN chown -R node:node $MARINE_DIR
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
+# Disable colourisation in logging messages.
+ENV NO_COLOR=true
 
-#Install marine API.
+# Install marine API.
 WORKDIR $MARINE_DIR
 COPY --chown=node:node ./marine-api/. ./
 RUN yarn install

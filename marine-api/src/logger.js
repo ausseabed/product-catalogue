@@ -14,7 +14,7 @@ const getLogger = function(fileName) {
                 },
                 formatter: function (options) {
                     return options.timestamp() + ' ' +
-                        config.colorize(options.level, options.level.toUpperCase()) + ' ' +
+                        options.level.toUpperCase() + ' ' +
                         (options.message ? options.message : '') +
                         (options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '' );
                 }
@@ -28,7 +28,7 @@ const getLogger = function(fileName) {
                 },
                 formatter: function (options) {
                     return options.timestamp() + ' ' +
-                        config.colorize(options.level, options.level.toUpperCase()) + ' ' +
+                        options.level.toUpperCase() + ' ' +
                         (options.message ? options.message : '') +
                         (options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '' );
                 }
