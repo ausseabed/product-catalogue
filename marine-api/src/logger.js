@@ -2,7 +2,7 @@ const winston = require('winston');
 const DailyRotateFile = require('winston-daily-rotate');
 const dateformat = require('dateformat');
 
-const config = winston.config;
+const APPLICATION_PREFIX = '[marine-api]';
 
 const getLogger = function(fileName) {
     return new (winston.Logger)({
@@ -13,7 +13,8 @@ const getLogger = function(fileName) {
                     return dateformat(new Date(), 'yyyy-mm-dd HH:MM:ss.l');
                 },
                 formatter: function (options) {
-                    return options.timestamp() + ' ' +
+                    return APPLICATION_PREFIX + ' ' +
+                        options.timestamp() + ' ' +
                         options.level.toUpperCase() + ' ' +
                         (options.message ? options.message : '') +
                         (options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '' );
@@ -27,7 +28,8 @@ const getLogger = function(fileName) {
                     return dateformat(new Date(), 'yyyy-mm-dd HH:MM:ss.l');
                 },
                 formatter: function (options) {
-                    return options.timestamp() + ' ' +
+                    return APPLICATION_PREFIX + ' ' +
+                        options.timestamp() + ' ' +
                         options.level.toUpperCase() + ' ' +
                         (options.message ? options.message : '') +
                         (options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '' );
