@@ -5,7 +5,6 @@ const path = require('path');
 const fileUtils = require('./file-utils');
 const environment = require('./environment');
 const { logger } = require('./logger');
-const utils = require('./utils');
 
 let listProducts = function (req, res) {
     logger.info('Executing listProducts...');
@@ -61,35 +60,17 @@ let queryProduct = function (req, res) {
                 productService.query(product.bundleTable, product.geometryTable, formFields, pagination, false).then(function (queryData) {
                     logger.debug('queryProduct - countData:', countData);
 
-                    // Get client IP address
-                    let clientIP = utils.getClientIP(req);
+                    // Query response
+                    let queryResponse = {
+                        status: 'ok',
+                        totalRecords: countData.totalRecords,
+                        totalFileSize: countData.totalFileSize,
+                        totalGeometries: countData.totalGeometries,
+                        rows: queryData.rows
+                    };
 
-                    // Get country name
-                    getCountryName(clientIP).then(function (countryName) {
-                        // Log request
-                        let dbQueryRequest = {
-                            clientIP: clientIP,
-                            countryName: countryName,
-                            requestDate: new Date(),
-                            product: product.name,
-                            geometryString: formFields['geom'],
-                            fileFormat: formFields['bext'],
-                            vessel: formFields['vessel']
-                        };
-
-                        // Query response
-                        let queryResponse = {
-                            status: 'ok',
-                            totalRecords: countData.totalRecords,
-                            totalFileSize: countData.totalFileSize,
-                            totalGeometries: countData.totalGeometries,
-                            rows: queryData.rows
-                        };
-
-                        logger.info('queryProduct completed.');
-                        res.send(queryResponse);
-                    });
-
+                    logger.info('queryProduct completed.');
+                    res.send(queryResponse);
                 }).catch(function (error) {
                     errorHandler.sendUnexpectedError(res, error);
                 });
@@ -217,24 +198,6 @@ let getFeatures = function (req, res) {
             errorHandler.sendUnexpectedError(res, error);
         });
     }
-};
-
-let getCountryName = function (ipAddress) {
-    return new Promise(function (resolve, reject) {
-        let countryName;
-        if (!countryName) {
-            utils.getCountryByIP(ipAddress).then(function (response) {
-                if (!response) {
-                    resolve('Unknown');
-                }
-                resolve(response);
-            }).catch(function (error) {
-                resolve('Unknown');
-            });
-        } else {
-            resolve(countryName);
-        }
-    });
 };
 
 module.exports = {

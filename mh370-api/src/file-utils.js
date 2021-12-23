@@ -1,6 +1,5 @@
 const fs = require('fs');
 const fsExtra = require('fs-extra');
-const http = require('http');
 const archiver = require('archiver');
 const { logger } = require('./logger');
 
