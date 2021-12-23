@@ -17,6 +17,11 @@ When running/testing locally you will need an IAM user with read access to secre
 * AWS_DEFAULT_REGION
 * AWS_PROFILE
 
+The database server is not publicly accessible so to test database functionality you will need to:
+1. Have an EC2 in the VPC you can connect to.
+2. Add an entry to your hosts file for 127.0.0.1 to the database domain name.
+3. SSH tunnel into the EC2 and forward port 5432 to the database domain name.
+
 ### Installing Dependencies
 
 Navigate to mh370-api and run `yarn install`

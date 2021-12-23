@@ -1,6 +1,5 @@
 const { logger } = require('./logger');
 const https = require('https');
-const tldCountries = require('./tld-countries.json');
 
 let ipCountryList = {};
 
@@ -35,12 +34,6 @@ module.exports = {
             }
         }
     },
-    getCountryByEmail: function (emailAdddress) {
-        let topLevelDomainStart = emailAdddress.lastIndexOf(".");
-        let topLevelDomain = emailAdddress.substring(topLevelDomainStart);
-        logger.info('getCountryByEmail - topLevelDomain:', topLevelDomain);
-        return tldCountries[topLevelDomain];
-    },
     getCountryByIP: function (ipAddress) {
         return new Promise(function (resolve, reject) {
             let countryName = ipCountryList[ipAddress];
@@ -50,6 +43,11 @@ module.exports = {
             } else {
                 let url = 'https://ipapi.co/' + ipAddress + '/json/';
                 httpsGetJson(url).then(function (jsonObject) {
+                    if (jsonObject.error === true) {
+                        logger.error(JSON.stringify(jsonObject));
+                        reject(`ipapi.co request for country failed: ${jsonObject.reason} - ${jsonObject.message}`);
+                        return;
+                    }
                     ipCountryList[ipAddress] = jsonObject.country_name;
                     resolve(jsonObject.country_name);
                 }).catch(function (error) {

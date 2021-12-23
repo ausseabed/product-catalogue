@@ -65,8 +65,7 @@ let queryProduct = function (req, res) {
                     let clientIP = utils.getClientIP(req);
 
                     // Get country name
-                    getCountryName(null, clientIP).then(function (countryName) {
-
+                    getCountryName(clientIP).then(function (countryName) {
                         // Log request
                         let dbQueryRequest = {
                             clientIP: clientIP,
@@ -220,12 +219,9 @@ let getFeatures = function (req, res) {
     }
 };
 
-let getCountryName = function (emailAddress, ipAddress) {
+let getCountryName = function (ipAddress) {
     return new Promise(function (resolve, reject) {
         let countryName;
-        if (emailAddress) {
-            countryName = utils.getCountryByEmail(emailAddress);
-        }
         if (!countryName) {
             utils.getCountryByIP(ipAddress).then(function (response) {
                 if (!response) {

@@ -36,7 +36,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from bathymetry_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.bathymetry_bundle`
         },
         {
             name: 'Backscatter',
@@ -51,7 +51,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from backscatter_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.backscatter_bundle`
         },
         {
             name: 'Hillshade',
@@ -66,7 +66,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from hillshade_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.hillshade_bundle`
         },
         {
             name: 'Sidescan',
@@ -80,7 +80,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from sidescan_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.sidescan_bundle`
         },
         {
             name: 'Sub-bottom Profile',
@@ -95,7 +95,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from sbp_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.sbp_bundle`
         },
         {
             name: 'Tides',
@@ -108,7 +108,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from tides"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.tides`
         },
         {
             name: 'Water Column',
@@ -123,7 +123,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from wc_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.wc_bundle`
         },
         {
             name: 'Camera',
@@ -138,7 +138,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from camera_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.camera_bundle`
         },
         {
             name: 'Sound Velocity Profile',
@@ -153,7 +153,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from svp_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.svp_bundle`
         },
         {
             name: 'Unprocessed Multibeam',
@@ -168,7 +168,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from mbes_raw_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.mbes_raw_bundle`
         },
         {
             name: 'Unprocessed Sidescan',
@@ -183,7 +183,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from sidescan_raw_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.sidescan_raw_bundle`
         },
         {
             name: 'Phase 1 Data',
@@ -198,7 +198,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from phase1_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.phase1_bundle`
         },
         {
             name: 'Navigation',
@@ -213,7 +213,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from nav_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.nav_bundle`
         },
         {
             name: 'Platform Raw',
@@ -226,7 +226,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from platform_raw"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.platform_raw`
         },
         {
             name: 'Heave',
@@ -241,7 +241,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from heave_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.heave_bundle`
         },
         {
             name: 'Weather',
@@ -256,7 +256,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from weather_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.weather_bundle`
         },
         {
             name: 'Sniffer',
@@ -271,7 +271,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from sniffer_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.sniffer_bundle`
         },
         {
             name: 'Visualisation and Coverage Summaries',
@@ -286,7 +286,7 @@ module.exports = {
                 {name: "time_start", title: "Start Date", type: "date"},
                 {name: "time_end", title: "End Date", type: "date"}
             ],
-            periodSqlQuery: "select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from vis_summary_bundle"
+            periodSqlQuery: `select to_char(min(time_start), 'DD/MM/YYYY') as min_date, to_char(max(time_end), 'DD/MM/YYYY') as max_date from ${DATABASE_SCHEMA}.vis_summary_bundle`
         }
     ]
 };

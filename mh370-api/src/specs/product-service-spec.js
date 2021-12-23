@@ -15,7 +15,7 @@ describe("productService", function () {
     it("should get product details", function () {
         let product = productService.getDetails("Bathymetry");
         expect(product).toBeDefined();
-        expect(product.bundleTable).toBe("bathymetry_bundle");
+        expect(product.bundleTable).toBe("marine_mh370.bathymetry_bundle");
     });
 
     it("should get total Bathymetry bundles by vessel", function (done) {
@@ -24,6 +24,8 @@ describe("productService", function () {
             expect(data.totalRecords).toBe('1002');
             expect(data.totalGeometries).toBe('500');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -32,6 +34,8 @@ describe("productService", function () {
         productService.countQuery(product.bundleTable, product.geometryTable, {vessel: 'Go Phoenix'}).then(function (data) {
             expect(data.totalRecords).toBe('1425');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -40,6 +44,8 @@ describe("productService", function () {
         productService.countQuery(product.bundleTable, product.geometryTable, {vessel: 'Fugro Combined'}).then(function (data) {
             expect(data.totalRecords).toBe('24587');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -48,6 +54,8 @@ describe("productService", function () {
         productService.countQuery(product.bundleTable, product.geometryTable, {vessel: 'Go Phoenix'}).then(function (data) {
             expect(data.totalRecords).toBe('1320');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -56,6 +64,8 @@ describe("productService", function () {
         productService.countQuery(product.bundleTable, product.geometryTable, {vessel: 'Fugro Equator'}).then(function (data) {
             expect(data.totalRecords).toBe('4543');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -64,6 +74,8 @@ describe("productService", function () {
         productService.countQuery(product.bundleTable, product.geometryTable, {bext: 'spm'}).then(function (data) {
             expect(data.totalRecords).toBe('100704');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -72,6 +84,8 @@ describe("productService", function () {
         productService.countQuery(product.bundleTable, product.geometryTable, {vessel: 'Fugro Equator'}).then(function (data) {
             expect(data.totalRecords).toBe('9302');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -80,6 +94,8 @@ describe("productService", function () {
         productService.countQuery(product.bundleTable, product.geometryTable, {bundle: '%GoPhoenix%'}).then(function (data) {
             expect(data.totalRecords).toBe('1002');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -90,6 +106,8 @@ describe("productService", function () {
             expect(data.rows).toBeDefined();
             expect(data.rows.length).toBe(0);
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -99,6 +117,8 @@ describe("productService", function () {
             expect(data.vessel).toBeDefined();
             expect(data.bext).toBeDefined();
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -110,6 +130,8 @@ describe("productService", function () {
             expect(data.rows).toBeDefined();
             expect(data.rows.length).toBe(0);
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -121,6 +143,8 @@ describe("productService", function () {
             expect(data.rows).toBeDefined();
             expect(data.rows.length).toBe(0);
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -131,6 +155,8 @@ describe("productService", function () {
             expect(data.min_date).toBe('05/10/2014');
             expect(data.max_date).toBeNull();
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -141,6 +167,8 @@ describe("productService", function () {
         }, false).then(function (data) {
             expect(data.totalRecords).toBe('2008');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -151,6 +179,8 @@ describe("productService", function () {
         }, false).then(function (data) {
             expect(data.totalRecords).toBe('10709');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 
@@ -162,6 +192,8 @@ describe("productService", function () {
             expect(data.rows).toBeDefined();
             expect(data.rows.length).toBe(15);
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
     });
 });

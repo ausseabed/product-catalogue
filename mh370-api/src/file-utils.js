@@ -47,26 +47,6 @@ module.exports = {
             archive.finalize();
         });
     },
-    downloadDataToFile: function (url, outputFile) {
-        return new Promise(function (resolve, reject) {
-            createFolderIfNotExists(outputFile);
-            let writeStream = fs.createWriteStream(outputFile);
-            http.get(url, function (response) {
-                if (response.statusCode !== 200) {
-                    reject(new Error('The requested file could not be downloaded, statusCode: ' + response.statusCode));
-                } else {
-                    response.pipe(writeStream);
-                    response.on('end', function () {
-                        resolve('ok');
-                    });
-                }
-            }).on('error', function (error) {
-                writeStream.close();
-                fs.unlinkSync(outputFile);
-                reject(error);
-            });
-        });
-    },
     getFilePathFromURI: function (uri, pathStart) {
         let startIndex = uri.lastIndexOf(pathStart) + pathStart.length;
         return uri.substring(startIndex);

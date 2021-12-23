@@ -8,6 +8,7 @@ module.exports = {
         });
     },
     sendUnexpectedError: function (res, error) {
+        logger.error(JSON.stringify(error));
         logger.error('error-handler - error: ' + (error.reason ? error.reason : error));
         res.status(500).send({
             status: "error",

@@ -24,7 +24,7 @@ getDBProperties = function () {
                 resolve(dbProperties);
             }).catch((error) => {
                 logger.error('Failed to retrieve database credentials from secrets manager.');
-                logger.error(error);
+                logger.error(JSON.stringify(error));
                 reject(error);
             });
         }
@@ -37,6 +37,7 @@ getPool = function () {
             resolve(pool);
         } else {
             getDBProperties().then(function (dbProperties) {
+                logger.info('Creating new DB pool.');
                 pool = new Pool(dbProperties);
 
                 // The pool will emit an error on behalf of any idle clients if a backend or network error happens
@@ -56,13 +57,16 @@ getPool = function () {
 connectToRDS = function () {
     return new Promise(function (resolve, reject) {
         getPool().then(function (pool) {
+            logger.info('Connecting to DB...');
             pool.connect().then(function (client) {
                 resolve(client);
             }).catch(function (error) {
-                reject(error.error);
+                logger.error(JSON.stringify(error));
+                reject('Failed to connect to database.');
             });
         }).catch(function (error) {
-            reject(error);
+            logger.error(JSON.stringify(error));
+            reject('Failed to connect to database.');
         });
     });
 };

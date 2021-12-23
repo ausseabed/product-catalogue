@@ -1,26 +1,13 @@
 const utils = require('../utils');
 
 describe('utils', function () {
-    it('should return Australia for the entered emailAddress', function () {
-        let countryName = utils.getCountryByEmail('test@company.com.au');
-        expect(countryName).toBe('Australia');
-    });
-
-    it('should return null for the entered emailAddress', function () {
-        let countryName = utils.getCountryByEmail('test@company.com.zz');
-        expect(countryName).toBeUndefined();
-    });
-
     it('should return Australia for the entered IP address', function (done) {
         utils.getCountryByIP('124.47.132.132').then(function (countryName) {
             expect(countryName).toBe('Australia');
             done();
+        }).catch((error) => {
+            fail('Should not throw error.');
         });
-    });
-
-    it('should return start and end dates from previous month', function () {
-        let previousMonth = utils.getPreviousMonthDates();
-        expect(previousMonth).toBeDefined();
     });
 
     it('should return 0001 as string', function () {
