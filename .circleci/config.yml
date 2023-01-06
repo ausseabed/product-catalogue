@@ -116,7 +116,7 @@ jobs:
 
   prepare_docker_tag:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:2022.04.2
     steps:
       - checkout
       - run: mkdir -p workspace
@@ -139,7 +139,7 @@ jobs:
 
   build_product_catalogue_server:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:2022.04.2
     steps:
       - checkout
       - aws-cli/setup:
@@ -161,7 +161,7 @@ jobs:
 
   build_product_catalogue_client:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:2022.04.2
     steps:
       - checkout
       - run:
@@ -201,7 +201,7 @@ jobs:
 
   validate_prod_deployment:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:2022.04.2
     steps:
       - checkout
       - validate_master_branch
